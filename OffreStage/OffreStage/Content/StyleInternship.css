@@ -1,36 +1,64 @@
 ﻿body {
 }
 
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 div.page-content {
     height: 75%;
 }
 
-div.internship-list {
-    width: 90%;
+div.internship-list div{
+    width: 100%;
     margin-left: initial;
     float: left;
-    border: dashed;
+    margin-bottom:10px;
+}
+
+div.internship-list {
+    width: 100%;
+    margin-left: initial;
+    float: left;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+div.internship-list li{
+    width:85%;
+    float:left;
+    list-style-type: none;
+}
+
+div.internship-list button{
+    width:15%;
+    float:left;
 }
 
 div.boutton-add-internship {
-    width: 10%;
+    width: 100%;
     height: 50%;
     margin-left: initial;
     float: left;
-    border: dashed;
     position: relative;
-    display: block;
-    margin-bottom: 5%;
+    padding-left: 0%;
+    padding-right: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom:3%;
 }
 
-.Boutton add-button {
-    position: absolute;
+div.boutton-add-internship button {
     right: 5px;
     top: 5px;
+    width:70%;
+    height:30px;
+    
 }
 
-.Boutton edit-button {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
+
+
+
