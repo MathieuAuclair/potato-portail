@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Liste de Stage</h1>
+
+<div class="container page-content">
+
+    <div class="container boutton-add-internship">
+        <button class="add-button" type="button" onclick="location.href='@Url.Action("Add","Internship")'">Add</button>
+    </div>
+
+    <div class="container internship-list">
+        <div class=" intership-label">
+            <li>Stage 1</li>
+            <img src="~/"
+            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
+        </div>
+        <div class=" intership-label">
+            <li>Stage 2</li>
+            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
+        </div>
+        <div class=" intership-label">
+            <li>Stage 3</li>
+            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
+        </div>
+        <div class=" intership-label">
+            <li>Stage 4</li>
+            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
+        </div>
+    </div>
+
+
+
+
+</div>

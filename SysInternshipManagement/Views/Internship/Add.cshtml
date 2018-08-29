@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Création Stage";
+}
+
+
+<h1>Création de Stage</h1>
+
+<div class="container page-content">
+    <div class="container internship-creation">
+        <div class="creation-box">
+            <li>Poste disponible</li>
+
+            <select name="Poste">
+                <option value="Analyste">Analyste</option>
+                <option value="Programmeur">Programmeur</option>
+                <option value="Technicien">Technicien</option>
+                <option value="Web">Développeur Web</option>
+                <option value="Reseaux">Ingénieur Réseaux</option>
+            </select>
+        </div>
+        <div class="creation-box">
+
+        </div>
+        <div class="creation-box">
+
+        </div>
+        <div class="creation-box">
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container boutton-return">
+    <button type="button" onclick="location.href='@Url.Action("Index","Internship")'">Return</button>
+</div>
