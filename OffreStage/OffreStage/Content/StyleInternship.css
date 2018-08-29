@@ -1,0 +1,36 @@
+﻿body {
+}
+
+div.page-content {
+    height: 75%;
+}
+
+div.internship-list {
+    width: 90%;
+    margin-left: initial;
+    float: left;
+    border: dashed;
+}
+
+div.boutton-add-internship {
+    width: 10%;
+    height: 50%;
+    margin-left: initial;
+    float: left;
+    border: dashed;
+    position: relative;
+    display: block;
+    margin-bottom: 5%;
+}
+
+.Boutton add-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.Boutton edit-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
