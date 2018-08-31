@@ -1,5 +1,5 @@
-﻿body{
-    background:#F9F9F9;
+﻿body {
+    background: #F9F9F9;
 }
 
 table {
@@ -15,7 +15,7 @@ td {
     margin: 20px;
 }
 
-tr{
+tr {
     border-top: 5px solid #F9F9F9;
 }
 
@@ -32,4 +32,40 @@ td div button img {
 
 td div {
     border: 2px solid black;
+}
+
+.expandable-label {
+    background-color: white !important;
+    color: white !important;
+    border: 2px solid white !important;
+}
+
+.expandable-label button {
+    background-color: white !important;
+    color: white !important;
+    border: 1px solid white !important;
+}
+
+.hover-label:hover {
+    border: 2px solid black !important;
+    height:100%;
+}
+
+.expandable-label button:hover {
+    width: 100% !important;
+    background: Highlight !important;
+    color: white !important;
+    border: 1px solid white !important;
+}
+
+.intership-creation td{
+    width:25%;
+}
+
+textarea {
+    resize: none;
+}
+
+select{
+    width:100%;
 }

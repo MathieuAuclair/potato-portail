@@ -6,33 +6,120 @@
     ViewBag.Title = "Index";
 }
 
+@*<script src="@Url.Content("~/Scripts/InternshipScript.js")" type="https://code.jquery.com/jquery-1.10.2.js"></script>*@
+
 <h1>Liste de Stage</h1>
 
 <div class="container page-content">
 
-    <div class="container boutton-add-internship">
-        <button class="add-button" type="button" onclick="location.href='@Url.Action("Add","Internship")'">Add</button>
-    </div>
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <td>
+                <div>
+                    <button class="add-button" type="button" onclick="location.href='@Url.Action("Add","Internship")'">
+                        <img src="~/Content/Icons/baseline-add-24px.svg" />
+                    </button>
+                </div>
+            </td>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
 
-    <div class="container internship-list">
-        <div class=" intership-label">
-            <li>Stage 1</li>
-            <img src="~/"
-            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
-        </div>
-        <div class=" intership-label">
-            <li>Stage 2</li>
-            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
-        </div>
-        <div class=" intership-label">
-            <li>Stage 3</li>
-            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
-        </div>
-        <div class=" intership-label">
-            <li>Stage 4</li>
-            <button type="button" onclick="location.href='@Url.Action("Edit","Internship")'">Edit</button>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <th>Poste</th>
+            <th>Lieux</th>
+            <th>Contact</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Programmeur</td>
+            <td>Stage 1</td>
+            <td>Stage 1</td>
+            <td>Stage 1</td>
+            <td class="hover-label">
+                <div class="expandable-label">
+                    <button id="btnExpandable">
+                        <img src="~/Content/Icons/baseline-expand_more-24px.svg" />
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <button onclick="location.href='@Url.Action("Edit","Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Tehnicien</td>
+            <td>Stage 2</td>
+            <td>Stage 2</td>
+            <td>Stage 2</td>
+            <td class="hover-label">
+                <div class="expandable-label">
+                    <button>
+                        <img src="~/Content/Icons/baseline-expand_more-24px.svg" />
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <button onclick="location.href='@Url.Action("Edit","Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Ingénieur Réseaux</td>
+            <td>Stage 3</td>
+            <td>Stage 3</td>
+            <td>Stage 3</td>
+            <td class="hover-label">
+                <div class="expandable-label">
+                    <button>
+                        <img src="~/Content/Icons/baseline-expand_more-24px.svg" />
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <button onclick="location.href='@Url.Action("Edit","Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Analyste</td>
+            <td>Stage 4</td>
+            <td>Stage 4</td>
+            <td>Stage 4</td>
+            <td class="hover-label">
+                <div class="expandable-label">
+                    <button>
+                        <img src="~/Content/Icons/baseline-expand_more-24px.svg" />
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <button onclick="location.href='@Url.Action("Edit","Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 
 

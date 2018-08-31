@@ -7,4 +7,138 @@
 }
 
 <h1>Modification Stage</h1>
+<table class="intership-creation">
+    <tr>
+        <td>Poste du Stage</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <select name="Post">
+                <option value="Analyste">Analyste</option>
+                <option value="Programmeur">Programmeur</option>
+                <option value="Technicien">Technicien</option>
+                <option value="Web">Développeur Web</option>
+                <option value="Reseaux">Ingénieur Réseaux</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <textarea rows="3" cols="35" maxlength="200"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>Adresse</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <textarea rows="1" cols="35" maxlength="50"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>Location du Stage</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <select name="Location">
+                <option value="Montreal">Montréal</option>
+                <option value="Québec">Québec</option>
+                <option value="Saguenay">Saguenay</option>
+                <option value="Californie">Californie</option>
+                <option value="Sept-iles">Sept-Îles</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Rémunération</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <form action="">
+                <input type="radio" name="salary" value="yes"> Oui
+                <input type="radio" name="salary" value="no"> Non
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>Contact</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <textarea rows="1" cols="35" maxlength="50"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>Document</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <textarea rows="1" cols="35" maxlength="50"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <form action="">
+                <input type="radio" name="status" value="available"> Disponible
+                <input type="radio" name="status" value="not-available"> Non-Disponible
+            </form>
+        </td>
+    </tr>
 
+</table>
+
+
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <td>
+            <div>
+                <button type="button" onclick="location.href='@Url.Action("Index","Internship")'">
+                    <img src="~/Content/Icons/baseline-check-24px.svg" />
+                </button>
+            </div>
+        </td>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <td>
+            <div>
+                <button type="button" onclick="location.href='@Url.Action("Index","Internship")'">
+                    <img src="~/Content/Icons/baseline-keyboard_return-24px.svg" />
+                </button>
+            </div>
+        </td>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+</table>
