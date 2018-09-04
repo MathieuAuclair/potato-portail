@@ -1,9 +1,5 @@
 @model SysInternshipManagement.Models.Widget.FlatUiTextInputModel
 
-<div class="row row-top-buffer row-bottom-buffer form-horizontal">
-    <div class="form-group">
-        <div class="flat-text-editor">
-            <input type="text" placeholder="@Model.Placeholder"/>
-        </div>
-    </div>
+<div class="flat-text-editor">
+    <input style="height: @Model.Height" type="text" placeholder="@Model.Placeholder"/>
 </div>

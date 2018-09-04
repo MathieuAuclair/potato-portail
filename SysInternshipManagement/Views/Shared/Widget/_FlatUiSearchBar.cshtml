@@ -2,5 +2,10 @@
 @model SysInternshipManagement.Models.Widget.FlatUiSearchBar
 
 <div class="flat-search-bar">
-    @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("test"))
+    <button>
+        <img src="~/Content/Icons/baseline-search-24px.svg"/>
+    </button>
+    <div>
+        @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Recherche", "40px"))
+    </div>
 </div>
