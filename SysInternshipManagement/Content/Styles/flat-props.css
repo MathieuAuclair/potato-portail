@@ -1,0 +1,15 @@
+.flat-text-editor input{
+    height: 30px;
+    width: 100%;
+    color: black;
+    background: white;
+    border: 1px solid #808080;
+}
+
+.flat-text-editor input:active {
+    border: 2px solid Highlight;
+}
+
+.flat-text-editor input:focus {
+    border: 2px solid Highlight;
+}
