@@ -1,5 +1,5 @@
-﻿body{
-    background:#F9F9F9;
+﻿body {
+    background: #F9F9F9;
 }
 
 table {
@@ -15,7 +15,7 @@ td {
     margin: 20px;
 }
 
-tr{
+tr {
     border-top: 5px solid #F9F9F9;
 }
 
@@ -32,4 +32,13 @@ td div button img {
 
 td div {
     border: 2px solid black;
+}
+
+textarea {
+    resize: none;
+    border: 1px solid black;
+}
+
+select{
+    width:100%;
 }
