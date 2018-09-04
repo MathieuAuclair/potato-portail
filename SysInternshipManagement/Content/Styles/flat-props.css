@@ -54,3 +54,51 @@
 .flat-search-bar div div:focus-within {
     border: 1px solid black;
 }
+
+.flat-select {
+    border: 1px solid black;
+    padding: 5px;
+    width: 220px;
+    margin-top: 10px;
+    background: white;
+}
+
+.flat-select select {
+    height: 40px;
+    width: 200px;
+    display: block;
+    margin: auto;
+    border: none;
+    outline: none;
+}
+
+.flat-select select:focus{
+    border: none;   
+}
+
+.flat-select select:active{
+    border: none;
+}
+
+.flat-select p {
+    width: 200px;
+    font-size: 10px;
+    font-weight: 100;
+    display: block;
+    margin: auto;
+}
+
+.flat-button {
+    border: 2px solid black;
+    width: 220px;
+}
+ 
+.flat-button button {
+    width: 100%;
+    height: 40px;
+    margin: auto;
+    background: Highlight;
+    color: white;
+    border: 1px solid white;
+}
+

@@ -1,7 +1,22 @@
-@using System.Web.UI.WebControls
 @using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<div>
+    <h1>Entreprise</h1>
+    <div class="form-content">
+        <div>
+            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("contact"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Nom d'entreprise"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse"))
+        </div>
+        <a href="/Entreprise/Index">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </a>
+    </div>
+</div>

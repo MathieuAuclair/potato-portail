@@ -1,5 +1,3 @@
-using Microsoft.Ajax.Utilities;
-
 namespace SysInternshipManagement.Models.Widget
 {
     public class FlatUiTextInputModel
