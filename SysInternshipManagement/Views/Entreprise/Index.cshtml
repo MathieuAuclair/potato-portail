@@ -6,6 +6,11 @@
 <div>
     <h1>Entreprise</h1>
     @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <a href="/Entreprise/Edit">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
+        </a>
+    </div>
     <div class=""></div>
     <table>
         <tr>
