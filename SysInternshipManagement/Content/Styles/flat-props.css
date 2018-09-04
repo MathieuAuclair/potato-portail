@@ -38,6 +38,10 @@
     vertical-align: top;
 }
 
+.flat-search-bar button img {
+    height: 65%;
+}
+
 .flat-search-bar div {
     width: 80%;
     display: inline-block;

@@ -4,14 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>Gestion de stage</title>
-</head>
-<body>
 <div>
     <h1>Entreprise</h1>
     @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
@@ -29,9 +21,11 @@
             <td>George Tremblay</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -41,9 +35,11 @@
             <td>Dominic Martineau</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -53,9 +49,11 @@
             <td>Emile Bergeron</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -65,13 +63,13 @@
             <td>Mathieu Auclair</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
     </table>
 </div>
-</body>
-</html>
