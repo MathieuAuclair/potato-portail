@@ -8,8 +8,12 @@ namespace SysInternshipManagement.Controllers
 {
     public class EntrepriseController : Controller
     {
-        // GET: Entreprise
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Edit()
         {
             return View();
         }
