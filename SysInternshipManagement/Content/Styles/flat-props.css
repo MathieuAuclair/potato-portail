@@ -1,3 +1,15 @@
+/* Flat UI library by: */
+
+/*  Mathieu Auclair
+ *  https://github.com/MathieuAuclair 
+*/
+
+/* General */
+
+
+
+/* Props */
+
 .flat-text-editor {
     color: black;
     background: white;
@@ -72,11 +84,11 @@
     outline: none;
 }
 
-.flat-select select:focus{
-    border: none;   
+.flat-select select:focus {
+    border: none;
 }
 
-.flat-select select:active{
+.flat-select select:active {
     border: none;
 }
 
@@ -92,7 +104,7 @@
     border: 2px solid black;
     width: 220px;
 }
- 
+
 .flat-button button {
     width: 100%;
     height: 40px;
@@ -102,3 +114,30 @@
     border: 1px solid white;
 }
 
+.flat-textarea {
+    border: 1px solid black;
+    background: white;
+    padding: 5px;
+    transition: border 0.15s;
+}
+
+.flat-textarea textarea {
+    border: none;
+    margin-top: 5px;
+    max-width: 100%;
+    width: 100%;
+}
+
+.flat-textarea p {
+    font-size: 10px;
+    font-weight: 100;
+    font-family: sans-serif;
+}
+
+.flat-textarea:active {
+    border: 2px solid Highlight;
+}
+
+.flat-textarea:focus-within {
+    border: 2px solid Highlight;
+}
