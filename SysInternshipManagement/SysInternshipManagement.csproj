@@ -151,6 +151,7 @@
     <Compile Include="Models\Widget\FlatUiButton.cs" />
     <Compile Include="Models\Widget\FlatUiSearchBar.cs" />
     <Compile Include="Models\Widget\FlatUiSelect.cs" />
+    <Compile Include="Models\Widget\FlatUiTextarea.cs" />
     <Compile Include="Models\Widget\FlatUiTextInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <Content Include="Views\Shared\Widget\_FlatUiButton.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiSearchBar.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiSelect.cshtml" />
+    <Content Include="Views\Shared\Widget\_FlatUiTextarea.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiTextInput.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
