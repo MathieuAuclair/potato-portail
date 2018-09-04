@@ -34,36 +34,9 @@ td div {
     border: 2px solid black;
 }
 
-.expandable-label {
-    background-color: white !important;
-    color: white !important;
-    border: 2px solid white !important;
-}
-
-.expandable-label button {
-    background-color: white !important;
-    color: white !important;
-    border: 1px solid white !important;
-}
-
-.hover-label:hover {
-    border: 2px solid black !important;
-    height:100%;
-}
-
-.expandable-label button:hover {
-    width: 100% !important;
-    background: Highlight !important;
-    color: white !important;
-    border: 1px solid white !important;
-}
-
-.intership-creation td{
-    width:25%;
-}
-
 textarea {
     resize: none;
+    border: 1px solid black;
 }
 
 select{

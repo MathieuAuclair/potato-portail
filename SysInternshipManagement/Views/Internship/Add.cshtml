@@ -7,7 +7,7 @@
 }
 
 
-<h1>Création de Stage</h1>
+<h1>Stage</h1>
 
 <table class="intership-creation">
     <tr>
@@ -18,11 +18,13 @@
         <td></td>
         <td>
             <select name="Post">
-                <option value="Analyste">Analyste</option>
-                <option value="Programmeur">Programmeur</option>
-                <option value="Technicien">Technicien</option>
-                <option value="Web">Développeur Web</option>
-                <option value="Reseaux">Ingénieur Réseaux</option>
+                <optgroup label="Poste">
+                    <option value="Analyste">Analyste</option>
+                    <option value="Programmeur">Programmeur</option>
+                    <option value="Technicien">Technicien</option>
+                    <option value="Web">Développeur Web</option>
+                    <option value="Reseaux">Ingénieur Réseaux</option>
+                </optgroup>
             </select>
         </td>
     </tr>
@@ -54,11 +56,13 @@
         <td></td>
         <td>
             <select name="Location">
-                <option value="Montreal">Montréal</option>
-                <option value="Québec">Québec</option>
-                <option value="Saguenay">Saguenay</option>
-                <option value="Californie">Californie</option>
-                <option value="Sept-iles">Sept-Îles</option>
+                <optgroup label="Emplacement">
+                    <option value="Montreal">Montréal</option>
+                    <option value="Québec">Québec</option>
+                    <option value="Saguenay">Saguenay</option>
+                    <option value="Californie">Californie</option>
+                    <option value="Sept-iles">Sept-Îles</option>
+                </optgroup>
             </select>
         </td>
     </tr>
@@ -118,22 +122,7 @@
         <th></th>
         <th></th>
         <td>
-            <div>
-                <button type="button" onclick="location.href='@Url.Action("Index","Internship")'">
-                    <img src="~/Content/Icons/baseline-person_add-24px.svg" />
-                </button>
-            </div>
-        </td>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <td>
-            <div>
+            <div style="width:220px; margin:auto;">
                 <button type="button" onclick="location.href='@Url.Action("Index","Internship")'">
                     <img src="~/Content/Icons/baseline-keyboard_return-24px.svg" />
                 </button>
