@@ -1,35 +1,23 @@
-﻿@{
+﻿@using SysInternshipManagement.Models.Widget
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Navigation Stage";
 }
-
-@*<script src="@Url.Content("~/Scripts/InternshipScript.js")" type="https://code.jquery.com/jquery-1.10.2.js"></script>*@
 
 <h1>Stage</h1>
 
 <div class="container page-content">
-
-    <table>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <td>
-                <div style="width:220px; margin:auto;">
-                    <button class="add-button" type="button" onclick="location.href='@Url.Action("Add","Internship")'">
-                        <img src="~/Content/Icons/baseline-add-24px.svg" />
-                    </button>
-                </div>
-            </td>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </table>
-
+    <div style="margin-bottom: 15px;">
+        @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    </div>
+    <div style="margin-bottom: 15px;">
+        <a href="/Internship/Edit">
+        @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
+        </a>
+    </div>
     <table>
         <tr>
             <th>Poste</th>
@@ -46,21 +34,21 @@
             <td>Stage 1</td>
             <td>
                 <div>
-                    <button onclick="location.href='@Url.Action("Add","Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                     </button>
                 </div>
             </td>
         </tr>
         <tr>
-            <td>Tehnicien</td>
+            <td>Technicien</td>
             <td>Stage 2</td>
             <td>Stage 2</td>
             <td>Stage 2</td>
             <td>
                 <div>
-                    <button onclick="location.href='@Url.Action("Add","Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                     </button>
                 </div>
             </td>
@@ -72,8 +60,8 @@
             <td>Stage 3</td>
             <td>
                 <div>
-                    <button onclick="location.href='@Url.Action("Add","Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                     </button>
                 </div>
             </td>
@@ -85,15 +73,11 @@
             <td>Stage 4</td>
             <td>
                 <div>
-                    <button onclick="location.href='@Url.Action("Add","Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                     </button>
                 </div>
             </td>
         </tr>
     </table>
-
-
-
-
 </div>

@@ -198,7 +198,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Entreprise\Index.cshtml" />
-    <Content Include="Views\Internship\Add.cshtml" />
+    <Content Include="Views\Internship\Edit.cshtml" />
     <Content Include="Views\Internship\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
