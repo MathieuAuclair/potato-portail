@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mon application ASP.NET</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Styles/flat-props.css")
     @Styles.Render("~/Content/Styles/navigation.css")
-    @Styles.Render("~/Content/Styles/navigation.css")
-    @Styles.Render("~/Content/StyleInternship.css")
+    @Styles.Render("~/Content/Styles/edition.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -20,12 +20,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Internship Offer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Gestion de stage", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Internship", "Index", "Internship")</li>
-                    <li>@Html.ActionLink("Entreprise", "Index", "Entreprise")</li>
+                    <li>@Html.ActionLink("Stages", "Index", "Internship")</li>
+                    <li>@Html.ActionLink("Entreprises", "Index", "Entreprise")</li>
                 </ul>
             </div>
         </div>

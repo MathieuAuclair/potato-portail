@@ -1,17 +1,16 @@
-﻿@{
+@using SysInternshipManagement.Models.Widget
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>Gestion de stage</title>
-</head>
-<body>
 <div>
     <h1>Entreprise</h1>
+    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <a href="/Entreprise/Edit">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
+        </a>
+    </div>
     <div class=""></div>
     <table>
         <tr>
@@ -26,9 +25,11 @@
             <td>George Tremblay</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -38,9 +39,11 @@
             <td>Dominic Martineau</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -50,9 +53,11 @@
             <td>Emile Bergeron</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -62,13 +67,13 @@
             <td>Mathieu Auclair</td>
             <td>
                 <div>
-                    <button>
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
+                    <a href="/Entreprise/Edit">
+                        <button>
+                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                        </button>
+                    </a>
                 </div>
             </td>
         </tr>
     </table>
 </div>
-</body>
-</html>
