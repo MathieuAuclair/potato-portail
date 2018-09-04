@@ -1,15 +1,24 @@
-.flat-text-editor input{
-    height: 30px;
-    width: 100%;
+.flat-text-editor {
     color: black;
     background: white;
     border: 1px solid #808080;
 }
 
-.flat-text-editor input:active {
+.flat-text-editor:active {
     border: 2px solid Highlight;
 }
 
-.flat-text-editor input:focus {
+.flat-text-editor:focus-within {
     border: 2px solid Highlight;
+}
+
+.flat-text-editor input {
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: 100;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
 }
