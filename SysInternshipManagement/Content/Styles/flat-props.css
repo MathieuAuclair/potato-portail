@@ -25,6 +25,13 @@
     border: 2px solid Highlight;
 }
 
+.flat-text-editor p {
+    font-family: sans-serif;
+    font-weight: 100;
+    font-size: 10px;
+    padding: 5px;
+}
+
 .flat-text-editor input {
     border: none;
     padding: 5px;
@@ -36,14 +43,14 @@
 }
 
 .flat-search-bar {
-    width: 50%;
+    width: 100%;
 }
 
 .flat-search-bar button {
-    height: 41px;
-    width: 18%;
+    height: 55px;
+    width: calc(20% - 6px);
     border: 1px solid black;
-    background-color: #0078d7;
+    background-color: Highlight;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     display: inline-block;
@@ -51,12 +58,16 @@
 }
 
 .flat-search-bar button img {
-    height: 65%;
+    height: 45%;
 }
 
 .flat-search-bar div {
-    width: 80%;
+    width: 100%;
     display: inline-block;
+}
+
+.flat-search-bar input {
+    max-width: 100%;
 }
 
 .flat-search-bar div div:active {
@@ -69,17 +80,21 @@
 
 .flat-select {
     border: 1px solid black;
-    padding: 5px;
-    width: 220px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    width: 100%;
     margin-top: 10px;
     background: white;
 }
 
 .flat-select select {
     height: 40px;
-    width: 200px;
+    width: 100%;
+    max-width: 100%;
     display: block;
     margin: auto;
+    text-align: left;
     border: none;
     outline: none;
 }
@@ -93,7 +108,7 @@
 }
 
 .flat-select p {
-    width: 200px;
+    width: 100%;
     font-size: 10px;
     font-weight: 100;
     display: block;
@@ -102,7 +117,7 @@
 
 .flat-button {
     border: 2px solid black;
-    width: 220px;
+    width: 100%;
 }
 
 .flat-button button {
