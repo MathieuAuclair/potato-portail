@@ -1,9 +1,6 @@
-﻿@using SysInternshipManagement.Models.Widget
+@using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
     ViewBag.Title = "Navigation Stage";
 }
 
@@ -18,6 +15,7 @@
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
         </a>
     </div>
+
     <table>
         <tr>
             <th>Poste</th>
@@ -47,6 +45,7 @@
             <td>Stage 2</td>
             <td>
                 <div>
+
                     <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
                         <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                     </button>
