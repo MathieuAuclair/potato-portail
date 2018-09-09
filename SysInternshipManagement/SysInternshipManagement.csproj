@@ -46,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -149,6 +155,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\20180909_InitialCreate.cs" />
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\Business.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactBusiness.cs" />
+    <Compile Include="Models\DB.cs" />
+    <Compile Include="Models\Internship.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Preference.cs" />
+    <Compile Include="Models\Responsible.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Widget\FlatUiButton.cs" />
     <Compile Include="Models\Widget\FlatUiSearchBar.cs" />
     <Compile Include="Models\Widget\FlatUiSelect.cs" />
@@ -206,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
