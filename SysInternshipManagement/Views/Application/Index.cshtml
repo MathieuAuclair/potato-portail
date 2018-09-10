@@ -1,0 +1,47 @@
+﻿@using SysInternshipManagement.Models.Widget
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Application";
+}
+
+<h1>Application</h1>
+
+<div class="container page-content">
+    <div style="margin-bottom: 15px;">
+        @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    </div>
+
+    <table>
+        <tr>
+            <th>Poste</th>
+            <th>Entreprise</th>
+            <th>Contact</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Programmeur</td>
+            <td>Ubisoft</td>
+            <td>Stage 1</td>
+            <td>Available</td>
+        </tr>
+        <tr>
+            <td>Technicien</td>
+            <td>CGI</td>
+            <td>Stage 2</td>
+            <td>Available</td>
+        </tr>
+    </table>
+
+    <div style="margin-top:10px;">
+        <a href="/Application/Index">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </a>
+    </div>
+
+</div>
+
+
+
