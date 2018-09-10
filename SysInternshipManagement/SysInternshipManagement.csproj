@@ -204,11 +204,9 @@
     <Content Include="Views\Internship\Edit.cshtml" />
     <Content Include="Views\Internship\Index.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
-    <Content Include="Views\Application\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
