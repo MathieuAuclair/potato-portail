@@ -1,0 +1,30 @@
+﻿@using SysInternshipManagement.Models.Widget
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Application";
+}
+
+<h2>Application</h2>
+
+<div class="form-content">
+
+    <div>
+        @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Date"))
+    </div>
+
+    <div>
+        @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Stage"))
+    </div>
+
+    <div>
+        @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Étudiant"))
+    </div>
+
+    <div>
+        @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Valider Changement"))
+    </div>
+
+</div>

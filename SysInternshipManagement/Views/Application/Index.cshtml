@@ -1,0 +1,77 @@
+﻿@using SysInternshipManagement.Models.Widget
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Application";
+}
+
+<h1>Application des étudiants</h1>
+
+<div class="container page-content">
+    <div style="margin-bottom: 15px;">
+        @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    </div>
+
+    <table>
+        <tr>
+            <th>Date Début</th>
+            <th>Étudiant</th>
+            <th>Stage</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>14/12/2017</td>
+            <td>Mathieu</td>
+            <td>Stage 1</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>11/11/2017</td>
+            <td>David</td>
+            <td>Stage 3</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>12/12/2017</td>
+            <td>Pierre-Olivier</td>
+            <td>Stage 2</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>20/11/2017</td>
+            <td>Nicolas</td>
+            <td>Stage 4</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+
