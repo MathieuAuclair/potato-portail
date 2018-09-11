@@ -7,7 +7,7 @@
     ViewBag.Title = "Application";
 }
 
-<h1>Application</h1>
+<h1>Application des étudiants</h1>
 
 <div class="container page-content">
     <div style="margin-bottom: 15px;">
@@ -16,42 +16,60 @@
 
     <table>
         <tr>
-            <th>Poste</th>
-            <th>Entreprise</th>
-            <th>Contact</th>
-            <th>Status</th>
+            <th>Date Début</th>
+            <th>Étudiant</th>
+            <th>Stage</th>
+            <th></th>
         </tr>
         <tr>
-            <td>Programmeur</td>
-            <td>Ubisoft</td>
+            <td>14/12/2017</td>
+            <td>Mathieu</td>
             <td>Stage 1</td>
-            <td>Available</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
         </tr>
         <tr>
-            <td>Technicien</td>
-            <td>CGI</td>
-            <td>Stage 2</td>
-            <td>Available</td>
-        </tr>
-        <tr>
-            <td>Ingénieur Réseaux</td>
-            <td>Optania</td>
+            <td>11/11/2017</td>
+            <td>David</td>
             <td>Stage 3</td>
-            <td>Not Available</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
         </tr>
         <tr>
-            <td>Analyste</td>
-            <td>CGI</td>
+            <td>12/12/2017</td>
+            <td>Pierre-Olivier</td>
+            <td>Stage 2</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>20/11/2017</td>
+            <td>Nicolas</td>
             <td>Stage 4</td>
-            <td>Available</td>
+            <td>
+                <div>
+                    <button onclick="location.href = '@Url.Action("Edit", "Application")'">
+                        <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                    </button>
+                </div>
+            </td>
         </tr>
     </table>
-
-    <div style="margin-top:10px;">
-        <a href="/Application/Index">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
-        </a>
-    </div>
 
 </div>
 
