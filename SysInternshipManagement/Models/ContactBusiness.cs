@@ -7,7 +7,8 @@ namespace SysInternshipManagement.Models
 {
     public class ContactBusiness
     {
-        public Business business { get; set; }
-        public Contact contact { get; set; }
+        public int id { get; set;}
+        public int business { get; set; }
+        public int contact { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace SysInternshipManagement.Models.Widget
+namespace SysInternshipManagement.Models
 {
     public class Status
     {

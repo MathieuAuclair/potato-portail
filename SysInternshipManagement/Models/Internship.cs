@@ -15,8 +15,5 @@ namespace SysInternshipManagement.Models
         public Status status { get; set; }
         public Contact contact { get; set; }
         public int salary { get; set; }
-        
-        //
-
     }
 }
