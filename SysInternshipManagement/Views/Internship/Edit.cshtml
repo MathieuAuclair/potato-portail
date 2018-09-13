@@ -6,33 +6,34 @@
 @{
     ViewBag.Title = "Création Stage";
 }
+<form action="" method="post" enctype="multipart/form-data">
+    <div class="form-content">
+        <h1>Stage</h1>
 
-<div class="form-content">
-    <h1>Stage</h1>
+        <div>
+            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Poste de stage"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Location du stage"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Contact"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiInputButton", new FlatUiInputButton("Ajouter un fichier"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter ce stage"))
+        </div>
 
-    <div>
-        @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Poste de stage"))
     </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description"))
-    </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse"))
-    </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Location du stage"))
-    </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération"))
-    </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Contact"))
-    </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un fichier"))
-    </div>
-    <div>
-        @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter ce stage"))
-    </div>
-
-</div>
+</form>

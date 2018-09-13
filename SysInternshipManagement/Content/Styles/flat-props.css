@@ -129,6 +129,25 @@
     border: 1px solid white;
 }
 
+.flat-input-button {
+    border: 2px solid black;
+    width: 100%;
+    max-width: 100%;
+    background: Highlight;
+    text-align:center;
+}
+
+.flat-input-button input {
+    width: 100%;
+    max-width:100%;
+    height: 40px;
+    margin: auto;
+    text-align:center;
+    background: Highlight;
+    color: white;
+    border: 1px solid white;
+}
+
 .flat-textarea {
     border: 1px solid black;
     background: white;
