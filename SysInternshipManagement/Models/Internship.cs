@@ -1,19 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SysInternshipManagement.Models
 {
     public class Internship
     {
-        public int Id { get; set; }
+        [Key]
+        public int idInternship { get; set; }
+
         public string description { get; set; }
+
+        [Required]
         public string address { get; set; }
-        public Location location { get; set; }
-        public Post post { get; set; }
-        public Status status { get; set; }
-        public Contact contact { get; set; }
-        public int salary { get; set; }
+
+        [Required]
+        public string postalCode { get; set; }
+
+        public float salary { get; set; }
+
+        [Required]
+        [ForeignKey("location")]
+        public virtual ICollection<int> idLocation { get; set; }
+
+        [Required]
+        [ForeignKey("post")]
+        public virtual ICollection<int> idPost { get; set; }
+
+        [Required]
+        [ForeignKey("status")]
+        public virtual ICollection<int> idStatus { get; set; }
+
+        [Required]
+        [ForeignKey("contact")]
+        public virtual ICollection<int> idContact { get; set; }
     }
 }

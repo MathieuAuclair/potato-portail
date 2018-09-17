@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SysInternshipManagement.Models
 {
     public class ContactBusiness
     {
-        public int id { get; set;}
-        public int business { get; set; }
-        public int contact { get; set; }
+        [Key]
+        public int idContactBusiness { get; set;}
+
+        [Required]
+        [ForeignKey("business")]
+        public virtual ICollection<int> idBusiness { get; set; }
+
+        [Required]
+        [ForeignKey("contact")]
+        public virtual ICollection<int> idContact { get; set; }
     }
 }

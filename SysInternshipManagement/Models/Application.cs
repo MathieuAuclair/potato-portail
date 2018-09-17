@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SysInternshipManagement.Models
 {
     public class Application
     {
-        public int Id { get; set; }
+        [Key]
+        public int idApplication { get; set; }
+
+        [Required]
         public DateTime timestamp { get; set; }
-        public Student student { get; set; }
-        public Internship internship { get; set; }
+
+        [Required]
+        [ForeignKey("intership")]
+        public virtual ICollection<int> idInternship { get; set; }
+
+        [Required]
+        [ForeignKey("student")]
+        public virtual ICollection<int> student { get; set; }
     }
 }

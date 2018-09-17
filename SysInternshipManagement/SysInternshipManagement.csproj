@@ -157,6 +157,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\20180909_InitialCreate.cs" />
+    <Compile Include="Migrations\201809171627521_init_database.cs" />
+    <Compile Include="Migrations\201809171627521_init_database.Designer.cs">
+      <DependentUpon>201809171627521_init_database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\Business.cs" />
@@ -246,6 +250,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809171627521_init_database.resx">
+      <DependentUpon>201809171627521_init_database.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

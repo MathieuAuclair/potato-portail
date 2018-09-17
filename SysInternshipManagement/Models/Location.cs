@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SysInternshipManagement.Models
 {
     public class Location
     {
-        public int Id { get; set; }
+        [Key]
+        public int idLocation { get; set; }
+
+        [Required]
         public string name { get; set; }
     }
 }

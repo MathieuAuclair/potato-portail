@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SysInternshipManagement.Models
 {
     public class Contact
     {
-        public int Id { get; set; }
+        [Key]
+        public int idContact { get; set; }
+
+        [Required]
         public string name { get; set; }
+
+        [Required]
         public string phone { get; set; }
+
+        [Required]
         public string email { get; set; }
 
     }
