@@ -29,7 +29,7 @@ namespace SysInternshipManagement.Models
 
         [Required]
         [ForeignKey("status")]
-        public virtual new ICollection<int> idStatus { get; set; }
+        public virtual ICollection<int> idStatus { get; set; }
 
         [Required]
         [ForeignKey("contact")]
