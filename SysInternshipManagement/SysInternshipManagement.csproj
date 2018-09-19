@@ -156,7 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20180909_InitialCreate.cs" />
+    <Compile Include="Migrations\DbContext.cs" />
     <Compile Include="Migrations\201809171627521_init_database.cs" />
     <Compile Include="Migrations\201809171627521_init_database.Designer.cs">
       <DependentUpon>201809171627521_init_database.cs</DependentUpon>

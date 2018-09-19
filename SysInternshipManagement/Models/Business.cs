@@ -16,10 +16,6 @@ namespace SysInternshipManagement.Models
         public string address { get; set; }
 
         [Required]
-        [ForeignKey("contactbusiness")]
-        public virtual ICollection<int> idContactBusiness { get; set; }
-
-        [Required]
         [ForeignKey("location")]
         public virtual ICollection<int> idLocation { get; set; }
     }
