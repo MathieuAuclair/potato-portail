@@ -5,16 +5,16 @@ namespace SysInternshipManagement.Models
     public class Contact
     {
         [Key]
-        public int idContact { get; set; }
+        public int IdContact { get; set; }
 
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string phone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
 
     }
 }

@@ -5,9 +5,9 @@ namespace SysInternshipManagement.Models
     public class Status
     {
         [Key]
-        public int idStatus { get; set; }
+        public int IdStatus { get; set; }
 
         [Required]
-        public string status { get; set; }
+        public string StatusInternship { get; set; }
     }
 }

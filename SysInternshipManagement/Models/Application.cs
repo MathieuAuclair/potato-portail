@@ -8,17 +8,15 @@ namespace SysInternshipManagement.Models
     public class Application
     {
         [Key]
-        public int idApplication { get; set; }
+        public int IdApplication { get; set; }
 
         [Required]
-        public DateTime timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
         [Required]
-        [ForeignKey("intership")]
-        public virtual ICollection<int> idInternship { get; set; }
+        public virtual Internship Internship { get; set; }
 
         [Required]
-        [ForeignKey("student")]
-        public virtual ICollection<int> student { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

@@ -7,134 +7,128 @@ namespace SysInternshipManagement.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SysInternshipManagement.Migrations.InitialCreate>
+    internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(SysInternshipManagement.Migrations.InitialCreate context)
+        protected override void Seed(DatabaseContext context)
         {
-            context.post.AddOrUpdate(
-                new Post
-                {
-                    idPost = 1,
-                    name = "analyste",
-                },
-                new Post
-                {
-                    idPost = 2,
-                    name = "programmeur",
-                });
-            context.location.AddOrUpdate(
-                new Location
-                {
-                    idLocation = 1,
-                    name = "Quebec",
-                });
-            context.status.AddOrUpdate(
-                new Status
-                {
-                    idStatus = 1,
-                    status = "occupé",
-                },
-                new Status
-                {
-                    idStatus = 2,
-                    status = "disponible",
-                },
-                new Status
-                {
-                    idStatus = 3,
-                    status = "suspendu",
-                });
-            context.business.AddOrUpdate(
-                new Business
-                {
-                    idBusiness = 1,
-                    address = "110 legit street",
-                    name = "CGI",
-                    idLocation = { 1 },
-                });
-            context.responsible.AddOrUpdate(
-                new Responsible
-                {
-                    idResponsible = 1,
-                    email = "aymensioud@cegepjonquiere.ca",
-                    firstName = "Aymen",
-                    lastName = "Sioud",
-                    phone = "1-(234)-456-7890",
-                    role = "Administrateur",
-                },
-                new Responsible
-                {
-                    idResponsible = 2,
-                    email = "ericdallaire@cegepjonquiere.ca",
-                    firstName = "eric",
-                    lastName = "dallaire",
-                    phone = "1-(234)-567-7890",
-                    role = "Administrateur"
-                });
-            context.preference.AddOrUpdate(
-                new Preference
-                {
-                    idPreference = 1,
-                    idBusiness = { 1 },
-                    idLocation = { 1 },
-                    idPost = { 1 },
-                    salary = 0,
-                });
-            context.student.AddOrUpdate(
-                new Student
-                {
-                    idStudent = 1,
-                    idPreference = { 1 },
-                    DaNumber = "1633485",
-                    emailPersonal = "mathieuauclair@aol.com",
-                    emailSchool = "AucMa1633485@etu.cegepjonquiere.ca",
-                    firstName = "mathieu",
-                    lastName = "auclair",
-                    phone = "1-(123)-456-7890",
-                    permanentCode = "AucMa12099709",
-                    role = "Étudiant",
-                });
-            context.contact.AddOrUpdate(
-                new Contact
-                {
-                    idContact = 1,
-                    email = "john@legitbusiness.xyz",
-                    name = "John",
-                    phone = "1-(234)-456-7890",
-                });
-            context.contactBusiness.AddOrUpdate(
-                new ContactBusiness
-                {
-                    idContactBusiness = 1,
-                    idBusiness = { 1 },
-                    idContact = { 1 },
-                });
-            context.internship.AddOrUpdate(
-                new Internship
-                {
-                    idInternship = 1,
-                    address = "legit street",
-                    description = "legit development internship",
-                    postalCode = "A0B 1C3",
-                    salary = 20.0f,
-                    idStatus = { 1 },
-                    idContact = { 1 },
-                    idLocation = { 1 },
-                    idPost = { 1 },
-                });
-            context.application.AddOrUpdate(
+            Location location = new Location();
+            location.Name = "test";
+
+            Status status = new Status();
+            status.StatusInternship = "test";
+
+            Post post = new Post();
+            post.Name = "test";
+
+            Internship internship = new Internship();
+            internship.Status = status;
+            internship.Post = post;
+            internship.Location = location;
+
+            context.status.Add(status);
+            /*context.application.Add(
                 new Application
                 {
-                    idApplication = 1,
-                    idInternship = { 1 },
-                    student = { 1 },
-                    timestamp = DateTime.UtcNow,
-                });
+                    Timestamp = DateTime.UtcNow,
+                    Internship =
+                    {
+                        new Internship
+                        {
+                            Address = "legit street",
+                            Description = "legit development internship",
+                            PostalCode = "A0B 1C3",
+                            Salary = 20.0f,
+                            Status =
+                            {
+                                new Status
+                                {
+                                    StatusInternship = "Invalid",
+                                }
+                            },
+                            Contact =
+                            {
+                                new Contact
+                                {
+                                    Email = "beepboopboop@beep.boop",
+                                    Name = "Mathieu Auclair",
+                                    Phone = "1-(800)-666-BEEP",
+                                },
+                            },
+                            Location =
+                            {
+                                new Location
+                                {
+                                    Name = "Tunis"
+                                }
+                            },
+                            Post =
+                            {
+                                new Post
+                                {
+                                    Name = "Architecte SystÃ¨me",
+                                },
+                            },
+                        },
+                    },
+                    Student =
+                    {
+                        new Student
+                        {
+                            IdPreference =
+                            {
+                                new Preference
+                                {
+                                    Salary = 20.0f,
+                                    Location =
+                                    {
+                                        new Location
+                                        {
+                                            Name = "Silicon Valley"
+                                        },
+                                    },
+                                    Post =
+                                    {
+                                        new Post
+                                        {
+                                            Name = "DÃ©veloppeur `Full Stack`",
+                                        }
+                                    },
+                                    Business =
+                                    {
+                                        new Business
+                                        {
+                                            Name = "Indian SCC (scam call center)",
+                                            Address = "110 rue Principale",
+                                            Location =
+                                            {
+                                                new Location
+                                                {
+                                                    Name = "Chicoutimi"
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                            DaNumber = "1633485",
+                            EmailPersonal = "mathieuauclair@aol.com",
+                            EmailSchool = "AucMa1633485@etu.cegepjonquiere.ca",
+                            FirstName = "mathieu",
+                            LastName = "auclair",
+                            Phone = "1-(123)-456-7890",
+                            PermanentCode = "AucMa12099709",
+                            Role = "Ã©tudiant",
+                        }
+                    },
+                });*/
+
+            base.Seed(context);
         }
     }
 }

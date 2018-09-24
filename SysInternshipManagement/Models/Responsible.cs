@@ -5,21 +5,21 @@ namespace SysInternshipManagement.Models
     public class Responsible
     {
         [Key]
-        public int idResponsible { get; set; }
+        public int IdResponsible { get; set; }
 
         [Required]
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
-        public string phone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public string role { get; set; }
+        public string Role { get; set; }
     }
 }

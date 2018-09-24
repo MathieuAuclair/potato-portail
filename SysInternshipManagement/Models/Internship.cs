@@ -7,32 +7,24 @@ namespace SysInternshipManagement.Models
     public class Internship
     {
         [Key]
-        public int idInternship { get; set; }
+        public int IdInternship { get; set; }
 
-        public string description { get; set; }
-
-        [Required]
-        public string address { get; set; }
+        public string Description { get; set; }
 
         [Required]
-        public string postalCode { get; set; }
-
-        public float salary { get; set; }
+        public string Address { get; set; }
 
         [Required]
-        [ForeignKey("location")]
-        public virtual ICollection<int> idLocation { get; set; }
+        public string PostalCode { get; set; }
 
-        [Required]
-        [ForeignKey("post")]
-        public virtual ICollection<int> idPost { get; set; }
+        public float Salary { get; set; }
 
-        [Required]
-        [ForeignKey("status")]
-        public virtual ICollection<int> idStatus { get; set; }
+        public virtual Location Location { get; set; }
 
-        [Required]
-        [ForeignKey("contact")]
-        public virtual ICollection<int> idContact { get; set; }
+        public virtual Post Post { get; set; }
+
+        public virtual Status Status { get; set; }
+
+        public virtual Contact Contact { get; set; }
     }
 }
