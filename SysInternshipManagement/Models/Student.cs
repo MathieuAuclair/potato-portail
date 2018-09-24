@@ -7,34 +7,33 @@ namespace SysInternshipManagement.Models
     public class Student
     {
         [Key]
-        public int idStudent { get; set; }
+        public int IdStudent { get; set; }
 
         [Required]
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
-        public string emailSchool { get; set; }
+        public string EmailSchool { get; set; }
 
         [Required]
-        public string emailPersonal { get; set; }
+        public string EmailPersonal { get; set; }
 
         [Required]
-        public string phone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
         public string DaNumber { get; set; }
 
         [Required]
-        public string permanentCode { get; set; }
+        public string PermanentCode { get; set; }
 
         [Required]
-        public string role { get; set; }
+        public string Role { get; set; }
         
-        [ForeignKey("preference")]
-        public virtual ICollection<int> idPreference { get; set; }
+        public virtual Preference Preference { get; set; }
 
     }
 }

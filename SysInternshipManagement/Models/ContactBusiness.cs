@@ -7,14 +7,14 @@ namespace SysInternshipManagement.Models
     public class ContactBusiness
     {
         [Key]
-        public int idContactBusiness { get; set;}
+        public int IdContactBusiness { get; set;}
 
         [Required]
         [ForeignKey("business")]
-        public virtual ICollection<int> idBusiness { get; set; }
+        public virtual ICollection<int> IdBusiness { get; set; }
 
         [Required]
         [ForeignKey("contact")]
-        public virtual ICollection<int> idContact { get; set; }
+        public virtual ICollection<int> IdContact { get; set; }
     }
 }

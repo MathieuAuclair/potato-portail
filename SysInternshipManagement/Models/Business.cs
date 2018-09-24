@@ -7,16 +7,14 @@ namespace SysInternshipManagement.Models
     public class Business
     {
         [Key]
-        public int idBusiness { get; set; }
+        public int IdBusiness { get; set; }
 
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string address { get; set; }
+        public string Address { get; set; }
 
-        [Required]
-        [ForeignKey("location")]
-        public virtual ICollection<int> idLocation { get; set; }
+        public virtual Location Location { get; set; }
     }
 }

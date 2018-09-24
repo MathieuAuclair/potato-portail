@@ -5,9 +5,9 @@ namespace SysInternshipManagement.Models
     public class Location
     {
         [Key]
-        public int idLocation { get; set; }
+        public int IdLocation { get; set; }
 
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 }

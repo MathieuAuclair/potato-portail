@@ -5,9 +5,9 @@ namespace SysInternshipManagement.Models
     public class Post
     {
         [Key]
-        public int idPost { get; set; }
+        public int IdPost { get; set; }
 
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace SysInternshipManagement.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class init_database : IMigrationMetadata
+    public sealed partial class create_database : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init_database));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(create_database));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809171627521_init_database"; }
+            get { return "201809241509043_create_database"; }
         }
         
         string IMigrationMetadata.Source

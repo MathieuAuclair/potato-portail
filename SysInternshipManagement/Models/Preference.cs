@@ -7,16 +7,13 @@ namespace SysInternshipManagement.Models
     public class Preference
     {
         [Key]
-        public int idPreference { get; set; }
-        public float salary { get; set; }
+        public int IdPreference { get; set; }
+        public float Salary { get; set; }
 
-        [ForeignKey("location")]
-        public virtual ICollection<int> idLocation { get; set; }
+        public virtual ICollection<Location> Location { get; set; }
 
-        [ForeignKey("business")]
-        public virtual ICollection<int> idBusiness { get; set; }
+        public virtual ICollection<Business> Business { get; set; }
 
-        [ForeignKey("post")]
-        public virtual ICollection<int> idPost { get; set; }
+        public virtual ICollection<Post> Post { get; set; }
     }
 }
