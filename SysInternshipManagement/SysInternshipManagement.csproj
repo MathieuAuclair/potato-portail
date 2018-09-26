@@ -160,6 +160,10 @@
     <Compile Include="Migrations\201809261356466_create_database.Designer.cs">
       <DependentUpon>201809261356466_create_database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809261520558_add_documentname_field.cs" />
+    <Compile Include="Migrations\201809261520558_add_documentname_field.Designer.cs">
+      <DependentUpon>201809261520558_add_documentname_field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseContext.cs" />
     <Compile Include="Migrations\InternshipInitializer.cs" />
@@ -256,6 +260,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809261356466_create_database.resx">
       <DependentUpon>201809261356466_create_database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809261520558_add_documentname_field.resx">
+      <DependentUpon>201809261520558_add_documentname_field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
