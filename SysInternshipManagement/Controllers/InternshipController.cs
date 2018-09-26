@@ -58,7 +58,13 @@ namespace SysInternshipManagement.Controllers
                 db.SaveChanges();
             }
 
-            return View(db.internship.ToList());
+            ViewBag.Internship = db.internship.ToList();
+            ViewBag.Post = db.post.ToList();
+            ViewBag.Contact = db.contact.ToList();
+            ViewBag.Location = db.location.ToList();
+            ViewBag.Status = db.status.ToList();
+
+            return View();
         }
 
         [HttpPost]
@@ -78,7 +84,8 @@ namespace SysInternshipManagement.Controllers
 
         public ActionResult Index()
         {
-            return View(db.internship.ToList());
+            ViewBag.Internship = db.internship.ToList();
+            return View();
         }
 
         public ActionResult UploadFile()
