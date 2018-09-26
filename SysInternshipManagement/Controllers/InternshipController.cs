@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using SysInternshipManagement.Migrations;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,6 +11,7 @@ namespace SysInternshipManagement.Controllers
     public class InternshipController : Controller
     {
         public static string fileName;
+        private DatabaseContext db = new DatabaseContext();
 
         // GET: Intership
         public ActionResult Edit()
@@ -34,7 +36,7 @@ namespace SysInternshipManagement.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(db.internship.ToList());
         }
 
         public ActionResult UploadFile()
