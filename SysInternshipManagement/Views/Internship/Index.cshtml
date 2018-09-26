@@ -12,8 +12,7 @@
         @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
     </div>
     <div style="margin-bottom: 20px;">
-        <form action="/Internship/Edit" method="post">
-            <input name="create" type="hidden" value="true"/>
+        <form action="/Internship/AddInternship" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
         </form>
     </div>

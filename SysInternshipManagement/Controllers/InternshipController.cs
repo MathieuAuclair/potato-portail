@@ -85,6 +85,11 @@ namespace SysInternshipManagement.Controllers
 
             db.SaveChanges();
 
+            ViewBag.Internship = db.internship.ToList();
+            ViewBag.Post = db.post.ToList();
+            ViewBag.Contact = db.contact.ToList();
+            ViewBag.Status = db.status.ToList();
+            ViewBag.Location = db.location.ToList();
 
             return RedirectToAction("Index");
         }
@@ -122,47 +127,44 @@ namespace SysInternshipManagement.Controllers
         [HttpPost]
         public ActionResult AddInternship()
         {
-            if (Request.Form["create"] != null)
-            {
-                var post = new Post();
-                post.Name = "test ";
-                db.post.Add(post);
+            var post = new Post();
+            post.Name = "test";
+            db.post.Add(post);
 
-                db.SaveChanges();
+            db.SaveChanges();
 
-                var status = new Status();
-                status.StatusInternship = "test";
-                db.status.Add(status);
+            var status = new Status();
+            status.StatusInternship = "test";
+            db.status.Add(status);
 
-                db.SaveChanges();
+            db.SaveChanges();
 
-                var location = new Location();
-                location.Name = "test";
-                db.location.Add(location);
+            var location = new Location();
+            location.Name = "test";
+            db.location.Add(location);
 
-                db.SaveChanges();
+            db.SaveChanges();
 
-                var contact = new Contact();
-                contact.Name = "test";
-                contact.Email = "test";
-                contact.Phone = "test";
-                db.contact.Add(contact);
+            var contact = new Contact();
+            contact.Name = "test";
+            contact.Email = "test";
+            contact.Phone = "test";
+            db.contact.Add(contact);
 
-                db.SaveChanges();
+            db.SaveChanges();
 
-                var internship = new Internship();
-                internship.Location = location;
-                internship.Post = post;
-                internship.Status = status;
-                internship.Contact = contact;
-                internship.Address = "test";
-                internship.Description = "test";
-                internship.PostalCode = "test";
-                internship.Salary = 15;
-                db.internship.Add(internship);
+            var internship = new Internship();
+            internship.Location = location;
+            internship.Post = post;
+            internship.Status = status;
+            internship.Contact = contact;
+            internship.Address = "test";
+            internship.Description = "test";
+            internship.PostalCode = "test";
+            internship.Salary = 15;
+            db.internship.Add(internship);
 
-                db.SaveChanges();
-            }
+            db.SaveChanges();
 
             ViewBag.Internship = db.internship.ToList();
             ViewBag.Post = db.post.ToList();
@@ -170,7 +172,7 @@ namespace SysInternshipManagement.Controllers
             ViewBag.Location = db.location.ToList();
             ViewBag.Status = db.status.ToList();
 
-            return View();
+            return RedirectToAction("Edit");
         }
     }
 }
