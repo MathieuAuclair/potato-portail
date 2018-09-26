@@ -1,4 +1,5 @@
-﻿@using SysInternshipManagement.Models.Widget
+﻿@model IEnumerable<SysInternshipManagement.Models.Internship>
+@using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,25 +12,25 @@
         <h1>Stage</h1>
 
         <div>
-            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Poste de stage"))
+            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Poste de stage", "Post"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description"))
+            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "Description"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse", "Address"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Location du stage"))
+            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Location du stage", "Location"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "Salary"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Contact"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Contact", "Contact"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiInputButton", new FlatUiInputButton("Ajouter un fichier"))
+            @Html.Partial("Widget/_FlatUiInputButton", new FlatUiInputButton("Ajouter un fichier", "File"))
         </div>
         <div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter ce stage"))

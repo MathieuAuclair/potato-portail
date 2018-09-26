@@ -17,7 +17,7 @@ namespace SysInternshipManagement.Controllers
         // GET: Intership
         public ActionResult Edit()
         {
-            return View();
+            return View(db.internship.ToList(););
         }
 
         [HttpPost]
