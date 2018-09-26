@@ -164,6 +164,10 @@
     <Compile Include="Migrations\201809261520558_add_documentname_field.Designer.cs">
       <DependentUpon>201809261520558_add_documentname_field.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809262151139_update_location_models.cs" />
+    <Compile Include="Migrations\201809262151139_update_location_models.Designer.cs">
+      <DependentUpon>201809262151139_update_location_models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseContext.cs" />
     <Compile Include="Migrations\InternshipInitializer.cs" />
@@ -263,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809261520558_add_documentname_field.resx">
       <DependentUpon>201809261520558_add_documentname_field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809262151139_update_location_models.resx">
+      <DependentUpon>201809262151139_update_location_models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

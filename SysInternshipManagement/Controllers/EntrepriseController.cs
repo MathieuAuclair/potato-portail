@@ -1,5 +1,4 @@
-﻿using SysInternshipManagement.Migrations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,11 +8,9 @@ namespace SysInternshipManagement.Controllers
 {
     public class EntrepriseController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
-
         public ActionResult Index()
         {
-            return View(db.business.ToList());
+            return View();
         }
 
         public ActionResult Edit()
