@@ -19,9 +19,12 @@ namespace SysInternshipManagement.Models
         public int CivicNumber { get; set; }
 
         [Required]
-        public string State { get; set; }
+        public string CountryState { get; set; }
 
         [Required]
         public string Country { get; set; }
+
+        [Required]
+        public string PostalCode { get; set; }
     }
 }
