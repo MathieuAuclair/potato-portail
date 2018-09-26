@@ -192,7 +192,7 @@ namespace SysInternshipManagement.Controllers
             ViewBag.Status = db.status.ToList();
             ViewBag.Location = db.location.ToList();
 
-            return RedirectToAction("Edit", internship.IdInternship);
+            return RedirectToAction("/Edit", new { IdInternship = internship.IdInternship });
         }
     }
 }
