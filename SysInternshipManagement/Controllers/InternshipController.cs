@@ -111,6 +111,10 @@ namespace SysInternshipManagement.Controllers
         public ActionResult Index()
         {
             ViewBag.Internship = db.internship.ToList();
+            ViewBag.Post = db.post.ToList();
+            ViewBag.Contact = db.contact.ToList();
+            ViewBag.Status = db.status.ToList();
+            ViewBag.Location = db.location.ToList();
             return View();
         }
 
@@ -169,6 +173,7 @@ namespace SysInternshipManagement.Controllers
             internship.Description = "test";
             internship.PostalCode = "test";
             internship.Salary = 15;
+            internship.DocumentName = "sample.txt";
             db.internship.Add(internship);
 
             db.SaveChanges();
@@ -176,8 +181,8 @@ namespace SysInternshipManagement.Controllers
             ViewBag.Internship = db.internship.ToList();
             ViewBag.Post = db.post.ToList();
             ViewBag.Contact = db.contact.ToList();
-            ViewBag.Location = db.location.ToList();
             ViewBag.Status = db.status.ToList();
+            ViewBag.Location = db.location.ToList();
 
             return RedirectToAction("Edit");
         }
