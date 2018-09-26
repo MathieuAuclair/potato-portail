@@ -15,10 +15,18 @@ namespace SysInternshipManagement.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        // GET: Intership
         public ActionResult Edit()
         {
-            return View(db.internship.ToList());
+            if (Request.QueryString["IdInternship"] == null) {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IdInternship = Request.QueryString["IdInternship"];
+            ViewBag.Post = db.post.ToList();
+            ViewBag.Contact = db.contact.ToList();
+            ViewBag.Status = db.status.ToList();
+            ViewBag.Location = db.location.ToList();
+            return View();
         }
 
         [HttpPost]
@@ -184,7 +192,7 @@ namespace SysInternshipManagement.Controllers
             ViewBag.Status = db.status.ToList();
             ViewBag.Location = db.location.ToList();
 
-            return RedirectToAction("Edit");
+            return RedirectToAction("Edit", internship.IdInternship);
         }
     }
 }

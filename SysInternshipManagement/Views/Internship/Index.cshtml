@@ -55,9 +55,10 @@
                     @Html.DisplayFor(model => item.Address)
                 </td>
                 <td>
-                    <form>
+                    <form action="/Internship/Edit" method="get">
                         <div>
-                            <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
+                            <button>
+                                <input type="hidden" name="IdInternship" value="@Html.DisplayFor(model => item.IdInternship)" />
                                 <img src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
                         </div>
