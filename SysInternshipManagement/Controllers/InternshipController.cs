@@ -13,7 +13,6 @@ namespace SysInternshipManagement.Controllers
 {
     public class InternshipController : Controller
     {
-        public static string fileName;
         private DatabaseContext db = new DatabaseContext();
 
         // GET: Intership
@@ -25,11 +24,12 @@ namespace SysInternshipManagement.Controllers
         [HttpPost]
         public ActionResult Edit(HttpPostedFileBase file)
         {
+            string Name = null;
+
             if (file != null && file.ContentLength > 0)
             {
-                var Name = Path.GetFileName(file.FileName);
+                Name = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/DescriptionStage"), Name);
-                fileName = Name;
                 file.SaveAs(path);
             }
 
@@ -79,7 +79,7 @@ namespace SysInternshipManagement.Controllers
             internship.Location = location;
             internship.Description = Request.Form["Description"];
             internship.Address = Request.Form["Address"];
-            internship.DocumentName = Request.Form["DocumentName"];
+            internship.DocumentName = Name;
             internship.PostalCode = Request.Form["PostalCode"];
             internship.Salary = Convert.ToSingle(Request.Form["Salary"]);
 
@@ -114,8 +114,15 @@ namespace SysInternshipManagement.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult UploadFile()
         {
+            var fileName = Request.Form["DocumentName"];
+
+            if (fileName == null || fileName == "") {
+                return RedirectToAction("Index");
+            }
+
             Response.ContentType = "application/octet-stream";
             Response.AppendHeader("content-disposition", "attachement;filename=" + fileName);
             Response.TransmitFile(Server.MapPath("~/DescriptionStage/" + fileName));
