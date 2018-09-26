@@ -17,6 +17,47 @@ namespace SysInternshipManagement.Controllers
         // GET: Intership
         public ActionResult Edit()
         {
+            if (Request.QueryString["create"] != null) {
+                var post = new Post();
+                post.Name = "test ";
+                db.post.Add(post);
+
+                db.SaveChanges();
+
+                var status = new Status();
+                status.StatusInternship = "test";
+                db.status.Add(status);
+
+                db.SaveChanges();
+
+                var location = new Location();
+                location.Name = "test";
+                db.location.Add(location);
+
+                db.SaveChanges();
+
+                var contact = new Contact();
+                contact.Name = "test";
+                contact.Email = "test";
+                contact.Phone = "test";
+                db.contact.Add(contact);
+
+                db.SaveChanges();
+
+                var internship = new Internship();
+                internship.Location = location;
+                internship.Post = post;
+                internship.Status = status;
+                internship.Contact = contact;
+                internship.Address = "test";
+                internship.Description = "test";
+                internship.PostalCode = "test";
+                internship.Salary = 15;
+                db.internship.Add(internship);
+
+                db.SaveChanges();
+            }
+
             return View();
         }
 
@@ -37,45 +78,6 @@ namespace SysInternshipManagement.Controllers
 
         public ActionResult Index()
         {
-            var post = new Post();
-            post.Name = "test";
-            db.post.Add(post);
-
-            db.SaveChanges();
-
-            var status = new Status();
-            status.StatusInternship = "test";
-            db.status.Add(status);
-
-            db.SaveChanges();
-
-            var location = new Location();
-            location.Name = "test";
-            db.location.Add(location);
-
-            db.SaveChanges();
-
-            var contact = new Contact();
-            contact.Name = "test";
-            contact.Email = "test";
-            contact.Phone = "test";
-            db.contact.Add(contact);
-
-            db.SaveChanges();
-
-            var internship = new Internship();
-            internship.Location = location;
-            internship.Post = post;
-            internship.Status = status;
-            internship.Contact = contact;
-            internship.Address = "test";
-            internship.Description = "test";
-            internship.PostalCode = "test";
-            internship.Salary = 15;
-            db.internship.Add(internship);
-
-            db.SaveChanges();
-
             return View(db.internship.ToList());
         }
 

@@ -12,9 +12,10 @@
         @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
     </div>
     <div style="margin-bottom: 20px;">
-        <a href="/Internship/Edit">
+        <form action="/Internship/Edit" method="get">
+            <input name="create" type="hidden" value="true"/>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
-        </a>
+        </form>
     </div>
 
     <table>
