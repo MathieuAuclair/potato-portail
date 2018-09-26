@@ -15,6 +15,13 @@ namespace SysInternshipManagement.Models
         [Required]
         public string Address { get; set; }
 
-        public virtual Location Location { get; set; }
+        [Required]
+        public int CivicNumber { get; set; }
+
+        [Required]
+        public string State { get; set; }
+
+        [Required]
+        public string Country { get; set; }
     }
 }
