@@ -26,58 +26,29 @@
             <th></th>
             <th></th>
         </tr>
-        <tr>
-            <td>Programmeur</td>
-            <td>Stage 1</td>
-            <td>Stage 1</td>
-            <td>Stage 1</td>
-            <td>
-                <div>
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Technicien</td>
-            <td>Stage 2</td>
-            <td>Stage 2</td>
-            <td>Stage 2</td>
-            <td>
-                <div>
 
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Ingénieur Réseaux</td>
-            <td>Stage 3</td>
-            <td>Stage 3</td>
-            <td>Stage 3</td>
-            <td>
-                <div>
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Analyste</td>
-            <td>Stage 4</td>
-            <td>Stage 4</td>
-            <td>Stage 4</td>
-            <td>
-                <div>
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
+        @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Post)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact)
+        </td>
+        <td>
+            <div>
+                <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
+                    <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                </button>
+            </div>
+        </td>
+    </tr>
+    }
     </table>
 </div>

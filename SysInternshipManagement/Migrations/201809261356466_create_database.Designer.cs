@@ -13,7 +13,7 @@ namespace SysInternshipManagement.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201809261314502_create_database"; }
+            get { return "201809261356466_create_database"; }
         }
         
         string IMigrationMetadata.Source

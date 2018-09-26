@@ -49,6 +49,9 @@ namespace SysInternshipManagement.Controllers
             return View();
         }
 
-
+        public ActionResult addInternship()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }

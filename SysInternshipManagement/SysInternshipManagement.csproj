@@ -156,10 +156,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809261314502_create_database.cs" />
-    <Compile Include="Migrations\201809261314502_create_database.Designer.cs">
-      <DependentUpon>201809261314502_create_database.cs</DependentUpon>
+    <Compile Include="Migrations\201809261356466_create_database.cs" />
+    <Compile Include="Migrations\201809261356466_create_database.Designer.cs">
+      <DependentUpon>201809261356466_create_database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseContext.cs" />
     <Compile Include="Migrations\InternshipInitializer.cs" />
     <Compile Include="Models\Application.cs" />
@@ -253,8 +254,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809261314502_create_database.resx">
-      <DependentUpon>201809261314502_create_database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809261356466_create_database.resx">
+      <DependentUpon>201809261356466_create_database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

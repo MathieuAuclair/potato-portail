@@ -8,7 +8,7 @@ namespace SysInternshipManagement.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Applications",
+                "dbo.Application",
                 c => new
                     {
                         IdApplication = c.Int(nullable: false, identity: true),
@@ -17,13 +17,13 @@ namespace SysInternshipManagement.Migrations
                         Student_IdStudent = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.IdApplication)
-                .ForeignKey("dbo.Internships", t => t.Internship_IdInternship, cascadeDelete: true)
-                .ForeignKey("dbo.Students", t => t.Student_IdStudent, cascadeDelete: true)
+                .ForeignKey("dbo.Internship", t => t.Internship_IdInternship, cascadeDelete: true)
+                .ForeignKey("dbo.Student", t => t.Student_IdStudent, cascadeDelete: true)
                 .Index(t => t.Internship_IdInternship)
                 .Index(t => t.Student_IdStudent);
             
             CreateTable(
-                "dbo.Internships",
+                "dbo.Internship",
                 c => new
                     {
                         IdInternship = c.Int(nullable: false, identity: true),
@@ -37,9 +37,9 @@ namespace SysInternshipManagement.Migrations
                         Status_IdStatus = c.Int(),
                     })
                 .PrimaryKey(t => t.IdInternship)
-                .ForeignKey("dbo.Contacts", t => t.Contact_IdContact)
-                .ForeignKey("dbo.Locations", t => t.Location_IdLocation)
-                .ForeignKey("dbo.Posts", t => t.Post_IdPost)
+                .ForeignKey("dbo.Contact", t => t.Contact_IdContact)
+                .ForeignKey("dbo.Location", t => t.Location_IdLocation)
+                .ForeignKey("dbo.Post", t => t.Post_IdPost)
                 .ForeignKey("dbo.Status", t => t.Status_IdStatus)
                 .Index(t => t.Contact_IdContact)
                 .Index(t => t.Location_IdLocation)
@@ -47,7 +47,7 @@ namespace SysInternshipManagement.Migrations
                 .Index(t => t.Status_IdStatus);
             
             CreateTable(
-                "dbo.Contacts",
+                "dbo.Contact",
                 c => new
                     {
                         IdContact = c.Int(nullable: false, identity: true),
@@ -58,7 +58,7 @@ namespace SysInternshipManagement.Migrations
                 .PrimaryKey(t => t.IdContact);
             
             CreateTable(
-                "dbo.Locations",
+                "dbo.Location",
                 c => new
                     {
                         IdLocation = c.Int(nullable: false, identity: true),
@@ -66,11 +66,11 @@ namespace SysInternshipManagement.Migrations
                         Preference_IdPreference = c.Int(),
                     })
                 .PrimaryKey(t => t.IdLocation)
-                .ForeignKey("dbo.Preferences", t => t.Preference_IdPreference)
+                .ForeignKey("dbo.Preference", t => t.Preference_IdPreference)
                 .Index(t => t.Preference_IdPreference);
             
             CreateTable(
-                "dbo.Posts",
+                "dbo.Post",
                 c => new
                     {
                         IdPost = c.Int(nullable: false, identity: true),
@@ -78,7 +78,7 @@ namespace SysInternshipManagement.Migrations
                         Preference_IdPreference = c.Int(),
                     })
                 .PrimaryKey(t => t.IdPost)
-                .ForeignKey("dbo.Preferences", t => t.Preference_IdPreference)
+                .ForeignKey("dbo.Preference", t => t.Preference_IdPreference)
                 .Index(t => t.Preference_IdPreference);
             
             CreateTable(
@@ -91,7 +91,7 @@ namespace SysInternshipManagement.Migrations
                 .PrimaryKey(t => t.IdStatus);
             
             CreateTable(
-                "dbo.Students",
+                "dbo.Student",
                 c => new
                     {
                         IdStudent = c.Int(nullable: false, identity: true),
@@ -106,11 +106,11 @@ namespace SysInternshipManagement.Migrations
                         Preference_IdPreference = c.Int(),
                     })
                 .PrimaryKey(t => t.IdStudent)
-                .ForeignKey("dbo.Preferences", t => t.Preference_IdPreference)
+                .ForeignKey("dbo.Preference", t => t.Preference_IdPreference)
                 .Index(t => t.Preference_IdPreference);
             
             CreateTable(
-                "dbo.Preferences",
+                "dbo.Preference",
                 c => new
                     {
                         IdPreference = c.Int(nullable: false, identity: true),
@@ -119,7 +119,7 @@ namespace SysInternshipManagement.Migrations
                 .PrimaryKey(t => t.IdPreference);
             
             CreateTable(
-                "dbo.Businesses",
+                "dbo.Business",
                 c => new
                     {
                         IdBusiness = c.Int(nullable: false, identity: true),
@@ -129,13 +129,13 @@ namespace SysInternshipManagement.Migrations
                         Preference_IdPreference = c.Int(),
                     })
                 .PrimaryKey(t => t.IdBusiness)
-                .ForeignKey("dbo.Locations", t => t.Location_IdLocation)
-                .ForeignKey("dbo.Preferences", t => t.Preference_IdPreference)
+                .ForeignKey("dbo.Location", t => t.Location_IdLocation)
+                .ForeignKey("dbo.Preference", t => t.Preference_IdPreference)
                 .Index(t => t.Location_IdLocation)
                 .Index(t => t.Preference_IdPreference);
             
             CreateTable(
-                "dbo.Responsibles",
+                "dbo.Responsible",
                 c => new
                     {
                         IdResponsible = c.Int(nullable: false, identity: true),
@@ -151,38 +151,38 @@ namespace SysInternshipManagement.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Applications", "Student_IdStudent", "dbo.Students");
-            DropForeignKey("dbo.Students", "Preference_IdPreference", "dbo.Preferences");
-            DropForeignKey("dbo.Posts", "Preference_IdPreference", "dbo.Preferences");
-            DropForeignKey("dbo.Locations", "Preference_IdPreference", "dbo.Preferences");
-            DropForeignKey("dbo.Businesses", "Preference_IdPreference", "dbo.Preferences");
-            DropForeignKey("dbo.Businesses", "Location_IdLocation", "dbo.Locations");
-            DropForeignKey("dbo.Applications", "Internship_IdInternship", "dbo.Internships");
-            DropForeignKey("dbo.Internships", "Status_IdStatus", "dbo.Status");
-            DropForeignKey("dbo.Internships", "Post_IdPost", "dbo.Posts");
-            DropForeignKey("dbo.Internships", "Location_IdLocation", "dbo.Locations");
-            DropForeignKey("dbo.Internships", "Contact_IdContact", "dbo.Contacts");
-            DropIndex("dbo.Businesses", new[] { "Preference_IdPreference" });
-            DropIndex("dbo.Businesses", new[] { "Location_IdLocation" });
-            DropIndex("dbo.Students", new[] { "Preference_IdPreference" });
-            DropIndex("dbo.Posts", new[] { "Preference_IdPreference" });
-            DropIndex("dbo.Locations", new[] { "Preference_IdPreference" });
-            DropIndex("dbo.Internships", new[] { "Status_IdStatus" });
-            DropIndex("dbo.Internships", new[] { "Post_IdPost" });
-            DropIndex("dbo.Internships", new[] { "Location_IdLocation" });
-            DropIndex("dbo.Internships", new[] { "Contact_IdContact" });
-            DropIndex("dbo.Applications", new[] { "Student_IdStudent" });
-            DropIndex("dbo.Applications", new[] { "Internship_IdInternship" });
-            DropTable("dbo.Responsibles");
-            DropTable("dbo.Businesses");
-            DropTable("dbo.Preferences");
-            DropTable("dbo.Students");
+            DropForeignKey("dbo.Application", "Student_IdStudent", "dbo.Student");
+            DropForeignKey("dbo.Student", "Preference_IdPreference", "dbo.Preference");
+            DropForeignKey("dbo.Post", "Preference_IdPreference", "dbo.Preference");
+            DropForeignKey("dbo.Location", "Preference_IdPreference", "dbo.Preference");
+            DropForeignKey("dbo.Business", "Preference_IdPreference", "dbo.Preference");
+            DropForeignKey("dbo.Business", "Location_IdLocation", "dbo.Location");
+            DropForeignKey("dbo.Application", "Internship_IdInternship", "dbo.Internship");
+            DropForeignKey("dbo.Internship", "Status_IdStatus", "dbo.Status");
+            DropForeignKey("dbo.Internship", "Post_IdPost", "dbo.Post");
+            DropForeignKey("dbo.Internship", "Location_IdLocation", "dbo.Location");
+            DropForeignKey("dbo.Internship", "Contact_IdContact", "dbo.Contact");
+            DropIndex("dbo.Business", new[] { "Preference_IdPreference" });
+            DropIndex("dbo.Business", new[] { "Location_IdLocation" });
+            DropIndex("dbo.Student", new[] { "Preference_IdPreference" });
+            DropIndex("dbo.Post", new[] { "Preference_IdPreference" });
+            DropIndex("dbo.Location", new[] { "Preference_IdPreference" });
+            DropIndex("dbo.Internship", new[] { "Status_IdStatus" });
+            DropIndex("dbo.Internship", new[] { "Post_IdPost" });
+            DropIndex("dbo.Internship", new[] { "Location_IdLocation" });
+            DropIndex("dbo.Internship", new[] { "Contact_IdContact" });
+            DropIndex("dbo.Application", new[] { "Student_IdStudent" });
+            DropIndex("dbo.Application", new[] { "Internship_IdInternship" });
+            DropTable("dbo.Responsible");
+            DropTable("dbo.Business");
+            DropTable("dbo.Preference");
+            DropTable("dbo.Student");
             DropTable("dbo.Status");
-            DropTable("dbo.Posts");
-            DropTable("dbo.Locations");
-            DropTable("dbo.Contacts");
-            DropTable("dbo.Internships");
-            DropTable("dbo.Applications");
+            DropTable("dbo.Post");
+            DropTable("dbo.Location");
+            DropTable("dbo.Contact");
+            DropTable("dbo.Internship");
+            DropTable("dbo.Application");
         }
     }
 }
