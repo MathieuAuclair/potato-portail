@@ -58,7 +58,7 @@ namespace SysInternshipManagement.Controllers
                 db.SaveChanges();
             }
 
-            return View();
+            return View(db.internship.ToList());
         }
 
         [HttpPost]
