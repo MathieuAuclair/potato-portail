@@ -2,133 +2,73 @@ namespace SysInternshipManagement.Migrations
 {
     using SysInternshipManagement.Models;
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SysInternshipManagement.Migrations.DatabaseContext>
     {
         public Configuration()
         {
-            AutomaticMigrationDataLossAllowed = true;
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(DatabaseContext context)
+        protected override void Seed(SysInternshipManagement.Migrations.DatabaseContext context)
         {
-            Location location = new Location();
-            location.Name = "test";
+            var db = context;
 
-            Status status = new Status();
-            status.StatusInternship = "test";
+            var post = new Post();
+            post.Name = "Programmeur";
+            db.post.Add(post);
 
-            Post post = new Post();
-            post.Name = "test";
+            db.SaveChanges();
 
-            Internship internship = new Internship();
-            internship.Status = status;
-            internship.Post = post;
-            internship.Location = location;
+            var status = new Status();
+            status.StatusInternship = "Occupé";
+            db.status.Add(status);
 
-            context.status.Add(status);
-            /*context.application.Add(
-                new Application
-                {
-                    Timestamp = DateTime.UtcNow,
-                    Internship =
-                    {
-                        new Internship
-                        {
-                            Address = "legit street",
-                            Description = "legit development internship",
-                            PostalCode = "A0B 1C3",
-                            Salary = 20.0f,
-                            Status =
-                            {
-                                new Status
-                                {
-                                    StatusInternship = "Invalid",
-                                }
-                            },
-                            Contact =
-                            {
-                                new Contact
-                                {
-                                    Email = "beepboopboop@beep.boop",
-                                    Name = "Mathieu Auclair",
-                                    Phone = "1-(800)-666-BEEP",
-                                },
-                            },
-                            Location =
-                            {
-                                new Location
-                                {
-                                    Name = "Tunis"
-                                }
-                            },
-                            Post =
-                            {
-                                new Post
-                                {
-                                    Name = "Architecte SystÃ¨me",
-                                },
-                            },
-                        },
-                    },
-                    Student =
-                    {
-                        new Student
-                        {
-                            IdPreference =
-                            {
-                                new Preference
-                                {
-                                    Salary = 20.0f,
-                                    Location =
-                                    {
-                                        new Location
-                                        {
-                                            Name = "Silicon Valley"
-                                        },
-                                    },
-                                    Post =
-                                    {
-                                        new Post
-                                        {
-                                            Name = "DÃ©veloppeur `Full Stack`",
-                                        }
-                                    },
-                                    Business =
-                                    {
-                                        new Business
-                                        {
-                                            Name = "Indian SCC (scam call center)",
-                                            Address = "110 rue Principale",
-                                            Location =
-                                            {
-                                                new Location
-                                                {
-                                                    Name = "Chicoutimi"
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                            DaNumber = "1633485",
-                            EmailPersonal = "mathieuauclair@aol.com",
-                            EmailSchool = "AucMa1633485@etu.cegepjonquiere.ca",
-                            FirstName = "mathieu",
-                            LastName = "auclair",
-                            Phone = "1-(123)-456-7890",
-                            PermanentCode = "AucMa12099709",
-                            Role = "Ã©tudiant",
-                        }
-                    },
-                });*/
+            db.SaveChanges();
 
-            base.Seed(context);
+            var location = new Location();
+            location.Name = "Montréal";
+            db.location.Add(location);
+
+            db.SaveChanges();
+
+            var contact = new Contact();
+            contact.Name = "Aymen";
+            contact.Email = "AymenSioud@beep.boop";
+            contact.Phone = "+1-(123)-456-7890";
+            db.contact.Add(contact);
+
+            db.SaveChanges();
+
+            var post2 = new Post();
+            post.Name = "Technicien";
+            db.post.Add(post);
+
+            db.SaveChanges();
+
+            var status2 = new Status();
+            status.StatusInternship = "Disponible";
+            db.status.Add(status);
+
+            db.SaveChanges();
+
+            var location2 = new Location();
+            location.Name = "Saguenay";
+            db.location.Add(location);
+
+            db.SaveChanges();
+
+            var contact2 = new Contact();
+            contact.Name = "Éric Dallaire";
+            contact.Email = "EricChose@Microsoft.xyz";
+            contact.Phone = "+1-(098)-765-4321";
+            db.contact.Add(contact);
+
+            
+            db.SaveChanges();
         }
     }
 }

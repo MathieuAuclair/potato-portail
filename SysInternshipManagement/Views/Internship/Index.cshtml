@@ -1,3 +1,4 @@
+@model IEnumerable<SysInternshipManagement.Models.Internship>
 @using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,9 +12,9 @@
         @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
     </div>
     <div style="margin-bottom: 20px;">
-        <a href="/Internship/Edit">
+        <form action="/Internship/AddInternship" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
-        </a>
+        </form>
     </div>
 
     <table>
@@ -22,61 +23,58 @@
             <th>Lieux</th>
             <th>Contact</th>
             <th>Status</th>
+            <th>Description</th>
+            <th>Salaire</th>
+            <th>Adresse</th>
             <th></th>
             <th></th>
         </tr>
-        <tr>
-            <td>Programmeur</td>
-            <td>Stage 1</td>
-            <td>Stage 1</td>
-            <td>Stage 1</td>
-            <td>
-                <div>
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Technicien</td>
-            <td>Stage 2</td>
-            <td>Stage 2</td>
-            <td>Stage 2</td>
-            <td>
-                <div>
 
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Ingénieur Réseaux</td>
-            <td>Stage 3</td>
-            <td>Stage 3</td>
-            <td>Stage 3</td>
-            <td>
-                <div>
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Analyste</td>
-            <td>Stage 4</td>
-            <td>Stage 4</td>
-            <td>Stage 4</td>
-            <td>
-                <div>
-                    <button onclick="location.href = '@Url.Action("Edit", "Internship")'">
-                        <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                    </button>
-                </div>
-            </td>
-        </tr>
+        @foreach (var item in ViewBag.Internship as List<SysInternshipManagement.Models.Internship>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Post.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Location.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Contact.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Status.StatusInternship)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Salary) $
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Address)
+                </td>
+                <td>
+                    <form action="/Internship/Edit" method="get">
+                        <div>
+                            <button>
+                                <input type="hidden" name="IdInternship" value="@Html.DisplayFor(model => item.IdInternship)" />
+                                <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                            </button>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form action="/Internship/UploadFile" method="post">
+                        <div>
+                            <button>
+                                <input type="hidden" name="DocumentName" value="@Html.DisplayFor(model => item.DocumentName)" />
+                                <img src="~/Content/Icons/baseline-settings-20px.svg" />
+                            </button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
     </table>
 </div>

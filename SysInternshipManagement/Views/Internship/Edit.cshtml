@@ -6,34 +6,71 @@
 @{
     ViewBag.Title = "Création Stage";
 }
-<form action="" method="post" enctype="multipart/form-data">
+<form action="/Internship/Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="idIntership" value="@ViewBag.IdInternship" />
     <div class="form-content">
         <h1>Stage</h1>
-
         <div>
-            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Poste de stage"))
+            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "Description"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse", "Address"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Code Postal", "PostalCode"))
+        </div>
+        <div class="flat-select">
+            <p>Location du Stage</p>
+            <select name="IdLocation">
+                <optgroup label="Value">
+                    @foreach (var item in ViewBag.Location as List<SysInternshipManagement.Models.Location>)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.IdLocation)">@Html.DisplayFor(modelItem => item.Name)</option>
+                    }
+                </optgroup>
+            </select>
+        </div>
+        <div class="flat-select">
+            <p>Poste</p>
+            <select name="IdPost">
+                <optgroup label="Value">
+                    @foreach (var item in ViewBag.Post as List<SysInternshipManagement.Models.Post>)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.IdPost)">@Html.DisplayFor(modelItem => item.Name)</option>
+                    }
+                </optgroup>
+            </select>
+        </div>
+        <div class="flat-select">
+            <p>Status</p>
+            <select name="IdStatus">
+                <optgroup label="Value">
+                    @foreach (var item in ViewBag.Status as List<SysInternshipManagement.Models.Status>)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatusInternship)</option>
+                    }
+                </optgroup>
+            </select>
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect("Location du stage"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "Salary"))
+        </div>
+        <div class="flat-select">
+            <p>Contact du Stage</p>
+            <select name="IdContact">
+                <optgroup label="Value">
+                    @foreach (var item in ViewBag.Contact as List<SysInternshipManagement.Models.Contact>)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.IdContact)">@Html.DisplayFor(modelItem => item.Name)</option>
+                    }
+                </optgroup>
+            </select>
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération"))
+            @Html.Partial("Widget/_FlatUiInputButton", new FlatUiInputButton("Ajouter un fichier", "DocumentName"))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Contact"))
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))
         </div>
-        <div>
-            @Html.Partial("Widget/_FlatUiInputButton", new FlatUiInputButton("Ajouter un fichier"))
-        </div>
-        <div>
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter ce stage"))
-        </div>
-
     </div>
 </form>

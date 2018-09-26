@@ -3,7 +3,8 @@ namespace SysInternshipManagement.Models.Widget
     public class FlatUiTextarea
     {
         public string Label { get; set; }
-        
+        public string Name { get; set; }
+
         public FlatUiTextarea()
         {
         }
@@ -11,6 +12,12 @@ namespace SysInternshipManagement.Models.Widget
         public FlatUiTextarea(string label)
         {
             Label = label;
+        }
+
+        public FlatUiTextarea(string label,string name)
+        {
+            Label = label;
+            Name = name;
         }
     }
 }

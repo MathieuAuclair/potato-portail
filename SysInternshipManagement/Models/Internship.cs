@@ -19,6 +19,8 @@ namespace SysInternshipManagement.Models
 
         public float Salary { get; set; }
 
+        public string DocumentName { get; set; }
+
         public virtual Location Location { get; set; }
 
         public virtual Post Post { get; set; }
