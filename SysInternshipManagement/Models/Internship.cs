@@ -17,6 +17,15 @@ namespace SysInternshipManagement.Models
         [Required]
         public string PostalCode { get; set; }
 
+        [Required]
+        public int CivicNumber { get; set; }
+
+        [Required]
+        public string CountryState { get; set; }
+
+        [Required]
+        public string Country { get; set; }
+
         public float Salary { get; set; }
 
         public string DocumentName { get; set; }
