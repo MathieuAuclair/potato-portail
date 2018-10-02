@@ -8,7 +8,11 @@ To update database, you can create a migration that will update the database
 ## Development tools
 [MS SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) use developer edition, it features all tools required, and it's free for development.
 
-## Converting file
+### Country/Region selector example
+
+[StackBlitz](https://stackblitz.com/edit/geoname-example)
+
+### Converting file
 ```C#
 public string ImageToBase64(Image image,
           System.Drawing.Imaging.ImageFormat format)
