@@ -8,6 +8,6 @@ namespace SysInternshipManagement.Models
         public int IdStatus { get; set; }
 
         [Required]
-        public string StatusInternship { get; set; }
+        public string StatusStage { get; set; }
     }
 }

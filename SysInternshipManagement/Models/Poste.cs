@@ -2,12 +2,12 @@
 
 namespace SysInternshipManagement.Models
 {
-    public class Post
+    public class Poste
     {
         [Key]
-        public int IdPost { get; set; }
+        public int IdPoste { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Nom { get; set; }
     }
 }

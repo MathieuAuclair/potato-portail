@@ -7,13 +7,13 @@ namespace SysInternshipManagement.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class add_documentname_field : IMigrationMetadata
+    public sealed partial class create_database : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_documentname_field));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(create_database));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809261520558_add_documentname_field"; }
+            get { return "201810020206493_create_database"; }
         }
         
         string IMigrationMetadata.Source

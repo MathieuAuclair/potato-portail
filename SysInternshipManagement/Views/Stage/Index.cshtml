@@ -1,4 +1,5 @@
-@model IEnumerable<SysInternshipManagement.Models.Internship>
+@model IEnumerable<SysInternshipManagement.Models.Stage>
+@using SysInternshipManagement.Models
 @using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +13,7 @@
         @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
     </div>
     <div style="margin-bottom: 20px;">
-        <form action="/Internship/AddInternship" method="post">
+        <form action="/Stage/AjouterStage" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
         </form>
     </div>
@@ -25,50 +26,46 @@
             <th>Status</th>
             <th>Description</th>
             <th>Salaire</th>
-            <th>Adresse</th>
             <th></th>
             <th></th>
         </tr>
 
-        @foreach (var item in ViewBag.Internship as List<SysInternshipManagement.Models.Internship>)
+        @foreach (var item in (List<Stage>) ViewBag.Stage)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(model => item.Post.Name)
+                    @Html.DisplayFor(model => item.Poste.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Location.Name)
+                    @Html.DisplayFor(model => item.Location.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Contact.Name)
+                    @Html.DisplayFor(model => item.Contact.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Status.StatusInternship)
+                    @Html.DisplayFor(model => item.Status.StatusStage)
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Salary) $
+                    @Html.DisplayFor(model => item.Salaire) $
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Address)
-                </td>
-                <td>
-                    <form action="/Internship/Edit" method="get">
+                    <form action="/Stage/Edition" method="get">
                         <div>
                             <button>
-                                <input type="hidden" name="IdInternship" value="@Html.DisplayFor(model => item.IdInternship)" />
+                                <input type="hidden" name="IdStage" value="@Html.DisplayFor(model => item.IdStage)" />
                                 <img src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
                         </div>
                     </form>
                 </td>
                 <td>
-                    <form action="/Internship/UploadFile" method="post">
+                    <form action="/Stage/TeleverserFichier" method="post">
                         <div>
                             <button>
-                                <input type="hidden" name="DocumentName" value="@Html.DisplayFor(model => item.DocumentName)" />
+                                <input type="hidden" name="NomDocument" value="@Html.DisplayFor(model => item.NomDocument)" />
                                 <img src="~/Content/Icons/baseline-settings-20px.svg" />
                             </button>
                         </div>

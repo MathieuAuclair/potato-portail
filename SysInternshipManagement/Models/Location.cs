@@ -8,6 +8,6 @@ namespace SysInternshipManagement.Models
         public int IdLocation { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Nom { get; set; }
     }
 }

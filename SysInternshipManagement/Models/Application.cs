@@ -14,9 +14,9 @@ namespace SysInternshipManagement.Models
         public DateTime Timestamp { get; set; }
 
         [Required]
-        public virtual Internship Internship { get; set; }
+        public virtual Stage Stage { get; set; }
 
         [Required]
-        public virtual Student Student { get; set; }
+        public virtual Etudiant Etudiant { get; set; }
     }
 }

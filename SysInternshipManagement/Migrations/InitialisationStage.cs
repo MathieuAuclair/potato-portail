@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SysInternshipManagement.Migrations
 {
-    public class InternshipInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DatabaseContext>
+    public class InitialisationStage : System.Data.Entity.DropCreateDatabaseIfModelChanges<DatabaseContext>
     {
         protected override void Seed(DatabaseContext context)
         {
