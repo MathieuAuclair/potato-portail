@@ -9,31 +9,40 @@
     <h1>Entreprise</h1>
     @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
     <div style="margin-top: 15px; margin-bottom: 15px;">
-        <a href="/Entreprise/Edit">
+        <form action="/Entreprise/Creation" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
-        </a>
+        </form>
     </div>
     <div class=""></div>
     <table>
         <tr>
             <th>Entreprise</th>
             <th>Adresse</th>
-            <th>Contact</th>
+            <th>Code postal</th>
             <th></th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>@Html.DisplayFor(model => item.Nom)</td>
-                <td>@Html.DisplayFor(Model => item.NumeroCivique + item.Rue + item.Ville + item.Pays + item.Province )</td>
-                <td>George Tremblay</td>
+                <td>
+                    @Html.DisplayFor(model => item.NumeroCivique)
+                    @Html.DisplayFor(model => item.Rue)
+                    @Html.DisplayFor(model => item.Ville),
+                    @Html.DisplayFor(model => item.Province),
+                    @Html.DisplayFor(model => item.Pays)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CodePostal)
+                </td>
                 <td>
                     <div>
-                        <a href="/Entreprise/Edit">
+                        <form action="/Entreprise/Edition" method="post">
+                            <input name="id" type="hidden" value="@Html.DisplayFor(model => item.IdEntreprise)"/>
                             <button>
                                 <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                             </button>
-                        </a>
+                        </form>
                     </div>
                 </td>
             </tr>
