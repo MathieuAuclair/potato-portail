@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SysInternshipManagement.Migrations;
@@ -12,6 +13,7 @@ namespace SysInternshipManagement.Controllers
     {
         private readonly DatabaseContext _bd = new DatabaseContext();
 
+        [HttpGet]
         public ActionResult Edition()
         {
             if (Request.QueryString["IdStage"] == null)
@@ -41,8 +43,8 @@ namespace SysInternshipManagement.Controllers
 
             if (!EstCeQueLaRequeteContientLesParametres())
             {
-                Response.StatusCode = 400;
-                Response.End();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
+                    "Les paramètres fournis ne sont pas valide!");
             }
 
             Stage stage = (
@@ -167,20 +169,17 @@ namespace SysInternshipManagement.Controllers
             var stage = new Stage
             {
                 Location = location,
-                
                 CivicNumber = 100,
                 NomRue = "test",
+                Ville = "test",
                 Province = "test",
                 Pays = "CANADA",
                 CodePostal = "test",
-                
                 Poste = poste,
                 Status = status,
                 Contact = contact,
-                
                 Description = "test",
                 NomDocument = "sample.txt",
-                    
                 Salaire = 15,
             };
             
@@ -193,7 +192,7 @@ namespace SysInternshipManagement.Controllers
             ViewBag.Status = _bd.status.ToList();
             ViewBag.Location = _bd.location.ToList();
 
-            return RedirectToAction("Edition", new {stage.IdStage});
+            return View("Edition", stage.IdStage);
         }
     }
 }

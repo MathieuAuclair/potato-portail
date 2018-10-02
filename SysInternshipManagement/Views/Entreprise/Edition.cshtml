@@ -1,0 +1,134 @@
+@model SysInternshipManagement.Models.Entreprise
+@using SysInternshipManagement.Models
+@using SysInternshipManagement.Models.Widget
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Entreprise</h1>
+    <form action="EnregistrerLesModifications" method="post">
+        <input name="id" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)"/>
+        <div class="form-content">
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Nom d'entreprise",
+                        "20px",
+                        "nom",
+                        "text",
+                        Model.Nom
+                        )
+                    )
+            </div>
+            <div>
+                <div class="flat-select">
+                    <p>Pays</p>
+                    <select name="pays" id="select-pays">
+                        <option selected="selected" hidden="hidden">@Html.DisplayFor(model => Model.Pays)</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Province",
+                        "20px",
+                        "province",
+                        "text",
+                        Model.Province
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Ville",
+                        "20px",
+                        "ville",
+                        "text",
+                        Model.Ville
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Rue",
+                        "20px",
+                        "rue",
+                        "text",
+                        Model.Rue
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Numéro civique",
+                        "40px",
+                        "numeroCivique",
+                        "number",
+                        "2"
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Code postal",
+                        "20px",
+                        "codePostal",
+                        "text",
+                        Model.CodePostal
+                        )
+                    )
+            </div>
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </div>
+    </form>
+    
+    <script>
+        (function() {
+            var newXhr;
+
+            function sendXhr(options) {
+                newXhr = new XMLHttpRequest();
+                if (options.sendJSON === true) {
+                    options.contentType = "application/json; charset=utf-8";
+                    options.data = JSON.stringify(options.data);
+                } else {
+                    options.contentType = "application/x-www-form-urlencoded";
+                }
+                newXhr.open(options.type, options.url, options.async || true);
+                newXhr.setRequestHeader("Content-Type", options.contentType);
+                newXhr.send((options.type === "POST") ? options.data : null);
+                newXhr.onreadystatechange = options.callback;
+                return newXhr;
+            }
+
+            sendXhr({
+                type: "GET",
+                url: "https://restcountries.eu/rest/v1/all",
+                callback: function() {
+                    if (newXhr.readyState === 4 && newXhr.status === 200) {
+                        var data = JSON.parse(newXhr.response);
+
+                        var selectPays = document.getElementById("select-pays");
+
+                        var option;
+
+                        for (var i = 0; i < data.length; i++) {
+                            option = document.createElement("option");
+                            selectPays.options.add(option, 0);
+                            selectPays.options[0].value =
+                                data[i].name;
+                            selectPays.options[0].innerText = data[i].name;
+                            selectPays.appendChild(option);
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+</div>

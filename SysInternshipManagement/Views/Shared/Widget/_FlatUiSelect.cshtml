@@ -1,12 +1,14 @@
+@using SysInternshipManagement.Models.Widget
 @model SysInternshipManagement.Models.Widget.FlatUiSelect
 
 <div class="flat-select">
     <p>@Model.Label</p>
-    <select>
-        <optgroup label="Value">
-            <option>option 1</option>
-            <option>option 2</option>
-            <option>option 3</option>
+    <select name="@Model.Name">
+        <optgroup label="@Model.Label">
+            @foreach (FlatUiOption item in Model.Options)
+            {
+                <option value="@Html.DisplayFor(model => item.Valeur)">@Html.DisplayFor(model => item.ContenuHtml)</option>
+            }
         </optgroup>
     </select>
 </div>
