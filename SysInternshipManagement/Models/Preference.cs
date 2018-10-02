@@ -8,12 +8,12 @@ namespace SysInternshipManagement.Models
     {
         [Key]
         public int IdPreference { get; set; }
-        public float Salary { get; set; }
+        public float Salaire { get; set; }
 
         public virtual ICollection<Location> Location { get; set; }
 
-        public virtual ICollection<Business> Business { get; set; }
+        public virtual ICollection<Entreprise> Entreprise { get; set; }
 
-        public virtual ICollection<Post> Post { get; set; }
+        public virtual ICollection<Poste> Poste { get; set; }
     }
 }

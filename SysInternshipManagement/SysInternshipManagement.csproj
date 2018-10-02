@@ -151,36 +151,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EntrepriseController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InternshipController.cs" />
+    <Compile Include="Controllers\StageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809261356466_create_database.cs" />
-    <Compile Include="Migrations\201809261356466_create_database.Designer.cs">
-      <DependentUpon>201809261356466_create_database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809261520558_add_documentname_field.cs" />
-    <Compile Include="Migrations\201809261520558_add_documentname_field.Designer.cs">
-      <DependentUpon>201809261520558_add_documentname_field.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809262151139_update_location_models.cs" />
-    <Compile Include="Migrations\201809262151139_update_location_models.Designer.cs">
-      <DependentUpon>201809262151139_update_location_models.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\DatabaseContext.cs" />
-    <Compile Include="Migrations\InternshipInitializer.cs" />
+    <Compile Include="Migrations\ContexteBdStage.cs" />
+    <Compile Include="Migrations\InitialisationStage.cs" />
     <Compile Include="Models\Application.cs" />
-    <Compile Include="Models\Business.cs" />
+    <Compile Include="Models\Entreprise.cs" />
     <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\Internship.cs" />
+    <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Poste.cs" />
     <Compile Include="Models\Preference.cs" />
-    <Compile Include="Models\Responsible.cs" />
+    <Compile Include="Models\Responsable.cs" />
     <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Etudiant.cs" />
     <Compile Include="Models\Widget\FlatUiButton.cs" />
     <Compile Include="Models\Widget\FlatUiInputButton.cs" />
     <Compile Include="Models\Widget\FlatUiSearchBar.cs" />
@@ -234,15 +221,11 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Entreprise\Index.cshtml" />
-    <Content Include="Views\Internship\Edit.cshtml" />
-    <Content Include="Views\Internship\Index.cshtml" />
+    <Content Include="Views\Stage\Edition.cshtml" />
+    <Content Include="Views\Stage\Index.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiInputButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -260,17 +243,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809261356466_create_database.resx">
-      <DependentUpon>201809261356466_create_database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809261520558_add_documentname_field.resx">
-      <DependentUpon>201809261520558_add_documentname_field.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809262151139_update_location_models.resx">
-      <DependentUpon>201809262151139_update_location_models.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

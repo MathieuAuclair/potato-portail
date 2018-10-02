@@ -1,3 +1,5 @@
+@model IEnumerable<SysInternshipManagement.Models.Entreprise>
+@using SysInternshipManagement.Models
 @using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,61 +21,22 @@
             <th>Contact</th>
             <th></th>
         </tr>
-        <tr>
-            <td>CGI</td>
-            <td>1000 rue de chicoutimi, Chicoutimi</td>
-            <td>George Tremblay</td>
-            <td>
-                <div>
-                    <a href="/Entreprise/Edit">
-                        <button>
-                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                        </button>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Optania</td>
-            <td>1500 rue de racine, Chicoutimi</td>
-            <td>Dominic Martineau</td>
-            <td>
-                <div>
-                    <a href="/Entreprise/Edit">
-                        <button>
-                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                        </button>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Ubisoft</td>
-            <td>1200 rue racine, Chicoutimi</td>
-            <td>Emile Bergeron</td>
-            <td>
-                <div>
-                    <a href="/Entreprise/Edit">
-                        <button>
-                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                        </button>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Vingt trois solutions</td>
-            <td>1000 rue Sir wilfrid Laurier, Jonquière</td>
-            <td>Mathieu Auclair</td>
-            <td>
-                <div>
-                    <a href="/Entreprise/Edit">
-                        <button>
-                            <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                        </button>
-                    </a>
-                </div>
-            </td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => item.Nom)</td>
+                <td>@Html.DisplayFor(Model => item.NumeroCivique + item.Rue + item.Ville + item.Pays + item.Province )</td>
+                <td>George Tremblay</td>
+                <td>
+                    <div>
+                        <a href="/Entreprise/Edit">
+                            <button>
+                                <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                            </button>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
     </table>
 </div>

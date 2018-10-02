@@ -8,13 +8,13 @@ namespace SysInternshipManagement.Models
         public int IdContact { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Nom { get; set; }
 
         [Required]
-        public string Phone { get; set; }
+        public string Telephone { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string Courriel { get; set; }
 
     }
 }

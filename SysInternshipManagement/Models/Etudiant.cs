@@ -4,31 +4,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SysInternshipManagement.Models
 {
-    public class Student
+    public class Etudiant
     {
         [Key]
-        public int IdStudent { get; set; }
+        public int IdEtudiant { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public string Prenom { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string NomDeFamille { get; set; }
 
         [Required]
-        public string EmailSchool { get; set; }
+        public string CourrielEcole { get; set; }
 
         [Required]
-        public string EmailPersonal { get; set; }
+        public string CourrielPersonnel { get; set; }
 
         [Required]
-        public string Phone { get; set; }
+        public string Telephone { get; set; }
 
         [Required]
-        public string DaNumber { get; set; }
+        public string NumeroDa { get; set; }
 
         [Required]
-        public string PermanentCode { get; set; }
+        public string CodePermanent { get; set; }
 
         [Required]
         public string Role { get; set; }
