@@ -1,16 +1,29 @@
 # Potato intern
 
+Hi new contributor! Make sure to read this readme to facilitate your integration to the project
+
+## VCS Standard
+
+As we use git, we make commit. For the good of everyone, master branch is blocked. To proceed to update master, create a [pull request](https://yangsu.github.io/pull-request-tutorial/). 
+
+As our git flow we use the merge flow (the recommanded by GH), please avoid rebase merge!
+
+When you ask for a PR (pull request), if your PR contains more than 10-20 commits, consider squashing your commit before merging to master. This way all of your commits will be condensed in a single commit. This will ensure that the master branch stays clear for reading.
+
 ## Database migration (code first)
 To update database, you can create a migration that will update the database
 
 [[Documentation]](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application)
 
+**IMPORTANT NOTIONS**
+
+If you make any modification to a controller, you need a migration, then you need to database update with PM nuget CLI tool.
+**DO NEVER DELETE MIGRATION FILES OR I'LL @#$%?&**&!!!**, by deleting mirgations files, you explode production!
+
+Even if your modification is simple, do a migration. Migration should be considered as commit, just like with git! this imply that the naming of your migration goes with the modification you made.
+
 ## Development tools
 [MS SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) use developer edition, it features all tools required, and it's free for development.
-
-### Country/Region selector example
-
-[StackBlitz](https://stackblitz.com/edit/geoname-example)
 
 # Code Standard
 **Language**
@@ -70,6 +83,13 @@ From now on, all new sets of features should include a sets of tests. This is vi
 **Contributors who won't apply standard**
 
 All pull of your request will be denied!
+
+# Code snippet examples/demos
+
+
+### Country/Region selector example
+
+[StackBlitz](https://stackblitz.com/edit/geoname-example)
 
 ### Converting file
 ```C#
