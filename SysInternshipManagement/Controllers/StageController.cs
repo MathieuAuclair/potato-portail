@@ -130,7 +130,7 @@ namespace SysInternshipManagement.Controllers
         {
             var nomDeFichier = Request.Form["DocumentName"];
 
-            if (nomDeFichier == null || nomDeFichier == "")
+            if (string.IsNullOrEmpty(nomDeFichier))
             {
                 return RedirectToAction("Index");
             }
@@ -169,7 +169,7 @@ namespace SysInternshipManagement.Controllers
             var stage = new Stage
             {
                 Location = location,
-                CivicNumber = 100,
+                NumeroCivique = 100,
                 NomRue = "test",
                 Ville = "test",
                 Province = "test",
@@ -192,7 +192,7 @@ namespace SysInternshipManagement.Controllers
             ViewBag.Status = _bd.status.ToList();
             ViewBag.Location = _bd.location.ToList();
 
-            return View("Edition", stage.IdStage);
+            return View("Edition", stage);
         }
     }
 }

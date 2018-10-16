@@ -95,7 +95,7 @@ namespace SysInternshipManagement.Controllers
             {
                 Convert.ToInt32(Request.Form["id"]);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -110,7 +110,7 @@ namespace SysInternshipManagement.Controllers
                 Convert.ToInt32(Request.Form["id"]);
                 Convert.ToInt32(Request.Form["numeroCivique"]);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

@@ -1,4 +1,7 @@
-﻿@using SysInternshipManagement.Models.Widget
+﻿@model SysInternshipManagement.Models.Stage
+@using System.Globalization
+@using SysInternshipManagement.Models
+@using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -7,23 +10,35 @@
     ViewBag.Title = "Création Stage";
 }
 <form action="/Stage/Edition" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="idIntership" value="@ViewBag.IdInternship" />
+    <input type="hidden" name="idIntership" value="@Model.IdStage"/>
     <div class="form-content">
         <h1>Stage</h1>
         <div>
-            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "Description"))
+            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "Description", @Model.Description))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Adresse", "Adresse"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Pays", "20px", "Pays", "text", @Model.Pays, null))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Code Postal", "CodePostal"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Province", "20px", "Province", "text", @Model.Province, null))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Ville", "20px", "Ville", "string", @Model.Ville, null))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rue", "20px", "Rue", "text", @Model.NomRue, null))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "NumeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Code Postal", "20px", "CodePostal", "text", @Model.CodePostal, null))
         </div>
         <div class="flat-select">
             <p>Location du Stage</p>
             <select name="IdLocation">
                 <optgroup label="Value">
-                    @foreach (var item in ViewBag.Location as List<SysInternshipManagement.Models.Location>)
+                    @foreach (var item in (List<Location>) ViewBag.Location)
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdLocation)">@Html.DisplayFor(modelItem => item.Nom)</option>
                     }
@@ -34,7 +49,7 @@
             <p>Poste</p>
             <select name="IdPost">
                 <optgroup label="Value">
-                    @foreach (var item in ViewBag.Post as List<SysInternshipManagement.Models.Poste>)
+                    @foreach (var item in (List<Poste>) ViewBag.Poste)
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdPoste)">@Html.DisplayFor(modelItem => item.Nom)</option>
                     }
@@ -45,7 +60,7 @@
             <p>Status</p>
             <select name="IdStatus">
                 <optgroup label="Value">
-                    @foreach (var item in ViewBag.Status as List<SysInternshipManagement.Models.Status>)
+                    @foreach (var item in (List<Status>) ViewBag.Status)
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatusStage)</option>
                     }
@@ -53,13 +68,13 @@
             </select>
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "Salary"))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "Salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
         </div>
         <div class="flat-select">
             <p>Contact du Stage</p>
             <select name="IdContact">
                 <optgroup label="Value">
-                    @foreach (var item in ViewBag.Contact as List<SysInternshipManagement.Models.Contact>)
+                    @foreach (var item in (List<Contact>) ViewBag.Contact)
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdContact)">@Html.DisplayFor(modelItem => item.Nom)</option>
                     }
@@ -67,7 +82,7 @@
             </select>
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiInputButton", new FlatUiInputButton("Ajouter un fichier", "DocumentName"))
+            @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("Ajouter un fichier", "DocumentName"))
         </div>
         <div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))
