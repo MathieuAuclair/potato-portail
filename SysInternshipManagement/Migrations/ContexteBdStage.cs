@@ -8,7 +8,6 @@ namespace SysInternshipManagement.Migrations
     {
         public DatabaseContext() : base("name=GestionStageConnectionString")
         {
-
         }
 
         public DbSet<Application> application { get; set; }

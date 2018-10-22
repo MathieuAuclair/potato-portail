@@ -151,6 +151,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\PosteController.cs" />
     <Compile Include="Controllers\EntrepriseController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\StageController.cs" />

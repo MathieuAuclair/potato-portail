@@ -22,10 +22,6 @@ namespace SysInternshipManagement.Controllers
             }
 
             ViewBag.IdStage = Request.QueryString["IdStage"];
-            ViewBag.Poste = _bd.poste.ToList();
-            ViewBag.Contact = _bd.contact.ToList();
-            ViewBag.Status = _bd.status.ToList();
-            ViewBag.Location = _bd.location.ToList();
             return View();
         }
 
@@ -109,7 +105,11 @@ namespace SysInternshipManagement.Controllers
                 Request.Form["IdStatus"] != null &&
                 Request.Form["IdLocation"] != null &&
                 Request.Form["Description"] != null &
-                Request.Form["Adresse"] != null &&
+                Request.Form["Pays"] != null &&
+                Request.Form["Province"] != null &&
+                Request.Form["Ville"] != null &&
+                Request.Form["Rue"] != null &&
+                Request.Form["NumeroCivique"] != null &&
                 Request.Form["CodePostal"] != null &&
                 Request.Form["Salaire"] != null
             );

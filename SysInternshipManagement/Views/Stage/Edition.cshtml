@@ -1,14 +1,12 @@
 ﻿@model SysInternshipManagement.Models.Stage
 @using System.Globalization
-@using SysInternshipManagement.Models
+@using SysInternshipManagement.Controllers
 @using SysInternshipManagement.Models.Widget
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    ViewBag.Title = "Création Stage";
-}
+
 <form action="/Stage/Edition" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idIntership" value="@Model.IdStage"/>
     <div class="form-content">
@@ -38,7 +36,7 @@
             <p>Location du Stage</p>
             <select name="IdLocation">
                 <optgroup label="Value">
-                    @foreach (var item in (List<Location>) ViewBag.Location)
+                    @foreach (var item in new LocationController().RecolterTousLesLocations())
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdLocation)">@Html.DisplayFor(modelItem => item.Nom)</option>
                     }
@@ -49,7 +47,7 @@
             <p>Poste</p>
             <select name="IdPost">
                 <optgroup label="Value">
-                    @foreach (var item in (List<Poste>) ViewBag.Poste)
+                    @foreach (var item in new PosteController().RecolterTousLesPostes())
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdPoste)">@Html.DisplayFor(modelItem => item.Nom)</option>
                     }
@@ -60,7 +58,7 @@
             <p>Status</p>
             <select name="IdStatus">
                 <optgroup label="Value">
-                    @foreach (var item in (List<Status>) ViewBag.Status)
+                    @foreach (var item in new StatusController().RecolterTousLesStatus())
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatusStage)</option>
                     }
@@ -74,7 +72,7 @@
             <p>Contact du Stage</p>
             <select name="IdContact">
                 <optgroup label="Value">
-                    @foreach (var item in (List<Contact>) ViewBag.Contact)
+                    @foreach (var item in new ContactController().RecolterTousLesContacts())
                     {
                         <option value="@Html.DisplayFor(modelItem => item.IdContact)">@Html.DisplayFor(modelItem => item.Nom)</option>
                     }
