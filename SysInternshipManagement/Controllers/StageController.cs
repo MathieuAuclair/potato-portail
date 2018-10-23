@@ -20,13 +20,35 @@ namespace SysInternshipManagement.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.IdStage = Request.QueryString["IdStage"];
-            return View();
+
+            Stage stage = (
+                from entity in _bd.stage
+                where entity.IdStage == 1
+                select entity
+            ).First();
+
+            return View(stage);
         }
 
         [HttpPost]
-        public ActionResult Edition(HttpPostedFileBase fichier)
+        public ActionResult Edition(
+            HttpPostedFileBase fichier,
+            string location,
+            string numeroCivique,
+            string nomRue,
+            string ville,
+            string province,
+            string pays,
+            string codePostal,
+            string poste,
+            string status,
+            string contact,
+            string description,
+            string nomDocument,
+            string salaire
+        )
         {
             string nomFichier = null;
 
@@ -37,67 +59,68 @@ namespace SysInternshipManagement.Controllers
                 fichier.SaveAs(chemin);
             }
 
-            if (!EstCeQueLaRequeteContientLesParametres())
+            if (!EstCeQueLaRequeteContientLesParametresPourEdition())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    "Les paramètres fournis ne sont pas valide!");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Stage stage = (
+            Stage stageInstance = (
                 from entity in _bd.stage
                 where entity.IdStage == 1
                 select entity
             ).First();
 
-            Poste poste = (
+            int idPoste = Convert.ToInt32(Request.Form["idPoste"]);
+
+            Poste posteInstance = (
                 from entity
                     in _bd.poste
-                where entity.IdPoste == Convert.ToInt32(Request.Form["idPoste"])
+                where entity.IdPoste == idPoste
                 select entity
             ).First();
 
-            Contact contact = (
+            int idContact = Convert.ToInt32(Request.Form["idContact"]);
+
+            Contact contactInstance = (
                 from entity
                     in _bd.contact
-                where entity.IdContact == Convert.ToInt32(Request.Form["idContact"])
+                where entity.IdContact == idContact
                 select entity
             ).First();
 
-            Status status = (
+            int idStatus = Convert.ToInt32(Request.Form["idStatus"]);
+
+            Status statusInstance = (
                 from entity
                     in _bd.status
-                where entity.IdStatus == Convert.ToInt32(Request.Form["idStatus"])
+                where entity.IdStatus == idStatus
                 select entity
             ).First();
 
-            Location location = (
+            int idLocation = Convert.ToInt32(Request.Form["idLocation"]);
+
+            Location locationInstance = (
                 from entity
                     in _bd.location
-                where entity.IdLocation == Convert.ToInt32(Request.Form["idLocation"])
+                where entity.IdLocation == idLocation
                 select entity
             ).First();
 
-            stage.Poste = poste;
-            stage.Contact = contact;
-            stage.Status = status;
-            stage.Location = location;
-            stage.Description = Request.Form["Description"];
-            stage.NomDocument = nomFichier;
-            stage.CodePostal = Request.Form["CodePostal"];
-            stage.Salaire = Convert.ToSingle(Request.Form["Salaire"]);
+            stageInstance.Poste = posteInstance;
+            stageInstance.Contact = contactInstance;
+            stageInstance.Status = statusInstance;
+            stageInstance.Location = locationInstance;
+            stageInstance.Description = Request.Form["Description"];
+            stageInstance.NomDocument = nomFichier;
+            stageInstance.CodePostal = Request.Form["CodePostal"];
+            stageInstance.Salaire = Convert.ToSingle(Request.Form["Salaire"]);
 
             _bd.SaveChanges();
-
-            ViewBag.Stage = _bd.stage.ToList();
-            ViewBag.Poste = _bd.poste.ToList();
-            ViewBag.Contact = _bd.contact.ToList();
-            ViewBag.Status = _bd.status.ToList();
-            ViewBag.Location = _bd.location.ToList();
 
             return RedirectToAction("Index");
         }
 
-        private bool EstCeQueLaRequeteContientLesParametres()
+        private bool EstCeQueLaRequeteContientLesParametresPourEdition()
         {
             return (
                 Request.Form["IdPoste"] != null &&
@@ -117,12 +140,7 @@ namespace SysInternshipManagement.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Stage = _bd.stage.ToList();
-            ViewBag.Poste = _bd.poste.ToList();
-            ViewBag.Contact = _bd.contact.ToList();
-            ViewBag.Status = _bd.status.ToList();
-            ViewBag.Location = _bd.location.ToList();
-            return View();
+            return View(_bd.stage.ToList());
         }
 
         [HttpPost]
@@ -182,15 +200,9 @@ namespace SysInternshipManagement.Controllers
                 NomDocument = "sample.txt",
                 Salaire = 15,
             };
-            
+
             _bd.stage.Add(stage);
             _bd.SaveChanges();
-
-            ViewBag.Internship = _bd.stage.ToList();
-            ViewBag.Post = _bd.poste.ToList();
-            ViewBag.Contact = _bd.contact.ToList();
-            ViewBag.Status = _bd.status.ToList();
-            ViewBag.Location = _bd.location.ToList();
 
             return View("Edition", stage);
         }

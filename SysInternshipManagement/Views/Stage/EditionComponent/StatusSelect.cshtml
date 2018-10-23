@@ -1,0 +1,13 @@
+@model SysInternshipManagement.Views.Stage.EditionComponent.Models.StatusSelect
+
+<div class="flat-select">
+    <p>Status</p>
+    <select name="IdStatus">
+        <optgroup label="Value">
+            @foreach (var item in Model.Status)
+            {
+                <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatusStage)</option>
+            }
+        </optgroup>
+    </select>
+</div>

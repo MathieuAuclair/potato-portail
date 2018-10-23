@@ -30,7 +30,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in (List<Stage>) ViewBag.Stage)
+        @foreach (var item in (List<Stage>) Model)
         {
             <tr>
                 <td>
@@ -55,8 +55,8 @@
                     <form action="/Stage/Edition" method="get">
                         <div>
                             <button>
-                                <input type="hidden" name="IdStage" value="@Html.DisplayFor(model => item.IdStage)" />
-                                <img src="~/Content/Icons/baseline-border_color-24px.svg" />
+                                <input type="hidden" name="IdStage" value="@Html.DisplayFor(model => item.IdStage)"/>
+                                <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
                             </button>
                         </div>
                     </form>
@@ -65,8 +65,8 @@
                     <form action="/Stage/TeleverserFichier" method="post">
                         <div>
                             <button>
-                                <input type="hidden" name="NomDocument" value="@Html.DisplayFor(model => item.NomDocument)" />
-                                <img src="~/Content/Icons/baseline-settings-20px.svg" />
+                                <input type="hidden" name="NomDocument" value="@Html.DisplayFor(model => item.NomDocument)"/>
+                                <img src="~/Content/Icons/baseline-settings-20px.svg"/>
                             </button>
                         </div>
                     </form>
