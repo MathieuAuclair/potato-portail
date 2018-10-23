@@ -150,8 +150,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\PosteController.cs" />
     <Compile Include="Controllers\EntrepriseController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\StageController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -175,6 +179,10 @@
     <Compile Include="Models\Widget\FlatUiTextarea.cs" />
     <Compile Include="Models\Widget\FlatUiTextInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Stage\EditionComponent\Models\ContactSelect.cs" />
+    <Compile Include="Views\Stage\EditionComponent\Models\LocationSelect.cs" />
+    <Compile Include="Views\Stage\EditionComponent\Models\PosteSelect.cs" />
+    <Compile Include="Views\Stage\EditionComponent\Models\StatusSelect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -183,32 +191,35 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\InternshipScript.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Models\Scripts\bootstrap.js" />
+    <Content Include="Models\Scripts\bootstrap.min.js" />
+    <Content Include="Models\Scripts\InternshipScript.js" />
+    <Content Include="Models\Scripts\jquery-1.10.2.js" />
+    <Content Include="Models\Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Models\Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Models\Scripts\jquery.validate.js" />
+    <Content Include="Models\Scripts\jquery.validate.min.js" />
+    <Content Include="Models\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Models\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Models\Scripts\modernizr-2.6.2.js" />
+    <Content Include="Models\Scripts\respond.js" />
+    <Content Include="Models\Scripts\respond.min.js" />
     <Content Include="Views\Entreprise\Edition.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiButton.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiSearchBar.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiSelect.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiTextarea.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiTextInput.cshtml" />
+    <Content Include="Views\Stage\EditionComponent\ContactSelect.cshtml" />
+    <Content Include="Views\Stage\EditionComponent\LocationSelect.cshtml" />
+    <Content Include="Views\Stage\EditionComponent\PosteSelect.cshtml" />
+    <Content Include="Views\Stage\EditionComponent\StatusSelect.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -226,7 +237,7 @@
     <Content Include="Views\Entreprise\Index.cshtml" />
     <Content Include="Views\Stage\Edition.cshtml" />
     <Content Include="Views\Stage\Index.cshtml" />
-    <Content Include="Views\Shared\Widget\_FlatUiInputButton.cshtml" />
+    <Content Include="Views\Shared\Widget\_FlatUiFileInputButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -241,8 +252,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Models\Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Models\Scripts\jquery.validate-vsdoc.js" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

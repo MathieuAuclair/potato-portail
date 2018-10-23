@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using SysInternshipManagement.Migrations;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SysInternshipManagement.Models;
 
@@ -95,7 +93,7 @@ namespace SysInternshipManagement.Controllers
             {
                 Convert.ToInt32(Request.Form["id"]);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -110,7 +108,7 @@ namespace SysInternshipManagement.Controllers
                 Convert.ToInt32(Request.Form["id"]);
                 Convert.ToInt32(Request.Form["numeroCivique"]);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

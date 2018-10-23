@@ -1,0 +1,195 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{8B9FE981-FD0D-47C5-9731-2C8ECC347854}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>WindowsApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>gestionStages</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ApplicationInsights.config" />
+    <None Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="GestionStageDataSet.xsc">
+      <DependentUpon>GestionStageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GestionStageDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GestionStageDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GestionStageDataSet.xss">
+      <DependentUpon>GestionStageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Views\Entreprise\Edition.cshtml" />
+    <None Include="Views\Entreprise\Index.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\Widget\_FlatUiButton.cshtml" />
+    <None Include="Views\Shared\Widget\_FlatUiFileInputButton.cshtml" />
+    <None Include="Views\Shared\Widget\_FlatUiSearchBar.cshtml" />
+    <None Include="Views\Shared\Widget\_FlatUiSelect.cshtml" />
+    <None Include="Views\Shared\Widget\_FlatUiTextarea.cshtml" />
+    <None Include="Views\Shared\Widget\_FlatUiTextInput.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Stage\Edition.cshtml" />
+    <None Include="Views\Stage\Index.cshtml" />
+    <None Include="Views\Web.config" />
+    <None Include="Web.config" />
+    <None Include="Web.Debug.config" />
+    <None Include="Web.Release.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\SysInternshipManagement.Migrations.InitialCreate.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\SysInternshipManagement.Migrations.InitialCreate_log.ldf">
+      <DependentUpon>SysInternshipManagement.Migrations.InitialCreate.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Icons\baseline-border_color-24px.svg" />
+    <Content Include="Content\Icons\baseline-search-24px.svg" />
+    <Content Include="Content\Icons\baseline-settings-20px.svg" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Styles\edition.css" />
+    <Content Include="Content\Styles\flat-props.css" />
+    <Content Include="Content\Styles\navigation.css" />
+    <Content Include="DescriptionStage\sample.txt" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\InternshipScript.js" />
+    <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\EntrepriseController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\PosteController.cs" />
+    <Compile Include="Controllers\StageController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="GestionStageDataSet.Designer.cs" />
+    <Compile Include="GestionStageDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionStageDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810020206493_create_database.cs" />
+    <Compile Include="Migrations\201810020206493_create_database.Designer.cs">
+      <DependentUpon>201810020206493_create_database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\ContexteBdStage.cs" />
+    <Compile Include="Migrations\InitialisationStage.cs" />
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Entreprise.cs" />
+    <Compile Include="Models\Etudiant.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Poste.cs" />
+    <Compile Include="Models\Preference.cs" />
+    <Compile Include="Models\Responsable.cs" />
+    <Compile Include="Models\Stage.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Widget\FlatUiButton.cs" />
+    <Compile Include="Models\Widget\FlatUiInputButton.cs" />
+    <Compile Include="Models\Widget\FlatUiSearchBar.cs" />
+    <Compile Include="Models\Widget\FlatUiSelect.cs" />
+    <Compile Include="Models\Widget\FlatUiTextarea.cs" />
+    <Compile Include="Models\Widget\FlatUiTextInputModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201810020206493_create_database.resx">
+      <DependentUpon>201810020206493_create_database.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

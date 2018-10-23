@@ -12,7 +12,7 @@ namespace SysInternshipManagement.Models
 
         [Required] public string CodePostal { get; set; }
 
-        [Required] public int CivicNumber { get; set; }
+        [Required] public int NumeroCivique { get; set; }
 
         [Required] public string NomRue { get; set; }
 

@@ -4,20 +4,13 @@ namespace SysInternshipManagement.Models.Widget
     {
         public string Label { get; set; }
         public string Name { get; set; }
+        public string Valeur { get; set; }
 
-        public FlatUiTextarea()
-        {
-        }
-
-        public FlatUiTextarea(string label)
-        {
-            Label = label;
-        }
-
-        public FlatUiTextarea(string label,string name)
+        public FlatUiTextarea(string label,string name, string valeur)
         {
             Label = label;
             Name = name;
+            Valeur = valeur;
         }
     }
 }

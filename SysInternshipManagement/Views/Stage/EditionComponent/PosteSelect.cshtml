@@ -1,0 +1,13 @@
+@model SysInternshipManagement.Views.Stage.EditionComponent.Models.PosteSelect
+
+<div class="flat-select">
+    <p>Poste</p>
+    <select name="idPoste">
+        <optgroup label="Value">
+            @foreach (var item in Model.Postes)
+            {
+                <option value="@Html.DisplayFor(modelItem => item.IdPoste)">@Html.DisplayFor(modelItem => item.Nom)</option>
+            }
+        </optgroup>
+    </select>
+</div>

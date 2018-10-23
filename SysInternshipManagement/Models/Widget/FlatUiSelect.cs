@@ -10,21 +10,6 @@ namespace SysInternshipManagement.Models.Widget
         public string Name { get; set; }
         public List<FlatUiOption> Options { get; set; }
 
-        public FlatUiSelect()
-        {
-        }
-
-        public FlatUiSelect(string label)
-        {
-            Label = label;
-        }
-
-        public FlatUiSelect(string label,string name)
-        {
-            Label = label;
-            Name = name;
-        }
-
         public FlatUiSelect(string label, string name, List<FlatUiOption> options)
         {
             Label = label;
