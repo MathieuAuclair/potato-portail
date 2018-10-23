@@ -9,29 +9,29 @@
 
 
 <form action="/Stage/Edition" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="idIntership" value="@Model.IdStage"/>
+    <input type="hidden" name="idStage" value="@Model.IdStage"/>
     <div class="form-content">
         <h1>Stage</h1>
         <div>
-            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "Description", @Model.Description))
+            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "description", @Model.Description))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Pays", "20px", "Pays", "text", @Model.Pays, null))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Pays", "20px", "pays", "text", @Model.Pays, null))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Province", "20px", "Province", "text", @Model.Province, null))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Province", "20px", "province", "text", @Model.Province, null))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Ville", "20px", "Ville", "string", @Model.Ville, null))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Ville", "20px", "ville", "string", @Model.Ville, null))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rue", "20px", "Rue", "text", @Model.NomRue, null))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rue", "20px", "rue", "text", @Model.NomRue, null))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "NumeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "numeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Code Postal", "20px", "CodePostal", "text", @Model.CodePostal, null))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Code Postal", "20px", "codePostal", "text", @Model.CodePostal, null))
         </div>
         <div>
             @Html.Partial("EditionComponent/LocationSelect", new LocationSelect())
@@ -46,11 +46,11 @@
             @Html.Partial("EditionComponent/ContactSelect", new ContactSelect())
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "Salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
         </div>
 
         <div>
-            @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("Ajouter un fichier", "DocumentName"))
+            @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("Ajouter un fichier", "fichier"))
         </div>
         <div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))

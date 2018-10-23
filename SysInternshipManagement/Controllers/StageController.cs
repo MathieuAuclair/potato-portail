@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,49 +13,42 @@ namespace SysInternshipManagement.Controllers
         private readonly DatabaseContext _bd = new DatabaseContext();
 
         [HttpGet]
-        public ActionResult Edition()
+        public ActionResult Edition(int? idStage)
         {
-            if (Request.QueryString["IdStage"] == null)
+            if (idStage == null)
             {
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            ViewBag.IdStage = Request.QueryString["IdStage"];
 
-            Stage stage = (
-                from entity in _bd.stage
-                where entity.IdStage == 1
-                select entity
-            ).First();
-
+            var stage = _bd.stage.Find(idStage);
             return View(stage);
         }
 
         [HttpPost]
         public ActionResult Edition(
             HttpPostedFileBase fichier,
-            string location,
-            string numeroCivique,
+            int? idLocation,
+            int? idStatus,
+            int? idPoste,
+            int? idContact,
+            int? numeroCivique,
+            int? idStage,
+            float? salaire,
             string nomRue,
             string ville,
             string province,
             string pays,
             string codePostal,
-            string poste,
-            string status,
-            string contact,
             string description,
-            string nomDocument,
-            string salaire
+            string nomDocument
         )
         {
             string nomFichier = null;
 
             if (fichier != null && fichier.ContentLength > 0)
             {
-                nomFichier = Path.GetFileName(fichier.FileName);
-                var chemin = Path.Combine(Server.MapPath("~/DescriptionStage"), nomFichier ?? "sample.txt");
-                fichier.SaveAs(chemin);
+                nomFichier = Path.GetFileName(fichier.FileName) ?? string.Empty;
+                fichier.SaveAs(Path.Combine(Server.MapPath("~/DescriptionStage"), nomFichier));
             }
 
             if (!EstCeQueLaRequeteContientLesParametresPourEdition())
@@ -64,56 +56,20 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Stage stageInstance = (
-                from entity in _bd.stage
-                where entity.IdStage == 1
-                select entity
-            ).First();
-
-            int idPoste = Convert.ToInt32(Request.Form["idPoste"]);
-
-            Poste posteInstance = (
-                from entity
-                    in _bd.poste
-                where entity.IdPoste == idPoste
-                select entity
-            ).First();
-
-            int idContact = Convert.ToInt32(Request.Form["idContact"]);
-
-            Contact contactInstance = (
-                from entity
-                    in _bd.contact
-                where entity.IdContact == idContact
-                select entity
-            ).First();
-
-            int idStatus = Convert.ToInt32(Request.Form["idStatus"]);
-
-            Status statusInstance = (
-                from entity
-                    in _bd.status
-                where entity.IdStatus == idStatus
-                select entity
-            ).First();
-
-            int idLocation = Convert.ToInt32(Request.Form["idLocation"]);
-
-            Location locationInstance = (
-                from entity
-                    in _bd.location
-                where entity.IdLocation == idLocation
-                select entity
-            ).First();
+            var stageInstance = _bd.stage.Find(idStage);
+            var posteInstance = _bd.poste.Find(idPoste);
+            var contactInstance = _bd.contact.Find(idContact);
+            var statusInstance = _bd.status.Find(idStatus);
+            var locationInstance = _bd.location.Find(idLocation);
 
             stageInstance.Poste = posteInstance;
             stageInstance.Contact = contactInstance;
             stageInstance.Status = statusInstance;
             stageInstance.Location = locationInstance;
-            stageInstance.Description = Request.Form["Description"];
+            stageInstance.Description = description;
             stageInstance.NomDocument = nomFichier;
-            stageInstance.CodePostal = Request.Form["CodePostal"];
-            stageInstance.Salaire = Convert.ToSingle(Request.Form["Salaire"]);
+            stageInstance.CodePostal = codePostal;
+            stageInstance.Salaire = salaire ?? 0.0f;
 
             _bd.SaveChanges();
 
@@ -123,18 +79,19 @@ namespace SysInternshipManagement.Controllers
         private bool EstCeQueLaRequeteContientLesParametresPourEdition()
         {
             return (
-                Request.Form["IdPoste"] != null &&
-                Request.Form["IdContact"] != null &&
-                Request.Form["IdStatus"] != null &&
-                Request.Form["IdLocation"] != null &&
-                Request.Form["Description"] != null &
-                Request.Form["Pays"] != null &&
-                Request.Form["Province"] != null &&
-                Request.Form["Ville"] != null &&
-                Request.Form["Rue"] != null &&
-                Request.Form["NumeroCivique"] != null &&
-                Request.Form["CodePostal"] != null &&
-                Request.Form["Salaire"] != null
+                Request.Form["idPoste"] != null &&
+                Request.Form["idContact"] != null &&
+                Request.Form["idStatus"] != null &&
+                Request.Form["idLocation"] != null &&
+                Request.Form["idStage"] != null &&
+                Request.Form["description"] != null &
+                Request.Form["pays"] != null &&
+                Request.Form["province"] != null &&
+                Request.Form["ville"] != null &&
+                Request.Form["rue"] != null &&
+                Request.Form["numeroCivique"] != null &&
+                Request.Form["codePostal"] != null &&
+                Request.Form["salaire"] != null 
             );
         }
 
@@ -164,41 +121,30 @@ namespace SysInternshipManagement.Controllers
         [HttpPost]
         public ActionResult AjouterStage()
         {
-            var poste = new Poste {Nom = "test"};
+            var poste = new Poste {Nom = "Nouveau stage"};
             _bd.poste.Add(poste);
-
-            _bd.SaveChanges();
-
-            var status = new Status {StatusStage = "test"};
+            var status = new Status {StatusStage = "disponible"};
             _bd.status.Add(status);
-
-            _bd.SaveChanges();
-
-            var location = new Location {Nom = "test"};
+            var location = new Location {Nom = "Saguenay"};
             _bd.location.Add(location);
-
-            _bd.SaveChanges();
-
-            var contact = new Contact {Nom = "test", Courriel = "test", Telephone = "test"};
+            var contact = new Contact {Nom = "Nom contact", Courriel = "Courriel", Telephone = "numéro téléphone"};
             _bd.contact.Add(contact);
-
-            _bd.SaveChanges();
-
+            
             var stage = new Stage
             {
                 Location = location,
-                NumeroCivique = 100,
-                NomRue = "test",
-                Ville = "test",
-                Province = "test",
-                Pays = "CANADA",
-                CodePostal = "test",
+                NumeroCivique = 0,
+                NomRue = "nom de rue",
+                Ville = "Saguenay",
+                Province = "Québec",
+                Pays = "Canada",
+                CodePostal = "G7X 7W2",
                 Poste = poste,
                 Status = status,
                 Contact = contact,
-                Description = "test",
-                NomDocument = "sample.txt",
-                Salaire = 15,
+                Description = "Description du stage",
+                NomDocument = "",
+                Salaire = 0,
             };
 
             _bd.stage.Add(stage);
