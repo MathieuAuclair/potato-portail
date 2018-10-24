@@ -11,9 +11,10 @@ namespace SysInternshipManagement.Controllers
     {
         private readonly DatabaseContext _bd = new DatabaseContext();
 
+        [HttpGet]
         public ActionResult Index()
         {
-            return View(_bd.entreprise.ToList());
+            return View("~/Views/Entreprise/Index.cshtml", _bd.entreprise.ToList());
         }
 
         [HttpPost]
@@ -21,20 +22,11 @@ namespace SysInternshipManagement.Controllers
         {
             if (!EstCeQueLaRequeteEstValidePourUneEdition())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    "Les paramètres fournis ne sont pas valide!");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int idEntreprise = Convert.ToInt32(Request.Form["id"] ?? Request.QueryString["id"]);
-            
-            Entreprise entreprise = (
-                from entity
-                    in _bd.entreprise
-                where entity.IdEntreprise == idEntreprise
-                select entity
-            ).First();
-            
-            return View(entreprise);
+            var entreprise = _bd.entreprise.Find(Request.Form["idEntreprise"]);
+            return View("~/Views/Entreprise/Edition.cshtml", entreprise);
         }
 
         [HttpPost]
@@ -42,18 +34,15 @@ namespace SysInternshipManagement.Controllers
         {
             if (!EstCeQueLaRequeteEstValidePourEnregistrerLesModifications())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    "Les paramètres fournis ne sont pas valide!");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int IdEntreprise = Convert.ToInt32(Request.Form["id"]);
-            
-            Entreprise entreprise = (
-                from entity
-                    in _bd.entreprise
-                where entity.IdEntreprise == IdEntreprise
-                select entity
-            ).First();
+            var entreprise = _bd.entreprise.Find(Request.Form["idEntreprise"]);
+
+            if (entreprise == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
 
             entreprise.Pays = Request.Form["pays"];
             entreprise.Province = Request.Form["province"];
@@ -70,50 +59,33 @@ namespace SysInternshipManagement.Controllers
 
         public ActionResult Creation()
         {
-            Entreprise entreprise = new Entreprise
+            var entreprise = new Entreprise
             {
                 Nom = "Nom d'entreprise",
-                Pays = "Pays",
-                Province = "Province",
+                Pays = "Canada",
+                Province = "Quebec",
+                Ville = "Saguenay",
                 Rue = "Rue",
-                Ville = "Ville",
-                CodePostal = "Code postal",
-                NumeroCivique = 123,
+                CodePostal = "G7X 7W2",
+                NumeroCivique = 0,
             };
 
             _bd.entreprise.Add(entreprise);
             _bd.SaveChanges();
 
-            return View("Edition", entreprise);
+            return View("~/Views/Entreprise/Edition.cshtml", entreprise);
         }
 
         private bool EstCeQueLaRequeteEstValidePourUneEdition()
         {
-            try
-            {
-                Convert.ToInt32(Request.Form["id"]);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return (Request.Form["id"] != null);
+            return (string.IsNullOrEmpty(Request.Form["id"]) && int.TryParse(Request.Form["id"], out _));
         }
 
         private bool EstCeQueLaRequeteEstValidePourEnregistrerLesModifications()
         {
-            try
-            {
-                Convert.ToInt32(Request.Form["id"]);
-                Convert.ToInt32(Request.Form["numeroCivique"]);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
             return !(
+                int.TryParse(Request.Form["id"], out _) &&
+                int.TryParse(Request.Form["numeroCivique"], out _) &&
                 Request.Form["id"] == null &&
                 Request.Form["numeroCivique"] == null &&
                 Request.Form["pays"] == null &&
