@@ -8,6 +8,7 @@
 
 <h1>Stage</h1>
 
+@* ReSharper disable once UnknownCssClass *@
 <div class="container page-content">
     <div style="margin-bottom: 15px;">
         @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
@@ -52,7 +53,7 @@
                     @Html.DisplayFor(model => item.Salaire) $
                 </td>
                 <td>
-                    <form action="/Stage/Edition" method="get">
+                    <form action="/Stage/Edition" method="GET">
                         <div>
                             <button>
                                 <input type="hidden" name="IdStage" value="@Html.DisplayFor(model => item.IdStage)"/>
@@ -62,12 +63,17 @@
                     </form>
                 </td>
                 <td>
-                    <form action="/Stage/TeleverserFichier" method="post">
+                    <form action="/Stage/TeleverserFichier" method="POST">
                         <div>
-                            <button>
-                                <input type="hidden" name="NomDocument" value="@Html.DisplayFor(model => item.NomDocument)"/>
-                                <img src="~/Content/Icons/baseline-settings-20px.svg"/>
+                            <button id="@Html.DisplayFor(model => item.IdStage)">
+                                <input type="hidden" name="fichier" value="@Html.DisplayFor(model => item.NomDocument)"/>
+                                <img src="~/Content/Icons/baseline-settings-20px.svg" alt="icon-setting"/>
                             </button>
+                            <script>
+                                if (!"@Html.DisplayFor(mode => item.NomDocument)" === "")
+                                    document.getElementById("@Html.DisplayFor(model => item.IdStage)").disabled =
+                                        "disabled";
+                            </script>
                         </div>
                     </form>
                 </td>
