@@ -1,7 +1,7 @@
 ﻿@model SysInternshipManagement.Models.Stage
 @using System.Globalization
 @using SysInternshipManagement.Controllers
-@using SysInternshipManagement.Models.Widget
+@using SysInternshipManagement.Views.Shared.Widget.Model
 @using SysInternshipManagement.Views.Stage.EditionComponent.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -48,7 +48,6 @@
         <div>
             @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
         </div>
-
         <div>
             @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("Ajouter un fichier", "fichier"))
         </div>

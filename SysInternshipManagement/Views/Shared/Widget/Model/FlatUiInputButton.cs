@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace SysInternshipManagement.Models.Widget
+﻿namespace SysInternshipManagement.Views.Shared.Widget.Model
 {
     public class FlatUiInputButton
     {

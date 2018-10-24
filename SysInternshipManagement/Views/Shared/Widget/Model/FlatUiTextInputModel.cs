@@ -1,7 +1,4 @@
-using System;
-using System.Globalization;
-
-namespace SysInternshipManagement.Models.Widget
+namespace SysInternshipManagement.Views.Shared.Widget.Model
 {
     public class FlatUiTextInputModel
     {

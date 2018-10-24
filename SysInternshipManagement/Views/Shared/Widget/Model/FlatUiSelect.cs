@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Web.UI.WebControls;
 
-namespace SysInternshipManagement.Models.Widget
+namespace SysInternshipManagement.Views.Shared.Widget.Model
 {
     public class FlatUiSelect
     {
