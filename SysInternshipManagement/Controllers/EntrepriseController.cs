@@ -25,7 +25,13 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var entreprise = _bd.entreprise.Find(Request.Form["idEntreprise"]);
+            var entreprise = _bd.entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
+
+            if (entreprise == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
             return View("~/Views/Entreprise/Edition.cshtml", entreprise);
         }
 
@@ -37,7 +43,7 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var entreprise = _bd.entreprise.Find(Request.Form["idEntreprise"]);
+            var entreprise = _bd.entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
 
             if (entreprise == null)
             {
@@ -66,7 +72,7 @@ namespace SysInternshipManagement.Controllers
                 Province = "Quebec",
                 Ville = "Saguenay",
                 Rue = "Rue",
-                CodePostal = "G7X 7W2",
+                CodePostal = "G7X7W2",
                 NumeroCivique = 0,
             };
 
@@ -78,7 +84,16 @@ namespace SysInternshipManagement.Controllers
 
         private bool EstCeQueLaRequeteEstValidePourUneEdition()
         {
-            return (string.IsNullOrEmpty(Request.Form["id"]) && int.TryParse(Request.Form["id"], out _));
+            try
+            {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                int.Parse(Request.Form["idEntreprise"]);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private bool EstCeQueLaRequeteEstValidePourEnregistrerLesModifications()

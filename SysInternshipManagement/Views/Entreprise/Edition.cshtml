@@ -1,5 +1,4 @@
 @model SysInternshipManagement.Models.Entreprise
-@using SysInternshipManagement.Models
 @using SysInternshipManagement.Views.Shared.Widget.Model
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +7,7 @@
 <div>
     <h1>Entreprise</h1>
     <form action="EnregistrerLesModifications" method="post">
-        <input name="id" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)"/>
+        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)"/>
         <div class="form-content">
             <div>
                 @Html.Partial("Widget/_FlatUiTextInput",
@@ -23,12 +22,11 @@
                     )
             </div>
             <div>
-                <div class="flat-select">
-                    <p>Pays</p>
-                    <select name="pays" id="select-pays">
-                        <option selected="selected" hidden="hidden">@Html.DisplayFor(model => Model.Pays)</option>
-                    </select>
-                </div>
+                @Html.Partial("Widget/FlatUiPaysSelect",
+                    new FlatUiPaysSelect(
+                        @Model.Pays
+                        )
+                    )
             </div>
             <div>
                 @Html.Partial("Widget/_FlatUiTextInput",
@@ -93,48 +91,4 @@
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
     </form>
-
-    <script>
-        (function() {
-            var newXhr;
-
-            function sendXhr(options) {
-                newXhr = new XMLHttpRequest();
-                if (options.sendJSON === true) {
-                    options.contentType = "application/json; charset=utf-8";
-                    options.data = JSON.stringify(options.data);
-                } else {
-                    options.contentType = "application/x-www-form-urlencoded";
-                }
-                newXhr.open(options.type, options.url, options.async || true);
-                newXhr.setRequestHeader("Content-Type", options.contentType);
-                newXhr.send((options.type === "POST") ? options.data : null);
-                newXhr.onreadystatechange = options.callback;
-                return newXhr;
-            }
-
-            sendXhr({
-                type: "GET",
-                url: "https://restcountries.eu/rest/v1/all",
-                callback: function() {
-                    if (newXhr.readyState === 4 && newXhr.status === 200) {
-                        var data = JSON.parse(newXhr.response);
-
-                        var selectPays = document.getElementById("select-pays");
-
-                        var option;
-
-                        for (var i = 0; i < data.length; i++) {
-                            option = document.createElement("option");
-                            selectPays.options.add(option, 0);
-                            selectPays.options[0].value =
-                                data[i].name;
-                            selectPays.options[0].innerText = data[i].name;
-                            selectPays.appendChild(option);
-                        }
-                    }
-                }
-            });
-        })();
-    </script>
 </div>
