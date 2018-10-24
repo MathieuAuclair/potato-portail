@@ -91,7 +91,7 @@ namespace SysInternshipManagement.Controllers
                 Request.Form["rue"] != null &&
                 Request.Form["numeroCivique"] != null &&
                 Request.Form["codePostal"] != null &&
-                Request.Form["salaire"] != null 
+                Request.Form["salaire"] != null
             );
         }
 
@@ -103,11 +103,11 @@ namespace SysInternshipManagement.Controllers
         [HttpPost]
         public ActionResult TeleverserFichier()
         {
-            var nomDeFichier = Request.Form["DocumentName"];
+            var nomDeFichier = Request.Form["fichier"];
 
             if (string.IsNullOrEmpty(nomDeFichier))
             {
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             Response.ContentType = "application/octet-stream";
@@ -122,14 +122,10 @@ namespace SysInternshipManagement.Controllers
         public ActionResult AjouterStage()
         {
             var poste = new Poste {Nom = "Nouveau stage"};
-            _bd.poste.Add(poste);
             var status = new Status {StatusStage = "disponible"};
-            _bd.status.Add(status);
             var location = new Location {Nom = "Saguenay"};
-            _bd.location.Add(location);
             var contact = new Contact {Nom = "Nom contact", Courriel = "Courriel", Telephone = "numéro téléphone"};
-            _bd.contact.Add(contact);
-            
+
             var stage = new Stage
             {
                 Location = location,
@@ -148,9 +144,14 @@ namespace SysInternshipManagement.Controllers
             };
 
             _bd.stage.Add(stage);
+            _bd.poste.Add(poste);
+            _bd.status.Add(status);
+            _bd.location.Add(location);
+            _bd.contact.Add(contact);
+
             _bd.SaveChanges();
 
-            return View("Edition", stage);
+            return View("~/Views/Stage/Edition.cshtml", stage);
         }
     }
 }

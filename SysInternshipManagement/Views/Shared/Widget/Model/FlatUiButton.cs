@@ -1,4 +1,4 @@
-namespace SysInternshipManagement.Models.Widget
+namespace SysInternshipManagement.Views.Shared.Widget.Model
 {
     public class FlatUiButton
     {

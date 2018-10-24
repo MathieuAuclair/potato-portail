@@ -1,7 +1,6 @@
 ﻿@model SysInternshipManagement.Models.Stage
 @using System.Globalization
-@using SysInternshipManagement.Controllers
-@using SysInternshipManagement.Models.Widget
+@using SysInternshipManagement.Views.Shared.Widget.Model
 @using SysInternshipManagement.Views.Stage.EditionComponent.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +15,7 @@
             @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "description", @Model.Description))
         </div>
         <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Pays", "20px", "pays", "text", @Model.Pays, null))
+            @Html.Partial("Widget/FlatUiPaysSelect", new FlatUiPaysSelect(@Model.Pays))
         </div>
         <div>
             @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Province", "20px", "province", "text", @Model.Province, null))
@@ -30,8 +29,9 @@
         <div>
             @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "numeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
         </div>
-        <div>
-            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Code Postal", "20px", "codePostal", "text", @Model.CodePostal, null))
+        <div class="flat-textarea">
+            <p>Code Postal</p>
+            <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
         </div>
         <div>
             @Html.Partial("EditionComponent/LocationSelect", new LocationSelect())
@@ -48,9 +48,8 @@
         <div>
             @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
         </div>
-
         <div>
-            @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("Ajouter un fichier", "fichier"))
+            @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("fichier"))
         </div>
         <div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))

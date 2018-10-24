@@ -1,6 +1,5 @@
-@model IEnumerable<SysInternshipManagement.Models.Entreprise>;
-@using SysInternshipManagement.Models
-@using SysInternshipManagement.Models.Widget
+@model IEnumerable<SysInternshipManagement.Models.Entreprise>
+@using SysInternshipManagement.Views.Shared.Widget.Model
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -13,7 +12,6 @@
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
         </form>
     </div>
-    <div class=""></div>
     <table>
         <tr>
             <th>Entreprise</th>
@@ -38,9 +36,9 @@
                 <td>
                     <div>
                         <form action="/Entreprise/Edition" method="post">
-                            <input name="id" type="hidden" value="@Html.DisplayFor(model => item.IdEntreprise)"/>
+                            <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdEntreprise)"/>
                             <button>
-                                <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
                         </form>
                     </div>
