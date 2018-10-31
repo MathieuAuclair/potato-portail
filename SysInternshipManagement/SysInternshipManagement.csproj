@@ -211,6 +211,8 @@
     <Content Include="Models\Scripts\modernizr-2.6.2.js" />
     <Content Include="Models\Scripts\respond.js" />
     <Content Include="Models\Scripts\respond.min.js" />
+    <Content Include="Views\Contact\Edition.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Entreprise\Edition.cshtml" />
     <Content Include="Views\Shared\Widget\FlatUiPaysSelect.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiButton.cshtml" />

@@ -1,5 +1,6 @@
 @model SysInternshipManagement.Models.Entreprise
 @using SysInternshipManagement.Views.Shared.Widget.Model
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -76,17 +77,9 @@
                         )
                     )
             </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Code postal",
-                        "20px",
-                        "codePostal",
-                        "text",
-                        Model.CodePostal,
-                        null
-                        )
-                    )
+            <div class="flat-textarea">
+                <p>Code Postal</p>
+                <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
             </div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
