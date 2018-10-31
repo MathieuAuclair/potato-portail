@@ -228,6 +228,8 @@
     <Content Include="Views\Stage\EditionComponent\LocationSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\PosteSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\StatusSelect.cshtml" />
+    <Content Include="Views\Status\Edition.cshtml" />
+    <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
