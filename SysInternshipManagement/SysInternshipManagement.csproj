@@ -214,6 +214,8 @@
     <Content Include="Views\Contact\Edition.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Entreprise\Edition.cshtml" />
+    <Content Include="Views\Location\Edition.cshtml" />
+    <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Poste\Edition.cshtml" />
     <Content Include="Views\Poste\Index.cshtml" />
     <Content Include="Views\Shared\Widget\FlatUiPaysSelect.cshtml" />

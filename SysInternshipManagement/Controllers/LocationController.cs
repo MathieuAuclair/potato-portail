@@ -1,21 +1,73 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 using SysInternshipManagement.Migrations;
 using SysInternshipManagement.Models;
 
 namespace SysInternshipManagement.Controllers
 {
-    public class LocationController
+    public class LocationController : Controller
     {
         private readonly DatabaseContext _bd = new DatabaseContext();
 
-        public IEnumerable<Location> RecolterTousLesLocations()
+        [HttpGet]
+        public ActionResult Index()
         {
-            return (
-                from entity
-                    in _bd.location
-                select entity
-            );
+            return View("~/Views/Location/Index.cshtml", _bd.location.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Edition(int? idLocation)
+        {
+            if (idLocation == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var location = _bd.location.Find(idLocation);
+
+            if (location == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            return View("~/Views/Location/Edition.cshtml", location);
+        }
+
+        [HttpPost]
+        public ActionResult EnregistrerLesModifications(
+            int? idLocation,
+            string nom
+        )
+        {
+            if (idLocation == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var location = _bd.location.Find(idLocation);
+
+            if (location == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            location.Nom = nom;
+            _bd.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Creation()
+        {
+            var location = new Location {Nom = "Nouvelle location"};
+
+            _bd.location.Add(location);
+            _bd.SaveChanges();
+
+            return View("~/Views/Location/Edition.cshtml", location);
         }
     }
 }
