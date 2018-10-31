@@ -211,7 +211,13 @@
     <Content Include="Models\Scripts\modernizr-2.6.2.js" />
     <Content Include="Models\Scripts\respond.js" />
     <Content Include="Models\Scripts\respond.min.js" />
+    <Content Include="Views\Contact\Edition.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Entreprise\Edition.cshtml" />
+    <Content Include="Views\Location\Edition.cshtml" />
+    <Content Include="Views\Location\Index.cshtml" />
+    <Content Include="Views\Poste\Edition.cshtml" />
+    <Content Include="Views\Poste\Index.cshtml" />
     <Content Include="Views\Shared\Widget\FlatUiPaysSelect.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiButton.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiSearchBar.cshtml" />
@@ -222,6 +228,8 @@
     <Content Include="Views\Stage\EditionComponent\LocationSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\PosteSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\StatusSelect.cshtml" />
+    <Content Include="Views\Status\Edition.cshtml" />
+    <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
