@@ -8,7 +8,7 @@ namespace SysInternshipManagement.Views.Stage.EditionComponent.Models
     public class PosteSelect
     {
         public List<Poste> Postes { get; set; }
-        private DatabaseContext _bd = new DatabaseContext();
+        private readonly DatabaseContext _bd = new DatabaseContext();
 
         public PosteSelect()
         {
