@@ -79,7 +79,10 @@ namespace SysInternshipManagement.Controllers
             var etudiant = new Etudiant
             {
                 Telephone = "123-456-7890",
-                Preference = null,
+                Preference = new Preference
+                {
+                    Salaire = 0,
+                },
                 Prenom = "prénom",
                 NomDeFamille = "nom de famille",
                 Role = "etudiant",
