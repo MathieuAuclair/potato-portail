@@ -45,7 +45,7 @@ namespace SysInternshipManagement.Controllers
             string courrielPersonnel,
             string numeroDa,
             string nomDeFamille
-            )
+        )
         {
             if (idEtudiant == null)
             {
@@ -96,6 +96,24 @@ namespace SysInternshipManagement.Controllers
             _bd.SaveChanges();
 
             return View("~/Views/Etudiant/Edition.cshtml", etudiant);
+        }
+
+        [HttpPost]
+        public ActionResult ConsulterDossierEtudiant(int? idEtudiant)
+        {
+            if (idEtudiant == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var etudiant = _bd.etudiant.Find(idEtudiant);
+
+            if (etudiant == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            return View("~/Views/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
         }
     }
 }

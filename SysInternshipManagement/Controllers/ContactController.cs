@@ -60,7 +60,7 @@ namespace SysInternshipManagement.Controllers
 
             _bd.SaveChanges();
 
-            return RedirectToAction("Edition", "Contact");
+            return RedirectToAction("Index", "Contact");
         }
 
         [HttpPost]
