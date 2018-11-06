@@ -134,7 +134,7 @@ namespace SysInternshipManagement.Controllers
                 Ville = "Saguenay",
                 Province = "Québec",
                 Pays = "Canada",
-                CodePostal = "G7X 7W2",
+                CodePostal = "G7X7W2",
                 Poste = poste,
                 Status = status,
                 Contact = contact,

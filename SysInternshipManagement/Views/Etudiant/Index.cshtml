@@ -1,0 +1,70 @@
+@using SysInternshipManagement.Views.Shared.Widget.Model
+@model IEnumerable<SysInternshipManagement.Models.Etudiant>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Stagière</h1>
+    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <form action="/Etudiant/Creation" method="post">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau stagière"))
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Courriel personnel</th>
+            <th>Courriel scolaire</th>
+            <th>Téléphone</th>
+            <th>Code permanent</th>
+            <th>Numéro DA</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Prenom) @Html.DisplayFor(model => item.NomDeFamille)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CourrielPersonnel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CourrielEcole)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CodePermanent)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.NumeroDa)
+                </td>
+                <td>
+                    <div>
+                        <form action="/Etudiant/Edition" method="post">
+                            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => item.IdEtudiant)"/>
+                            <button>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <form action="/Etudiant/ConsulterDossierEtudiant" method="post">
+                            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => item.IdEtudiant)"/>
+                            <button>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-search-24px.svg"/>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

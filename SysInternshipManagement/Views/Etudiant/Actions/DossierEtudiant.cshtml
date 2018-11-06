@@ -1,0 +1,62 @@
+@model SysInternshipManagement.Models.Etudiant
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Fiche de l'étudiant</h1>
+
+    <h2>Informations personnelles</h2>
+    
+    @* ReSharper disable once UnknownCssClass *@
+    <div class="flat-card">
+        <h3>Nom de l'étudiant</h3>
+        <p>@Model.Prenom @Model.NomDeFamille</p>
+
+        <h3>Role</h3>
+        <p><@Model.Role</p>
+
+        <h3>Téléphone</h3>
+        <p>@Model.Telephone</p>
+
+        <h3>Code permanent</h3>
+        <p>@Model.CodePermanent</p>
+
+        <h3>Numéro de DA</h3>
+        <p>@Model.NumeroDa</p>
+
+        <h3></h3>
+        <p>@Model.CourrielEcole</p>
+        <p>@Model.CourrielPersonnel</p>
+    </div>
+    
+    <h2>Préférences de l'étudiant</h2>
+
+    @* ReSharper disable once UnknownCssClass *@
+    <div class="flat-card">
+        <h3>Postes</h3>
+        <ul>
+            @foreach (var preference in Model.Preference.Poste)
+            {
+                <li>@preference.Nom</li>
+            }
+        </ul>
+        <h3>Locations</h3>
+        <ul>
+            @foreach (var location in Model.Preference.Location)
+            {
+                <li>@location.Nom</li>
+            }
+        </ul>
+        <h3>Entreprise</h3>
+        <ul>
+            @foreach (var entreprise in Model.Preference.Entreprise)
+            {
+                <li>@entreprise.Nom</li>
+            }
+        </ul>
+        <h3>Salaire visé</h3>
+        <p>@Model.Preference.Salaire.ToString("0.00")$</p>
+    </div>
+</div>

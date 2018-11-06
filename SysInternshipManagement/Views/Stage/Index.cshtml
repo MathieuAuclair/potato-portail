@@ -70,9 +70,12 @@
                                 <img src="~/Content/Icons/baseline-settings-20px.svg" alt="icon-setting"/>
                             </button>
                             <script>
-                                if (!"@Html.DisplayFor(mode => item.NomDocument)" === "")
+                                if ("@Html.DisplayFor(model => item.NomDocument)" === "") {
                                     document.getElementById("@Html.DisplayFor(model => item.IdStage)").disabled =
                                         "disabled";
+                                    document.getElementById(@Html.DisplayFor(model => item.IdStage)).style.background =
+                                        "#565656";
+                                }
                             </script>
                         </div>
                     </form>
