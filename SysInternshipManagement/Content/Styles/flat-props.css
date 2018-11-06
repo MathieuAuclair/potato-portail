@@ -18,11 +18,11 @@
 }
 
 .flat-text-editor:active {
-    border: 2px solid Highlight;
+    border: 2px solid #0078d7;
 }
 
 .flat-text-editor:focus-within {
-    border: 2px solid Highlight;
+    border: 2px solid #0078d7;
 }
 
 .flat-text-editor p {
@@ -50,7 +50,7 @@
     height: 55px;
     width: calc(20% - 6px);
     border: 1px solid black;
-    background-color: Highlight;
+    background-color: #0078d7;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     display: inline-block;
@@ -124,7 +124,7 @@
     width: 100%;
     height: 40px;
     margin: auto;
-    background: Highlight;
+    background: #0078d7;
     color: white;
     border: 1px solid white;
 }
@@ -133,7 +133,7 @@
     border: 2px solid black;
     width: 100%;
     max-width: 100%;
-    background: Highlight;
+    background: #0078d7;
     text-align:center;
 }
 
@@ -143,7 +143,7 @@
     height: 40px;
     margin: auto;
     text-align:center;
-    background: Highlight;
+    background: #0078d7;
     color: white;
     border: 1px solid white;
     padding-top:10px;
@@ -175,9 +175,14 @@ input[type="file"] {
 }
 
 .flat-textarea:active {
-    border: 2px solid Highlight;
+    border: 2px solid #0078d7;
 }
 
 .flat-textarea:focus-within {
-    border: 2px solid Highlight;
+    border: 2px solid #0078d7;
+}
+
+.flat-card{
+    background: white;
+    margin: 20px;
 }
