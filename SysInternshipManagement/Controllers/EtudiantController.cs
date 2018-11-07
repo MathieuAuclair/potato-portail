@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -44,17 +46,24 @@ namespace SysInternshipManagement.Controllers
             string courrielEcole,
             string courrielPersonnel,
             string numeroDa,
-            string nomDeFamille
+            string nomDeFamille,
+            int? idLocation,
+            int? idEntreprise,
+            int? idPoste,
+            float salaire
         )
         {
-            if (idEtudiant == null)
+            if (idEtudiant == null || idEntreprise == null || idLocation == null || idPoste == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var etudiant = _bd.etudiant.Find(idEtudiant);
+            var poste = _bd.poste.Find(idPoste);
+            var location = _bd.location.Find(idLocation);
+            var entreprise = _bd.entreprise.Find(idEntreprise);
 
-            if (etudiant == null)
+            if (etudiant == null || poste == null || location == null || entreprise == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
@@ -67,6 +76,11 @@ namespace SysInternshipManagement.Controllers
             etudiant.CourrielPersonnel = courrielPersonnel;
             etudiant.NumeroDa = numeroDa;
             etudiant.NomDeFamille = nomDeFamille;
+
+            etudiant.Preference.Poste = new List<Poste> {poste};
+            etudiant.Preference.Entreprise = new List<Entreprise> {entreprise};
+            etudiant.Preference.Location = new List<Location> {location};
+            etudiant.Preference.Salaire = salaire;
 
             _bd.SaveChanges();
 

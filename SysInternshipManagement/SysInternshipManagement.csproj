@@ -183,6 +183,7 @@
     <Compile Include="Views\Shared\Widget\Model\FlatUiTextarea.cs" />
     <Compile Include="Views\Shared\Widget\Model\FlatUiTextInputModel.cs" />
     <Compile Include="Views\Stage\EditionComponent\Models\ContactSelect.cs" />
+    <Compile Include="Views\Stage\EditionComponent\Models\EntrepriseSelect.cs" />
     <Compile Include="Views\Stage\EditionComponent\Models\LocationSelect.cs" />
     <Compile Include="Views\Stage\EditionComponent\Models\PosteSelect.cs" />
     <Compile Include="Views\Stage\EditionComponent\Models\StatusSelect.cs" />
@@ -203,19 +204,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Models\Scripts\bootstrap.js" />
-    <Content Include="Models\Scripts\bootstrap.min.js" />
-    <Content Include="Models\Scripts\InternshipScript.js" />
-    <Content Include="Models\Scripts\jquery-1.10.2.js" />
-    <Content Include="Models\Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Models\Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Models\Scripts\jquery.validate.js" />
-    <Content Include="Models\Scripts\jquery.validate.min.js" />
-    <Content Include="Models\Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Models\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Models\Scripts\modernizr-2.6.2.js" />
-    <Content Include="Models\Scripts\respond.js" />
-    <Content Include="Models\Scripts\respond.min.js" />
     <Content Include="Views\Contact\Edition.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Entreprise\Edition.cshtml" />
@@ -235,6 +223,7 @@
     <Content Include="Views\Shared\Widget\_FlatUiTextInput.cshtml" />
     <Content Include="Views\Stage\EditionComponent\ContactSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\LocationSelect.cshtml" />
+    <Content Include="Views\Stage\EditionComponent\EntrepriseSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\PosteSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\StatusSelect.cshtml" />
     <Content Include="Views\Status\Edition.cshtml" />
@@ -271,8 +260,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Models\Scripts\jquery.validate-vsdoc.js" />
     <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>

@@ -8,9 +8,9 @@
     <div>
         @Html.Partial("Widget/_FlatUiTextInput",
             new FlatUiTextInputModel(
-                "Prénom de l'étudiant",
+                "Salaire désiré",
                 "35px",
-                "prenom",
+                "salaire",
                 "number",
                 Model.Preference.Salaire.ToString(CultureInfo.InvariantCulture),
                 0.01f
@@ -24,6 +24,6 @@
         @Html.Partial("../Stage/EditionComponent/PosteSelect", new PosteSelect())
     </div>
     <div>
-        @Html.Partial("../Stage/EditionComponent/StatusSelect", new StatusSelect())
+        @Html.Partial("../Stage/EditionComponent/EntrepriseSelect", new EntrepriseSelect())
     </div>
 </div>
