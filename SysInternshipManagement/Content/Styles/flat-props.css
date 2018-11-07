@@ -185,4 +185,6 @@ input[type="file"] {
 .flat-card{
     background: white;
     margin: 20px;
+    text-align: center;
+    padding: 20px;
 }

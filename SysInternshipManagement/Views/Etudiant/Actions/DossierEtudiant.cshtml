@@ -8,7 +8,7 @@
     <h1>Fiche de l'étudiant</h1>
 
     <h2>Informations personnelles</h2>
-    
+
     @* ReSharper disable once UnknownCssClass *@
     <div class="flat-card">
         <h3>Nom de l'étudiant</h3>
@@ -26,37 +26,38 @@
         <h3>Numéro de DA</h3>
         <p>@Model.NumeroDa</p>
 
-        <h3></h3>
-        <p>@Model.CourrielEcole</p>
-        <p>@Model.CourrielPersonnel</p>
+        <h3>Courriel</h3>
+        <p>École: @Model.CourrielEcole</p>
+        <p>Personnel: @Model.CourrielPersonnel</p>
     </div>
-    
+
     <h2>Préférences de l'étudiant</h2>
 
     @* ReSharper disable once UnknownCssClass *@
     <div class="flat-card">
         <h3>Postes</h3>
-        <ul>
-            @foreach (var preference in Model.Preference.Poste)
-            {
-                <li>@preference.Nom</li>
-            }
-        </ul>
+
+        @foreach (var preference in Model.Preference.Poste)
+        {
+            <p>@preference.Nom</p>
+        }
+
         <h3>Locations</h3>
-        <ul>
-            @foreach (var location in Model.Preference.Location)
-            {
-                <li>@location.Nom</li>
-            }
-        </ul>
+
+        @foreach (var location in Model.Preference.Location)
+        {
+            <p>@location.Nom</p>
+        }
+
         <h3>Entreprise</h3>
-        <ul>
-            @foreach (var entreprise in Model.Preference.Entreprise)
-            {
-                <li>@entreprise.Nom</li>
-            }
-        </ul>
+
+        @foreach (var entreprise in Model.Preference.Entreprise)
+        {
+            <p>@entreprise.Nom</p>
+        }
+
         <h3>Salaire visé</h3>
+
         <p>@Model.Preference.Salaire.ToString("0.00")$</p>
     </div>
 </div>
