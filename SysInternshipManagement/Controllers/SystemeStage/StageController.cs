@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -141,7 +142,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
 
             _bd.SaveChanges();
 
-            return View("~/Views/SystemeStage/Stage/Edition.cshtml", stage);
+            return View("/Views/SystemeStage/Stage/Edition.cshtml", stage);
         }
     }
 }

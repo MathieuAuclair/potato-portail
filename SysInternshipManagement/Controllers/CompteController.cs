@@ -23,12 +23,6 @@ namespace SysInternshipManagement.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public CompteController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
         public ActionResult Index()
         {
             var utilisateurs = _db.Users.ToList();
