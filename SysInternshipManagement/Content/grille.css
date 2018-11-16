@@ -1,0 +1,80 @@
+﻿.section-grille .select-grille {
+    color: black;
+    text-align: center;
+}
+
+.section-grille #selected-grille {
+    color: white;
+    background-color: #083a7c;
+    text-align: center;
+}
+
+.section-grille #hover-grille:hover {
+    color: grey;
+    cursor: pointer;
+    background-color: #083a7c;
+}
+
+.section-grille .select-grille h3 {
+    font-size: large;
+}
+
+.section-grille #infobulle:hover, .section-grille #infobulle:focus {
+    background: rgba(0,0,0,.4);
+    box-shadow: 0 1px 0 rgba(255,255,255,.4);
+}
+
+.section-grille #infobulle span {
+    margin-top: 0px;
+    margin-left: 0px;
+    float: left;
+    color: #fff;
+    background: #083a7c;
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,.5);
+    transform: scale(0) rotate(-12deg);
+    transform: scale(1) rotate(0);
+    transition: all .25s;
+    opacity: 0;
+}
+
+.section-grille #infobulle:hover span, .section-grille #infobulle:focus span {
+    opacity: 1;
+}
+
+.section-grille .table {
+    margin-top: 1%;
+}
+
+.section-grille .table tbody {
+    display: block;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.section-grille .table thead, .section-grille tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.section-grille .grilleCoursHeure {
+    text-align: center;
+    font-size: medium;
+}
+
+.section-grille #grilleCoursHeure b {
+    font-size: large;
+}
+
+.section-grille #grilleCoursPrealable {
+    text-align: center;
+    font-size: medium;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.section-grille #grilleCoursPrealable b {
+    font-size: large;
+}

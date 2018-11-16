@@ -122,33 +122,22 @@ namespace SysInternshipManagement.Controllers.SystemeStage
         [HttpPost]
         public ActionResult AjouterStage()
         {
-            var poste = new Poste {Nom = "Nouveau stage"};
-            var status = new Status {StatusStage = "disponible"};
-            var location = new Location {Nom = "Saguenay"};
-            var contact = new Contact {Nom = "Nom contact", Courriel = "Courriel", Telephone = "numéro téléphone"};
-
             var stage = new Stage
             {
-                Location = location,
                 NumeroCivique = 0,
                 NomRue = "nom de rue",
                 Ville = "Saguenay",
                 Province = "Québec",
                 Pays = "Canada",
                 CodePostal = "G7X7W2",
-                Poste = poste,
-                Status = status,
-                Contact = contact,
+                Poste = _bd.Poste.First(),
+                Status = _bd.Status.First(),
+                Contact = _bd.Contact.First(),
+                Location = _bd.Location.First(),
                 Description = "Description du stage",
                 NomDocument = "",
                 Salaire = 0,
             };
-
-            _bd.Stage.Add(stage);
-            _bd.Poste.Add(poste);
-            _bd.Status.Add(status);
-            _bd.Location.Add(location);
-            _bd.Contact.Add(contact);
 
             _bd.SaveChanges();
 

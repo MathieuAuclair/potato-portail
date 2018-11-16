@@ -70,7 +70,8 @@ namespace SysInternshipManagement.Controllers.SystemeStage
             {
                 Courriel = "courriel@cegepjonquiere.ca",
                 Nom = "Nouveau contact",
-                Telephone = "123-456-7890"
+                Telephone = "123-456-7890",
+                Entreprise = _bd.Entreprise.First()
             };
 
             _bd.Contact.Add(contact);

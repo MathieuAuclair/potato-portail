@@ -10,12 +10,9 @@
 
 @* ReSharper disable once UnknownCssClass *@
 <div class="container page-content">
-    <div style="margin-bottom: 15px;">
-        @Html.Partial("Shared/Widget/_FlatUiSearchBar", new FlatUiSearchBar())
-    </div>
     <div style="margin-bottom: 20px;">
         <form action="/Status/Creation" method="post">
-            @Html.Partial("Shared/Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau status"))
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau status"))
         </form>
     </div>
 

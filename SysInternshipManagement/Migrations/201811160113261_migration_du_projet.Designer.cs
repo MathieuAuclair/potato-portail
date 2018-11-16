@@ -7,9 +7,9 @@ namespace SysInternshipManagement.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class migration_du_projet : IMigrationMetadata
+    public sealed partial class MigrationDuProjet : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(migration_du_projet));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MigrationDuProjet));
         
         string IMigrationMetadata.Id
         {

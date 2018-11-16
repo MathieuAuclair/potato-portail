@@ -1,0 +1,91 @@
+﻿.tree-view {
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 1;
+    padding-right: 15px;
+    height: calc(100vh - 55px);
+    width: 23%;
+    color: #ddd;
+    background-color: #333333;
+}
+
+.tree-view .tree-view-header {
+    padding: 10px 5px 10px 35px;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+    background-color: #4C4C4C;
+}
+
+.tree-view-header a {
+    color: #ddd;
+    transition: 0.1s;
+}
+
+.tree-view-header a:hover {
+    color: #fff;
+}
+
+.tree-view .tree-view-item-container {
+    padding-left: 30px;
+}
+
+.tree-view .tree-view-item {
+    border-top: 1px solid #333;
+    display: flex;
+    overflow: hidden;
+    background-color: #5C5C5C;
+}
+
+.tree-view .tree-view-item a {
+    padding: 10px 5px;
+    color: #ddd;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.tree-view .tree-view-item a:hover {
+    color: #fff;
+}
+
+.tree-view .collapse-button {
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.tree-view .collapse-button:hover {
+    background-color: #696969;
+}
+
+.tree-view .collapse-button .glyphicon {
+    position: relative;
+    top: 10px;
+    padding: 0 10px;
+    font-size: 10px;
+}
+
+.tree-view .collapse-button[aria-expanded='true'] .glyphicon {
+    transform: rotate(90deg);
+}
+
+.tree-view .no-button {
+    padding-left: 30px;
+}
+
+.tree-view .tree-view-item.active {
+    color: #333;
+    background-color: #ddd;
+}
+
+.tree-view .tree-view-item.active a {
+    color: #333;
+}
+
+.tree-view .tree-view-item.active a:hover {
+    color: #333;
+}
+
+.tree-view .tree-view-item.active .collapse-button:hover {
+    background-color: #fff;
+}

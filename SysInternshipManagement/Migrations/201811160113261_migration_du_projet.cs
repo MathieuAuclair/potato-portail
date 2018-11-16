@@ -3,7 +3,7 @@ namespace SysInternshipManagement.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class migration_du_projet : DbMigration
+    public partial class MigrationDuProjet : DbMigration
     {
         public override void Up()
         {

@@ -1,0 +1,62 @@
+﻿.super-view {
+    margin-left: 350px;
+    padding: 40px;
+    padding-bottom: 80px;
+    overflow: scroll;
+    width: 77%;
+    height: calc(100vh - 55px);
+    background-color: #fff;
+    float: right;
+    padding-bottom: 10%;
+}
+
+.info-child {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    display: inline-block;
+    width: 75%;
+    border-left: 7px solid #0078d7;
+    text-decoration: none;
+    color: #333;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.info-child p {
+    margin: 10px;
+}
+
+.info-child:hover {
+    filter: brightness(102%);
+}
+
+.info-child .gauche {
+     float: left;
+     width: 50px;
+     font-weight: bold;
+     margin-right: 0;
+     margin-left: 8px;
+}
+
+.info-child .gaucheG {
+    float: left;
+    width: 100px;
+    font-weight: bold;
+}
+
+.info-child .droite {
+    float: right;
+    width: 87%;
+    text-align: left;
+}
+
+.info-child .droiteG {
+    float: right;
+    width: 80%;
+    text-align: left;
+}
+
+.end-div{
+    margin-bottom: 60px;
+}

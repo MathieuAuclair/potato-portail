@@ -2,6 +2,7 @@
 @using System.Globalization
 @using SysInternshipManagement.Views.Shared.Widget.Model
 @using SysInternshipManagement.Views.Stage.EditionComponent.Models
+@using SysInternshipManagement.Views.SystemeStage.Stage.EditionComponent.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -34,16 +35,16 @@
             <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
         </div>
         <div>
-            @Html.Partial("EditionComponent/LocationSelect", new LocationSelect())
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())
         </div>
         <div>
-            @Html.Partial("EditionComponent/PosteSelect", new PosteSelect())
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/PosteSelect.cshtml", new PosteSelect())
         </div>
         <div>
-            @Html.Partial("EditionComponent/StatusSelect", new StatusSelect())
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/StatusSelect.cshtml", new StatusSelect())
         </div>
         <div>
-            @Html.Partial("EditionComponent/ContactSelect", new ContactSelect())
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/ContactSelect.cshtml", new ContactSelect())
         </div>
         <div>
             @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))

@@ -3,12 +3,12 @@ using System.Linq;
 using SysInternshipManagement.Migrations;
 using SysInternshipManagement.Models;
 
-namespace SysInternshipManagement.Views.Stage.EditionComponent.Models
+namespace SysInternshipManagement.Views.SystemeStage.Stage.EditionComponent.Models
 {
     public class LocationSelect
     {
         public List<Location> Locations { get; set; }
-        private DatabaseContext _bd = new DatabaseContext();
+        private readonly DatabaseContext _bd = new DatabaseContext();
         
         public LocationSelect()
         {
