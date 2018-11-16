@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Titre = "Accueil";
+}
+
+<div id="accueil">
+    <h1>Bonjour @ViewBag.prenom!</h1>
+    <div class="icon-container">
+
+        @if (User.IsInRole("RCP"))
+        {
+            <a class="icon" href='@Url.Action("Pedagogie")'>
+                <span class="mdi mdi-school"></span>
+                <p>Pédagogie</p>
+            </a>
+        }
+
+        <a class="icon" href='@Url.Action("Index", "Rapport")'>
+            <span class="mdi mdi-folder-open"></span>
+            <p>Rapport</p>
+        </a>
+
+        <a class="icon" href='@Url.Action("Reunions")'>
+            <span class="mdi mdi-date-range"></span>
+            <p>Réunions</p>
+        </a>
+
+        <a class="icon" href=''>
+            <span class="mdi mdi-work"></span>
+            <p>Stages</p>
+        </a>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="icon" href='@Url.Action("ConsoleAdmin")'>
+                <span class="glyphicon glyphicon-cog"></span>
+                <p>Console d'administration</p>
+            </a>
+        }
+
+        <a class="icon" href='@Url.Action("ESport")'>
+            <span class="mdi mdi-videogame-asset"></span>
+            <p>eSport - Gaillard</p>
+        </a>
+    </div>
+</div>

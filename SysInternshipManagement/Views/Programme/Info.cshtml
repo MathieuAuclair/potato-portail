@@ -1,0 +1,46 @@
+﻿@model ApplicationPlanCadre.Models.Programme
+
+@{
+    ViewBag.Titre = Model.description;
+}
+
+@Html.Action("ListeProgramme")
+
+<div class="super-view">
+
+    <header class="fat-header">
+
+        <h3>Programme</h3>
+
+        <h1>@ViewBag.Titre</h1>
+        <hr />
+
+        <h3>@Html.DisplayFor(model => model.DevisMinistere.EnteteProgramme.codeProgramme)-@Html.DisplayFor(model => model.annee)-@Html.DisplayFor(model => model.DevisMinistere.codeSpecialisation)</h3>
+
+    </header>
+
+    <h2>Plans cadres</h2>
+
+    @foreach (var planCadre in Model.PlanCadre)
+    {
+        <div>
+            <a class="info-child clearfix" href='@Url.Action("info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre })'>
+                <p class="gaucheG">@Html.DisplayFor(model => planCadre.numeroCours)</p>
+                <p class="droiteG">@Html.DisplayFor(ec => planCadre.titreCours)</p>
+            </a>
+        </div>
+    }
+
+    <hr class="end-div"/>
+
+    
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Index", "Programme")'"><span class="glyphicon glyphicon-triangle-left"></span>Retour</a>
+    </div>
+    
+
+</div>
+
+<script>
+    $(("#p" + @Model.idProgramme + "element")).addClass('active');
+</script>

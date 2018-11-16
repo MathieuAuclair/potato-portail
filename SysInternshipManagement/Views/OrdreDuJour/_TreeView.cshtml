@@ -1,0 +1,21 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
+<div class="tree-view ps">
+    <div class="tree-view-header">Historique</div>
+    @foreach (var item in Model)
+    {
+        <div class="tree-view-item">
+            <a href="@Url.Action("Details",  new { id = item.idOdJ })">
+                <div id="historique">
+                    @Html.DisplayFor(modelItem => item.titreOdJ)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.dateOdJ)
+                </div>
+            </a>
+        </div>
+    }
+</div>
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.tree-view');
+</script>

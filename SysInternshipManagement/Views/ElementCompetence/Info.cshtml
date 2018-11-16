@@ -1,0 +1,80 @@
+﻿@model ApplicationPlanCadre.Models.ElementCompetence
+
+@{
+    ViewBag.Titre = Model.description;
+}
+
+@Html.Action("ListeDevis", "DevisMinistere")
+
+<div class="super-view">
+
+    <header class="fat-header">
+
+        <h3>Élément de compétence</h3>
+
+        <h1>@ViewBag.Titre</h1>
+        <script src="~/Scripts/jquery.js"></script>
+        <script src="~/Scripts/jquery-ui.min.js"></script>
+        <script src="~/Scripts/jquery-ui.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    </header>
+    <div id="listeCriterePerformance">
+        @if (Model.CriterePerformance.Count > 0)
+        {
+            <h2>Critères de performance</h2>
+            foreach (var criterePerformance in Model.CriterePerformance.OrderBy(e => e.numero))
+            {
+                <div>
+                    <a id="@criterePerformance.idCritere"
+                       class="info-child clearfix vertical-align"
+                       href='@Url.Action("Modifier","CriterePerformance", new { idCritere = criterePerformance.idCritere }/*fait une erreur quand on effectue la modification */)'> 
+                        <p class="droite">@Html.DisplayFor(m => criterePerformance.description)</p>
+                        <p class="gauche">@Html.DisplayFor(m => criterePerformance.numero)</p>
+                    </a>
+                    <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "CriterePerformance", new { idCritere = criterePerformance.idCritere })'><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            }
+            <hr />
+        }
+    </div>
+    <div class="menu-flottant">
+
+        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-triangle-left"></span>Retour</a>
+        <a class="fancy-button blanc" href='@Url.Action("Modifier", new { idElement = Model.idElement })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+        <a class="fancy-button blanc rouge" onclick="location.href='@Url.Action("Supression", new { idElement = Model.idElement })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'élément</a>
+
+    </div>
+</div>
+
+<script>
+    $(("#el" + @Model.idElement + "element")).addClass('active');
+    $(("#enc" + @Model.EnonceCompetence.idCompetence)).collapse('show');
+   $(("#p" + @Model.EnonceCompetence.DevisMinistere.idDevis)).collapse('show');
+    $("#listeCriterePerformance").sortable({
+                update: function (e,div) {
+                    // gets the new and old index then removes the temporary attribute
+                    var ordre = 1;
+                    var listeElement = [];
+                   
+                    $("#listeCriterePerformance div").each(function () {
+                        var idelement = $(this)[0].children[0].id;
+                        var objModel = { idelement: idelement, numero: ordre };
+                        $(this)[0].children[0].children[1].innerHTML = ordre;
+                        listeElement.push(objModel);
+                        ordre++;
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: '@Url.Action("MettreAjoursOrdre", "ElementCompetence")', //This is my url put your url here and pass model as data it is an array of my items
+                        data: JSON.stringify({ listeElement: listeElement }),
+                        success: function (data) {
+                        },
+                        error: function (resultat, statut,erreur) {
+                            alert(erreur);
+                        }
+                    });
+                }
+            });
+</script>

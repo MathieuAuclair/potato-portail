@@ -1,0 +1,113 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Programme>
+
+<div class="tree-view">
+    <div class="tree-view-header">Programme</div>
+    @foreach (var programme in Model)
+    {
+        string p_id = "p" + programme.idProgramme.ToString();
+        string p_element = p_id + "element";
+        string p_target = "#" + p_id;
+        <div id="@p_element" class="tree-view-item">
+            @if (programme.PlanCadre.Count() > 0)
+            {
+                <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div> }
+            else
+            {
+                <div class="no-button"></div>
+            }
+            <a href='@Url.Action("Info", "Programme", new { idProgramme = programme.idProgramme })'>
+                @Html.DisplayFor(m => programme.description)
+            </a>
+            </div>
+            <div id="@p_id" class="collapse">
+            <div class="tree-view-item-container">
+                <div class="tree-view-header">Plan cadre</div>
+                @foreach (var planCadre in programme.PlanCadre)
+                {
+                    string pc_id = "pc" + planCadre.idPlanCadre.ToString();
+                    string pc_element = pc_id + "element";
+                    string pc_target = "#" + pc_id;
+                    <div id=@pc_element class="tree-view-item">
+                        @if (planCadre.PlanCadreEnonce.Count > 0)
+                        {
+                            <div class="collapse-button" data-toggle="collapse" data-target=@pc_target><span class="glyphicon glyphicon-chevron-right"></span></div> }
+                        else
+                        {
+                            <div class="no-button"></div>}
+                        <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre})'>
+                            @Html.DisplayFor(m => planCadre.nom)
+                        </a>
+                    </div>
+                    <div id=@pc_id class="collapse">
+                        <div class="tree-view-item-container">
+                            <div class="tree-view-header">Énoncés de compétence</div>
+                            @foreach (var planCadreEnonce in planCadre.PlanCadreEnonce.OrderBy(e => e.idPlanCadreEnonce))
+                            {
+                                string idPlanCadreEnonce = planCadreEnonce.idPlanCadreEnonce.ToString();
+                                string enc_recherche="#enc" + idPlanCadreEnonce+"enc";
+                                string enc_id = "enc" + idPlanCadreEnonce;
+                                string enc_element = enc_id + "element";
+                                string enc_target = "#" + enc_id;
+
+                                <div id=@enc_element class="tree-view-item">
+                                @if (planCadreEnonce.PlanCadreElement.Count() > 0)
+                                {
+                                <div class="collapse-button" data-toggle="collapse" data-target=@enc_target><span class="glyphicon glyphicon-chevron-right"></span></div> }
+                                else
+                                {
+                                    <div class="no-button"></div>}
+                                @if (ViewBag.idPlanCadreActuel != planCadre.idPlanCadre)
+                                {
+                                    <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre })@enc_recherche'>
+                                    @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.description)
+                                    </a>
+
+                                 }
+                                else {
+                                    <a href="@enc_recherche">
+                                    @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.description)
+                                    </a>
+                                }
+
+                            </div>
+                                <div id=@enc_id class="collapse">
+                                    <div class="tree-view-item-container">
+                                        <div class="tree-view-header">Éléments de compétence</div>
+                                        @foreach (var planCadreElement in planCadreEnonce.PlanCadreElement)
+                                        {
+                                            string el_item = "el" + planCadreElement.idElement.ToString() + "element";
+                                            string el_recherche = "#el" + planCadreElement.idElement.ToString();
+                                         <div id=@el_item class="tree-view-item">
+                                         <div class="no-button"></div>
+                                         @if (ViewBag.idPlanCadreActuel != planCadre.idPlanCadre)
+                                         {
+                                             <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre })@el_recherche'>
+                                             @Html.DisplayFor(m => planCadreElement.ElementCompetence.description)
+                                             </a>
+                                         }
+                                         else {
+                                             <a href="@el_recherche">
+                                             @Html.DisplayFor(m => planCadreElement.ElementCompetence.description)
+                                             </a>
+                                         }
+      
+                                            </div>
+                                         }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+</div>
+
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.tree-view');
+   
+</script>
+

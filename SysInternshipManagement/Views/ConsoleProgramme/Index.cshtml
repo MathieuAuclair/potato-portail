@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Programme>
+
+@{
+    ViewBag.Title = "Liste des programmes";
+}
+
+<div class="container">
+    <div class="box">
+
+        <header class="light-header">
+
+            <h1>@ViewBag.Title</h1>
+
+        </header>
+
+        <table class="cool-table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.annee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.idDevis)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nbSession)
+                </th>
+                <th class="action-cell-header">
+                    <b>Modifier</b>
+                </th>
+                <th class="action-cell-header">
+                    <b>Supprimer</b>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                bool valide = item.dateValidation == null;
+                string dblclickEvent = valide ? Url.Action("Modifier", new { idProgramme = item.idProgramme }) : @Url.Action("Creation");
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.annee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DevisMinistere.nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nbSession)
+                    </td>
+                    <td class="action-cell">
+                        @if (valide)
+                        {
+                            <a href='@Url.Action("Modifier", new { idProgramme = item.idProgramme })'>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        }
+                    </td>
+                    <td class="action-cell">
+                        @if (valide)
+                        {
+                            <a href='@Url.Action("Supression", new { idProgramme = item.idProgramme })'>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <hr class="end-div"/>
+
+        <div class="menu-flottant">
+
+            <a href='@Url.Action("ConsoleAdmin", "Accueil")' class="fancy-button blanc"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <a href='@Url.Action("Creation", "ConsoleProgramme")' class="fancy-button blanc"><span class="glyphicon glyphicon-plus"></span> Créer un programme</a>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿@model ApplicationPlanCadre.Models.GrilleCoursViewModel
+
+@{
+    ViewBag.Titre = "GetEnonceModel";
+}
+
+<h2>@Html.DisplayFor(Model => Model.Grille)</h2>
+
+@foreach (var enonce in Model.Enonces)
+{
+    <p>@enonce.codeCompetence</p>
+}

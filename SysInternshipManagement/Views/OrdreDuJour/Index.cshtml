@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
+
+@{
+    ViewBag.Titre = "Ordre du jour";
+}
+
+@Html.Action("ListeOrdreDuJour")
+
+<div class="super-view">
+    <div class="form-box">
+
+        <header class="light-header">
+            <h1>Ordre du jour ajouté récemment</h1>
+        </header>
+
+
+        @foreach (var odj in Model)
+        {
+            <div>
+                <a class="info-child clearfix vertical-align" href='@Url.Action("Details", new {id = odj.idOdJ})'>
+                    <p class="gauche">@Html.DisplayFor(p => odj.dateOdJ)</p>
+                    <p class="droiteG">@Html.DisplayFor(p => odj.titreOdJ)</p>
+                </a>
+            </div>
+        }
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href='@Url.Action("Reunions", "Accueil")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <a class="fancy-button blanc" href='@Url.Action("Create", "OrdreDuJour")'><span class="glyphicon glyphicon-plus"></span> Créer un ordre du jour</a>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.tree-view');
+</script>

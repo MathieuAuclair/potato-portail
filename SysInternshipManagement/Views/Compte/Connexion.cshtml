@@ -1,0 +1,80 @@
+﻿@model ApplicationPlanCadre.Models.ConnexionViewModel
+
+@{
+    ViewBag.Titre = "Portail";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <title>@ViewBag.Titre</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+
+@using (Html.BeginForm("Connexion", "Compte", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <section id="portail" class="container-fluid">
+        <div id="main" class="col-md-4 col-md-offset-8 col-sm-6 col-sm-offset-6">
+            <div class="login">
+
+                <img class="logo" src="~/Content/Images/portail-logo.png" />
+                
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email)
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control bright" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password)
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control bright" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-offset-3 col-xs-9">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="center-align">
+                    <input type="submit" value="Connexion" class="fancy-button" />
+                </div>
+
+            </div>
+            <div class="associes row">
+                <a class="col-xs-6" href="http://dicj.info/"><img src="~/Content/Images/dicj-logo.png" /></a>
+                <a class="col-xs-6" href="http://www.cegepjonquiere.ca/"><img src="~/Content/Images/cj-logo.png" /></a>
+            </div>
+        </div>
+    </section>
+}
+
+</body>
+</html>
+
+<script src="@Url.Content("~/Scripts/portail.js")"></script>

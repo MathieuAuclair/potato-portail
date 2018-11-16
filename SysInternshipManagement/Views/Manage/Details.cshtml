@@ -1,0 +1,30 @@
+﻿@model SysInternshipManagement.Models.ApplicationUser
+
+@{
+    ViewBag.Titre = "Information sur l'utilisateur";
+}
+
+<div class="container">
+    <div class="box">
+
+        <header class="light-header">
+
+            <h1>@Html.DisplayFor(m => m.prenom) @Html.DisplayFor(m => m.nom)</h1>
+
+        </header>
+
+        <div class="element">
+            @Html.LabelFor(m => m.Email)
+            @Html.DisplayFor(m => m.Email)
+        </div>
+
+        <div class="element">
+            @Html.LabelFor(m => m.rolesWrap)
+            @Html.DisplayFor(m => m.rolesWrap)
+        </div>
+
+        <hr />
+        <a href='@Url.Action("ChangePassword", "Manage")'>Changer mon mot de passe</a>
+
+    </div>
+</div>

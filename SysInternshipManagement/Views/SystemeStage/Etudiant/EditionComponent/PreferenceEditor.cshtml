@@ -1,0 +1,29 @@
+@using System.Globalization
+@using SysInternshipManagement.Views.Shared.Widget.Model
+@using SysInternshipManagement.Views.Stage.EditionComponent.Models
+@model SysInternshipManagement.Views.SystemeStage.Etudiant.EditionComponent.Models.PreferenceEditor
+
+<div>
+    <input type="hidden" name="idPreference" value="@Model.Preference.IdPreference"/>
+    <div>
+        @Html.Partial("Widget/_FlatUiTextInput",
+            new FlatUiTextInputModel(
+                "Salaire désiré",
+                "35px",
+                "salaire",
+                "number",
+                Model.Preference.Salaire.ToString(CultureInfo.InvariantCulture),
+                0.01f
+                )
+            )
+    </div>
+    <div>
+        @Html.Partial("Stage/EditionComponent/LocationSelect", new LocationSelect())
+    </div>
+    <div>
+        @Html.Partial("Stage/EditionComponent/PosteSelect", new PosteSelect())
+    </div>
+    <div>
+        @Html.Partial("Stage/EditionComponent/EntrepriseSelect", new EntrepriseSelect())
+    </div>
+</div>

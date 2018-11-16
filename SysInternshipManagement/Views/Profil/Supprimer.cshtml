@@ -1,0 +1,65 @@
+﻿@model SysInternshipManagement.Models.eSports.Profil
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Profil</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Etudiant.NomDeFamille)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etudiant.NomDeFamille)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jeu.nomJeu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jeu.nomJeu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pseudo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pseudo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Courriel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Courriel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default"/> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

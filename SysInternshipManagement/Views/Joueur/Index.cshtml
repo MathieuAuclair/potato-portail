@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SysInternshipManagement.Models.eSports.Joueur>
+
+@{
+    ViewBag.Titre = "Joueurs";
+}
+
+<div class="container" style="margin-bottom:5%;">
+    <div class="box">
+
+        <header class="light-header">
+            <h1>Liste des joueurs</h1>
+        </header>
+
+        <table class="cool-table">
+            <tr>
+                <th>
+                    @Html.ActionLink("Pseudo", "Index", new { sortOrder = ViewBag.PseudoSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Nom", "Index", new { sortOrder = ViewBag.NomSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Prénom", "Index", new { sortOrder = ViewBag.PrenomSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Jeu", "Index", new { sortOrder = ViewBag.JeuSortParm })
+                </th>
+                <th class="action-cell-header">
+                    <b>Modifier</b>
+                </th>
+                <th class="action-cell-header">
+                    <b>Détails</b>
+                </th>
+                <th class="action-cell-header">
+                    <b>Supprimer</b>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PseudoJoueur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Etudiant.NomDeFamille)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Etudiant.Prenom)
+                    </td>
+                    <td>
+                        @if (item.EquipeMonojoueur != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.EquipeMonojoueur.Jeu.nomJeu)
+                        }
+                        else
+                        {
+                            @:Aucun jeu associé
+                        }
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("Modifier", "Joueur", new { id = item.Id})'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("Details", "Joueur", new { id = item.Id})'>
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("Supprimer", "Joueur", new { id = item.Id})'>
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Accueil/ESport">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+        </div>
+
+        </div>
+    </div>

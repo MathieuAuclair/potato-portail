@@ -1,0 +1,55 @@
+﻿@model ApplicationPlanCadre.Models.ReunionsViewModel.CreerOrdreDuJourViewModel
+
+@{
+    ViewBag.Titre = Model.ordreDuJour.titreOdJ;
+}
+
+@Html.Action("ListeOrdreDuJour")
+<div class="super-view">
+    <header class="fat-header">
+        <h3>Ordre du jour</h3>
+        <h1>@ViewBag.Titre</h1>
+        <hr/>
+    </header>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="element">
+                @Html.LabelFor(m => m.ordreDuJour.dateOdJ)
+                @Html.DisplayFor(m => m.ordreDuJour.dateOdJ)
+            </div>
+            <div class="element">
+                @Html.LabelFor(m => m.ordreDuJour.heureDebutReunion)
+                @Html.DisplayFor(m => m.ordreDuJour.heureDebutReunion)
+            </div>
+            <div class="element">
+                @Html.LabelFor(m => m.ordreDuJour.heureFinReunion)
+                @Html.DisplayFor(m => m.ordreDuJour.heureFinReunion)
+            </div>
+            <div class="element">
+                @Html.LabelFor(m => m.ordreDuJour.lieuReunionODJ)
+                @Html.DisplayFor(m => m.ordreDuJour.lieuReunionODJ)
+            </div>
+            <hr/>
+        </div>
+        <div class="col-md-6">
+            <div class="field-box">
+                @Html.Label("Points principaux de l'ordre du jour")
+                <hr/>
+                <div class="element">
+                    @foreach (var item in Model.sujetPointPrincipal)
+                    {
+                        <dd>
+                            @Html.DisplayFor(Model => item.sujetPoint)
+                        </dd>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href='@Url.Action("Index", "OrdreDuJour")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <a class="fancy-button blanc" href='@Url.Action("Edit", new {id = Model.ordreDuJour.idOdJ})'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+            <a class="fancy-button rouge blanc" onclick="location.href = '@Url.Action("Delete", new {id = Model.ordreDuJour.idOdJ})'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'ordre du jour</a>
+        </div>
+    </div>
+</div>

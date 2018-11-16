@@ -1,0 +1,60 @@
+﻿@model ApplicationPlanCadre.Models.EnonceCompetence
+
+@{
+    ViewBag.Titre = "Modification d'un énoncé de compétence";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.idDevis)
+
+    <div class="container">
+        <div class="form-box">
+
+            <header class="light-header">
+
+                <h1>@ViewBag.Titre</h1>
+
+            </header>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationMessage("Duplique", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.codeCompetence)
+                @Html.TextBoxFor(m => m.codeCompetence, new { @maxlength = "4", @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.codeCompetence, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.description)
+                @Html.TextAreaFor(m => m.description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.obligatoire)
+                        @Html.CheckBoxFor(m => m.obligatoire)
+                        @Html.ValidationMessageFor(m => m.obligatoire, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.actif)
+                        @Html.CheckBoxFor(m => m.actif)
+                        @Html.ValidationMessageFor(m => m.actif, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+            <hr />
+            <input type="submit" value="Suivant" class="fancy-button" />
+            <div class="fancy-button rouge" onclick="location.href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.idCompetence })'">Annuler</div>
+        </div>
+    </div>
+}

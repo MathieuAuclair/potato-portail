@@ -1,0 +1,107 @@
+﻿@model IEnumerable<SysInternshipManagement.Models.eSports.Profil>
+
+@{
+    ViewBag.Titre = "Inscriptions";
+}
+
+<div class="container">
+    <div class="box">
+
+        @if (ViewBag.inscriptions.Count > 0)
+        {
+            <header class="light-header">
+                <h1>Inscriptions déposées</h1>
+            </header>
+
+            <h3>@ViewBag.msgJoueurExistant</h3>
+
+            <input type="button" value="Appliquer" class="fancy-button" onclick="location.href = '@Url.Action("Inscription", "Profil")'"/>
+            <br/>
+            <br/>
+
+            <table class="cool-table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Nom de l'étudiant")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pseudo)
+                    </th>
+                    <th class="action-cell-header">
+                        <b>Détails</b>
+                    </th>
+                    <th class="action-cell-header">
+                        <b>Accepter pour jeu primaire</b>
+                    </th>
+                    <th class="action-cell-header">
+                        <b>Accepter pour jeu secondaire</b>
+                    </th>
+                    <th class="action-cell-header">
+                        <b>Refuser</b>
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Etudiant.Prenom + item.Etudiant.NomDeFamille)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pseudo)
+                        </td>
+
+                        <td class="action-cell">
+                            <a href='@Url.Action("Details", "Profil", new {id = item.Id})'>
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </a>
+                        </td>
+
+                        <td class="action-cell">
+                            <a href='@Url.Action("Valider", "Profil", new {id = item.Id})'>
+                                <span class="glyphicon glyphicon-check"></span>
+                                @item.Jeu.nomJeu
+                            </a>
+                        </td>
+
+                        <td class="action-cell">
+                            @if (item.JeuSecondaire != null)
+                            {
+                                <a href='@Url.Action("Valider", "Profil", new {id = item.Id, JeuId = item.JeuSecondaireId})'>
+                                    <span class="glyphicon glyphicon-check"></span>
+                                    @item.JeuSecondaire.nomJeu
+                                </a>
+                            }
+                        </td>
+
+                        <td class="action-cell">
+                            <a href='@Url.Action("Supprimer", "Profil", new {id = item.Id})'>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            <br/>
+            <br/>
+            <input type="button" value="Appliquer" class="fancy-button" onclick="location.href = '@Url.Action("Inscription", "Profil")'"/>
+            <br/>
+            <header class="light-header">
+                <h1>Aucune inscription n'est actuellement en attente d'approbation.</h1>
+            </header>
+        }
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Accueil/ESport">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+        </div>
+
+    </div>
+</div>

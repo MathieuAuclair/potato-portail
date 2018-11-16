@@ -1,49 +1,112 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Gestion de stage</title>
+    <title>@ViewBag.Titre</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/Styles/flat-props.css")
-    @Styles.Render("~/Content/Styles/navigation.css")
-    @Styles.Render("~/Content/Styles/edition.css")
+    @Styles.Render("~/Content/material-icons.css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", false)
+
+    <script>
+        function rechercheLayout() {
+            var stringRech = document.getElementById("txtRecherche").value;
+            //TODO implement
+            //window.location.href = "@*Url.Action("Recherche", "Recherche"*@)?stringRechercher=" + stringRech;
+        }
+
+        $(document).bind('keydown',
+            function(e) {
+                if (e.which === 13) {
+                    $('#rechercheLayout').trigger('click');
+                }
+            });
+    </script>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Gestion de stage", "Index", "Stage", new {area = ""}, new {@class = "navbar-brand"})
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Stages", "Index", "Stage")</li>
-                <li>@Html.ActionLink("Entreprises", "Index", "Entreprise")</li>
-                <li>@Html.ActionLink("Etudiant", "Index", "Etudiant")</li>
-                <li>@Html.ActionLink("Location", "Index", "Location")</li>
-                <li>@Html.ActionLink("Status", "Index", "Status")</li>
-                <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Gestion de stage</p>
-    </footer>
-</div>
+<section id="layout">
+    <header>
+        <div class="main clearfix">
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+            <div id="nav-button" data-toggle="collapse" data-target="#nav" class="layout-button inline-block">
+                <span class="glyphicon glyphicon-th-large"></span>
+            </div>
+
+            <div class="inline-block">
+                <input type="text" id="txtRecherche" class="recherche-control margin-left" placeholder="Recherche" name="stringRechercher">
+                <a class="layout-button inline-block" id="rechercheLayout"onclick="rechercheLayout()">
+                    <span class="glyphicon glyphicon glyphicon-search"></span>
+                </a>
+            </div>
+
+            <a href='@Url.Action("Index", "Accueil")'>
+                <div class="logo"></div>
+            </a>
+
+            @Html.Partial("_ConnexionPartial")
+
+        </div>
+        <nav id="nav" class="collapse">
+            <div class="tuile-container">
+
+                <a class="tuile" href='@Url.Action("Index", "Accueil")'>
+                    <span class="mdi mdi-home"></span>
+                    <p>Accueil</p>
+                </a>
+
+                @if (User.IsInRole("RCP"))
+                {
+                    <a class="tuile" href='@Url.Action("Pedagogie", "Accueil")'>
+                        <span class="mdi mdi-school"></span>
+                        <p>Pédagogie</p>
+                    </a>
+                }
+                
+                @*TODO implement*@
+                <a class="tuile" href='@*Url.Action("Index", "Rapport")*@'>
+                    <span class="mdi mdi-folder-open"></span>
+                    <p>Rapport</p>
+                </a>
+
+                <a class="tuile" href='@Url.Action("Reunions", "Accueil")'>
+                    <span class="mdi mdi-date-range"></span>
+                    <p>Réunions</p>
+                </a>
+
+                <a class="tuile" href=''>
+                    <span class="mdi mdi-work"></span>
+                    <p>Stages</p>
+                </a>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="tuile" href='@Url.Action("ConsoleAdmin", "Accueil")'>
+                        <span class="glyphicon glyphicon-cog"></span>
+                        <p>Console d'administration</p>
+                    </a>
+                }
+
+                <a class="tuile" href='@Url.Action("ESport", "Accueil")'>
+                    <span class="mdi mdi-videogame-asset"></span>
+                    <p>eSport - Gaillard</p>
+                </a>
+
+            </div>
+        </nav>
+    </header>
+</section>
+<section id="page-content">
+
+    @RenderBody()
+    @Html.Partial("_Toastr")
+
+</section>
 </body>
 </html>

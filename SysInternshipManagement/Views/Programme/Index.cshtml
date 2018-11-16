@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Programme>
+
+@{
+    ViewBag.Titre = "Plan cadre";
+}
+
+@Html.Action("ListeProgramme")
+
+
+<div class="super-view">
+
+    <header class="light-header">
+
+        <h1>@ViewBag.Titre</h1>
+    </header>
+    <h3>Choisir un programme :</h3>
+    @if (Model.Count() == 0)
+    {
+        <p>Aucun programme de votre département à été trouvé dans le système, veuillez contacter un administrateur.</p>
+    }
+
+    @foreach (var programme in Model)
+    {
+        <div>
+            <a class="info-child clearfix" href='@Url.Action("Info", "Programme", new { idProgramme = programme.idProgramme })'>
+                <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.EnteteProgramme.codeProgramme)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
+                <p class="droiteG">@Html.DisplayFor(model => programme.description)</p>
+            </a>
+        </div>
+    }
+
+    <hr class="end-div"/>
+    
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Pedagogie", "Accueil")'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+    </div>
+</div>
+

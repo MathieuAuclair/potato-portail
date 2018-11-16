@@ -1,0 +1,95 @@
+﻿@model SysInternshipManagement.Models.eSports.Profil
+
+@{
+    ViewBag.Titre = "Détails de l'inscription";
+}
+
+<div class="container">
+    <div class="box">
+
+        <header class="light-header">
+
+            @if (Model.JeuSecondaire != null)
+            {
+                <h3>Informations de l'inscription de @Model.Etudiant.Prenom + @Model.Etudiant.NomDeFamille pour «@Model.Jeu.nomJeu» et «@Model.JeuSecondaire.nomJeu»</h3>
+            }
+            else
+            {
+                <h3>Informations de l'inscription de @Model.Etudiant.Prenom + @Model.Etudiant.NomDeFamille pour «@Model.Jeu.nomJeu»</h3>
+            }
+
+        </header>
+
+        <div>
+
+            <div class="element">
+                @Html.LabelFor(model => model.Pseudo)
+
+                @Html.DisplayFor(model => model.Pseudo)
+
+            </div>
+
+            <div class="element">
+
+                @Html.Label("Informations supplémentaires")
+
+                @if (Model.Note != null)
+                {
+                    @Html.DisplayFor(model => model.Note)
+                }
+                else
+                {
+                    @:Aucune information supplémentaire n'a été entrée par @Model.Etudiant.Prenom + @Model.Etudiant.NomDeFamille
+                }
+
+            </div>
+
+            <div class="element">
+
+                @Html.LabelFor(model => model.Courriel)
+
+                @Html.DisplayFor(model => model.Courriel)
+
+            </div>
+
+
+        </div>
+
+
+        <div class="menu-flottant">
+
+            <a class="fancy-button blanc" href='@Url.Action("Index", "Profil")'>
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+
+            @if (Model.JeuSecondaire != null)
+            {
+                <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new {id = Model.Id})'>
+                    <span class="glyphicon glyphicon-check"></span>
+                    Accepter pour @Model.Jeu.nomJeu
+                </a>
+
+                <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new {id = Model.Id, JeuId = Model.JeuSecondaireId})'>
+                    <span class="glyphicon glyphicon-check"></span>
+                    Accepter pour @Model.JeuSecondaire.nomJeu
+                </a>
+            }
+            else
+            {
+                <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new {id = Model.Id})'>
+                    <span class="glyphicon glyphicon-check"></span>
+                    Accepter
+                </a>
+            }
+
+            <a class="fancy-button blanc" href='@Url.Action("Supprimer", "Profil", new {id = Model.Id})'>
+                <span class="glyphicon glyphicon-remove"></span>
+                Refuser
+            </a>
+
+        </div>
+
+
+    </div>
+</div>

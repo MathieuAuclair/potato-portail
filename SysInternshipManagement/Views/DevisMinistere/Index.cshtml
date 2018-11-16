@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.DevisMinistere>
+
+@{
+    ViewBag.Titre = "Devis ministériels";
+}
+
+@Html.Action("ListeDevis")
+
+<div class="super-view">
+
+    <header class="light-header">
+
+        <h1>@ViewBag.Titre</h1>
+
+    </header>
+
+    @if(Model.Count() == 0)
+    {
+        <p>Aucun devis de votre département à été trouvé dans le système, veuillez contacter un administrateur.</p>
+    }
+
+    @foreach (var devisMinistere in Model)
+    {        
+        <div>
+            <a class="info-child clearfix" href='@Url.Action("Info", new { idDevis = devisMinistere.idDevis })'>
+                <p class="droiteG">
+                    @Html.DisplayFor(ec => devisMinistere.EnteteProgramme.nom)
+                </p>
+                <p class="gaucheG">@Html.DisplayFor(model => devisMinistere.codeProgramme)-@Html.DisplayFor(model => devisMinistere.annee)-@Html.DisplayFor(model => devisMinistere.codeSpecialisation)</p>
+            </a>
+        </div>
+    }
+
+    <div class="menu-flottant">
+    <a class="fancy-button blanc" href='@Url.Action("Pedagogie", "Accueil")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+    </div>
+</div>
+

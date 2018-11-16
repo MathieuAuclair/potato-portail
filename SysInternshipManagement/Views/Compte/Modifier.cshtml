@@ -1,0 +1,129 @@
+﻿@model ApplicationPlanCadre.Models.ModifierUtilisateurViewModel
+
+@{
+    ViewBag.Titre = "Modifier les informations d'un utilisateur";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.UserId)
+
+    <div class="container">
+        <div class="form-box">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <header class="light-header">
+
+                        <h1>@ViewBag.Titre</h1>
+
+                    </header>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.ValidationMessage("netMail", new { @class = "text-danger" })
+
+                    @Html.ValidationMessage("rolePresent", new { @class = "text-danger" })
+
+                    @Html.ValidationMessage("programmeRCP", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(m => m.Prenom)
+                                @Html.TextBoxFor(m => m.Prenom, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Prenom, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(m => m.Nom)
+                                @Html.TextBoxFor(m => m.Nom, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Nom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <p>Assigner un rôle</p>
+                                <hr />
+
+                                <div class="form-group">
+                                    @Html.DropDownList("role", null, new { @class = "form-control", @onchange = "addRole()" })
+                                </div>
+
+                                <div id="roleBox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="RCPForm" class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <p>Assigner un programme au RCP</p>
+                                <hr />
+
+                                <div class="form-group">
+                                    @Html.DropDownList("codeProgramme", null, new { @class = "form-control", @onchange = "addCodeProgramme()" })
+                                </div>
+
+                                <div id="codeProgrammeBox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <hr />
+            <input type="submit" value="Enregistrer" class="fancy-button" />
+
+            <a class="fancy-button rouge" href='@Url.Action("Index", "Compte")'>Annuler</a>
+
+        </div>
+    </div>
+}
+
+@section script {
+    <script>
+        $(document).ready(function () {
+            window.initRoleDropDown();
+            window.initCodeProgrammeDropDown();
+
+            @foreach (string role in Model.Roles)
+            {
+                @:window.loadRole("@role");
+            }
+
+            @foreach (string codeProgramme in Model.CodeProgrammes)
+            {
+                @:window.loadCodeProgramme("@codeProgramme");
+            }
+        });
+    </script>
+    <script src="@Url.Content("~/Scripts/roleSelect.js")"></script>
+}
