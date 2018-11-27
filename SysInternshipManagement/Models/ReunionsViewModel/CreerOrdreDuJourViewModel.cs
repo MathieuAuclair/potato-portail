@@ -1,4 +1,6 @@
-﻿namespace ApplicationPlanCadre.Models.ReunionsViewModel
+﻿using SysInternshipManagement.Models.Reunions;
+
+namespace ApplicationPlanCadre.Models.ReunionsViewModel
 {
     using System;
     using System.Collections.Generic;

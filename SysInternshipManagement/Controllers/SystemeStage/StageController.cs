@@ -1,11 +1,9 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
 using SysInternshipManagement.Models.SystemeStage;
 
 namespace SysInternshipManagement.Controllers.SystemeStage

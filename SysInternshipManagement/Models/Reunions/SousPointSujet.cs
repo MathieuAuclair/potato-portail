@@ -1,8 +1,9 @@
-﻿namespace ApplicationPlanCadre.Models.Reunions
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using ApplicationPlanCadre.Models.Reunions;
 
+namespace SysInternshipManagement.Models.Reunions
+{
     [Table("souspointsujet")]
     public partial class SousPointSujet
     {

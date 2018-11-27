@@ -5,7 +5,9 @@ using ApplicationPlanCadre.Models.eSports;
 using ApplicationPlanCadre.Models.Reunions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SysInternshipManagement.Models;
+using SysInternshipManagement.Models.AspAuthentication;
 using SysInternshipManagement.Models.eSports;
+using SysInternshipManagement.Models.Reunions;
 using SysInternshipManagement.Models.SystemeStage;
 using Etudiant = SysInternshipManagement.Models.Etudiant;
 
@@ -16,6 +18,11 @@ namespace SysInternshipManagement.Migrations
         public DatabaseContext() : base("name=GestionStageConnectionString")
         {
         }
+
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
 
         public DbSet<Application> Application { get; set; }
         public DbSet<Entreprise> Entreprise { get; set; }
@@ -65,6 +72,21 @@ namespace SysInternshipManagement.Migrations
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AspNetRoles>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetRoles)
+                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserClaims)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserLogins)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
             modelBuilder.Entity<ContexteRealisation>()
                 .Property(e => e.description)
                 .IsUnicode(false);

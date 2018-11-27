@@ -127,6 +127,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -178,6 +180,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccueilController.cs" />
+    <Compile Include="Migrations\201811191538322_InitDatabase.cs" />
+    <Compile Include="Migrations\201811191538322_InitDatabase.Designer.cs">
+      <DependentUpon>201811191538322_InitDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspAuthentication\AspNetRoles.cs" />
+    <Compile Include="Models\AspAuthentication\AspNetUserClaims.cs" />
+    <Compile Include="Models\AspAuthentication\AspNetUserLogins.cs" />
+    <Compile Include="Models\AspAuthentication\AspNetUsers.cs" />
     <Compile Include="Controllers\CompteController.cs" />
     <Compile Include="Controllers\ConsoleDevisMinistereController.cs" />
     <Compile Include="Controllers\ConsoleProgrammeController.cs" />
@@ -219,10 +229,6 @@
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
-    <Compile Include="Migrations\201811160113261_migration_du_projet.cs" />
-    <Compile Include="Migrations\201811160113261_migration_du_projet.Designer.cs">
-      <DependentUpon>201811160113261_migration_du_projet.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\ContexteBdStage.cs" />
     <Compile Include="Migrations\InitialisationStage.cs" />
@@ -262,7 +268,7 @@
     <Compile Include="Models\RechercheViewModels.cs" />
     <Compile Include="Models\ReunionsViewModel\CreerOrdreDuJourViewModel.cs" />
     <Compile Include="Models\Reunions\LieuDeLaReunion.cs" />
-    <Compile Include="Models\Reunions\ordredujour.cs" />
+    <Compile Include="Models\Reunions\OrdreDuJour.cs" />
     <Compile Include="Models\Reunions\SousPointSujet.cs" />
     <Compile Include="Models\Reunions\SujetPointPrincipal.cs" />
     <Compile Include="Models\Session.cs" />
@@ -588,8 +594,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811160113261_migration_du_projet.resx">
-      <DependentUpon>201811160113261_migration_du_projet.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811191538322_InitDatabase.resx">
+      <DependentUpon>201811191538322_InitDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

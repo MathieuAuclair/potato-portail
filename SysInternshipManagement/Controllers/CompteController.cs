@@ -18,6 +18,17 @@ namespace SysInternshipManagement.Controllers
     [Authorize(Roles = "Admin")]
     public class CompteController : Controller
     {
+        public CompteController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public CompteController()
+        {
+            //Création d'un controlleur sans paramètre override
+        }
+
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         private ApplicationSignInManager _signInManager;
@@ -57,6 +68,7 @@ namespace SysInternshipManagement.Controllers
 
             ViewBag.ReturnUrl = returnUrl ?? Url.Action("Index", "Accueil");
 
+
             return View();
         }
 
@@ -77,13 +89,7 @@ namespace SysInternshipManagement.Controllers
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    //TODO implement
-                    //return PartialView("Lockout");
-                case SignInStatus.RequiresVerification:
-                    //TODO implement
-                    //return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
-                case SignInStatus.Failure:
-                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                    return PartialView("Lockout");
                 default:
                     ModelState.AddModelError("", @"Tentative de connexion non valide.");
                     return View(model);
@@ -104,15 +110,6 @@ namespace SysInternshipManagement.Controllers
             model.Roles = role ?? new List<string>();
 
             model.CodeProgrammes = codeProgramme ?? new List<string>();
-        }
-
-        public ActionResult Enregistrement()
-        {
-            ViewBag.role = ConstruireRoleSelectList();
-            ViewBag.codeProgramme = new ConsoleDevisMinistereController().ConstruireCodeDevisMinistereSelectList();
-            EnregistrementViewModel model = new EnregistrementViewModel();
-            EnregistrementModelDefault(model, null, null);
-            return View(model);
         }
 
         private bool IsRCP(ICollection<string> role)
@@ -162,6 +159,17 @@ namespace SysInternshipManagement.Controllers
             UserManager.AddToRoles(utilisateur.Id, role.ToArray());
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Enregistrement()
+        {
+            ViewBag.role = ConstruireRoleSelectList();
+            ViewBag.codeProgramme = new ConsoleDevisMinistereController().ConstruireCodeDevisMinistereSelectList();
+            EnregistrementViewModel model = new EnregistrementViewModel();
+            EnregistrementModelDefault(model, null, null);
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Enregistrement(EnregistrementViewModel model, ICollection<string> role,
@@ -172,7 +180,7 @@ namespace SysInternshipManagement.Controllers
 
             if (ModelState.IsValid && isRolePresent && programmeRcp)
             {
-                string password = new PasswordGenerator().GeneratePassword(10);
+                string password = "gitgood12345";//new PasswordGenerator().GeneratePassword(10);
                 ApplicationUser utilisateur = new ApplicationUser
                     {nom = model.Nom, prenom = model.Prenom, UserName = model.Email, Email = model.Email};
                 bool courrielEnvoyer = new MailHelper().SendActivationMail(utilisateur, password);
