@@ -194,6 +194,7 @@
     <Content Include="Content\Styles\edition.css" />
     <Content Include="Content\Styles\flat-props.css" />
     <Content Include="Content\Styles\navigation.css" />
+    <Content Include="Content\Styles\table.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
