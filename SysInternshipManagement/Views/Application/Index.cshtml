@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SysInternshipManagement.Models.Application>
+@using SysInternshipManagement.Views.Shared.Widget.Model
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <h2>Applications aux stages</h2>
+
+    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <form action="/Application/Creation" method="post">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Appliquer pour un stage"))
+        </form>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>Nom de l'étudiant</th>
+            <th>Code permanent</th>
+            <th>Description du stage</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Etudiant.NomComplet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Etudiant.CodePermanent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage.Description)
+            </td>
+            <td>
+                <div>
+                    <form action="/Entreprise/Edition" method="post">
+                        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdApplication)"/>
+                            <button>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+                            </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
