@@ -10,14 +10,13 @@ namespace SysInternshipManagement.Models
         [Key]
         public int IdApplication { get; set; }
 
-        [Required]
         public DateTime Timestamp { get; set; }
 
-        [Required]
         [Display(Name = "Stage voulu")]
+        public int IdStage { get; set; }
+
         public virtual Stage Stage { get; set; }
 
-        [Required]
         public virtual Etudiant Etudiant { get; set; }
     }
 }

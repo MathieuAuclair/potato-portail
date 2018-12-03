@@ -11,11 +11,12 @@
     <h2>Applications aux stages</h2>
 
     @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
-    <div style="margin-top: 15px; margin-bottom: 15px;">
+    <!--<div style="margin-top: 15px; margin-bottom: 15px;">
         <form action="/Application/Creation" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Appliquer pour un stage"))
         </form>
-    </div>
+    </div>-->
+    <input type="button" value="Appliquer à un stage" class="btn btn-default" onclick="location.href = '@Url.Action("Creation", "Application")'"/>
 
     <table class="table">
         <tr>
@@ -38,12 +39,14 @@
             </td>
             <td>
                 <div>
-                    <form action="/Entreprise/Edition" method="post">
+                    <!--<form action="/Application/Edition" method="post">
                         <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdApplication)"/>
                             <button>
                                 <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
                     </form>
+                    -->
+                    <input type="button" value="Modifier" class="btn btn-default" onclick="location.href = '@Url.Action("Edition", "Application", new { id = item.IdApplication })'" /> 
                 </div>
             </td>
         </tr>

@@ -24,6 +24,17 @@ namespace SysInternshipManagement.Controllers
         // GET: Applications/Create
         public ActionResult Creation()
         {
+            List<SelectListItem> lstStages = new List<SelectListItem>();
+            foreach (Stage stage in db.stage)
+            {
+                lstStages.Add(new SelectListItem
+                {
+                    Text = stage.Description,
+                    Value = stage.IdStage.ToString()
+                });
+            }
+            ViewBag.Stages = lstStages;
+
             return View();
         }
 
@@ -32,10 +43,12 @@ namespace SysInternshipManagement.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "IdApplication,Timestamp")] Application application)
+        public ActionResult Creation([Bind(Include = "IdStage")] Application application)
         {
             if (ModelState.IsValid)
             {
+                application.Timestamp = DateTime.Now;
+                application.Etudiant = db.etudiant.First();
                 db.application.Add(application);
                 db.SaveChanges();
                 return RedirectToAction("Index");
