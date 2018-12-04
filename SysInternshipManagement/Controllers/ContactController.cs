@@ -19,10 +19,6 @@ namespace SysInternshipManagement.Controllers
         [HttpPost]
         public ActionResult Edition(int? idContact)
         {
-            if (idContact == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var contact = _bd.contact.Find(idContact);
 
@@ -72,9 +68,6 @@ namespace SysInternshipManagement.Controllers
                 Nom = "Nouveau contact",
                 Telephone = "123-456-7890"
             };
-
-            _bd.contact.Add(contact);
-            _bd.SaveChanges();
 
             return View("~/Views/Contact/Edition.cshtml", contact);
         }
