@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <h1>Stagière</h1>
+    <h1>Stagiaire</h1>
     @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
     <div style="margin-top: 15px; margin-bottom: 15px;">
         <form action="/Etudiant/Creation" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau stagière"))
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau stagiaire"))
         </form>
     </div>
     <table>
@@ -47,10 +47,11 @@
                 <td>
                     <div>
                         <form action="/Etudiant/Edition" method="post">
-                            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => item.IdEtudiant)"/>
+                            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => item.IdEtudiant)" />
                             <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
+                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Etudiant", new { id = item.IdEtudiant })'" />
                         </form>
                     </div>
                 </td>

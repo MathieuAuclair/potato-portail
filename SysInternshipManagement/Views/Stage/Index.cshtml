@@ -4,6 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Navigation Stage";
+
 }
 
 <h1>Stage</h1>
@@ -22,16 +23,16 @@
     <table>
         <tr>
             <th>Poste</th>
-            <th>Lieux</th>
+            <th>Lieu</th>
             <th>Contact</th>
-            <th>Status</th>
+            <th>Statut</th>
             <th>Description</th>
             <th>Salaire</th>
             <th></th>
             <th></th>
         </tr>
 
-        @foreach (var item in (List<Stage>) Model)
+        @foreach (var item in (List<Stage>)Model)
         {
             <tr>
                 <td>
@@ -56,9 +57,10 @@
                     <form action="/Stage/Edition" method="GET">
                         <div>
                             <button>
-                                <input type="hidden" name="IdStage" value="@Html.DisplayFor(model => item.IdStage)"/>
-                                <img src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                                <input type="hidden" name="IdStage" value="@Html.DisplayFor(model => item.IdStage)" />
+                                <img src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
+                                <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Stage", new { id = item.IdStage })'" />
                         </div>
                     </form>
                 </td>
@@ -66,8 +68,8 @@
                     <form action="/Stage/TeleverserFichier" method="POST">
                         <div>
                             <button id="@Html.DisplayFor(model => item.IdStage)">
-                                <input type="hidden" name="fichier" value="@Html.DisplayFor(model => item.NomDocument)"/>
-                                <img src="~/Content/Icons/baseline-settings-20px.svg" alt="icon-setting"/>
+                                <input type="hidden" name="fichier" value="@Html.DisplayFor(model => item.NomDocument)" />
+                                <img src="~/Content/Icons/baseline-settings-20px.svg" alt="icon-setting" />
                             </button>
                             <script>
                                 if ("@Html.DisplayFor(model => item.NomDocument)" === "") {

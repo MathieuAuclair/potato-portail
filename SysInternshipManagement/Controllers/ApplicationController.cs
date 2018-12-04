@@ -38,15 +38,23 @@ namespace SysInternshipManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "IdStage")] Application application)
+        public ActionResult Creation(int? idStage)
         {
-            if (!ModelState.IsValid)
+            if (idStage == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Stage stage = _db.stage.Find(idStage);
+
+            if (stage == null)
             {
-                return View(application);
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
+
+            Application application = new Application();
 
             application.Timestamp = DateTime.Now;
             application.Etudiant = _db.etudiant.First();
+            application.Stage = stage;
             _db.application.Add(application);
             _db.SaveChanges();
 
@@ -88,11 +96,6 @@ namespace SysInternshipManagement.Controllers
 
         public ActionResult Suppression(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
             var application = _db.application.Find(id);
 
             if (application == null)
@@ -100,7 +103,10 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View(application);
+            _db.application.Remove(application);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index", "Application");
         }
 
         [HttpPost, ActionName("Supprimer")]

@@ -26,10 +26,11 @@
                 <td>
                     <div>
                         <form action="/Location/Edition" method="post">
-                            <input name="idLocation" type="hidden" value="@Html.DisplayFor(model => item.IdLocation)"/>
+                            <input name="idLocation" type="hidden" value="@Html.DisplayFor(model => item.IdLocation)" />
                             <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
+                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Location", new { id = item.IdLocation })'" />
                         </form>
                     </div>
                 </td>

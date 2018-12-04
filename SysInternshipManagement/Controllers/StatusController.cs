@@ -68,5 +68,27 @@ namespace SysInternshipManagement.Controllers
 
             return View("~/Views/Status/Edition.cshtml", status);
         }
+
+        public ActionResult Suppression(int? id)
+        {
+            var statut = _bd.status.Find(id);
+
+            if (statut == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var stagesAyantCeStatut = from stage in _bd.stage
+                                      where stage.Status.IdStatus == id
+                                      select stage;
+
+            if (!stagesAyantCeStatut.Any())
+            {
+                _bd.status.Remove(statut);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Status");
+        }
     }
 }

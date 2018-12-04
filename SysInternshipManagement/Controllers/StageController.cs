@@ -153,5 +153,27 @@ namespace SysInternshipManagement.Controllers
 
             return View("~/Views/Stage/Edition.cshtml", stage);
         }
+
+        public ActionResult Suppression(int? id)
+        {
+            var stage = _bd.stage.Find(id);
+
+            if (stage == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var applicationsPourCeStage = from application in _bd.application
+                                          where application.Stage.IdStage == id
+                                          select application;
+
+            if (!applicationsPourCeStage.Any())
+            {
+                _bd.stage.Remove(stage);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Stage");
+        }
     }
 }
