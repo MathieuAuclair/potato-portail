@@ -12,9 +12,6 @@ namespace SysInternshipManagement.Models
 
         public DateTime Timestamp { get; set; }
 
-        [Display(Name = "Stage voulu")]
-        public int IdStage { get; set; }
-
         public virtual Stage Stage { get; set; }
 
         public virtual Etudiant Etudiant { get; set; }
