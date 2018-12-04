@@ -150,6 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EtudiantController.cs" />
     <Compile Include="Controllers\PosteController.cs" />
@@ -246,6 +247,11 @@
     <Content Include="Views\Stage\Edition.cshtml" />
     <Content Include="Views\Stage\Index.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiFileInputButton.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Application\Creation.cshtml" />
+    <Content Include="Views\Application\Suppression.cshtml" />
+    <Content Include="Views\Application\Edition.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
