@@ -105,8 +105,6 @@ namespace SysInternshipManagement.Controllers
                 NumeroDa = "1234567",
             };
 
-            _bd.etudiant.Add(etudiant);
-            _bd.SaveChanges();
 
             return View("~/Views/Etudiant/Edition.cshtml", etudiant);
         }

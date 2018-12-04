@@ -40,7 +40,7 @@ namespace SysInternshipManagement.Controllers
             }
 
 
-            var entreprise = new Entreprise
+            var entreprise = new Entreprise()
             {
                 IdEntreprise = Convert.ToInt32(Request.Form["id"]),
                 Pays = Request.Form["pays"],
@@ -49,11 +49,11 @@ namespace SysInternshipManagement.Controllers
                 Rue = Request.Form["rue"],
                 NumeroCivique = Convert.ToInt32(Request.Form["numeroCivique"]),
                 CodePostal = Request.Form["codePostal"],
-                Nom = Request.Form["nom"]
-            };
+                Nom = Request.Form["nom"],                
+        };
+
             _bd.entreprise.AddOrUpdate(entreprise);
             _bd.SaveChanges();
-
             return RedirectToAction("Index");
         }
 
@@ -69,6 +69,9 @@ namespace SysInternshipManagement.Controllers
                 CodePostal = "G7X7W2",
                 NumeroCivique = 0,
             };
+
+            
+            _bd.SaveChanges();
           
 
             return View("~/Views/Entreprise/Edition.cshtml", entreprise);
