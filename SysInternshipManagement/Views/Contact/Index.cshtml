@@ -12,36 +12,40 @@
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
         </form>
     </div>
-    <table>
-        <tr>
-            <th>Nom du contact</th>
-            <th>Courriel</th>
-            <th>Téléphone</th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.Nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Courriel)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Telephone)
-                </td>
-                <td>
-                    <div>
-                        <form action="/Contact/Edition" method="post">
-                            <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)"/>
-                            <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg"/>
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="row">
+        <div class="col-md-11">
+            <table class="cool-table">
+                <tr>
+                    <th colspan="1" class="action-cell-header">Nom du contact</th>
+                    <th colspan="1" class="action-cell-header">Courriel</th>
+                    <th colspan="1" class="action-cell-header">Téléphone</th>
+                    <th colspan="1" class="action-cell-header"></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.Nom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Courriel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Telephone)
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/Contact/Edition" method="post">
+                                    <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)" />
+                                    <button>
+                                        <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 </div>

@@ -192,13 +192,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Styles\edition.css" />
-    <Content Include="Content\Styles\flat-props.css" />
-    <Content Include="Content\Styles\navigation.css" />
+    <Content Include="Content\structure.css" />
+    <Content Include="Content\superview.css" />
+    <Content Include="Content\table.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
