@@ -35,5 +35,12 @@ namespace SysInternshipManagement.Models
         
         public virtual Preference Preference { get; set; }
 
+        public string NomComplet
+        {
+            get
+            {
+                return Prenom + " " + NomDeFamille;
+            }
+        }
     }
 }
