@@ -68,5 +68,27 @@ namespace SysInternshipManagement.Controllers.SystemeStage
 
             return View("~/Views/SystemeStage/Location/Edition.cshtml", location);
         }
+
+        public ActionResult Suppression(int? id)
+        {
+            var location = _bd.location.Find(id);
+
+            if (location == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var stagesAyantCeStatut = from stage in _bd.stage
+                                      where stage.Status.IdStatus == id
+                                      select stage;
+
+            if (!stagesAyantCeStatut.Any())
+            {
+                _bd.location.Remove(location);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Location");
+        }
     }
 }

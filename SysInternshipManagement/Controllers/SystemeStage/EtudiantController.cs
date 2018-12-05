@@ -105,8 +105,6 @@ namespace SysInternshipManagement.Controllers.SystemeStage
                 NumeroDa = "1234567",
             };
 
-            _bd.Etudiant.Add(etudiant);
-            _bd.SaveChanges();
 
             return View("~/Views/SystemeStage/Etudiant/Edition.cshtml", etudiant);
         }
@@ -127,6 +125,28 @@ namespace SysInternshipManagement.Controllers.SystemeStage
             }
 
             return View("~/Views/SystemeStage/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
+        }
+
+        public ActionResult Suppression(int? id)
+        {
+            var etudiant = _bd.etudiant.Find(id);
+
+            if (etudiant == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var applicationsParCetEtudiant = from application in _bd.application
+                                             where application.Etudiant.IdEtudiant == id
+                                             select application;
+
+            if (!applicationsParCetEtudiant.Any())
+            {
+                _bd.etudiant.Remove(etudiant);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Etudiant");
         }
     }
 }

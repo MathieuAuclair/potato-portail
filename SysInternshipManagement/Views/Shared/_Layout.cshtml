@@ -31,77 +31,30 @@
     </script>
 </head>
 <body>
-<section id="layout">
-    <header>
-        <div class="main clearfix">
-
-            <div id="nav-button" data-toggle="collapse" data-target="#nav" class="layout-button inline-block">
-                <span class="glyphicon glyphicon-th-large"></span>
-            </div>
-
-            <div class="inline-block">
-                <input type="text" id="txtRecherche" class="recherche-control margin-left" placeholder="Recherche" name="stringRechercher">
-                <a class="layout-button inline-block" id="rechercheLayout"onclick="rechercheLayout()">
-                    <span class="glyphicon glyphicon glyphicon-search"></span>
-                </a>
-            </div>
-
-            <a href='@Url.Action("Index", "Accueil")'>
-                <div class="logo"></div>
-            </a>
-            @Html.Partial("_ConnexionPartial")
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Gestion de stage", "Index", "Stage", new {area = ""}, new {@class = "navbar-brand"})
         </div>
-        <nav id="nav" class="collapse">
-            <div class="tuile-container">
-
-                <a class="tuile" href='@Url.Action("Index", "Accueil")'>
-                    <span class="mdi mdi-home"></span>
-                    <p>Accueil</p>
-                </a>
-
-                @if (User.IsInRole("RCP"))
-                {
-                    <a class="tuile" href='@Url.Action("Pedagogie", "Accueil")'>
-                        <span class="mdi mdi-school"></span>
-                        <p>Pédagogie</p>
-                    </a>
-                }
-
-                @*TODO implement*@
-                <a class="tuile" href='@*Url.Action("Index", "Rapport")*@'>
-                    <span class="mdi mdi-folder-open"></span>
-                    <p>Rapport</p>
-                </a>
-
-                <a class="tuile" href='@Url.Action("Reunions", "Accueil")'>
-                    <span class="mdi mdi-date-range"></span>
-                    <p>Réunions</p>
-                </a>
-
-                <a class="tuile" href=''>
-                    <span class="mdi mdi-work"></span>
-                    <p>Stages</p>
-                </a>
-
-                @if (User.IsInRole("Admin"))
-                {
-                    <a class="tuile" href='@Url.Action("ConsoleAdmin", "Accueil")'>
-                        <span class="glyphicon glyphicon-cog"></span>
-                        <p>Console d'administration</p>
-                    </a>
-                }
-
-                <a class="tuile" href='@Url.Action("ESport", "Accueil")'>
-                    <span class="mdi mdi-videogame-asset"></span>
-                    <p>eSport - Gaillard</p>
-                </a>
-
-            </div>
-        </nav>
-    </header>
-</section>
-<section id="page-content">
-
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Stages", "Index", "Stage")</li>
+                <li>@Html.ActionLink("Entreprises", "Index", "Entreprise")</li>
+                <li>@Html.ActionLink("Étudiant", "Index", "Etudiant")</li>
+                <li>@Html.ActionLink("Location", "Index", "Location")</li>
+                <li>@Html.ActionLink("Statuts", "Index", "Status")</li>
+                <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
+                <li>@Html.ActionLink("Appliquer pour un stage", "Index", "Application")</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container body-content">
     @RenderBody()
     @Html.Partial("_Toastr")
 

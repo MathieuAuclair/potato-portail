@@ -123,24 +123,47 @@ namespace SysInternshipManagement.Controllers.SystemeStage
         {
             var stage = new Stage
             {
+                Location = _bd.location.First(),
                 NumeroCivique = 0,
                 NomRue = "nom de rue",
                 Ville = "Saguenay",
                 Province = "Québec",
                 Pays = "Canada",
                 CodePostal = "G7X7W2",
-                Poste = _bd.Poste.First(),
-                Status = _bd.Status.First(),
-                Contact = _bd.Contact.First(),
-                Location = _bd.Location.First(),
+                Poste = _bd.poste.First(),
+                Status = _bd.status.First(),
+                Contact = _bd.contact.First(),
                 Description = "Description du stage",
                 NomDocument = "",
                 Salaire = 0,
             };
 
+            _bd.stage.Add(stage);
             _bd.SaveChanges();
 
-            return View("/Views/SystemeStage/Stage/Edition.cshtml", stage);
+            return View("~/Views/Stage/Edition.cshtml", stage);
+        }
+
+        public ActionResult Suppression(int? id)
+        {
+            var stage = _bd.stage.Find(id);
+
+            if (stage == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var applicationsPourCeStage = from application in _bd.application
+                                          where application.Stage.IdStage == id
+                                          select application;
+
+            if (!applicationsPourCeStage.Any())
+            {
+                _bd.stage.Remove(stage);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Stage");
         }
     }
 }

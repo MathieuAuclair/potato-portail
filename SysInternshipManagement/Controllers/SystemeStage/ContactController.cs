@@ -19,10 +19,6 @@ namespace SysInternshipManagement.Controllers.SystemeStage
         [HttpPost]
         public ActionResult Edition(int? idContact)
         {
-            if (idContact == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var contact = _bd.Contact.Find(idContact);
 
@@ -74,10 +70,29 @@ namespace SysInternshipManagement.Controllers.SystemeStage
                 Entreprise = _bd.Entreprise.First()
             };
 
-            _bd.Contact.Add(contact);
-            _bd.SaveChanges();
+            return View("~/Views/Contact/Edition.cshtml", contact);
+        }
 
-            return View("~/Views/SystemeStage/Contact/Edition.cshtml", contact);
+        public ActionResult Suppression(int? id)
+        {
+            var contact = _bd.contact.Find(id);
+
+            if (contact == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var stagesAyantCeContact = from stage in _bd.stage
+                                       where stage.Contact.IdContact == id
+                                       select stage;
+
+            if (!stagesAyantCeContact.Any())
+            {
+                _bd.contact.Remove(contact);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Contact");
         }
     }
 }

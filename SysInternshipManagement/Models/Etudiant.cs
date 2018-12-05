@@ -23,5 +23,13 @@ namespace SysInternshipManagement.Models
         [Required] public string Role { get; set; }
 
         public virtual Preference Preference { get; set; }
+
+        public string NomComplet
+        {
+            get
+            {
+                return Prenom + " " + NomDeFamille;
+            }
+        }
     }
 }

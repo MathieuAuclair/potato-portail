@@ -33,10 +33,11 @@
                 <td>
                     <div>
                         <form action="/Contact/Edition" method="post">
-                            <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)"/>
+                            <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)" />
                             <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
+                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Contact", new { id = item.IdContact })'" />
                         </form>
                     </div>
                 </td>

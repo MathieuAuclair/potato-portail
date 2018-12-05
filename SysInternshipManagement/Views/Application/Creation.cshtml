@@ -1,0 +1,38 @@
+﻿@model SysInternshipManagement.Models.Application
+
+@{
+    ViewBag.Title = "Application";
+}
+
+<h2>Remplissez le formulaire pour poser votre candidature pour un stage</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Stage.IdStage, (IEnumerable<SelectListItem>)ViewBag.Stages, new { htmlAttributes = new { @class = "form-control" }, @Name = "idStage"})
+                @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Soumettre ma candidature" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
