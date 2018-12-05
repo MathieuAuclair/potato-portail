@@ -1,0 +1,57 @@
+@model ApplicationPlanCadre.ViewModels.ApercuViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+<div class="super-view">
+    <div class="form-box">
+
+        <header class="light-header">
+            <h4>Création d'un plan de cours</h4>
+        </header>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BureauProf, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.BureauProf, new { htmlAttributes = new { @class = "form-control", @name = "localBureau" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoPoste, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.NoPoste, new { htmlAttributes = new { @class = "form-control", @name = "posteTelephonique" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlanCadre, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.idPlanCadre, new SelectList(Model.PlanCadre, "idPlanCadre", "titreCours"))
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.PlanCours.statusPlanCours, new { @Value = false })
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <a class="fancy-button" href="@Url.Action("Index","Apercu")"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <input type="submit" value="Créer" class="fancy-button" />
+        </div>
+
+    </div>
+</div>
+    }
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker').datepicker({
+                });
+            });
+        </script>
+        @section Scripts {
+            @Scripts.Render("~/Scripts/tinymce/tinymce.js")
+            @Scripts.Render("~/Scripts/tinymce/main.js")
+            @Scripts.Render("~/bundles/jqueryval")
+            @Scripts.Render("~/bundles/jqueryui")
+            @Scripts.Render("~/bundles/bootstrap")
+            @Styles.Render("~/Content/css")
+        }
