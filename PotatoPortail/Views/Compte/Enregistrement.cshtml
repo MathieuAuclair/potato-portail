@@ -83,10 +83,10 @@
                                 <hr />
 
                                 <div class="form-group">
-                                    @Html.DropDownList("codeProgramme", null, new { @class = "form-control", @onchange = "addCodeProgramme()" })
+                                    @Html.DropDownList("discipline", null, new { @class = "form-control", @onchange = "addDiscipline()" })
                                 </div>
 
-                                <div id="codeProgrammeBox">
+                                <div id="disciplineBox">
 
                                 </div>
 
@@ -111,17 +111,17 @@
     <script src="@Url.Content("~/Scripts/roleSelect.js")"></script>
     <script>
         $(document).ready(function () {
-            window.initRoleDropDown();
-            window.initCodeProgrammeDropDown();
+            initRoleDropDown();
+            initDisciplineDropDown();
 
             @foreach (string role in Model.Roles)
             {
-                @:window.loadRole("@role");
+                @:loadRole("@role");
             }
 
-            @foreach (string codeProgramme in Model.CodeProgrammes)
+            @foreach (string discipline in Model.Disciplines)
             {
-                @:window.loadCodeProgramme("@codeProgramme");
+                @:loadDiscipline("@discipline");
             }
         });
     </script>

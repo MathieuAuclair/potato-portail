@@ -1,22 +1,23 @@
-using System.Data.Entity;
-using PotatoPortail.Models;
-
-namespace PotatoPortail.Migrations
+namespace PotatoPortail.Models
 {
-    public partial class BdPortail : DbContext
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
+    public partial class BDPortail : DbContext
     {
-        public BdPortail()
-            : base("name=BDPortail")
+        public BDPortail() : base("name=BD__Portail")
         {
         }
-        
+
         public virtual DbSet<ActiviteApprentissage> ActiviteApprentissage { get; set; }
         public virtual DbSet<Application> Application { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Caracteristiques> Caracteristiques { get; set; }
+        public virtual DbSet<Caracteristique> Caracteristiques { get; set; }
         public virtual DbSet<Contact> Contact { get; set; }
         public virtual DbSet<ContenuSection> ContenuSection { get; set; }
         public virtual DbSet<ContexteRealisation> ContexteRealisation { get; set; }
@@ -27,16 +28,16 @@ namespace PotatoPortail.Migrations
         public virtual DbSet<ElementCompetence> ElementCompetence { get; set; }
         public virtual DbSet<ElementConnaissance> ElementConnaissance { get; set; }
         public virtual DbSet<EnonceCompetence> EnonceCompetence { get; set; }
-        public virtual DbSet<Entraineurs> Entraineurs { get; set; }
+        public virtual DbSet<Entraineur> Entraineurs { get; set; }
         public virtual DbSet<Entreprise> Entreprise { get; set; }
         public virtual DbSet<EnvironnementPhysique> EnvironnementPhysique { get; set; }
-        public virtual DbSet<Equipes> Equipes { get; set; }
+        public virtual DbSet<Equipe> Equipes { get; set; }
         public virtual DbSet<Etudiant> Etudiant { get; set; }
         public virtual DbSet<GrilleCours> GrilleCours { get; set; }
-        public virtual DbSet<HistoriqueRangs> HistoriqueRangs { get; set; }
-        public virtual DbSet<Items> Items { get; set; }
-        public virtual DbSet<Jeux> Jeux { get; set; }
-        public virtual DbSet<Joueurs> Joueurs { get; set; }
+        public virtual DbSet<HistoriqueRang> HistoriqueRang { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Jeu> Jeux { get; set; }
+        public virtual DbSet<Joueur> Joueurs { get; set; }
         public virtual DbSet<LieuDeLaReunion> LieuDeLaReunion { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<MembreESports> MembreESports { get; set; }
@@ -51,9 +52,9 @@ namespace PotatoPortail.Migrations
         public virtual DbSet<PlanCoursUtilisateur> PlanCoursUtilisateur { get; set; }
         public virtual DbSet<Poste> Poste { get; set; }
         public virtual DbSet<Preference> Preference { get; set; }
-        public virtual DbSet<Profils> Profils { get; set; }
+        public virtual DbSet<Profil> Profils { get; set; }
         public virtual DbSet<Programme> Programme { get; set; }
-        public virtual DbSet<Rangs> Rangs { get; set; }
+        public virtual DbSet<Rang> Rangs { get; set; }
         public virtual DbSet<RessourceDIdactique> RessourceDIdactique { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<SousActiviteApprentissage> SousActiviteApprentissage { get; set; }
@@ -63,13 +64,14 @@ namespace PotatoPortail.Migrations
         public virtual DbSet<SousRessourceDIdactique> SousRessourceDIdactique { get; set; }
         public virtual DbSet<Stage> Stage { get; set; }
         public virtual DbSet<StatutPrealable> StatutPrealable { get; set; }
-        public virtual DbSet<Statuts> Statuts { get; set; }
+        public virtual DbSet<Statut> Statuts { get; set; }
         public virtual DbSet<StatutStage> StatutStage { get; set; }
         public virtual DbSet<SujetPointPrincipal> SujetPointPrincipal { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<sysdiagrams> Sysdiagrams { get; set; }
         public virtual DbSet<TypePlanCadre> TypePlanCadre { get; set; }
         public virtual DbSet<AccesProgramme> AccesProgramme { get; set; }
         public virtual DbSet<PlanCoursDepart> PlanCoursDepart { get; set; }
+        public DbSet<TexteSection> TexteSection { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -103,7 +105,7 @@ namespace PotatoPortail.Migrations
                 .HasForeignKey(e => e.idPlanCoursUtilisateur)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Caracteristiques>()
+            modelBuilder.Entity<Caracteristique>()
                 .HasMany(e => e.Items)
                 .WithRequired(e => e.Caracteristiques)
                 .HasForeignKey(e => e.IdCaracteristique);
@@ -240,7 +242,7 @@ namespace PotatoPortail.Migrations
                 .WithRequired(e => e.EnonceCompetence)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Entraineurs>()
+            modelBuilder.Entity<Entraineur>()
                 .HasMany(e => e.Equipes)
                 .WithMany(e => e.Entraineurs)
                 .Map(m => m.ToTable("EntraineurEquipes").MapLeftKey("IdEntraineur").MapRightKey("IdEquipe"));
@@ -259,7 +261,7 @@ namespace PotatoPortail.Migrations
                 .WithRequired(e => e.EnvironnementPhysique)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Equipes>()
+            modelBuilder.Entity<Equipe>()
                 .HasMany(e => e.Joueurs)
                 .WithMany(e => e.Equipes)
                 .Map(m => m.ToTable("EquipeJoueurs").MapLeftKey("IdEquipe").MapRightKey("IdJoueur"));
@@ -278,32 +280,32 @@ namespace PotatoPortail.Migrations
                 .WithRequired(e => e.GrilleCours)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Items>()
+            modelBuilder.Entity<Item>()
                 .HasMany(e => e.Joueurs)
                 .WithMany(e => e.Items)
                 .Map(m => m.ToTable("JoueurItems").MapLeftKey("IdItem").MapRightKey("IdJoueur"));
 
-            modelBuilder.Entity<Jeux>()
+            modelBuilder.Entity<Jeu>()
                 .HasMany(e => e.Caracteristiques)
                 .WithRequired(e => e.Jeux)
                 .HasForeignKey(e => e.IdJeu);
 
-            modelBuilder.Entity<Jeux>()
+            modelBuilder.Entity<Jeu>()
                 .HasMany(e => e.Equipes)
                 .WithRequired(e => e.Jeux)
                 .HasForeignKey(e => e.IdJeu);
 
-            modelBuilder.Entity<Jeux>()
+            modelBuilder.Entity<Jeu>()
                 .HasMany(e => e.Profils)
                 .WithRequired(e => e.Jeux)
                 .HasForeignKey(e => e.IdJeu);
 
-            modelBuilder.Entity<Jeux>()
+            modelBuilder.Entity<Jeu>()
                 .HasMany(e => e.Rangs)
                 .WithRequired(e => e.Jeux)
                 .HasForeignKey(e => e.IdJeu);
 
-            modelBuilder.Entity<Joueurs>()
+            modelBuilder.Entity<Joueur>()
                 .HasMany(e => e.HistoriqueRangs)
                 .WithRequired(e => e.Joueurs)
                 .HasForeignKey(e => e.IdJoueur);
@@ -458,7 +460,7 @@ namespace PotatoPortail.Migrations
                 .WithOptional(e => e.Preference)
                 .HasForeignKey(e => e.Preference_IdPreference);
 
-            modelBuilder.Entity<Profils>()
+            modelBuilder.Entity<Profil>()
                 .HasMany(e => e.Joueurs)
                 .WithRequired(e => e.Profils)
                 .HasForeignKey(e => e.IdProfil)
@@ -478,7 +480,7 @@ namespace PotatoPortail.Migrations
                 .WithRequired(e => e.Programme)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Rangs>()
+            modelBuilder.Entity<Rang>()
                 .HasMany(e => e.HistoriqueRangs)
                 .WithRequired(e => e.Rangs)
                 .HasForeignKey(e => e.IdRang);
@@ -535,7 +537,7 @@ namespace PotatoPortail.Migrations
                 .WithRequired(e => e.StatutPrealable)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Statuts>()
+            modelBuilder.Entity<Statut>()
                 .HasMany(e => e.Jeux)
                 .WithRequired(e => e.Statuts)
                 .HasForeignKey(e => e.IdStatuts);

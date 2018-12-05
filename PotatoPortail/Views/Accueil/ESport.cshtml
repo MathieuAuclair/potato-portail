@@ -11,35 +11,63 @@
             <p>Retour</p>
         </a>
 
-        <a class="icon small-margin" href='@Url.Action("Index", "Jeu")'>
-            <span class="mdi mdi-games"></span>
-            <p>Jeux</p>
-        </a>
+        @if(User.IsInRole("Etudiant"))
+        {
+            <a class="icon small-margin" href='@Url.Action("Inscription", "Profil")'>
+                <span class="mdi mdi-create"></span>
+                <p>S'inscrire</p>
+            </a>
 
-        <a class="icon small-margin" href='@Url.Action("Index", "Equipe")'>
-            <span class="mdi mdi-people"></span>
-            <p>Équipes</p>
-        </a>
+            if (!User.IsInRole("Admin eSports"))
+            {
+                <a class="icon small-margin" href='@Url.Action("Index", "Jeu")'>
+                    <span class="mdi mdi-games"></span>
+                    <p>Jeux</p>
+                </a>
+                <a class="icon small-margin" href='@Url.Action("Index", "Joueur")'>
+                    <span class="mdi mdi-person"></span>
+                    <p>Mes profils de joueur</p>
+                </a>
+                <a class="icon small-margin" href='@Url.Action("Index", "Profil")'>
+                    <span class="mdi mdi-library-books"></span>
+                    <p>Mes candidatures déposées</p>
+                </a>
+                <a class="icon small-margin" href='@Url.Action("Index", "Entraineur")'>
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    <p>Entraîneurs</p>
+                </a>
+            }
+        }
 
-        <a class="icon small-margin" href='@Url.Action("Index", "Joueur")'>
-            <span class="mdi mdi-person"></span>
-            <p>Joueurs</p>
-        </a>
+        @if (User.IsInRole("Admin eSports"))
+        {
 
-        <a class="icon small-margin" href='@Url.Action("Index", "Profil")'>
-            <span class="mdi mdi-library-books"></span>
-            <p>Inscriptions</p>
-        </a>
+            <a class="icon small-margin" href='@Url.Action("Index", "Jeu")'>
+                <span class="mdi mdi-games"></span>
+                <p>Jeux</p>
+            </a>
 
-        <a class="icon small-margin" href='@Url.Action("Inscription", "Profil")'>
-            <span class="mdi mdi-create"></span>
-            <p>S'inscrire</p>
-        </a>
+            <a class="icon small-margin" href='@Url.Action("Index", "Equipe")'>
+                <span class="mdi mdi-people"></span>
+                <p>Équipes</p>
+            </a>
 
-        <a class="icon small-margin" href='@Url.Action("Index")'>
-            <span class="glyphicon glyphicon-eye-open"></span>
-            <p>Entraineurs</p>
-        </a>
+            <a class="icon small-margin" href='@Url.Action("Index", "Joueur")'>
+                <span class="mdi mdi-person"></span>
+                <p>Joueurs</p>
+            </a>
+
+            <a class="icon small-margin" href='@Url.Action("Index", "Profil")'>
+                <span class="mdi mdi-library-books"></span>
+                <p>Inscriptions</p>
+            </a>
+
+            <a class="icon small-margin" href='@Url.Action("Index", "Entraineur")'>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <p>Entraîneurs</p>
+            </a>
+
+        }
 
     </div>
 </div>

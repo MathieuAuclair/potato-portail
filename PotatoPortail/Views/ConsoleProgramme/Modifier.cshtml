@@ -33,19 +33,19 @@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.nom)
-                        @Html.TextBoxFor(model => model.nom, new { @class = "form-control", @maxlength = 50 })
+                        @Html.TextBoxFor(model => model.nom, new { @class = "form-control", @maxlength = 50, @Value = @Model.nom })
                         @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
                     </div>
 
                     <div class=" form-group">
                         @Html.LabelFor(model => model.annee)
-                        @Html.TextBoxFor(model => model.annee, new { @class = "form-control small", @maxlength = 4 })
+                        @Html.TextBoxFor(model => model.annee, new { @class = "form-control small", @maxlength = 4, @Value = @Model.annee })
                         @Html.ValidationMessageFor(model => model.annee, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.nbSession)
-                        @Html.TextBoxFor(model => model.nbSession, new { @class = "form-control small", @maxlength = 1 })
+                        @Html.TextBoxFor(model => model.nbSession, new { @class = "form-control small", @maxlength = 1, @Value = @Model.nbSession })
                         @Html.ValidationMessageFor(model => model.nbSession, "", new { @class = "text-danger" })
                     </div>
 					

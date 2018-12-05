@@ -3,7 +3,7 @@
 <table class="cool-table">
     <tr>
         <th>
-            @Html.DisplayNameFor(m => m.EnteteProgramme.codeProgramme)
+            @Html.DisplayNameFor(m => m.Departement.discipline)
         </th>
         <th>
             @Html.DisplayNameFor(m => m.annee)
@@ -26,7 +26,7 @@
         string cssClass = valide ? "valide" : "";
         <tr ondblclick="location.href='@dblclickEvent'" class="@cssClass">
             <td>
-                @Html.DisplayFor(m => item.EnteteProgramme.codeProgramme)
+                @Html.DisplayFor(m => item.Departement.discipline)
             </td>
             <td>
                 @Html.DisplayFor(m => item.annee)

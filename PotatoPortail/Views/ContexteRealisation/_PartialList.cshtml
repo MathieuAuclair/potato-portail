@@ -18,26 +18,26 @@
 
     @foreach (var item in Model.OrderBy(e => e.numero))
     {
-        string dblclickEvent = Url.Action("Modifier", new {idContexte = item.idContexte});
-        <tr ondblclick="location.href = '@dblclickEvent'">
+        string dblclickEvent = Url.Action("Modifier", new { idContexte = item.idContexte });
+        <tr ondblclick="location.href='@dblclickEvent'">
             <td>
                 @Html.DisplayFor(m => item.description)
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("Modifier", new {idContexte = item.idContexte})'>
+                <a href='@Url.Action("Modifier", new { idContexte = item.idContexte })'>
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("Supression", new {idContexte = item.idContexte})'>
+                <a href='@Url.Action("Supression", new { idContexte = item.idContexte })'>
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>
             <td class="action-cell">
-                <a href=''>
+                <a href='@Url.Action("DeplacementHaut", new { idContexte = item.idContexte })'>
                     <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
-                <a href=''>
+                <a href='@Url.Action("MouvementBas", new { idContexte = item.idContexte })'>
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
