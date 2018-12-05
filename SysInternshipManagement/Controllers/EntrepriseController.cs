@@ -93,5 +93,20 @@ namespace SysInternshipManagement.Controllers
                 Request.Form["codePostal"] == null
             );
         }
+
+        public ActionResult Suppression(int? id)
+        {
+            var entreprise = _bd.entreprise.Find(id);
+
+            if (entreprise == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            _bd.entreprise.Remove(entreprise);
+            _bd.SaveChanges();
+
+            return RedirectToAction("Index", "Entreprise");
+        }
     }
 }

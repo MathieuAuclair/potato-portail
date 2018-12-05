@@ -126,5 +126,27 @@ namespace SysInternshipManagement.Controllers
 
             return View("~/Views/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
         }
+
+        public ActionResult Suppression(int? id)
+        {
+            var etudiant = _bd.etudiant.Find(id);
+
+            if (etudiant == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var applicationsParCetEtudiant = from application in _bd.application
+                                             where application.Etudiant.IdEtudiant == id
+                                             select application;
+
+            if (!applicationsParCetEtudiant.Any())
+            {
+                _bd.etudiant.Remove(etudiant);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Etudiant");
+        }
     }
 }

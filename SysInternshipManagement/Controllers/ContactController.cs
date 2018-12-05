@@ -71,5 +71,27 @@ namespace SysInternshipManagement.Controllers
 
             return View("~/Views/Contact/Edition.cshtml", contact);
         }
+
+        public ActionResult Suppression(int? id)
+        {
+            var contact = _bd.contact.Find(id);
+
+            if (contact == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var stagesAyantCeContact = from stage in _bd.stage
+                                       where stage.Contact.IdContact == id
+                                       select stage;
+
+            if (!stagesAyantCeContact.Any())
+            {
+                _bd.contact.Remove(contact);
+                _bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Contact");
+        }
     }
 }

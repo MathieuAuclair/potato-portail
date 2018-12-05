@@ -40,13 +40,14 @@
             <td>
                 <div>
                     <!--<form action="/Application/Edition" method="post">
-                        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdApplication)"/>
-                            <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                            </button>
-                    </form>
-                    -->
-                    <input type="button" value="Modifier" class="btn btn-default" onclick="location.href = '@Url.Action("Edition", "Application", new { id = item.IdApplication })'" /> 
+        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdApplication)"/>
+            <button>
+                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+            </button>
+    </form>
+    -->
+                    <input type="button" value="Modifier" class="btn btn-default" onclick="location.href = '@Url.Action("Edition", "Application", new { id = item.IdApplication })'" />
+                    <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Application", new { id = item.IdApplication })'" />
                 </div>
             </td>
         </tr>
