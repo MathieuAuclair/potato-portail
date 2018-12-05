@@ -15,7 +15,9 @@
         <form action="/Application/Creation" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Appliquer pour un stage"))
         </form>
+
     </div>
+    <input type="button" value="Appliquer à un stage" class="btn btn-default" onclick="location.href = '@Url.Action("Creation", "Application")'" />
     <div class="row">
         <div class="col-md-11">
             <table class="cool-table">
@@ -48,8 +50,10 @@
                             </div>
                         </td>
                     </tr>
-                }
 
+                    <input type="button" value="Modifier" class="btn btn-default" onclick="location.href = '@Url.Action("Edition", "Application", new { id = item.IdApplication })'" />
+                    <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Application", new { id = item.IdApplication })'" />
+                }
             </table>
         </div>
     </div>

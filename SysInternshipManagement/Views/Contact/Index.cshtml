@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @using SysInternshipManagement.Views.Shared.Widget.Model
 @model IEnumerable<SysInternshipManagement.Models.Contact>
 
@@ -40,6 +41,7 @@
                                     <button>
                                         <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                                     </button>
+                                    <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Contact", new { id = item.IdContact })'" />
                                 </form>
                             </div>
                         </td>

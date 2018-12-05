@@ -6,7 +6,7 @@
 
 <div>
     <h1>Entreprise</h1>
-    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+    
     <div style="margin-top: 15px; margin-bottom: 15px;">
         <form action="/Entreprise/Creation" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
@@ -45,6 +45,7 @@
                                     <button>
                                         <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
                                     </button>
+                                    <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Entreprise", new { id = item.IdEntreprise })'" />
                                 </form>
                             </div>
                         </td>

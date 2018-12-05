@@ -6,36 +6,40 @@
 }
 <div>
     <h1>Location</h1>
-    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
+   
     <div style="margin-top: 15px; margin-bottom: 15px;">
         <form  action="/Location/Creation" method="post">
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle location"))
         </form>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-10">
             <table class="cool-table">
                 <tr>
-                    <th colspan="8" class="action-cell-header">Location</th>
-                    <th colspan="2" class="action-cell-header"></th>
+                    <th colspan="3" class="action-cell-header">Location</th>
+                    <th colspan="2" class="action-cell-header">Modifier</th>
+                    <th colspan="2" class="action-cell-header">Supprimer</th>
                 </tr>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td class="col-md-10">
-                            @Html.DisplayFor(model => item.Nom)
-                        </td>
-                        <td>
-                            <div>
-                                <form action="/Location/Edition" method="post">
-                                    <input name="idLocation" type="hidden" value="@Html.DisplayFor(model => item.IdLocation)" />
-                                    <button  class="fancy-button">
-                                        <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="1">
+                        @Html.DisplayFor(model => item.Nom)
+                    </td>
+                    <td colspan="2">
+
+                        <form action="/Location/Edition" method="post">
+                            <input name="idLocation" type="hidden" value="@Html.DisplayFor(model => item.IdLocation)" />
+                            <button class="fancy-button">
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+                            </button>
+                        </form>
+
+                    </td>
+                    <td colspan="2">
+                        <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Location", new { id = item.IdLocation })'" />
+                    </td>
+                </tr>
                 }
             </table>
         </div>
