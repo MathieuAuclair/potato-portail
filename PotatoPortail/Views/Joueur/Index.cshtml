@@ -1,89 +1,177 @@
-﻿@model IEnumerable<PotatoPortail.Models.eSports.Joueur>
+﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Joueur>
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Titre = "Joueurs";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Joueur">
 }
 
 <div class="container" style="margin-bottom:5%;">
+
     <div class="box">
 
-        <header class="light-header">
-            <h1>Liste des joueurs</h1>
-        </header>
+        @if (User.IsInRole("Admin eSports"))
+        {
 
-        <table class="cool-table">
-            <tr>
-                <th>
-                    @Html.ActionLink("Pseudo", "Index", new { sortOrder = ViewBag.PseudoSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Nom", "Index", new { sortOrder = ViewBag.NomSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Prénom", "Index", new { sortOrder = ViewBag.PrenomSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Jeu", "Index", new { sortOrder = ViewBag.JeuSortParm })
-                </th>
-                <th class="action-cell-header">
-                    <b>Modifier</b>
-                </th>
-                <th class="action-cell-header">
-                    <b>Détails</b>
-                </th>
-                <th class="action-cell-header">
-                    <b>Supprimer</b>
-                </th>
-            </tr>
+            <header class="light-header">
+                <h1>Liste des joueurs</h1>
+            </header>
 
-            @foreach (var item in Model)
+
+            if (Model.Any())
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PseudoJoueur)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Etudiant.NomDeFamille)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Etudiant.Prenom)
-                    </td>
-                    <td>
-                        @if (item.EquipeMonojoueur != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.EquipeMonojoueur.Jeu.nomJeu)
-                        }
-                        else
-                        {
-                            @:Aucun jeu associé
-                        }
-                    </td>
-                    <td class="action-cell">
-                        <a href='@Url.Action("Modifier", "Joueur", new { id = item.Id})'>
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                    </td>
-                    <td class="action-cell">
-                        <a href='@Url.Action("Details", "Joueur", new { id = item.Id})'>
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                        </a>
-                    </td>
-                    <td class="action-cell">
-                        <a href='@Url.Action("Supprimer", "Joueur", new { id = item.Id})'>
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                    </td>
-                </tr>
+
+                <table class="cool-table">
+                    <tr>
+                        <th>
+                            @Html.ActionLink("Pseudo", "Index", new { sortOrder = ViewBag.PseudoSortParm })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Prénom", "Index", new { sortOrder = ViewBag.PrenomSortParm })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Nom", "Index", new { sortOrder = ViewBag.NomSortParm })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Jeu", "Index", new { sortOrder = ViewBag.JeuSortParm })
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Détails</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Supprimer</b>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr onclick="window.location = '@Url.Action("Modifier", "Joueur", new { id = item.id })'">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pseudoJoueur)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembreESports.prenom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembreESports.nom)
+                            </td>
+                            <td>
+                                @if (item.equipeMonojoueur != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.equipeMonojoueur.Jeu.nomJeu)
+                                }
+                                else
+                                {
+                                    @:Aucun jeu associé
+                                }
+                            </td>
+                            <td class="action-cell">
+                                <a href='@Url.Action("Details", "Joueur", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                </a>
+                            </td>
+                            <td class="action-cell">
+                                <a href='@Url.Action("Supprimer", "Joueur", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            }
+            else
+            {
+                <h1>Aucun joueur n'est actuellement enregistré dans le système.</h1>
             }
 
-        </table>
+        }
+        else
+        {
+
+            if (Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()).Any())
+            {
+                <header class="light-header">
+                    <h1>Mes profils de joueur</h1>
+                </header>
+
+                <table class="cool-table">
+                    <tr>
+                        <th>
+                            @Html.ActionLink("Pseudo", "Index", new { sortOrder = ViewBag.PseudoSortParm })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Prénom", "Index", new { sortOrder = ViewBag.PrenomSortParm })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Nom", "Index", new { sortOrder = ViewBag.NomSortParm })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Profil.courriel)
+                        </th>
+                        <th>
+                            @Html.ActionLink("Jeu", "Index", new { sortOrder = ViewBag.JeuSortParm })
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()))
+                    {
+                        <tr onclick="window.location = '@Url.Action("Modifier", "Joueur", new { id = item.id })'">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pseudoJoueur)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembreESports.prenom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembreESports.nom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Profil.courriel)
+                            </td>
+                            <td>
+                                @if (item.equipeMonojoueur != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.equipeMonojoueur.Jeu.nomJeu)
+                                }
+                                else
+                                {
+                                    @:Aucun jeu associé
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <h1>Vous n'êtes pas enregistré en tant que joueur des eSports.</h1>
+            }
+        }
+
 
         <div class="menu-flottant">
             <a class="fancy-button blanc" href="/Accueil/ESport">
                 <span class="glyphicon glyphicon-triangle-left"></span>
                 Retour
             </a>
+            @if (User.IsInRole("Admin eSports"))
+            {
+                <a class="fancy-button blanc" href="/Profil/Index">
+                    <span class="mdi mdi-library-books"></span>
+                    Accéder aux inscriptions déposées
+                </a>
+            }
+            else
+            {
+                <a class="fancy-button blanc" href="/Profil/Index">
+                    <span class="mdi mdi-library-books"></span>
+                    Accéder à mes candidatures déposées
+                </a>
+            }
         </div>
 
-        </div>
     </div>
+</div>

@@ -7,7 +7,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 {
     public class ContactController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BDPortail _bd = new BDPortail();
 
         [HttpGet]
         public ActionResult Index()

@@ -8,7 +8,7 @@ namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
     public class LocationSelect
     {
         public List<Location> Locations { get; set; }
-        private readonly DatabaseContext _bd = new DatabaseContext();
+        private readonly BDPortail _bd = new BDPortail();
         
         public LocationSelect()
         {

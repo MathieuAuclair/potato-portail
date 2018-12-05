@@ -11,7 +11,7 @@ namespace PotatoPortail.Controllers
     [RCPEnonceCompetenceAuthorize]
     public class EnonceCompetenceController : Controller
     {
-        private readonly BdPortail _db = new BdPortail();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Info(int? idCompetence)
         {

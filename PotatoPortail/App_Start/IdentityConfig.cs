@@ -28,8 +28,7 @@ namespace PotatoPortail
 
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
-            : base(store)
+        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
         {
         }
 
@@ -37,7 +36,7 @@ namespace PotatoPortail
             IOwinContext context)
         {
             var manager = new ApplicationUserManager(
-                new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>())
+                new UserStore<ApplicationUser>(context.Get<BDPortail>())
             );
 
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)

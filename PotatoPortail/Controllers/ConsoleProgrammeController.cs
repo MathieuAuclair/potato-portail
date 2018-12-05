@@ -11,7 +11,7 @@ namespace PotatoPortail.Controllers
     [Authorize(Roles = "Admin")]
     public class ConsoleProgrammeController : Controller
     {
-        private readonly BdPortail _db = new BdPortail();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult _PartialList()
         {

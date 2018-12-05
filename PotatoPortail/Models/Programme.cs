@@ -27,7 +27,7 @@ namespace PotatoPortail.Models
 
         public DateTime? DateValIdation { get; set; }
 
-        public bool? StatutStageValider { get; set; }
+        public bool? StatutStageValIder { get; set; }
 
         public int NbSession { get; set; }
 
