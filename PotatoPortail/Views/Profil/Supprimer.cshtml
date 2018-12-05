@@ -1,4 +1,4 @@
-﻿@model PotatoPortail.Models.eSports.Profil
+﻿@model ApplicationPlanCadre.Models.eSports.Profil
 
 @{
     ViewBag.Title = "Delete";
@@ -9,14 +9,14 @@
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Profil</h4>
-    <hr/>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Etudiant.NomDeFamille)
+            @Html.DisplayNameFor(model => model.Etudiant.nom)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Etudiant.NomDeFamille)
+            @Html.DisplayFor(model => model.Etudiant.nom)
         </dd>
 
         <dt>
@@ -28,37 +28,36 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Pseudo)
+            @Html.DisplayNameFor(model => model.pseudo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Pseudo)
+            @Html.DisplayFor(model => model.pseudo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Courriel)
+            @Html.DisplayNameFor(model => model.courriel)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Courriel)
+            @Html.DisplayFor(model => model.courriel)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Note)
+            @Html.DisplayNameFor(model => model.note)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Note)
+            @Html.DisplayFor(model => model.note)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default"/> |
+            <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

@@ -14,25 +14,26 @@
 
         @using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-            <div class="form-group">
+            <div class="form-group"> 
                 <div class="row">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.nomItem)
-                        @Html.TextBoxFor(model => model.nomItem, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.nomItem, "", new {@class = "text-danger"})
+                        @Html.TextBoxFor(model => model.nomItem, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.nomItem, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-10">
-                        @Html.HiddenFor(model => model.CaracteristiqueId, htmlAttributes: new {@class = "control-label col-md-2"})
-                        @Html.HiddenFor(model => model.CaracteristiqueId, new {htmlAttributes = new {@class = "form-control"}})
-                        @Html.ValidationMessageFor(model => model.CaracteristiqueId, "", new {@class = "text-danger"})
+                        @Html.HiddenFor(model => model.CaracteristiqueId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.HiddenFor(model => model.CaracteristiqueId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CaracteristiqueId, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
 
+                
 
             <div class="menu-flottant">
                 <a class="fancy-button blanc" onclick="window.history.back()">
@@ -40,8 +41,12 @@
                     Annuler
                 </a>
                 <input type="submit" value="Ajouter l'item" class="fancy-button blanc"/>
-            </div>
+           </div>
         }
 
     </div>
-</div>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
