@@ -14,6 +14,7 @@ namespace SysInternshipManagement.Models
         public DateTime Timestamp { get; set; }
 
         [Required]
+        [Display(Name = "Stage voulu")]
         public virtual Stage Stage { get; set; }
 
         [Required]

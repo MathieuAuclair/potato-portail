@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Gestion de stage</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/Styles/flat-props.css")
-    @Styles.Render("~/Content/Styles/navigation.css")
-    @Styles.Render("~/Content/Styles/edition.css")
+    @Styles.Render("~/Content/table.css")
+    @Styles.Render("~/Content/superview.css")
+    @Styles.Render("~/Content/extend.css")
+    @Styles.Render("~/Content/structure.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -26,10 +27,11 @@
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Stages", "Index", "Stage")</li>
                 <li>@Html.ActionLink("Entreprises", "Index", "Entreprise")</li>
-                <li>@Html.ActionLink("Etudiant", "Index", "Etudiant")</li>
+                <li>@Html.ActionLink("Étudiant", "Index", "Etudiant")</li>
                 <li>@Html.ActionLink("Location", "Index", "Location")</li>
-                <li>@Html.ActionLink("Status", "Index", "Status")</li>
+                <li>@Html.ActionLink("Statuts", "Index", "Status")</li>
                 <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
+                <li>@Html.ActionLink("Appliquer pour un stage", "Index", "Application")</li>
             </ul>
         </div>
     </div>

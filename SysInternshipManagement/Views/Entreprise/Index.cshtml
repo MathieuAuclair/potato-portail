@@ -12,38 +12,46 @@
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter une nouvelle entreprise"))
         </form>
     </div>
-    <table>
-        <tr>
-            <th>Entreprise</th>
-            <th>Adresse</th>
-            <th>Code postal</th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(model => item.Nom)</td>
-                <td>
-                    @Html.DisplayFor(model => item.NumeroCivique)
-                    @Html.DisplayFor(model => item.Rue)
-                    @Html.DisplayFor(model => item.Ville),
-                    @Html.DisplayFor(model => item.Province),
-                    @Html.DisplayFor(model => item.Pays)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.CodePostal)
-                </td>
-                <td>
-                    <div>
-                        <form action="/Entreprise/Edition" method="post">
-                            <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdEntreprise)"/>
-                            <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        }
-    </table>
+
+    <div class="row">
+        <div class="col-md-11">
+            <table class="cool-table">
+                <tr>
+                    <th colspan="1" class="action-cell-header">Entreprise</th>
+                    <th colspan="1" class="action-cell-header">Adresse</th>
+                    <th colspan="1" class="action-cell-header">Code postal</th>
+                    <th></th>
+                </tr>
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.Nom)</td>
+                        <td>
+                            @Html.DisplayFor(model => item.NumeroCivique)
+                            @Html.DisplayFor(model => item.Rue)
+                            @Html.DisplayFor(model => item.Ville),
+                            @Html.DisplayFor(model => item.Province),
+                            @Html.DisplayFor(model => item.Pays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.CodePostal)
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/Entreprise/Edition" method="post">
+                                    <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdEntreprise)" />
+                                    <button>
+                                        <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </div>
+    </div>
 </div>

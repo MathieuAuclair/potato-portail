@@ -150,6 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EtudiantController.cs" />
     <Compile Include="Controllers\PosteController.cs" />
@@ -191,14 +192,13 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Styles\edition.css" />
-    <Content Include="Content\Styles\flat-props.css" />
-    <Content Include="Content\Styles\navigation.css" />
-    <Content Include="Content\Styles\table.css" />
+    <Content Include="Content\structure.css" />
+    <Content Include="Content\extend.css" />
+    <Content Include="Content\superview.css" />
+    <Content Include="Content\table.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -247,6 +247,11 @@
     <Content Include="Views\Stage\Edition.cshtml" />
     <Content Include="Views\Stage\Index.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiFileInputButton.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Application\Creation.cshtml" />
+    <Content Include="Views\Application\Suppression.cshtml" />
+    <Content Include="Views\Application\Edition.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

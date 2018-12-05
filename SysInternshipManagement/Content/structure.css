@@ -1,0 +1,268 @@
+﻿#portail #image {
+    min-height: 100vh;
+    background-image: url(Images/cegep.jpg);
+    background-position: center center;
+    background-size: cover;
+}
+
+#portail {
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+    #portail #main {
+        min-height: 100vh;
+        background-color: #fff;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    #portail .login {
+        min-height: calc(100vh - 175px);
+    }
+
+    #portail .logo {
+        width: 100%;
+    }
+
+    #portail .associes {
+        height: 100px;
+    }
+
+        #portail .associes a img {
+            width: 100%;
+        }
+
+#layout header {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.menu-flottant {
+    position: fixed;
+    bottom: 0;
+    width: auto;
+    background-color: #0078d7;
+    padding: 10px;
+    box-shadow: 0 -5px 5px -5px rgba(0,0,0,0.7);
+}
+
+#layout .main {
+    background-color: #333333;
+    border-bottom: 5px solid #0078d7;
+}
+
+#layout .logo {
+    position: absolute;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    vertical-align: top;
+    width: 150px;
+    height: 50px;
+    background: url(Images/portail-layout.svg) center center no-repeat;
+    background-size: contain;
+}
+
+#layout #nav-button {
+    float: left;
+    background-color: #000;
+}
+
+#layout .layout-button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+    #layout .layout-button .glyphicon {
+        position: relative;
+        top: 10px;
+    }
+
+#layout #logoutForm {
+    float: right;
+}
+
+    #layout #logoutForm .layout-button {
+        float: right;
+        background-color: transparent;
+        border-left: 1px solid #000;
+    }
+
+        #layout #nav-button:hover, #layout #logoutForm .layout-button:hover {
+            background-color: #0063b1;
+        }
+
+#layout .tuile-container {
+    padding: 10px;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#layout .tuile {
+    margin: 2px 0;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 14px;
+    width: 110px;
+    height: 110px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.8em;
+    color: #ffffff;
+    background-color: #0078d7;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+    #layout .tuile:hover {
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.3) inset;
+    }
+
+    #layout .tuile:active {
+        transform: scale(0.9, 0.9);
+    }
+
+    #layout .tuile .glyphicon {
+        margin: 15px 0 10px;
+        font-size: 42px;
+    }
+
+    #layout .tuile .mdi {
+        margin: 15px 0 10px;
+        font-size: 42px;
+    }
+
+@media (max-width: 767px) {
+
+    #layout .tuile-container {
+        text-align: center;
+    }
+
+    #layout .header-logo {
+        width: 100px;
+        background-image: url(Images/cj-layout-mini.png);
+    }
+}
+
+#page-content {
+    margin-top: 55px;
+}
+
+#accueil {
+    padding-bottom: 30px;
+    width: 100%;
+    min-height: calc(100vh - 55px);
+    text-align: center;
+    background: url(Images/cegep-index.png) no-repeat center center, #4f4f4f;
+    background-size: cover;
+}
+
+    #accueil h1 {
+        padding: 125px 0 25px;
+        font-size: 5em;
+        color: #ffffff;
+    }
+
+    #accueil .icon {
+        margin: 20px;
+        padding-top: 25px;
+        display: inline-block;
+        vertical-align: top;
+        line-height: 20px;
+        width: 180px;
+        height: 180px;
+        text-align: center;
+        text-decoration: none;
+        color: #ffffff;
+        cursor: pointer;
+        transition: 0.1s;
+        user-select: none;
+    }
+
+    #accueil .small-margin {
+        margin: 15px !important;
+    }
+
+    #accueil .icon:hover {
+        transform: scale(1.1, 1.1);
+    }
+
+
+    #accueil .icon:active {
+        transform: scale(1, 1);
+    }
+
+    #accueil .icon .glyphicon {
+        margin-bottom: 10px;
+        font-size: 92px;
+    }
+
+    #accueil .icon .mdi {
+        margin-bottom: 10px;
+        font-size: 92px;
+    }
+
+@media (max-width: 767px) {
+
+    #accueil h1 {
+        padding: 25px 0;
+        font-size: 3em;
+    }
+
+    #accueil .icon {
+        margin: 0 5px;
+        width: 140px;
+        height: 180px;
+    }
+}
+
+#RCPForm {
+    display: none;
+}
+
+#searchForm {
+    text-align: center;
+}
+
+    #searchForm input[type="text"] {
+        width: 300px;
+        display: inline-block;
+    }
+
+    #searchForm #searchBtn {
+        margin-top: 10px;
+        display: inline-block;
+        box-sizing: border-box;
+        vertical-align: middle;
+        padding: 0;
+        height: initial;
+        box-shadow: initial;
+        color: #fff;
+        border-radius: initial;
+        border: none;
+        border-bottom: 2px solid #0063b1;
+        background-color: #0078d7;
+    }
+
+        #searchForm #searchBtn .glyphicon {
+            padding: 7px 20px;
+            font-size: 22px;
+        }
+
+    #searchForm .checkbox {
+        text-align: left;
+    }

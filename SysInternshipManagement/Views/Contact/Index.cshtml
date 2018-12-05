@@ -16,34 +16,34 @@
         <div class="col-md-11">
             <table class="cool-table">
                 <tr>
-                    <th colspan="1" class="action-cell-header">Nom du contact</>
+                    <th colspan="1" class="action-cell-header">Nom du contact</th>
                     <th colspan="1" class="action-cell-header">Courriel</th>
                     <th colspan="1" class="action-cell-header">Téléphone</th>
-                    <th></th>
+                    <th colspan="1" class="action-cell-header"></th>
                 </tr>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td colspan="1" class="action-cell">
-                        @Html.DisplayFor(model => item.Nom)
-                    </td>
-                    <td colspan="1" class="action-cell">
-                        @Html.DisplayFor(model => item.Courriel)
-                    </td>
-                    <td colspan="1" class="action-cell">
-                        @Html.DisplayFor(model => item.Telephone)
-                    </td>
-                    <td>
-                        <div>
-                            <form action="/Contact/Edition" method="post">
-                                <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)" />
-                                <button>
-                                    <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.Nom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Courriel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Telephone)
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/Contact/Edition" method="post">
+                                    <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)" />
+                                    <button>
+                                        <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
                 }
             </table>
         </div>
