@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = Model.nom;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="DevisMinistere">
 }
 
 @Html.Action("ListeDevis")
@@ -94,12 +95,12 @@
     <hr class="end-div" />
 
     <div class="menu-flottant">
-    
+
         <a class="fancy-button blanc" href='@Url.Action("Index", "DevisMinistere")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
         <a class="fancy-button blanc" href='@Url.Action("Modifier", new { idDevis = Model.idDevis })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
         <a class="fancy-button blanc" href='@Url.Action("Creation", "EnonceCompetence", new { idDevis = Model.idDevis })'><span class="glyphicon glyphicon-plus"></span> Ajouter un énoncé</a>
 
-    </div>  
+    </div>
 </div>
 
 <script>

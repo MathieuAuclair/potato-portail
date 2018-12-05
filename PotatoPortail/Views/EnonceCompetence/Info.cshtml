@@ -3,6 +3,7 @@
 @{
     ViewBag.Titre = Model.nom;
     int Cpt = 0;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="EnonceCompetence">
 }
 
 @Html.Action("ListeDevis", "Devisministere")
@@ -34,38 +35,38 @@
 
         <hr />
     }
-        <div id="listeElementComp">
-           @if (Model.ElementCompetence.Count > 0)
+    <div id="listeElementComp">
+        @if (Model.ElementCompetence.Count > 0)
+        {
+            <h2>Éléments de compétence</h2>
+
+            foreach (var elementCompetence in Model.ElementCompetence.OrderBy(ec => ec.numero))
             {
-                <h2>Éléments de compétence</h2>
+                <div>
+                    <a id="@elementCompetence.idElement"
+                       class="info-child clearfix vertical-align"
+                       href='@Url.Action("Info", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
 
-                foreach (var elementCompetence in Model.ElementCompetence.OrderBy(ec => ec.numero))
-                {
-                    <div>
-                        <a id="@elementCompetence.idElement"
-                            class="info-child clearfix vertical-align"
-                            href='@Url.Action("Info", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
+                        <p class="droite">@Html.DisplayFor(m => elementCompetence.description)</p>
 
-                            <p class="droite">@Html.DisplayFor(m => elementCompetence.description)</p>
-
-                            <p class="gauche">@Html.DisplayFor(m => elementCompetence.numero)</p>
-                        </a>
-                        <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "ElementCompetence", new { idElement = elementCompetence.idElement })'><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                }   
-        <hr class="end-div" />
+                        <p class="gauche">@Html.DisplayFor(m => elementCompetence.numero)</p>
+                    </a>
+                    <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "ElementCompetence", new { idElement = elementCompetence.idElement })'><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
             }
-        </div>
-            <div class="menu-flottant">
+            <hr class="end-div" />
+        }
+    </div>
+    <div class="menu-flottant">
 
-                <a class="fancy-button blanc" onclick="location.href='@Url.Action("Info", "DevisMinistere", new { idDevis = Model.idDevis })'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-                <a class="fancy-button blanc" onclick="location.href='@Url.Action("Modifier", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
-                <a class="fancy-button blanc" onclick="location.href='@Url.Action("Creation", "ElementCompetence", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-plus"></span> Ajouter un élément</a>
-                <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Supression", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'énoncé</a>
-            </div>
-        </div>
+        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Info", "DevisMinistere", new { idDevis = Model.idDevis })'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Modifier", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Creation", "ElementCompetence", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-plus"></span> Ajouter un élément</a>
+        <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Supression", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'énoncé</a>
+    </div>
+</div>
 
-        <script>
+<script>
              $(("#enc" + @Model.idCompetence + "element")).addClass('active');
             $(("#p" + @Model.DevisMinistere.idDevis)).collapse('show');
             $("#listeElementComp").sortable({
@@ -73,7 +74,7 @@
                     // gets the new and old index then removes the temporary attribute
                     var ordre = 1;
                     var listeElement = [];
-                   
+
                     $("#listeElementComp div").each(function () {
                         var idelement = $(this)[0].children[0].id;
                         var objModel = { idelement: idelement, numero: ordre };
@@ -95,6 +96,6 @@
                     });
                 }
             });
-           
-          
-        </script>
+
+
+</script>

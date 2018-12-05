@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Web;
 
 namespace PotatoPortail.ViewModels
 {
@@ -6,12 +10,19 @@ namespace PotatoPortail.ViewModels
     {
         protected void OnNotifyPropertyChanged(string p)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
         }
         protected void RaisePropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
-            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         #region INotifyPropertyChanged Members

@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Titre = "Ordre du jour";
+}
+
+<div id="accueil">
+    <h1>Ordre du jour</h1>
+    <div class="icon-container">
+
+        <a class="icon" href='@Url.Action("Index")'>
+            <span class="glyphicon glyphicon-share-alt flip"></span>
+            <p>Retour</p>
+        </a>
+
+        <a class="icon" href='@Url.Action("Index", "OrdreDuJour")'>
+            <span class="mdi mdi-insert-drive-file"></span>
+            <p>Index</p>
+        </a>
+
+        @if (User.IsInRole("RCP") || User.IsInRole("RDC"))
+        {
+            <a class="icon" href='@Url.Action("ModifierModeleOrdreDuJour", "OrdreDuJour")'>
+                <span class="mdi mdi-create"></span>
+                <p>Mon modèle</p>
+            </a>
+        }
+        </div>
+</div>

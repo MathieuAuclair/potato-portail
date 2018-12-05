@@ -6,7 +6,7 @@
 
     ViewBag.Titre = "PDF " + Model.nom;
     <title>@ViewBag.Titre</title>
-
+    ViewBag.Nom = Model.nom;
     Layout = null;
 }
 
@@ -99,18 +99,20 @@
 
     .enonce-left {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         width: 50%;
         float: left;
-        margin: 0px;
+        margin: 0;
     }
 
     .enonce-right {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         width: 50%;
         float: right;
-        margin: 0px;
+        margin: 0;
     }
 
     .contain {
@@ -126,6 +128,7 @@
 
 <body>
 <div class="pdf">
+    @Html.Partial("~/Views/static/header.cshtml", (string) ViewBag.Nom)
     <div class="info-Programme">
 
 
@@ -148,7 +151,7 @@
             <div class="titre">
                 Identifiant :
                 <br/>
-                @Html.DisplayFor(x => Model.DevisMinistere.codeProgramme)-@Html.DisplayFor(x => Model.DevisMinistere.codeSpecialisation)-@Html.DisplayFor(x => Model.annee)
+                @Html.DisplayFor(x => Model.DevisMinistere.discipline)-@Html.DisplayFor(x => Model.DevisMinistere.codeSpecialisation)-@Html.DisplayFor(x => Model.annee)
 
             </div>
             <br/>
@@ -205,12 +208,12 @@
                     </div>
                 </div>
                 <br/>
-                <div class="titre">
+                @*<div class="titre">
                     Total
-                    <br/>
+                    <br/>*@
                     @*<div class="data">
                             @Html.DisplayFor(x => Model.DevisMinistere) h*@
-                </div>
+                @*</div>*@
             </div>
             <br/>
         </div>
@@ -219,7 +222,7 @@
     </div>
 
 
-    <table cellspacing="0">
+    <table>
         <thead>
         <tr>
             <th style="border-bottom: 5px solid black;"></th>
