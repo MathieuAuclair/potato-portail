@@ -19,7 +19,7 @@ namespace SysInternshipManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edition()
+        public ActionResult Modifier()
         {
             var entreprise = _bd.entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
 
@@ -28,7 +28,7 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Entreprise/Edition.cshtml", entreprise);
+            return View("~/Views/Entreprise/Modifier.cshtml", entreprise);
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@ namespace SysInternshipManagement.Controllers
             };
           
 
-            return View("~/Views/Entreprise/Edition.cshtml", entreprise);
+            return View("~/Views/Entreprise/Modifier.cshtml", entreprise);
         }
 
 

@@ -1,0 +1,87 @@
+@model SysInternshipManagement.Models.Entreprise
+@using SysInternshipManagement.Views.Shared.Widget.Model
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Entreprise</h1>
+    <form action="EnregistrerLesModifications" method="post">
+        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)"/>
+        <div class="form-content">
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Nom d'entreprise",
+                        "20px",
+                        "nom",
+                        "text",
+                        Model.Nom,
+                        null
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/FlatUiPaysSelect",
+                    new FlatUiPaysSelect(
+                        @Model.Pays
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Province",
+                        "20px",
+                        "province",
+                        "text",
+                        Model.Province,
+                        null
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Ville",
+                        "20px",
+                        "ville",
+                        "text",
+                        Model.Ville,
+                        null
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Rue",
+                        "20px",
+                        "rue",
+                        "text",
+                        Model.Rue,
+                        null
+                        )
+                    )
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Numéro civique",
+                        "40px",
+                        "numeroCivique",
+                        "number",
+                        @Model.NumeroCivique.ToString(),
+                        null
+                        )
+                    )
+            </div>
+            <div class="flat-textarea">
+                <p>Code Postal</p>
+                <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
+            </div>
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </div>
+    </form>
+</div>

@@ -13,7 +13,7 @@ namespace SysInternshipManagement.Controllers
         private readonly DatabaseContext _bd = new DatabaseContext();
 
         [HttpGet]
-        public ActionResult Edition(int? idStage)
+        public ActionResult Modifier(int? idStage)
         {
             if (idStage == null)
             {
@@ -25,7 +25,7 @@ namespace SysInternshipManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edition(
+        public ActionResult Modifier(
             HttpPostedFileBase fichier,
             int? idLocation,
             int? idStatus,
@@ -141,7 +141,7 @@ namespace SysInternshipManagement.Controllers
             _bd.stage.Add(stage);
             _bd.SaveChanges();
 
-            return View("~/Views/Stage/Edition.cshtml", stage);
+            return View("~/Views/Stage/Modifier.cshtml", stage);
         }
 
         public ActionResult Suppression(int? id)

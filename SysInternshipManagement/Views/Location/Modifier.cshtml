@@ -1,0 +1,29 @@
+@using SysInternshipManagement.Views.Shared.Widget.Model
+@model SysInternshipManagement.Models.Location
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Location</h1>
+    <form action="EnregistrerLesModifications" method="post">
+        <input name="idLocation" type="hidden" value="@Html.DisplayFor(model => Model.IdLocation)"/>
+        @* ReSharper disable once UnknownCssClass *@
+        <div class="form-content">
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput",
+                    new FlatUiTextInputModel(
+                        "Nom de la nouvelle location",
+                        "20px",
+                        "nom",
+                        "text",
+                        Model.Nom,
+                        null
+                        )
+                    )
+            </div>
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </div>
+    </form>
+</div>

@@ -18,7 +18,7 @@ namespace SysInternshipManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edition(int? idLocation)
+        public ActionResult Modifier(int? idLocation)
         {
             if (idLocation == null)
             {
@@ -32,7 +32,7 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Location/Edition.cshtml", location);
+            return View("~/Views/Location/Modifier.cshtml", location);
         }
 
         [HttpPost]
@@ -67,7 +67,7 @@ namespace SysInternshipManagement.Controllers
             _bd.location.Add(location);
             _bd.SaveChanges();
 
-            return View("~/Views/Location/Edition.cshtml", location);
+            return View("~/Views/Location/Modifier.cshtml", location);
         }
 
         public ActionResult Suppression(int? id)

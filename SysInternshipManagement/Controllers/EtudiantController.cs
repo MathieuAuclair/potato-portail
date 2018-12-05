@@ -18,7 +18,7 @@ namespace SysInternshipManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edition(int? idEtudiant)
+        public ActionResult Modifier(int? idEtudiant)
         {
             if (idEtudiant == null)
             {
@@ -32,7 +32,7 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Etudiant/Edition.cshtml", etudiant);
+            return View("~/Views/Etudiant/Modifier.cshtml", etudiant);
         }
 
         [HttpPost]
@@ -108,7 +108,7 @@ namespace SysInternshipManagement.Controllers
             _bd.etudiant.Add(etudiant);
             _bd.SaveChanges();
 
-            return View("~/Views/Etudiant/Edition.cshtml", etudiant);
+            return View("~/Views/Etudiant/Modifier.cshtml", etudiant);
         }
 
         [HttpPost]

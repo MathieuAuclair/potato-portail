@@ -20,32 +20,33 @@
                     <th colspan="1" class="action-cell-header">Nom du contact</th>
                     <th colspan="1" class="action-cell-header">Courriel</th>
                     <th colspan="1" class="action-cell-header">Téléphone</th>
-                    <th colspan="1" class="action-cell-header"></th>
+                    <th colspan="1" class="action-cell-header">Modifier</th>
+                    <th colspan="1" class="action-cell-header">Supprimer</th>
                 </tr>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.Nom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Courriel)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Telephone)
-                        </td>
-                        <td>
-                            <div>
-                                <form action="/Contact/Edition" method="post">
-                                    <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)" />
-                                    <button>
-                                        <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                                    </button>
-                                    <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Contact", new { id = item.IdContact })'" />
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Courriel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Telephone)
+                    </td>
+                    <td>
+                        <a href='@Url.Action("Modifier", "Contact", new { id = item.IdContact })'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href='@Url.Action("Suppression", "Contact", new { id = item.IdContact })'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                </tr>
                 }
             </table>
         </div>

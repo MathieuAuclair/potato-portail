@@ -205,16 +205,16 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Contact\Edition.cshtml" />
+    <Content Include="Views\Contact\Modifier.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
-    <Content Include="Views\Entreprise\Edition.cshtml" />
+    <Content Include="Views\Entreprise\Modifier.cshtml" />
     <Content Include="Views\Etudiant\Actions\DossierEtudiant.cshtml" />
-    <Content Include="Views\Etudiant\Edition.cshtml" />
+    <Content Include="Views\Etudiant\Modifier.cshtml" />
     <Content Include="Views\Etudiant\EditionComponent\PreferenceEditor.cshtml" />
     <Content Include="Views\Etudiant\Index.cshtml" />
-    <Content Include="Views\Location\Edition.cshtml" />
+    <Content Include="Views\Location\Modifier.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
-    <Content Include="Views\Poste\Edition.cshtml" />
+    <Content Include="Views\Poste\Modifier.cshtml" />
     <Content Include="Views\Poste\Index.cshtml" />
     <Content Include="Views\Shared\Widget\FlatUiPaysSelect.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiButton.cshtml" />
@@ -250,7 +250,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Application\Creation.cshtml" />
     <Content Include="Views\Application\Suppression.cshtml" />
-    <Content Include="Views\Application\Edition.cshtml" />
+    <Content Include="Views\Application\Modifier.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

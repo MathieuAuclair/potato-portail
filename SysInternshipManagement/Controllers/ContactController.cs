@@ -17,7 +17,7 @@ namespace SysInternshipManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edition(int? idContact)
+        public ActionResult Modifier(int? idContact)
         {
 
             var contact = _bd.contact.Find(idContact);
@@ -27,7 +27,7 @@ namespace SysInternshipManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View("~/Views/Contact/Edition.cshtml", contact);
+            return View("~/Views/Contact/Modifier.cshtml", contact);
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@ namespace SysInternshipManagement.Controllers
                 Telephone = "123-456-7890"
             };
 
-            return View("~/Views/Contact/Edition.cshtml", contact);
+            return View("~/Views/Contact/Modifier.cshtml", contact);
         }
 
         public ActionResult Suppression(int? id)
