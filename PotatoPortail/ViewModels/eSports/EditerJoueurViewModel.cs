@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Models.eSports;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.ViewModels.eSportsVM
+namespace ApplicationPlanCadre.ViewModels.eSports
 {
-    public class EditerJoueurVm
+    public class EditerJoueurVM
     {
         public int JoueurId { get; set; }
 
@@ -19,6 +20,6 @@ namespace ApplicationPlanCadre.ViewModels.eSportsVM
 
         public virtual MembreESports MembreESports { get; set; }
 
-        public virtual Jeu Jeu { get; set; }
+        public virtual Jeux Jeu { get; set; }
     }
 }

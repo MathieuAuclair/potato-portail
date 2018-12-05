@@ -1,14 +1,15 @@
-﻿using System.Net;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using PotatoPortail.Models;
-using PotatoPortail.ViewModels.ProjetPrincipal;
+using Microsoft.Owin.Security;
+using ApplicationPlanCadre.Models;
 
-namespace PotatoPortail.Controllers
+namespace ApplicationPlanCadre.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -26,16 +27,28 @@ namespace PotatoPortail.Controllers
             SignInManager = signInManager;
         }
 
-        private ApplicationSignInManager SignInManager
+        public ApplicationSignInManager SignInManager
         {
-            get => _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            set => _signInManager = value;
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set 
+            { 
+                _signInManager = value; 
+            }
         }
 
-        private ApplicationUserManager UserManager
+        public ApplicationUserManager UserManager
         {
-            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            set => _userManager = value;
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         public ActionResult Details(string userId)
@@ -44,9 +57,12 @@ namespace PotatoPortail.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             ApplicationUser user = UserManager.FindById(userId);
             user.roles = UserManager.GetRoles(user.Id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
             return View(user);
         }
 
@@ -63,9 +79,7 @@ namespace PotatoPortail.Controllers
             {
                 return View(model);
             }
-
-            var result =
-                await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -73,10 +87,8 @@ namespace PotatoPortail.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-
-                return RedirectToAction("Details", new {userId = User.Identity.GetUserId()});
+                return RedirectToAction("Details", new { userId = User.Identity.GetUserId() });
             }
-
             AddErrors(result);
             return View(model);
         }
@@ -92,7 +104,17 @@ namespace PotatoPortail.Controllers
             base.Dispose(disposer);
         }
 
-        #region Programmes d'assistance
+#region Programmes d'assistance
+        // Utilisé pour la protection XSRF lors de l'ajout de connexions externes
+        private const string XsrfKey = "XsrfId";
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
         private void AddErrors(IdentityResult result)
         {
@@ -102,18 +124,37 @@ namespace PotatoPortail.Controllers
             }
         }
 
-        public bool HasPassword()
+        private bool HasPassword()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return user?.PasswordHash != null;
+            if (user != null)
+            {
+                return user.PasswordHash != null;
+            }
+            return false;
         }
 
-        public bool HasPhoneNumber()
+        private bool HasPhoneNumber()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return user?.PhoneNumber != null;
+            if (user != null)
+            {
+                return user.PhoneNumber != null;
+            }
+            return false;
         }
 
-        #endregion
+        public enum ManageMessageId
+        {
+            AddPhoneSuccess,
+            ChangePasswordSuccess,
+            SetTwoFactorSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            RemovePhoneSuccess,
+            Error
+        }
+
+#endregion
     }
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = "Plan cadre";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Cours">
 }
 
 @Html.Action("ListeProgramme")
@@ -23,14 +24,14 @@
     {
         <div>
             <a class="info-child clearfix" href='@Url.Action("Info", "Programme", new { idProgramme = programme.idProgramme })'>
-                <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.EnteteProgramme.codeProgramme)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
+                <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.Departement.discipline)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
                 <p class="droiteG">@Html.DisplayFor(model => programme.description)</p>
             </a>
         </div>
     }
 
-    <hr class="end-div"/>
-    
+    <hr class="end-div" />
+
     <div class="menu-flottant">
         <a class="fancy-button blanc" onclick="location.href='@Url.Action("Pedagogie", "Accueil")'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
     </div>
