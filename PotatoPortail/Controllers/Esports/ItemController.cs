@@ -1,109 +1,96 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
-using PotatoPortail.Models;
+using System.Data.Entity.Migrations;
+using ApplicationPlanCadre.Models;
+using ApplicationPlanCadre.Models.eSports;
 
-namespace PotatoPortail.Controllers.Esports
+namespace ApplicationPlanCadre.Controllers
 {
     public class ItemController : Controller
     {
-        private readonly BDPortail _db = new BDPortail();
+        private BDPlanCadre db = new BDPlanCadre();
 
-        public ActionResult Index(int? id, string nomCaracterisque, string nomJeu)
+        // GET: Item
+        public ActionResult Index(int? id, string nomCarac, string nomJeu)
         {
-            var itemsCaracteristique = from entity in _db.Items
-                where entity.IdCaracteristique == id
-                select entity;
+            var itemsCarac = from i in db.Items
+                             where i.CaracteristiqueId == id
+                             select i;
 
-            Caracteristique caracteristique = _db.Caracteristique.Find(id);
-
-            if (caracteristique == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
-
-            if (jeu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            Caracteristique carac = db.Caracteristiques.Find(id);
+            Jeu jeu = db.Jeux.Find(carac.JeuId);
 
             ViewBag.CaracteristiqueId = id;
-            ViewBag.nomCaracteristique = nomCaracterisque;
+            ViewBag.nomCaracteristique = nomCarac;
             ViewBag.JeuId = jeu.id;
             ViewBag.nomJeu = nomJeu;
-            ViewBag.itemsCarac = itemsCaracteristique.ToList();
+            ViewBag.itemsCarac = itemsCarac.ToList();
 
-            return View(itemsCaracteristique.OrderBy(i => i.nomItem).ToList());
+            return View(itemsCarac.OrderBy(i => i.nomItem).ToList());
         }
 
+        // GET: Item/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Item item = _db.Items.Find(id);
+            Item item = db.Items.Find(id);
             if (item == null)
             {
                 return HttpNotFound();
             }
-
-            return View("/Views/Item/Modifier.cshtml", item);
+            return View(item);
         }
 
-        public ActionResult Creation(int? caracteristiqueId, string nomCarac, string nomJeu)
+        // GET: Item/Create
+        public ActionResult Creation(int? CaracteristiqueId, string nomCarac, string nomJeu)
         {
-            _db.Caracteristique.Find(caracteristiqueId);
+            Caracteristique carac = db.Caracteristiques.Find(CaracteristiqueId);
 
-            ViewBag.CaracteristiqueId = caracteristiqueId;
+            ViewBag.CaracteristiqueId = CaracteristiqueId;
             ViewBag.nomCarac = nomCarac;
             ViewBag.nomJeu = nomJeu;
 
             return View();
         }
 
+        // POST: Item/Create
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomItem,CaracteristiqueId")]
-            Item item)
+        public ActionResult Creation([Bind(Include = "id,nomItem,CaracteristiqueId")] Item item)
         {
             if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Caracteristique carac = db.Caracteristiques.Find(item.CaracteristiqueId);
+                Jeu jeu = db.Jeux.Find(carac.JeuId);
+
+                db.Items.Add(item);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Item", new { carac.id, nomCarac = carac.nomCaracteristique, jeu.nomJeu});
             }
 
-            Caracteristique caracteristique = _db.Caracteristique.Find(item.CaracteristiqueId);
-
-            if (caracteristique == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
-
-            _db.Items.Add(item);
-            _db.SaveChanges();
-
-            if (jeu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            return RedirectToAction("Index", "Item",
-                new {caracteristique.id, nomCarac = caracteristique.nomCaracteristique, jeu.nomJeu});
+            ViewBag.carac = new SelectList(db.Caracteristiques, "id", "nomCaracteristique", item.CaracteristiqueId);
+            return View(item);
         }
 
+        // GET: Item/Edit/5
         public ActionResult Modifier(int? id, string nomCarac, string nomJeu)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Item item = _db.Items.Find(id);
+            Item item = db.Items.Find(id);
             if (item == null)
             {
                 return HttpNotFound();
@@ -111,57 +98,38 @@ namespace PotatoPortail.Controllers.Esports
 
             ViewBag.nomCaracteristique = nomCarac;
             ViewBag.nomJeu = nomJeu;
-            ViewBag.CaracteristiqueId =
-                new SelectList(_db.Caracteristique, "id", "nomCaracteristique", item.CaracteristiqueId);
+            ViewBag.CaracteristiqueId = new SelectList(db.Caracteristiques, "id", "nomCaracteristique", item.CaracteristiqueId);
 
             return View(item);
         }
 
+        // POST: Item/Edit/5
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "id,nomItem,CaracteristiqueId")]
-            Item item)
+        public ActionResult Modifier([Bind(Include = "id,nomItem,CaracteristiqueId")] Item item)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Caracteristique carac = db.Caracteristiques.Find(item.CaracteristiqueId);
+                Jeu jeu = db.Jeux.Find(carac.JeuId);
+                db.Set<Item>().AddOrUpdate(item);
+                db.SaveChanges();
+                return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
             }
-
-            Caracteristique caracteristique = _db.Caracteristique.Find(item.CaracteristiqueId);
-
-            if (caracteristique == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
-
-            if (jeu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            _db.Set<Item>().AddOrUpdate(item);
-            _db.SaveChanges();
-
-            return RedirectToAction("Index", "Item",
-                new
-                {
-                    id = item.CaracteristiqueId,
-                    nomCaracteristique = caracteristique.nomCaracteristique,
-                    nomJeu = jeu.nomJeu
-                });
+            ViewBag.CaracteristiqueId = new SelectList(db.Caracteristiques, "id", "nomCaracteristique", item.CaracteristiqueId);
+            return View(item);
         }
 
+        // GET: Item/Delete/5
         public ActionResult Supprimer(int? id, string nomJeu)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Item item = _db.Items.Find(id);
-
+            Item item = db.Items.Find(id);
             if (item == null)
             {
                 return HttpNotFound();
@@ -172,43 +140,26 @@ namespace PotatoPortail.Controllers.Esports
             return View(item);
         }
 
+        // POST: Item/Delete/5
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Item item = _db.Items.Find(id);
-
-            if (item == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            Caracteristique caracteristique = _db.Caracteristique.Find(item.CaracteristiqueId);
-
-            if (caracteristique == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
-
-            if (jeu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            _db.Items.Remove(item);
-            _db.SaveChanges();
-            return RedirectToAction("Index", "Item", new {caracteristique.id, nomCarac = caracteristique.nomCaracteristique, jeu.nomJeu});
+            Item item = db.Items.Find(id);
+            Caracteristique carac = db.Caracteristiques.Find(item.CaracteristiqueId);
+            Jeu jeu = db.Jeux.Find(carac.JeuId);
+            
+            db.Items.Remove(item);
+            db.SaveChanges();
+            return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu });
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _db.Dispose();
+                db.Dispose();
             }
-
             base.Dispose(disposing);
         }
     }

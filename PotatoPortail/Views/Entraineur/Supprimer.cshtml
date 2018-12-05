@@ -1,0 +1,49 @@
+﻿@model ApplicationPlanCadre.Models.Entraineur
+
+@{
+    ViewBag.Titre = "Suppression d'un entraîneur";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Entraineur">
+}
+
+<div class="container" style="margin-bottom:5%;">
+
+    <div class="box">
+
+        <header class="light-header">
+            <h1>Suppression de l'entraîneur @Model.nomComplet (@Model.pseudoEntraineur)</h1>
+        </header>
+
+        <h3>Êtes-vous sûr de vouloir supprimer cet entraîneur?</h3>
+
+        <div>
+
+            <div class="element">
+                @Html.LabelFor(model => model.numTel)
+
+                @Html.DisplayFor(model => model.numTel)
+            </div>
+
+            <div class="element">
+                @Html.LabelFor(model => model.adresseCourriel)
+
+                @Html.DisplayFor(model => model.adresseCourriel)
+            </div>
+
+
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" href="@Url.Action("Index", "Entraineur")">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Confirmer la suppression" class="fancy-button blanc" />
+            </div>
+        }
+    </div>
+
+</div>

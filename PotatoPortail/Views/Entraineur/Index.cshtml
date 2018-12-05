@@ -1,0 +1,143 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Entraineur>
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Titre = "Entraîneurs";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Entraineur">
+}
+
+<div class="container" style="margin-bottom:5%;">
+
+    <div class="box">
+
+        @if (User.IsInRole("Admin eSports"))
+        {
+
+            <header class="light-header">
+                <h1>Liste des entraîneurs</h1>
+            </header>
+
+            if (Model.Any())
+            {
+
+                <table class="cool-table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nomEntraineur)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.pseudoEntraineur)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.numTel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.adresseCourriel)
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Supprimer</b>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr onclick="window.location = '@Url.Action("Modifier", "Entraineur", new { id = item.id })'">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nomComplet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pseudoEntraineur)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numTel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.adresseCourriel)
+                            </td>
+                            <td class="action-cell">
+                                <a href="@Url.Action("Supprimer", "Entraineur", new { id = item.id })">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            }
+            else
+            {
+                <h3>Aucun entraîneur n'est actuellement enregistré dans le système.</h3>
+            }
+
+        }
+        else
+        {
+            <header class="light-header">
+                <h1>Liste des entraîneurs</h1>
+            </header>
+
+            if (Model.Any())
+            {
+
+                <table class="cool-table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nomEntraineur)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.pseudoEntraineur)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.numTel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.adresseCourriel)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nomComplet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pseudoEntraineur)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numTel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.adresseCourriel)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            }
+            else
+            {
+                <h3>Aucun entraîneur n'est actuellement enregistré dans le système.</h3>
+            }
+
+        }
+
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Accueil/ESport">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+            @if (User.IsInRole("Admin eSports"))
+            {
+                <a class="fancy-button blanc" href="@Url.Action("Creation", "Entraineur")">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Ajouter un entraîneur
+                </a>
+            }
+        </div>
+
+    </div>
+</div>
