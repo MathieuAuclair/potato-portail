@@ -1,4 +1,4 @@
-namespace ApplicationPlanCadre.Models
+namespace SysInternshipManagement.Models
 {
     using System;
     using System.Collections.Generic;
@@ -9,29 +9,28 @@ namespace ApplicationPlanCadre.Models
     [Table("PlanCadreElement")]
     public partial class PlanCadreElement
     {
-        [Key]
-        [Column(Order = 0)]
-        public int idPlanCadreElement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PlanCadreElement()
+        {
+            ActiviteApprentissage = new HashSet<ActiviteApprentissage>();
+            ElementConnaissance = new HashSet<ElementConnaissance>();
+        }
 
         [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idPlanCadre { get; set; }
+        public int IdPlanCadreElement { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idElement { get; set; }
+        public int IdElement { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idElementConnaissance { get; set; }
+        public int IdPlanCadreCompetence { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActiviteApprentissage> ActiviteApprentissage { get; set; }
 
         public virtual ElementCompetence ElementCompetence { get; set; }
 
-        public virtual ElementConnaissance ElementConnaissance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ElementConnaissance> ElementConnaissance { get; set; }
 
-        public virtual PlanCadre PlanCadre { get; set; }
+        public virtual PlanCadreCompetence PlanCadreCompetence { get; set; }
     }
 }

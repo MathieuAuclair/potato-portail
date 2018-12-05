@@ -6,30 +6,30 @@ namespace SysInternshipManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Cours
+    public partial class Rangs
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cours()
+        public Rangs()
         {
-            PlanCours = new HashSet<PlanCours>();
+            HistoriqueRangs = new HashSet<HistoriqueRangs>();
         }
 
-        [Key]
-        public int IdCours { get; set; }
+        public int Id { get; set; }
 
-        public int IdPlanCadre { get; set; }
+        [Required]
+        public string NomRang { get; set; }
 
-        public int IdGrille { get; set; }
+        [Required]
+        [StringLength(6)]
+        public string Abreviation { get; set; }
 
-        public int IdSession { get; set; }
+        public int Hierarchie { get; set; }
 
-        public virtual GrilleCours GrilleCours { get; set; }
-
-        public virtual PlanCadre PlanCadre { get; set; }
-
-        public virtual Session Session { get; set; }
+        public int IdJeu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanCours> PlanCours { get; set; }
+        public virtual ICollection<HistoriqueRangs> HistoriqueRangs { get; set; }
+
+        public virtual Jeux Jeux { get; set; }
     }
 }

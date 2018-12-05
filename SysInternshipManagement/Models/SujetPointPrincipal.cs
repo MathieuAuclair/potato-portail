@@ -6,23 +6,29 @@ namespace SysInternshipManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Session")]
-    public partial class Session
+    [Table("SujetPointPrincipal")]
+    public partial class SujetPointPrincipal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Session()
+        public SujetPointPrincipal()
         {
-            Cours = new HashSet<Cours>();
+            SousPointSujet = new HashSet<SousPointSujet>();
         }
 
         [Key]
-        public int IdSession { get; set; }
+        public int IdPointPrincipal { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string Nom { get; set; }
+        [StringLength(50)]
+        public string SujetPoint { get; set; }
+
+        public int? PositionPP { get; set; }
+
+        public int IdOrdreDuJour { get; set; }
+
+        public virtual OrdreDuJour OrdreDuJour { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cours> Cours { get; set; }
+        public virtual ICollection<SousPointSujet> SousPointSujet { get; set; }
     }
 }

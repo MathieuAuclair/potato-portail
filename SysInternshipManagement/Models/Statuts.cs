@@ -6,23 +6,20 @@ namespace SysInternshipManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Session")]
-    public partial class Session
+    public partial class Statuts
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Session()
+        public Statuts()
         {
-            Cours = new HashSet<Cours>();
+            Jeux = new HashSet<Jeux>();
         }
 
-        [Key]
-        public int IdSession { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string Nom { get; set; }
+        public string NomStatut { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cours> Cours { get; set; }
+        public virtual ICollection<Jeux> Jeux { get; set; }
     }
 }

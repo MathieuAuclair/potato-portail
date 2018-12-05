@@ -1,4 +1,4 @@
-namespace ApplicationPlanCadre.Models
+namespace SysInternshipManagement.Models
 {
     using System;
     using System.Collections.Generic;
@@ -14,51 +14,37 @@ namespace ApplicationPlanCadre.Models
         {
             ContexteRealisation = new HashSet<ContexteRealisation>();
             ElementCompetence = new HashSet<ElementCompetence>();
-            PlanCadreEnonce = new HashSet<PlanCadreEnonce>();
+            PlanCadreCompetence = new HashSet<PlanCadreCompetence>();
         }
 
         [Key]
-        public int idCompetence { get; set; }
-
-        public string nom
-        {
-            get { return codeCompetence + " • " + description; }
-        }
+        public int IdCompetence { get; set; }
 
         [Required]
         [StringLength(4)]
-        [Display(Name = "Code de la compétence")]
-        [RegularExpression("^[0-9][0-9][0-9][0-9|A-Za-z]$", ErrorMessage = "Le code est invalide, il doit être composé de 3 chiffres suivis d'une lettre ou d'un chiffre.")]
-        public string codeCompetence { get; set; }
+        public string CodeCompetence { get; set; }
 
         [Required]
         [StringLength(300)]
-        [Display(Name = "Énoncé de compétence")]
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        [Display(Name = "Obligatoire")]
-        public bool obligatoire { get; set; }
+        public bool Obligatoire { get; set; }
 
-        [Display(Name = "Actif")]
-        public bool actif { get; set; }
+        public bool Actif { get; set; }
 
-        public bool specifique { get; set; }
+        public bool Specifique { get; set; }
 
-        public int idDevis { get; set; }
+        public int IdDevis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContexteRealisation> ContexteRealisation { get; set; }
 
         public virtual DevisMinistere DevisMinistere { get; set; }
 
-
-
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ElementCompetence> ElementCompetence { get; set; }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanCadreEnonce> PlanCadreEnonce { get; set; }
+        public virtual ICollection<PlanCadreCompetence> PlanCadreCompetence { get; set; }
     }
 }

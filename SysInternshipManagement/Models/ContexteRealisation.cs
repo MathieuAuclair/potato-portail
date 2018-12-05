@@ -1,4 +1,4 @@
-namespace ApplicationPlanCadre.Models
+namespace SysInternshipManagement.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,16 +10,15 @@ namespace ApplicationPlanCadre.Models
     public partial class ContexteRealisation
     {
         [Key]
-        public int idContexte { get; set; }
+        public int IdContexte { get; set; }
 
         [Required]
         [StringLength(300)]
-        [Display(Name = "Contexte de réalisation")]
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public int numero { get; set; }
+        public int Numero { get; set; }
 
-        public int idCompetence { get; set; }
+        public int IdCompetence { get; set; }
 
         public virtual EnonceCompetence EnonceCompetence { get; set; }
     }

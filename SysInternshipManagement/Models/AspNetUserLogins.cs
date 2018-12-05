@@ -6,23 +6,20 @@ namespace SysInternshipManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("AccesProgramme")]
-    public partial class AccesProgramme
+    public partial class AspNetUserLogins
     {
         [Key]
         [Column(Order = 0)]
-        public int IdAcces { get; set; }
+        public string LoginProvIder { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [StringLength(256)]
-        public string UserMail { get; set; }
+        public string ProvIderKey { get; set; }
 
         [Key]
         [Column(Order = 2)]
-        [StringLength(3)]
-        public string Discipline { get; set; }
+        public string UserId { get; set; }
 
-        public virtual Departement Departement { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

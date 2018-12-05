@@ -1,4 +1,4 @@
-namespace ApplicationPlanCadre.Models
+namespace SysInternshipManagement.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,17 +10,15 @@ namespace ApplicationPlanCadre.Models
     public partial class CriterePerformance
     {
         [Key]
-        public int idCritere { get; set; }
+        public int IdCritere { get; set; }
 
         [Required]
         [StringLength(300)]
-        [Display(Name = "Critère de performance")]
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        [Display(Name = "Numéro")]
-        public int numero { get; set; }
+        public int Numero { get; set; }
 
-        public int idElement { get; set; }
+        public int IdElement { get; set; }
 
         public virtual ElementCompetence ElementCompetence { get; set; }
     }

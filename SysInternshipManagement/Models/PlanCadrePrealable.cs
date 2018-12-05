@@ -1,4 +1,4 @@
-namespace ApplicationPlanCadre.Models
+namespace SysInternshipManagement.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,18 +10,16 @@ namespace ApplicationPlanCadre.Models
     public partial class PlanCadrePrealable
     {
         [Key]
-        public int idPlanCadrePrealable { get; set; }
+        public int IdPlanCadrePrealable { get; set; }
 
-        public int idPlanCadre { get; set; }
+        public int IdPlanCadre { get; set; }
 
-        public int idPrealable { get; set; }
+        public int IdPrealable { get; set; }
 
-        public int idStatus { get; set; }
+        public int IdStatut { get; set; }
 
         public virtual PlanCadre PlanCadre { get; set; }
 
-        public virtual PlanCadre Prealable { get; set; }
-
-        public virtual StatusPrealable StatusPrealable { get; set; }
+        public virtual StatutPrealable StatutPrealable { get; set; }
     }
 }

@@ -6,23 +6,21 @@ namespace SysInternshipManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Session")]
-    public partial class Session
+    public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Session()
+        public AspNetRoles()
         {
-            Cours = new HashSet<Cours>();
+            AspNetUsers = new HashSet<AspNetUsers>();
         }
 
-        [Key]
-        public int IdSession { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string Nom { get; set; }
+        [StringLength(256)]
+        public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cours> Cours { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

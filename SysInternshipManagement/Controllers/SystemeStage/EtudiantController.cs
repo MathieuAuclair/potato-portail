@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
 
 namespace SysInternshipManagement.Controllers.SystemeStage
 {

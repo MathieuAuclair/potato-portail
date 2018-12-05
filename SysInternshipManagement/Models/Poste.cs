@@ -6,30 +6,24 @@ namespace SysInternshipManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Cours
+    [Table("Poste")]
+    public partial class Poste
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cours()
+        public Poste()
         {
-            PlanCours = new HashSet<PlanCours>();
+            Stage = new HashSet<Stage>();
         }
 
         [Key]
-        public int IdCours { get; set; }
+        public int IdPoste { get; set; }
 
-        public int IdPlanCadre { get; set; }
+        [Required]
+        public string Nom { get; set; }
 
-        public int IdGrille { get; set; }
-
-        public int IdSession { get; set; }
-
-        public virtual GrilleCours GrilleCours { get; set; }
-
-        public virtual PlanCadre PlanCadre { get; set; }
-
-        public virtual Session Session { get; set; }
+        public int? Preference_IdPreference { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanCours> PlanCours { get; set; }
+        public virtual ICollection<Stage> Stage { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace ApplicationPlanCadre.Models
+namespace SysInternshipManagement.Models
 {
     using System;
     using System.Collections.Generic;
@@ -12,21 +12,21 @@ namespace ApplicationPlanCadre.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ElementConnaissance()
         {
-            PlanCadreElement = new HashSet<PlanCadreElement>();
+            SousElementConnaissance = new HashSet<SousElementConnaissance>();
         }
 
         [Key]
-        public int idElementConnaissance { get; set; }
+        public int IdElementConnaissance { get; set; }
 
         [Column(TypeName = "text")]
         [Required]
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public int idActiviteApprentissage { get; set; }
+        public int? IdPlanCadreElement { get; set; }
 
-        public virtual ActiviteApprentissage ActiviteApprentissage { get; set; }
+        public virtual PlanCadreElement PlanCadreElement { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanCadreElement> PlanCadreElement { get; set; }
+        public virtual ICollection<SousElementConnaissance> SousElementConnaissance { get; set; }
     }
 }
