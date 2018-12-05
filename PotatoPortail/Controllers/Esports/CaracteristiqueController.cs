@@ -1,6 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using PotatoPortail.Models.eSports;
 using PotatoPortail.Migrations;
@@ -12,25 +16,31 @@ namespace PotatoPortail.Controllers.Esports
     {
         private readonly BDPortail _db = new BDPortail();
 
+        // GET: Caracteristique
+        public ActionResult Index()
+        {
+            return View(db.Caracteristiques.ToList());
+        }
+
+        // GET: Caracteristique/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = db.Caracteristiques.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
             }
-
-            return View("/Views/Caracteristique/Modifier.cshtml", caracteristique);
+            return View(caracteristique);
         }
 
-        public ActionResult Creation(int? jeuId, string nomJeu)
+        // GET: Caracteristique/Create
+        public ActionResult Creation(int? JeuId, string nomJeu)
         {
-            Jeu jeu = _db.Jeux.Find(jeuId);
+            Jeu jeu = db.Jeux.Find(JeuId);
             if (jeu == null)
             {
                 return HttpNotFound();
@@ -41,19 +51,21 @@ namespace PotatoPortail.Controllers.Esports
             return View();
         }
 
+        // POST: Caracteristique/Create
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomCaracteristique,JeuId")]
-            Caracteristique caracteristique)
+        public ActionResult Creation([Bind(Include = "id,nomCaracteristique,JeuId")] Caracteristique caracteristique)
         {
             if (ModelState.IsValid)
             {
                 Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
-                if (jeu == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-                }
+                db.Caracteristiques.Add(caracteristique);
+                db.SaveChanges();
+                return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
+            }
 
                 _db.Caracteristiques.Add(caracteristique);
                 _db.SaveChanges();
@@ -63,6 +75,7 @@ namespace PotatoPortail.Controllers.Esports
             return View(caracteristique);
         }
 
+        // GET: Caracteristique/Edit/5
         public ActionResult Modifier(int? id, string nomCarac, string nomJeu)
         {
             if (id == null)
@@ -82,10 +95,12 @@ namespace PotatoPortail.Controllers.Esports
             return View(caracteristique);
         }
 
+        // POST: Caracteristique/Edit/5
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "id,nomCaracteristique,JeuId")]
-            Caracteristique caracteristique)
+        public ActionResult Modifier([Bind(Include = "id,nomCaracteristique,JeuId")] Caracteristique caracteristique)
         {
             if (ModelState.IsValid)
             {
@@ -94,9 +109,9 @@ namespace PotatoPortail.Controllers.Esports
 
             Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
-            if (jeu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                db.Entry(caracteristique).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
             }
 
             _db.Entry(caracteristique).State = EntityState.Modified;
@@ -105,6 +120,7 @@ namespace PotatoPortail.Controllers.Esports
             return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
         }
 
+        // GET: Caracteristique/Delete/5
         public ActionResult Supprimer(int? id, string nomJeu)
         {
             if (id == null)
@@ -128,6 +144,7 @@ namespace PotatoPortail.Controllers.Esports
             return View(caracteristique);
         }
 
+        // POST: Caracteristique/Delete/5
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
@@ -149,16 +166,17 @@ namespace PotatoPortail.Controllers.Esports
             _db.Caracteristiques.Remove(caracteristique);
             _db.SaveChanges();
 
-            return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
+            db.Caracteristiques.Remove(caracteristique);
+            db.SaveChanges();
+            return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _db.Dispose();
+                db.Dispose();
             }
-
             base.Dispose(disposing);
         }
     }

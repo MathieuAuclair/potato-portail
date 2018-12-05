@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = "Ajout d'un jeu";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Jeu">
 }
 
 <div class="container">
@@ -11,69 +12,75 @@
             <h1>Ajout d'un jeu</h1>
         </header>
 
-        <h3>@ViewBag.JeuExistant</h3>
-        <h3>@ViewBag.AbvExistante</h3>
-
         @using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                <div class="row">
-                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.nomJeu)
-                        @Html.TextBoxFor(model => model.nomJeu, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.nomJeu, "", new {@class = "text-danger"})
-                    </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.description)
-                        @Html.TextBoxFor(model => model.description, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.description, "", new {@class = "text-danger"})
-                    </div>
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-group">
+            <div class="row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.nomJeu)
+                    @Html.TextBoxFor(model => model.nomJeu, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.nomJeu, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.description)
+                    @Html.TextBoxFor(model => model.description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.urlReference)
-                        @Html.TextBoxFor(model => model.urlReference, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.urlReference, "", new {@class = "text-danger"})
-                    </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.abreviation)
-                        @Html.TextBoxFor(model => model.abreviation, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.abreviation, "", new {@class = "text-danger"})
-                    </div>
-                </div>
-            </div>
-
+        <div class="form-group">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="field-box">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <p>Statut du jeu</p>
-                                <hr/>
-                                <div class="form-group">
-                                    @Html.DropDownListFor(model => model.StatutId, (IEnumerable<SelectListItem>) ViewBag.Statuts, new {@class = "form-control"})
-                                    @Html.ValidationMessageFor(model => model.StatutId, "", new {@class = "text-danger"})
-                                </div>
+                    @Html.LabelFor(model => model.urlReference)
+                    @Html.TextBoxFor(model => model.urlReference, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.urlReference, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.abreviation)
+                    @Html.TextBoxFor(model => model.abreviation, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.abreviation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="field-box">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p>Statut du jeu</p>
+                            <hr />
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.StatutId, (IEnumerable<SelectListItem>)ViewBag.Statuts, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StatutId, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+         </div>
 
-            <div class="menu-flottant">
-                <a class="fancy-button blanc" href="@Url.Action("Index", "Jeu")">
-                    <span class="glyphicon glyphicon-triangle-left"></span>
-                    Retour
-                </a>
-                <input type="submit" value="Ajouter ce jeu" class="fancy-button blanc"/>
-            </div>
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="@Url.Action("Index","Jeu")">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Annuler
+            </a>
+            <input type="submit" value="Ajouter ce jeu" class="fancy-button blanc" />
+        </div>
         }
+
     </div>
+
 </div>
-<hr class="end-div"/>
+
+        <hr class="end-div" />
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

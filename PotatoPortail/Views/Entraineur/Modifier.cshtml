@@ -1,0 +1,85 @@
+﻿@model ApplicationPlanCadre.Models.Entraineur
+
+@{
+    ViewBag.Titre = "Modification d'un entraîneur";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Entraineur">
+}
+
+<div class="container">
+    <div class="form-box">
+
+        <header class="light-header">
+            <h1>Modification d'un entraîneur</h1>
+        </header>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.prenomEntraineur)
+                            @Html.EditorFor(model => model.prenomEntraineur, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.prenomEntraineur, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.nomEntraineur)
+                            @Html.EditorFor(model => model.nomEntraineur, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nomEntraineur, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.pseudoEntraineur)
+                            @Html.EditorFor(model => model.pseudoEntraineur, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pseudoEntraineur, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.numTel)
+                            @Html.EditorFor(model => model.numTel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.numTel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.adresseCourriel)
+                            @Html.EditorFor(model => model.adresseCourriel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.adresseCourriel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-flottant">
+                    <a class="fancy-button blanc" href="@Url.Action("Index","Entraineur")">
+                        <span class="glyphicon glyphicon-triangle-left"></span>
+                        Annuler
+                    </a>
+                    <input type="submit" value="Confirmer les modifications" class="fancy-button blanc" />
+                    <a class="fancy-button rouge blanc" href="@Url.Action("Supprimer", "Entraineur", new { id = Model.id })">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Supprimer
+                    </a>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

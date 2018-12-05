@@ -1,49 +1,68 @@
-﻿@model PotatoPortail.Models.eSports.Joueur
+﻿@model ApplicationPlanCadre.Models.eSports.Joueur
 
 @{
-    ViewBag.Titre = "Suppression de " + Model.PseudoJoueur;
+    ViewBag.Titre = "Suppression de " + Model.pseudoJoueur;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Joueur">
 }
 
 <div class="container">
+
     <div class="box">
+
         <header class="light-header">
             <h1>Êtes-vous sûr de vouloir supprimer ce joueur ?</h1>
         </header>
+
         <div>
             <div class="element">
                 @Html.Label("Nom du joueur")
-                @Html.DisplayFor(model => model.Etudiant.Prenom + @Model.Etudiant.NomDeFamille)
+
+                @Html.DisplayFor(model => model.MembreESports.nomComplet)
+
             </div>
+
             <div class="element">
-                @Html.LabelFor(model => model.PseudoJoueur)
-                @Html.DisplayFor(model => model.PseudoJoueur)
+                @Html.LabelFor(model => model.pseudoJoueur)
+
+                @Html.DisplayFor(model => model.pseudoJoueur)
+
             </div>
+
             <div class="element">
-                @Html.Label("Autre jeu")
-                @if (Model.Profil.JeuSecondaire != null)
+                @Html.Label("Autre jeu proposé à l'inscription")
+
+                @if (Model.Profil.jeuSecondaire != null)
                 {
-                    @Html.DisplayFor(model => model.Profil.JeuSecondaire.nomJeu)
+                    @Html.DisplayFor(model => model.Profil.jeuSecondaire.nomJeu)
                 }
                 else
                 {
                     @:Aucun jeu secondaire n'a été spécifié à l'inscription
                 }
-            </div>
-            <div class="element">
-                @Html.LabelFor(model => model.Profil.Courriel)
-                @Html.DisplayFor(model => model.Profil.Courriel)
-            </div>
-        </div>
-        {
-        @Html.AntiForgeryToken()
 
-        <div class="menu-flottant">
-            <a class="fancy-button blanc" href='@Url.Action("Index", "Joueur")'>
-                <span class="glyphicon glyphicon-triangle-left"></span>
-                Annuler
-            </a>
-            <input type="submit" value="Confirmer la suppression" class="fancy-button blanc"/>
+            </div>
+
+            <div class="element">
+                @Html.LabelFor(model => model.Profil.courriel)
+
+                @Html.DisplayFor(model => model.Profil.courriel)
+
+            </div>
+
         </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" href='@Url.Action("Index", "Joueur")'>
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Confirmer la suppression" class="fancy-button blanc" />
+            </div>
         }
     </div>
+
 </div>

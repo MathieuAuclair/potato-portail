@@ -1,7 +1,8 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Equipe
+﻿@model ApplicationPlanCadre.ViewModels.eSportsVM.CreationEquipeViewModel
 
 @{
     ViewBag.Titre = "Création d'équipe";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Equipe">
 }
 
 <div class="container">
@@ -19,31 +20,68 @@
 
             <div class="form-group">
                 <div class="row">
-                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.nomEquipe)
-                        @Html.TextBoxFor(model => model.nomEquipe, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.nomEquipe, "", new {@class = "text-danger"})
+                        @Html.LabelFor(model => model.NomEquipe)
+                        @Html.TextBoxFor(model => model.NomEquipe, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NomEquipe, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.JeuId)
-                        @Html.DropDownListFor(model => model.JeuId, (IEnumerable<SelectListItem>) ViewBag.Jeux, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.JeuId, "", new {@class = "text-danger"})
+                        @Html.LabelFor(model => model.JeuID)
+                        @Html.DropDownListFor(model => model.JeuID, (IEnumerable<SelectListItem>)ViewBag.Jeux, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.JeuID, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
 
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <p>Assigner un entraineur</p>
+                                <hr />
+
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.Entraineurs, (IEnumerable<SelectListItem>)ViewBag.Entraineurs, new { @id = "entraineur", @class = "form-control", @onchange = "ajouterEntraineur()" })
+                                    @Html.ValidationMessageFor(model => model.Entraineurs, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div id="entraineurBox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="menu-flottant">
                 <a class="fancy-button blanc" href='@Url.Action("Index", "Equipe")'>
                     <span class="glyphicon glyphicon-triangle-left"></span>
                     Annuler
                 </a>
-                <input type="submit" value="Créer l'équipe" class="fancy-button blanc"/>
+                <input type="submit" name="button" value="Créer l'équipe" class="fancy-button blanc" />
+                <input type="submit" name="button" value="Ajouter des joueurs" class="fancy-button blanc" />
             </div>
+
         }
 
     </div>
 </div>
 
-<hr class="end-div"/>
+<hr class="end-div" />
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            initEntraineurDropDown();
+        });
+    </script>
+    <script src="@Url.Content("~/Scripts/equipeSelect.js")"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
