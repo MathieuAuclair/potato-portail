@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
+using PotatoPortail.Models;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 
 namespace ApplicationPlanCadre.Controllers
 {
@@ -37,6 +38,7 @@ namespace ApplicationPlanCadre.Controllers
             ContexteRealisation contexteRealisation = new ContexteRealisation();
             contexteRealisation.EnonceCompetence = enonceCompetence;
             contexteRealisation.idCompetence = enonceCompetence.idCompetence;
+            
             return View(contexteRealisation);
         }
 
@@ -59,6 +61,7 @@ namespace ApplicationPlanCadre.Controllers
                 this.AddToastMessage("Confirmation de la création", "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' + " n'a pas bien été créé.", Toast.ToastType.Error);
             }
             contexteRealisation.EnonceCompetence = db.EnonceCompetence.Find(contexteRealisation.idCompetence);
+
             return View(contexteRealisation);
         }
 
@@ -86,7 +89,7 @@ namespace ApplicationPlanCadre.Controllers
                 db.Entry(contexteRealisation).State = EntityState.Modified;
                 db.SaveChanges();
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' +
+                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
                     " a bien été modifié.", Toast.ToastType.Success);
                 return RedirectToAction("Creation", new {contexteRealisation.idCompetence});
             }
@@ -94,6 +97,7 @@ namespace ApplicationPlanCadre.Controllers
             {
                 this.AddToastMessage("Confirmation de la modification", "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' + " n'a pas été modifié.", Toast.ToastType.Error);
             }
+
             return View(contexteRealisation);
         }
 
@@ -136,13 +140,14 @@ namespace ApplicationPlanCadre.Controllers
                                                     select cp);
             foreach (ContexteRealisation cp in requete)
             {
-                cp.numero--;
+                cp.Numero--;
             }
         }
 
         private void Trim(ContexteRealisation contexteRealisation)
         {
-            if (contexteRealisation.description != null) contexteRealisation.description = contexteRealisation.description.Trim();
+            if (contexteRealisation.Description != null)
+                contexteRealisation.Description = contexteRealisation.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)

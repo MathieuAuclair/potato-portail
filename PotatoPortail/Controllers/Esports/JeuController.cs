@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using ApplicationPlanCadre.Models;
 using ApplicationPlanCadre.Models.eSports;
-using PotatoPortail.Migrations;
-using PotatoPortail.Models.eSports;
 
-namespace PotatoPortail.Controllers.Esports
+namespace ApplicationPlanCadre.Controllers
 {
     public class JeuController : Controller
     {
-        private readonly BDPortail _db = new BDPortail();
+        private BDPlanCadre db = new BDPlanCadre();
 
+    
         public ActionResult Index()
         {
-            return View(_db.Jeux.OrderBy(j => j.nomJeu).ToList());
+            return View(db.Jeux.OrderBy(j => j.nomJeu).ToList());
         }
-
         public ActionResult Details(int? id, string nomJeu)
         {
             if (id == null)
@@ -28,29 +30,27 @@ namespace PotatoPortail.Controllers.Esports
 
             List<Joueur> lstJoueursJeu = new List<Joueur>();
 
-            Jeu jeu = _db.Jeux.Find(id);
+            Jeu jeu = db.Jeux.Find(id);
 
             if (jeu == null)
             {
                 return HttpNotFound();
             }
 
-            foreach (Joueur joueur in _db.Joueurs)
+            foreach (Joueur joueur in db.Joueurs)
             {
-                if (joueur.JeuEquipeMonojoueur == jeu.nomJeu)
+                if (joueur.jeuEquipeMonojoueur == jeu.nomJeu)
                     lstJoueursJeu.Add(joueur);
             }
 
-            ViewBag.lstJoueursJeu = lstJoueursJeu.OrderBy(j => j.PseudoJoueur).ToList();
+            ViewBag.lstJoueursJeu = lstJoueursJeu.OrderBy(j => j.pseudoJoueur).ToList();
             ViewBag.nomJeu = nomJeu;
 
             return View(jeu);
         }
-
-        // GET: Jeu/Create
         public ActionResult Creation()
         {
-            var statuts = _db.Statuts.ToList();
+            var statuts = db.Statuts.ToList();
             List<SelectListItem> lstStatuts = new List<SelectListItem>();
 
             foreach (Statut statut in statuts)
@@ -66,50 +66,48 @@ namespace PotatoPortail.Controllers.Esports
             return View();
         }
 
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")]
-            Jeu jeu)
+        public ActionResult Creation([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")] Jeu jeu)
         {
-            var jeuDuMemeNom = from j in _db.Jeux
-                where j.nomJeu.Equals(jeu.nomJeu, StringComparison.OrdinalIgnoreCase)
-                select j;
+            var jeuDuMemeNom = from j in db.Jeux
+                               where j.nomJeu.Equals(jeu.nomJeu, StringComparison.OrdinalIgnoreCase)
+                               select j;
 
-            var abvIdentique = from j in _db.Jeux
-                where j.abreviation.Equals(jeu.abreviation, StringComparison.OrdinalIgnoreCase)
-                select j;
+            var abvIdentique = from j in db.Jeux
+                               where j.abreviation.Equals(jeu.abreviation, StringComparison.OrdinalIgnoreCase)
+                               select j;
 
             if (jeuDuMemeNom.Any())
             {
-                ViewBag.JeuExistant = jeuDuMemeNom.First().nomJeu + " est déjà enregistré dans le système.";
-                ViewBag.Statuts = new SelectList(_db.Statuts, "id", "nomStatut", jeu.StatutId);
+                this.AddToastMessage("Jeu déjà existant.", jeuDuMemeNom.First().nomJeu + " est déjà entré dans le système.", Toast.ToastType.Error, true);
+                ViewBag.Statuts = new SelectList(db.Statuts, "id", "nomStatut", jeu.StatutId);
                 return View(jeu);
             }
 
-            if (abvIdentique.Any())
+            if(abvIdentique.Any())
             {
-                ViewBag.AbvExistante = "L'abréviation " + abvIdentique.First().abreviation +
-                                       " est déjà utilisée pour " + abvIdentique.First().nomJeu + ".";
-                ViewBag.Statuts = new SelectList(_db.Statuts, "id", "nomStatut", jeu.StatutId);
+                this.AddToastMessage("Abréviation déjà utilisée.", "L'abréviation « " + abvIdentique.First().abreviation + " » est déjà utilisée pour « " + abvIdentique.First().nomJeu + " ». Choisissez-en une autre.", Toast.ToastType.Error, true);
+                ViewBag.AbvExistante = "L'abréviation " + abvIdentique.First().abreviation + " est déjà utilisée pour " + abvIdentique.First().nomJeu + ".";
+                ViewBag.Statuts = new SelectList(db.Statuts, "id", "nomStatut", jeu.StatutId);
                 return View(jeu);
             }
 
             if (ModelState.IsValid)
             {
-                _db.Jeux.Add(jeu);
-                _db.SaveChanges();
+                db.Jeux.Add(jeu);
+                db.SaveChanges();
+                this.AddToastMessage("Ajout de jeu effectué.", "« " + jeu.nomJeu + " » a été ajouté à la liste des jeux.", Toast.ToastType.Success);
                 return RedirectToAction("Index");
             }
-
             return View(jeu);
         }
-
-        // GET: Jeu/Edit/5
         public ActionResult Modifier(int? id, string nomJeu)
         {
-            var caracJeu = from carac in _db.Caracteristique
-                where carac.JeuId == id
-                select carac;
+            var caracJeu = from carac in db.Caracteristiques
+                           where carac.JeuId == id
+                           select carac;
 
             List<Caracteristique> lstCarac = new List<Caracteristique>();
 
@@ -118,8 +116,9 @@ namespace PotatoPortail.Controllers.Esports
                 lstCarac.Add(carac);
             }
 
-            var statuts = _db.Statuts.ToList();
-            List<SelectListItem> lstStatuts = new List<SelectListItem>();
+            var statuts = db.Statuts.ToList();
+
+            List < SelectListItem > lstStatuts = new List<SelectListItem>();
 
             foreach (Statut statut in statuts)
             {
@@ -135,7 +134,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Jeu jeu = _db.Jeux.Find(id);
+            Jeu jeu = db.Jeux.Find(id);
             if (jeu == null)
             {
                 return HttpNotFound();
@@ -147,23 +146,60 @@ namespace PotatoPortail.Controllers.Esports
 
             return View(jeu);
         }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")]
-            Jeu jeu)
+        public ActionResult EditItem([Bind(Include = "id,nomItem,CaracteristiqueId")] Item item)
         {
+            Caracteristique caracteristique = db.Caracteristiques.Find(item.CaracteristiqueId);
+          
+            Jeu jeu = db.Jeux.Find(caracteristique.JeuId);
             if (ModelState.IsValid)
             {
-                _db.Entry(jeu).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                caracteristique.Item.Add(item);
+                //db.Set<Caracteristique>().AddOrUpdate(caracteristique);
+                db.SaveChanges();
+               // this.AddToastMessage("Modifications apportées.", "Les changements apportés à « " + caracteristique.nomCaracteristique + " » ont été enregistrés.", Toast.ToastType.Success, true);
+                return RedirectToAction("Modifier", new { jeu.id,jeu.nomJeu });
+            }
+            return View(jeu);
+        }
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Modifier([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")] Jeu jeu)
+        {
+            var caracteristiquesJeu = from c in db.Caracteristiques
+                                      where c.JeuId == jeu.id
+                                      select c;
+
+            ViewBag.carac = caracteristiquesJeu.ToList();
+            ViewBag.nomJeu = db.Jeux.Find(jeu.id).nomJeu;
+
+            var jeuDuMemeNom = from j in db.Jeux
+                               where j.nomJeu.Equals(jeu.nomJeu, StringComparison.OrdinalIgnoreCase)
+                               select j;
+
+            if (jeuDuMemeNom.Any())
+            {
+                if (jeu.nomJeu != db.Jeux.Find(jeu.id).nomJeu)
+                {
+                    this.AddToastMessage("Jeu déjà existant.", jeuDuMemeNom.First().nomJeu + " est déjà entré dans le système.", Toast.ToastType.Error, true);
+                    ViewBag.Statuts = new SelectList(db.Statuts, "id", "nomStatut", jeu.StatutId);
+                    jeu.nomJeu = db.Jeux.Find(jeu.id).nomJeu;
+                    jeu.Statut = db.Jeux.Find(jeu.id).Statut;
+                    return View(jeu);
+                }
             }
 
+            if (ModelState.IsValid)
+            {
+                db.Set<Jeu>().AddOrUpdate(jeu);
+                db.SaveChanges();
+                this.AddToastMessage("Modifications apportées.", "Les changements apportés à « " + jeu.nomJeu + " » ont été enregistrés.", Toast.ToastType.Success);
+                return RedirectToAction("Index");
+            }
             return View(jeu);
         }
 
-        // GET: Jeu/Delete/5
         public ActionResult Supprimer(int? id, string nomJeu)
         {
             if (id == null)
@@ -171,11 +207,11 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var equipesJeu = from e in _db.Equipes
-                where e.JeuId == id
-                select e;
+            var equipesJeu = from e in db.Equipes
+                             where e.JeuId == id
+                             select e;
 
-            Jeu jeu = _db.Jeux.Find(id);
+            Jeu jeu = db.Jeux.Find(id);
             if (jeu == null)
             {
                 return HttpNotFound();
@@ -186,22 +222,14 @@ namespace PotatoPortail.Controllers.Esports
 
             return View(jeu);
         }
-
-        // POST: Jeu/Delete/5
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Jeu jeu = _db.Jeux.Find(id);
-            
-            if (jeu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            _db.Jeux.Remove(jeu);
-            _db.SaveChanges();
-
+            Jeu jeu = db.Jeux.Find(id);
+            db.Jeux.Remove(jeu);
+            db.SaveChanges();
+            this.AddToastMessage("Supression effectuée.", "« " + jeu.nomJeu + " » a été supprimé de la liste.", Toast.ToastType.Success);
             return RedirectToAction("Index");
         }
 
@@ -209,9 +237,8 @@ namespace PotatoPortail.Controllers.Esports
         {
             if (disposing)
             {
-                _db.Dispose();
+                db.Dispose();
             }
-
             base.Dispose(disposing);
         }
     }

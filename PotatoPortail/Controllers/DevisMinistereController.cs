@@ -7,8 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
+using PotatoPortail.Models;
+using PotatoPortail.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -27,7 +27,6 @@ namespace ApplicationPlanCadre.Controllers
                    join accesProgramme in db.AccesProgramme on departement.discipline equals accesProgramme.discipline
                    where accesProgramme.userMail == username
                    select devisMinistere;
-           
         }
 
         public ActionResult ListeDevis()
@@ -52,8 +51,8 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.total = devisMinistere.nbHeureFrmGenerale + devisMinistere.nbHeureFrmSpecifique;
-            //ViewBag.dateValidation = checkValidation(devisMinistere);
+            ViewBag.total = devisMinistere.NbHeureFrmGenerale + devisMinistere.NbHeureFrmSpecifique;
+
             return View(devisMinistere);
         }
 
@@ -76,6 +75,7 @@ namespace ApplicationPlanCadre.Controllers
         public ActionResult Modifier([Bind(Include = "idDevis, discipline, annee, codeSpecialisation, nom, dateValidation, docMinistere, specialisation, sanction, nbUnite, condition, nbHeurefrmGenerale,nbHeurefrmSpecifique")] DevisMinistere devisMinistere, HttpPostedFileBase docMinistere)
         {
             devisMinistere.Departement = db.Departement.Find(devisMinistere.discipline);
+            
             if (docMinistere != null)
             {
                 if(!TeleverserFichier(docMinistere, devisMinistere))
@@ -98,8 +98,8 @@ namespace ApplicationPlanCadre.Controllers
                 string nomFichier = Path.GetFileName(fichier.FileName);
                 string chemin = Path.Combine(Server.MapPath("~/Files/Document ministériel"), nomFichier);
                 string extension = nomFichier.Substring(nomFichier.Length - 4, 4);
-                string ancienChemin = devisMinistere.docMinistere;
-                devisMinistere.docMinistere = nomFichier;
+                string ancienChemin = devisMinistere.DocMinistere;
+                devisMinistere.DocMinistere = nomFichier;
                 if (extension == ".pdf")
                 {
                     fichier.SaveAs(chemin);

@@ -11,7 +11,7 @@ namespace PotatoPortail.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Item()
         {
-            Joueurs = new HashSet<Joueurs>();
+            Joueurs = new HashSet<Joueur>();
         }
 
         public int Id { get; set; }
@@ -21,9 +21,9 @@ namespace PotatoPortail.Models
 
         public int IdCaracteristique { get; set; }
 
-        public virtual Caracteristiques Caracteristiques { get; set; }
+        public virtual Caracteristique Caracteristiques { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueurs> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueurs { get; set; }
     }
 }

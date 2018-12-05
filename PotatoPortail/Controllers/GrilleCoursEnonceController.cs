@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PotatoPortail.Models;
 
 namespace ApplicationPlanCadre.Controllers
 {
@@ -24,8 +24,8 @@ namespace ApplicationPlanCadre.Controllers
         public GrilleCours GetGrilleCoursModel() {
             GrilleCours maGrille = new GrilleCours()
             {
-                idGrille = 1,
-                nom = "mon cours",
+                IdGrille = 1,
+                Nom = "mon cours",
             };
             return maGrille;
         }
@@ -38,6 +38,7 @@ namespace ApplicationPlanCadre.Controllers
             mesEnonces.Add(new EnonceCompetence { idCompetence = 1, codeCompetence = "016N", description = "", obligatoire = true, actif = true });
             mesEnonces.Add(new EnonceCompetence { idCompetence = 2, codeCompetence = "016M", description = "", obligatoire = true, actif = true });
             mesEnonces.Add(new EnonceCompetence { idCompetence = 3, codeCompetence = "0160", description = "", obligatoire = true, actif = true });
+
             return mesEnonces;
         }
     }

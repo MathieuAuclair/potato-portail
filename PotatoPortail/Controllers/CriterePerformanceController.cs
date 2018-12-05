@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
+using PotatoPortail.Models;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 
 namespace ApplicationPlanCadre.Controllers
 {
@@ -37,6 +38,7 @@ namespace ApplicationPlanCadre.Controllers
             CriterePerformance criterePerformance = new CriterePerformance();
             criterePerformance.ElementCompetence = elementCompetence;
             criterePerformance.idElement = elementCompetence.idElement;
+            
             return View(criterePerformance);
         }
 
@@ -95,32 +97,6 @@ namespace ApplicationPlanCadre.Controllers
             return RedirectToAction("Creation", new { idElement = criterePerformance.idElement });
         }
 
-        public ActionResult DeplacementHaut(int idCritere)
-        {
-            return Deplacement(-1, idCritere);
-        }
-
-        public ActionResult MouvementBas(int idCritere)
-        {
-            return Deplacement(1, idCritere);
-        }
-
-        private ActionResult Deplacement(int v, int idCritere)
-        {
-            CriterePerformance criterePerformance = db.CriterePerformance.Find(idCritere);
-            IQueryable<CriterePerformance> requete = (from cp in db.CriterePerformance
-                                                    where cp.idElement == criterePerformance.idElement && cp.numero == criterePerformance.numero + v
-                                                    select cp);
-            if (requete.Count() > 0)
-            {
-                CriterePerformance cpAutre = requete.First();
-                criterePerformance.numero += v;
-                cpAutre.numero -= v;
-                db.SaveChanges();
-            }
-            return RedirectToAction("Creation", new { idElement = criterePerformance.idElement });
-        }
-
         private void AssignerNo(CriterePerformance criterePerformance)
         {
             int dernierNo = 0;
@@ -142,13 +118,14 @@ namespace ApplicationPlanCadre.Controllers
                                                     select cp);
             foreach(CriterePerformance cp in requete)
             {
-                cp.numero--;
+                cp.Numero--;
             }
         }
 
         private void Trim(CriterePerformance criterePerformance)
         {
             if (criterePerformance.description != null) criterePerformance.description = criterePerformance.description.Trim();
+
         }
 
         protected override void Dispose(bool disposer)

@@ -2,15 +2,23 @@
 
 @{
     ViewBag.Titre = "Jeux";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Jeu">
 }
 
 <div class="container" style="margin-bottom:5%;">
+
     <div class="box">
+
+    @if (User.IsInRole("Admin eSports"))
+    {
 
     <header class="light-header">
         <h1>Liste des jeux</h1>
     </header>
 
+
+    if (Model.Any())
+    {
 
     <table class="cool-table">
         <tr>
@@ -24,9 +32,6 @@
                 @Html.DisplayNameFor(model => model.StatutId)
             </th>
             <th class="action-cell-header">
-                <b>Modifier</b>
-            </th>
-            <th class="action-cell-header">
                 <b>Détails</b>
             </th>
             <th class="action-cell-header">
@@ -34,19 +39,21 @@
             </th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var jeu in Model)
         {
-            <tr>
+            <tr onclick="window.location = '@Url.Action("Modifier", new { id = jeu.id, nomJeu = jeu.nomJeu })'">
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.nomJeu)
+                    @Html.DisplayFor(modelItem => jeu.nomJeu)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.abreviation)
+                    @Html.DisplayFor(modelItem => jeu.abreviation)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Statut.nomStatut)
+                    @Html.DisplayFor(modelItem => jeu.Statut.nomStatut)
                 </td>
                 <td class="action-cell">
+
                     <a href='@Url.Action("Modifier", new { id = item.id, nomJeu = item.nomJeu })'>
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
@@ -57,29 +64,94 @@
                     </a>
                 </td>
                 <td class="action-cell">
-                    @if (item.Statut.nomStatut == "Inactif")
+                    @if (jeu.Statut.nomStatut == "Inactif")
                     {
-                        <a href='@Url.Action("Supprimer", new { id = item.id, nomJeu = item.nomJeu })'>
+                        <a href='@Url.Action("Supprimer", new { id = jeu.id, nomJeu = jeu.nomJeu })'>
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     }
-                </td>
-            </tr>
+
+                </table>
+
+            }
+            else
+            {
+                <h3>Aucun jeu n'est actuellement enregistré dans le système.</h3>
+            }
+
+
+        }
+        else
+        {
+
+            <header class="light-header">
+                <h1>Liste des jeux</h1>
+            </header>
+
+
+            if (Model.Any())
+            {
+
+                <table class="cool-table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nomJeu)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.abreviation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StatutId)
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Détails</b>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nomJeu)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.abreviation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Statut.nomStatut)
+                            </td>
+                            <td class="action-cell">
+                                <a href='@Url.Action("Details", new { id = item.id, nomJeu = item.nomJeu })'>
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            }
+            else
+            {
+                <h3>Aucun jeu n'est actuellement enregistré dans le système.</h3>
+            }
+
         }
 
-    </table>
 
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Accueil/ESport">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+            @if (User.IsInRole("Admin eSports"))
+            {
+                <a class="fancy-button blanc" href="@Url.Action("Creation", "Jeu")">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Ajouter un jeu
+                </a>
+            }
+        </div>
 
-    <div class="menu-flottant">
-        <a class="fancy-button blanc" href="/Accueil/ESport">
-            <span class="glyphicon glyphicon-triangle-left"></span>
-            Retour
-        </a>
-        <a class="fancy-button blanc" href="@Url.Action("Creation", "Jeu")">
-            <span class="glyphicon glyphicon-plus"></span>
-            Ajouter un jeu
-        </a>
     </div>
-
-   </div>
 </div>

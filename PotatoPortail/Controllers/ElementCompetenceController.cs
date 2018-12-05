@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
+using PotatoPortail.Models;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 
 namespace ApplicationPlanCadre.Controllers
 {
@@ -53,6 +54,7 @@ namespace ApplicationPlanCadre.Controllers
             ElementCompetence elementCompetence = new ElementCompetence();
             elementCompetence.EnonceCompetence = enonceCompetence;
             elementCompetence.idCompetence = enonceCompetence.idCompetence;
+
             return View(elementCompetence);
         }
 
@@ -83,9 +85,10 @@ namespace ApplicationPlanCadre.Controllers
             foreach (var item in listeElement)
             {
                 var element = db.CriterePerformance.Find(item.idElement);
+
                 if (element != null)
                 {
-                    element.numero = item.numero;
+                    element.Numero = item.Numero;
                 }
             }
             db.SaveChanges();
@@ -145,7 +148,6 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SurpressionConfirmer(int idElement)
         {
-
             var PlanCadreElement = from pc in db.PlanCadreElement
                                    where pc.idElement == idElement
                                    select pc;
@@ -168,6 +170,7 @@ namespace ApplicationPlanCadre.Controllers
         private void AssignerNo(ElementCompetence elementCompetence)
         {
             int dernierNo = 0;
+
             IQueryable<int> requete = (from ec in db.ElementCompetence
                                      where ec.idCompetence == elementCompetence.idCompetence
                                      select ec.numero);
@@ -185,13 +188,14 @@ namespace ApplicationPlanCadre.Controllers
                                                     select ec);
             foreach (ElementCompetence ec in requete)
             {
-                ec.numero--;
+                ec.Numero--;
             }
         }
 
         private void Trim(ElementCompetence elementCompetence)
         {
-            if (elementCompetence.description != null) elementCompetence.description = elementCompetence.description.Trim();
+            if (elementCompetence.Description != null)
+                elementCompetence.Description = elementCompetence.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)
