@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Controllers.SystemeStage
+namespace PotatoPortail.Controllers.SystemeStage
 {
     public class EntrepriseController : Controller
     {
@@ -22,7 +22,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
         [HttpPost]
         public ActionResult Edition()
         {
-            var entreprise = _bd.entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
+            var entreprise = _bd.Entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
 
             if (entreprise == null)
             {

@@ -5,9 +5,9 @@ using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using SysInternshipManagement.Models;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     [Authorize]
     public class ManageController : Controller

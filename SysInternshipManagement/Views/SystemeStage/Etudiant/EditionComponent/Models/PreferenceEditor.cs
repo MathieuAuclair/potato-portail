@@ -1,6 +1,6 @@
-using SysInternshipManagement.Models;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Views.SystemeStage.Etudiant.EditionComponent.Models
+namespace PotatoPortail.Views.SystemeStage.Etudiant.EditionComponent.Models
 {
     public class PreferenceEditor
     {

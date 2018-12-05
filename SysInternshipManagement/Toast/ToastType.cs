@@ -1,4 +1,4 @@
-﻿namespace SysInternshipManagement.Toast
+﻿namespace PotatoPortail.Toast
 {
     public enum ToastType
     {

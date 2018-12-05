@@ -7,10 +7,10 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
 using Microsoft.AspNet.Identity;
-using SysInternshipManagement.Helpers;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     [RCPDevisMinistereAuthorize]
     public class DevisMinistereController : Controller

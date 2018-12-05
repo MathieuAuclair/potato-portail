@@ -1,10 +1,10 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Controllers.SystemeStage
+namespace PotatoPortail.Controllers.SystemeStage
 {
     public class PosteController : Controller
     {

@@ -1,28 +1,31 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Controllers;
+using PotatoPortail.Models;
 
 namespace SysInternshipManagement.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ConsoleDevisMinistereController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult _PartialList()
         {
-            var devisMinistere = _db.DevisMinistere.Include(p => p.EnteteProgramme);
-            return PartialView(devisMinistere.ToList());
+            //var devisMinistere = _db.DevisMinistere.Include(p => p.EnteteProgramme);
+            //return PartialView(devisMinistere.ToList());
+            throw new NotImplementedException();
         }
 
         public ActionResult Index()
         {
-            var devisMinistere = _db.DevisMinistere.Include(p => p.EnteteProgramme);
+            //var devisMinistere = _db.DevisMinistere.Include(p => p.EnteteProgramme);
 
-            return View(devisMinistere.ToList());
+            //return View(devisMinistere.ToList());
+            throw new NotImplementedException();
         }
 
         public ActionResult Creation()
@@ -38,12 +41,12 @@ namespace SysInternshipManagement.Controllers
         {
             if (!DevisExiste(devisMinistere) && ModelState.IsValid)
             {
-                devisMinistere.codeSpecialisation = devisMinistere.codeSpecialisation.ToUpper().Trim();
+                devisMinistere.CodeSpecialisation = devisMinistere.CodeSpecialisation.ToUpper().Trim();
                 _db.DevisMinistere.Add(devisMinistere);
                 _db.SaveChanges();
                 this.AddToastMessage("Création confirmée",
                     "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " a bien été créé.",
-                    Toast.ToastType.Success);
+                    PotatoPortail.Toast.ToastType.Success);
                 return RedirectToAction("Index");
             }
 
@@ -51,7 +54,7 @@ namespace SysInternshipManagement.Controllers
             {
                 this.AddToastMessage("Création confirmée",
                     "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " n'a pas été créé.",
-                    Toast.ToastType.Error);
+                    PotatoPortail.Toast.ToastType.Error);
                 ModelState.AddModelError("Duplique", @"Erreur, ce devis existe déjà.");
             }
 
@@ -88,7 +91,7 @@ namespace SysInternshipManagement.Controllers
                 _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la modification",
                     "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " a bien été modifié.",
-                    Toast.ToastType.Success);
+                    PotatoPortail.Toast.ToastType.Success);
                 return RedirectToAction("Index");
             }
 
@@ -96,7 +99,7 @@ namespace SysInternshipManagement.Controllers
             {
                 this.AddToastMessage("Confirmation de la modification",
                     "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " n'a pas été modifié.",
-                    Toast.ToastType.Error);
+                    PotatoPortail.Toast.ToastType.Error);
                 ModelState.AddModelError("Duplique", @"Erreur, ce devis ministeriel existe déjà.");
             }
 
@@ -116,12 +119,12 @@ namespace SysInternshipManagement.Controllers
         [ActionName("Supression")]
         public ActionResult SurpressionConfirmer(int id)
         {
-            DevisMinistere DevisMinistere = _db.DevisMinistere.Find(id);
-            _db.DevisMinistere.Remove(DevisMinistere);
+            DevisMinistere devisMinistere = _db.DevisMinistere.Find(id);
+            _db.DevisMinistere.Remove(devisMinistere);
             _db.SaveChanges();
             this.AddToastMessage("Confirmation de la suppression",
-                "Le devis " + '\u0022' + DevisMinistere.nom + '\u0022' + " a bien été supprimé.",
-                Toast.ToastType.Success);
+                "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " a bien été supprimé.",
+                PotatoPortail.Toast.ToastType.Success);
             return RedirectToAction("Index");
         }
 

@@ -3,9 +3,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Migrations;
 
-namespace SysInternshipManagement.Helpers
+namespace PotatoPortail.Helpers
 {
     public abstract class RcpAuthorize : AuthorizeAttribute
     {

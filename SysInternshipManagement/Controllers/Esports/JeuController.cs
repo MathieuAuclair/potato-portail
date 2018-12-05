@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models.eSports;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models.eSports;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models.eSports;
 
-namespace SysInternshipManagement.Controllers.Esports
+namespace PotatoPortail.Controllers.Esports
 {
     public class JeuController : Controller
     {

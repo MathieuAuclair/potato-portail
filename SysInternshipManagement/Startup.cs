@@ -1,6 +1,6 @@
 using Microsoft.Owin;
 using Owin;
-using SysInternshipManagement;
+using PotatoPortail;
 
 [assembly: OwinStartup(typeof(Startup))]
 

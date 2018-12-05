@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ApplicationPlanCadre.Toast;
 
-namespace SysInternshipManagement.Toast
+namespace PotatoPortail.Toast
 {
     [Serializable]
     public class Toastr

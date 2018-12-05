@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 
-namespace SysInternshipManagement.Controllers.SystemeStage
+namespace PotatoPortail.Controllers.SystemeStage
 {
     public class ApplicationController : Controller
     {

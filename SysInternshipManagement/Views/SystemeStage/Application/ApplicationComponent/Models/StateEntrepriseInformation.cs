@@ -1,15 +1,15 @@
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Views.SystemeStage.Application.ApplicationComponent.Models
+namespace PotatoPortail.Views.SystemeStage.Application.ApplicationComponent.Models
 {
     public class StateEntrepriseInformation
     {
         private readonly DatabaseContext _bd = new DatabaseContext();
-        private SysInternshipManagement.Models.SystemeStage.Stage _stage;
+        private PotatoPortail.Models.SystemeStage.Stage _stage;
         private Contact _contact;
 
-        public StateEntrepriseInformation(SysInternshipManagement.Models.SystemeStage.Stage stage, Contact contact)
+        public StateEntrepriseInformation(PotatoPortail.Models.SystemeStage.Stage stage, Contact contact)
         {
             _stage = stage;
             _contact = contact;

@@ -3,10 +3,10 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
-using SysInternshipManagement.Helpers;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     [RCPCriterePerformanceAuthorize]
     public class CriterePerformanceController : Controller

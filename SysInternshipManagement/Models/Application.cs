@@ -1,4 +1,4 @@
-namespace SysInternshipManagement.Models
+namespace PotatoPortail.Models
 {
     using System;
     using System.Collections.Generic;

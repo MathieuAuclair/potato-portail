@@ -9,11 +9,11 @@ using ApplicationPlanCadre.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SysInternshipManagement.Helpers;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CompteController : Controller

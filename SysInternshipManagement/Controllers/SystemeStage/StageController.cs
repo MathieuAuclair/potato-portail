@@ -3,14 +3,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models.SystemeStage;
+using PotatoPortail.Models;
 
 namespace SysInternshipManagement.Controllers.SystemeStage
 {
     public class StageController : Controller
     {
-        private readonly DatabaseContext _bd = new DatabaseContext();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Edition(int? idStage)
@@ -123,22 +122,22 @@ namespace SysInternshipManagement.Controllers.SystemeStage
         {
             var stage = new Stage
             {
-                Location = _bd.location.First(),
+                Location = _bd.Location.First(),
                 NumeroCivique = 0,
                 NomRue = "nom de rue",
                 Ville = "Saguenay",
                 Province = "Québec",
                 Pays = "Canada",
                 CodePostal = "G7X7W2",
-                Poste = _bd.poste.First(),
-                Status = _bd.status.First(),
-                Contact = _bd.contact.First(),
+                Poste = _bd.Poste.First(),
+                StatutStage = _bd.StatutStage.First(),
+                Contact = _bd.Contact.First(),
                 Description = "Description du stage",
                 NomDocument = "",
                 Salaire = 0,
             };
 
-            _bd.stage.Add(stage);
+            _bd.StatutStage.Add(stage);
             _bd.SaveChanges();
 
             return View("~/Views/Stage/Edition.cshtml", stage);
@@ -146,7 +145,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
 
         public ActionResult Suppression(int? id)
         {
-            var stage = _bd.stage.Find(id);
+            var stage = _bd.StatutStage.Find(id);
 
             if (stage == null)
             {

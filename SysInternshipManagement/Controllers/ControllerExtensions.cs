@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using ApplicationPlanCadre.Toast;
-using SysInternshipManagement.Toast;
+using PotatoPortail.Toast;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     public static class ControllerExtensions
     {

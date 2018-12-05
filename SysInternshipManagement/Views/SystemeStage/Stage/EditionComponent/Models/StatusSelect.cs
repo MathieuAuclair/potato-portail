@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Views.Stage.EditionComponent.Models
+namespace PotatoPortail.Views.Stage.EditionComponent.Models
 {
     public class StatusSelect
     {

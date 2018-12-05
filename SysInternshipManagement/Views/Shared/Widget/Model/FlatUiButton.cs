@@ -1,4 +1,4 @@
-namespace SysInternshipManagement.Views.Shared.Widget.Model
+namespace PotatoPortail.Views.Shared.Widget.Model
 {
     public class FlatUiButton
     {

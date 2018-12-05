@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     public class RechercheController : Controller
     {

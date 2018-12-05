@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     public class GrilleCoursEnonceController : Controller
     {

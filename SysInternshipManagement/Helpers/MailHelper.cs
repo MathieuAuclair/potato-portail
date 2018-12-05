@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
-using SysInternshipManagement.Models;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Helpers
+namespace PotatoPortail.Helpers
 {
     public class MailHelper
     {

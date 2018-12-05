@@ -1,14 +1,13 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Models;
 
 namespace SysInternshipManagement.Controllers.SystemeStage
 {
     public class ContactController : Controller
     {
-        private readonly DatabaseContext _bd = new DatabaseContext();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
@@ -75,7 +74,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
 
         public ActionResult Suppression(int? id)
         {
-            var contact = _bd.contact.Find(id);
+            var contact = _bd.Contact.Find(id);
 
             if (contact == null)
             {
@@ -88,7 +87,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
 
             if (!stagesAyantCeContact.Any())
             {
-                _bd.contact.Remove(contact);
+                _bd.Contact.Remove(contact);
                 _bd.SaveChanges();
             }
 

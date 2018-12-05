@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using SysInternshipManagement.Migrations;
-using SysInternshipManagement.Models;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace SysInternshipManagement.Controllers.SystemeStage
+namespace PotatoPortail.Controllers.SystemeStage
 {
     public class StatusController : Controller
     {
@@ -62,7 +62,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
         [HttpPost]
         public ActionResult Creation()
         {
-            var status = new Status {StatusStage = "Nouveau status"};
+            var status = new StatutStage {StatusStage = "Nouveau status"};
 
             _bd.Status.Add(status);
             _bd.SaveChanges();
@@ -79,7 +79,7 @@ namespace SysInternshipManagement.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var stagesAyantCeStatut = from stage in _bd.stage
+            var stagesAyantCeStatut = from stage in _bd.Stage
                                       where stage.Status.IdStatus == id
                                       select stage;
 

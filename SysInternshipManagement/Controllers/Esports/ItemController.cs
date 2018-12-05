@@ -3,9 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models.eSports;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Migrations;
 
-namespace SysInternshipManagement.Controllers.Esports
+namespace PotatoPortail.Controllers.Esports
 {
     public class ItemController : Controller
     {

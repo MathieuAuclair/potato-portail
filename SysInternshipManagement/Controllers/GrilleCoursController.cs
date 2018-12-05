@@ -3,9 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
-using SysInternshipManagement.Migrations;
+using PotatoPortail.Migrations;
 
-namespace SysInternshipManagement.Controllers
+namespace PotatoPortail.Controllers
 {
     public class GrilleCoursController : Controller
     {

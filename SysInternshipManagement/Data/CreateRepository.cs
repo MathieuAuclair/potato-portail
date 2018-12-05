@@ -1,6 +1,6 @@
 ﻿using ApplicationPlanCadre.Models.ReunionsViewModel;
 
-namespace SysInternshipManagement.Data
+namespace PotatoPortail.Data
 {
     public class CreateRepository
     {
