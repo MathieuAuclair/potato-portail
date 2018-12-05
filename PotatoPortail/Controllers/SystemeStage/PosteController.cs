@@ -8,7 +8,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 {
     public class PosteController : Controller
     {
-        private readonly DatabaseContext _bd = new DatabaseContext();
+        private readonly BDPortail _bd = new BDPortail();
 
         [HttpGet]
         public ActionResult Index()

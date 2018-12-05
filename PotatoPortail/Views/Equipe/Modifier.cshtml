@@ -1,48 +1,138 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Equipe
+﻿@model ApplicationPlanCadre.ViewModels.eSportsVM.ModifierEquipeViewModel
 
 @{
     ViewBag.Titre = "Modification d'équipe";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Equipe">
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-    @Html.HiddenFor(model => model.id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="container">
         <div class="form-box">
             <div class="row">
 
                 <header class="light-header">
-                    <h1>Modification de l'équipe «@ViewBag.nomEquipe» (@ViewBag.nomJeu)</h1>
+                    <h1>Modification de l'équipe «@Model.NomEquipe» (@Model.Jeu.nomJeu)</h1>
                 </header>
 
 
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.Label("Nouveau nom")
-                        @Html.TextBoxFor(model => model.nomEquipe, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.nomEquipe, "", new {@class = "text-danger"})
+                        @Html.TextBoxFor(model => model.NomEquipe, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NomEquipe, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-6">
-                    @Html.HiddenFor(model => model.JeuId)
-                    @Html.HiddenFor(model => model.JeuId, new {@class = "form-control"})
-                    @Html.ValidationMessageFor(model => model.JeuId, "", new {@class = "text-danger"})
+                    @Html.HiddenFor(model => model.JeuID)
+                    @Html.HiddenFor(model => model.JeuID, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.JeuID, "", new { @class = "text-danger" })
                 </div>
 
             </div>
 
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <p>Assigner un entraineur</p>
+                                <hr />
+
+
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.Entraineurs, (IEnumerable<SelectListItem>)ViewBag.Entraineurs, new { @id = "entraineur", @class = "form-control", @onchange = "ajouterEntraineur()" })
+                                    @Html.ValidationMessageFor(model => model.Entraineurs, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div id="entraineurBox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <p>Assigner des joueurs</p>
+                                <hr />
+
+
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.Joueurs, (IEnumerable<SelectListItem>)ViewBag.Joueurs, new { @id = "joueurs", @class = "form-control", @onchange = "ajouterJoueur()" })
+                                    @Html.ValidationMessageFor(model => model.Joueurs, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div id="joueursBox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="menu-flottant">
-                <a class="fancy-button blanc" href='@Url.Action("Index", "Equipe")'>
+
+                <a class="fancy-button blanc" href='@Url.Action("Index","Equipe")'>
                     <span class="glyphicon glyphicon-triangle-left"></span>
                     Annuler
                 </a>
-                <input type="submit" value="Mettre à jour «@ViewBag.nomEquipe»" class="fancy-button blanc"/>
+
+                @if (ViewBag.rappelleDetailsJeu == true)
+                {
+                    <a class="fancy-button blanc" href='@Url.Action("Details","Jeu", new { id = Model.JeuID, nomJeu = Model.Jeu.nomJeu})'>
+                        <span class="glyphicon glyphicon-triangle-left"></span>
+                        Retour aux détails de @Model.Jeu.nomJeu
+                    </a>
+                }
+
+                <input type="submit" value="Mettre à jour «@Model.NomEquipe»" class="fancy-button blanc" />
+
+                <a class="fancy-button rouge blanc" href='@Url.Action("Supprimer", "Equipe", new { id = Model.EquipeId, nomEquipe = Model.NomEquipe, nomJeu = Model.Jeu.nomJeu })'>
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Supprimer
+                </a>
             </div>
 
+
+
+
+
         </div>
+
     </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            initEntraineurDropDown();
+            initJoueurDropDown();
+            @foreach (var entraineur in Model.Entraineurs)
+            {
+                @:chargerEntraineur("@entraineur.pseudoEntraineur");
+            }
+            @foreach (var joueur in Model.Joueurs)
+            {
+                @:chargerJoueur("@joueur.pseudoJoueur");
+            }
+        });
+    </script>
+    <script src="@Url.Content("~/Scripts/equipeSelect.js")"></script>
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -2,223 +2,359 @@
 
 @{
     ViewBag.Titre = "Informations sur " + ViewBag.nomJeu;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Jeu">
 }
 
 <div class="container">
 
-<div class="box">
+    <div class="box">
 
-<header class="light-header">
-    <h1>Informations relatives à «@ViewBag.nomJeu»</h1>
-</header>
+        <header class="light-header">
+            <h1>Informations relatives à «@ViewBag.nomJeu»</h1>
+        </header>
 
-<div>
-    <div class="element">
-        @Html.LabelFor(model => model.description)
-        @if (Model.description != null)
-        {
-            @Html.DisplayFor(model => model.description)
-        }
-        else
-        {
-            @:Aucune description n'a été fournie pour @Model.nomJeu
-        }
+        <div>
+            <div class="element">
+                @Html.LabelFor(model => model.description)
+                @if (Model.description != null)
+                {
+                    @Html.DisplayFor(model => model.description)
+                }
+                else
+                {
+                    @:Aucune description n'a été fournie pour @Model.nomJeu
+                }
+            </div>
+
+            <div class="element">
+                @Html.LabelFor(model => model.urlReference)
+
+                @if (Model.urlReference != null)
+                {
+                    if (Model.urlReference.Substring(0, 4) == "http")
+                    {
+                        <a href="@Model.urlReference"> @Html.DisplayFor(model => model.urlReference) </a>
+                    }
+                    else
+                    {
+                        <a href="@string.Format("http://{0}", Model.urlReference)"> @Html.DisplayFor(model => model.urlReference)</a>
+                    }
+
+                }
+                else
+                {
+                    @:Aucune adresse URL de référence n'a été fournie pour @Model.nomJeu
+                }
+            </div>
+
+
+            @*CARACTÉRISTIQUES ET ITEMS DE CARACTÉRISTIQUES DU JEU*@
+
+
+            @if (Model.Caracteristique.Count == 0)
+            {
+                <header class="light-header">
+                    <h3>Aucune caractéristique n'est actuellement associée à «@ViewBag.nomJeu».</h3>
+                </header>
+            }
+            else if (Model.Caracteristique.Count == 1)
+            {
+                <header class="light-header">
+                    <h3>Caractéristique associée à «@ViewBag.nomJeu» : </h3>
+                </header>
+
+                foreach (var carac in Model.Caracteristique)
+                {
+                    <div class="element">
+                        @Html.Label(carac.nomCaracteristique)
+
+                        @if (carac.Item.Count == 0)
+                        {
+                            @:Aucun item n'est associé à cette caractéristique.
+                        }
+                        else
+                        {
+                            foreach (var item in carac.Item.OrderBy(i => i.nomItem))
+                            {
+                                @: @item.nomItem
+                                <br />
+                            }
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <header class="light-header">
+                    <h3>Caractéristiques associées à «@ViewBag.nomJeu» : </h3>
+                </header>
+
+                foreach (var carac in Model.Caracteristique.OrderBy(c => c.nomCaracteristique))
+                {
+                    <div class="element">
+                        @Html.Label(carac.nomCaracteristique)
+
+                        @if (carac.Item.Count == 0)
+                        {
+                            @:Aucun item n'est associé à cette caractéristique.
+                        }
+                        else
+                        {
+                            foreach (var item in carac.Item.OrderBy(i => i.nomItem))
+                            {
+                                @: @item.nomItem
+                                <br />
+                            }
+                        }
+                    </div>
+                }
+            }
+
+            <hr class="end-div" />
+
+
+
+
+
+            @*ÉQUIPES ASSOCIÉES AU JEU*@
+
+            @if (Model.Equipe.Where(e => e.estMonojoueur == false).Count() == 0)
+            {
+                <header class="light-header">
+                    <h3>Aucune équipe n'est actuellement associée à «@ViewBag.nomJeu».</h3>
+                </header>
+            }
+            else if (Model.Equipe.Where(e => e.estMonojoueur == false).Count() == 1)
+            {
+                <header class="light-header">
+                    <h3>Équipe associée à «@ViewBag.nomJeu» : </h3>
+                </header>
+
+                foreach (var equipes in Model.Equipe.Where(e => e.estMonojoueur == false))
+                {
+
+                    <div class="element">
+
+                        @if (User.IsInRole("Admin eSports"))
+                        {
+                            <a href='@Url.Action("Modifier", "Equipe", new { id = equipes.id, nomEquipe = equipes.nomEquipe, nomJeu = equipes.Jeu.nomJeu, rappelleDetailsJeu = true })'>
+                                @equipes.nomEquipe
+                            </a>
+                        }
+                        else
+                        {
+                            @equipes.nomEquipe
+                        }
+
+                        @if (equipes.Joueur.Count == 0)
+                        {
+                            <br />
+                            @: Aucun joueur.
+                        }
+                        else if (equipes.Joueur.Count == 1)
+                        {
+                            <table class="cool-table">
+                                <tr>
+                                    <th class="action-cell-header">
+                                        <b>Pseudo</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nom de l'étudiant</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nombre de jeux joués</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Adresse courriel</b>
+                                    </th>
+                                </tr>
+                                @foreach (var joueur in equipes.Joueur)
+                                {
+                                    <tr>
+                                        <td class="action-cell">
+                                            @joueur.pseudoJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.MembreESports.nomComplet
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.nombreJeuxJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.Profil.courriel
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                        else
+                        {
+                            <table class="cool-table">
+                                <tr>
+                                    <th class="action-cell-header">
+                                        <b>Pseudo</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nom de l'étudiant</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nombre de jeux joués</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Adresse courriel</b>
+                                    </th>
+                                </tr>
+                                @foreach (var joueur in equipes.Joueur.OrderBy(j => j.pseudoJoueur))
+                                {
+                                    <tr>
+                                        <td class="action-cell">
+                                            @joueur.pseudoJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.MembreESports.nomComplet
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.nombreJeuxJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.Profil.courriel
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                if (Model.Equipe.Where(e => e.estMonojoueur == false).Count() == 1)
+                {
+                    <header class="light-header">
+                        <h3>Équipe associée à «@ViewBag.nomJeu» : </h3>
+                    </header>
+                }
+                else
+                {
+                    <header class="light-header">
+                        <h3>Équipes associées à «@ViewBag.nomJeu» : </h3>
+                    </header>
+                }
+
+                foreach (var equipes in Model.Equipe.OrderBy(e => e.nomEquipe).Where(e => e.estMonojoueur == false))
+                {
+
+                    <div class="element">
+
+                        @if (User.IsInRole("Admin eSports"))
+                        {
+                            <a href='@Url.Action("Modifier", "Equipe", new { id = equipes.id, nomEquipe = equipes.nomEquipe, nomJeu = equipes.Jeu.nomJeu, rappelleDetailsJeu = true })'>
+                                @equipes.nomEquipe
+                            </a>
+                        }
+                        else
+                        {
+                            @equipes.nomEquipe
+                        }
+
+                        @if (equipes.Joueur.Count == 0)
+                        {
+                            <br />
+                            @: Aucun joueur.
+                        }
+                        else if (equipes.Joueur.Count == 1)
+                        {
+                            <table class="cool-table">
+                                <tr>
+                                    <th class="action-cell-header">
+                                        <b>Pseudo</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nom de l'étudiant</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nombre de jeux joués</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Adresse courriel</b>
+                                    </th>
+                                </tr>
+                                @foreach (var joueur in equipes.Joueur)
+                                {
+                                    <tr>
+                                        <td class="action-cell">
+                                            @joueur.pseudoJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.MembreESports.nomComplet
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.nombreJeuxJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.Profil.courriel
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                        else
+                        {
+                            <table class="cool-table">
+                                <tr>
+                                    <th class="action-cell-header">
+                                        <b>Pseudo</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nom de l'étudiant</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Nombre de jeux joués</b>
+                                    </th>
+                                    <th class="action-cell-header">
+                                        <b>Adresse courriel</b>
+                                    </th>
+                                </tr>
+                                @foreach (var joueur in equipes.Joueur.OrderBy(j => j.pseudoJoueur))
+                                {
+                                    <tr>
+                                        <td class="action-cell">
+                                            @joueur.pseudoJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.MembreESports.nomComplet
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.nombreJeuxJoueur
+                                        </td>
+                                        <td class="action-cell">
+                                            @joueur.Profil.courriel
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    </div>
+                }
+            }
+
+        </div>
+
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Jeu/Index">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+            @if (User.IsInRole("Admin eSports"))
+            {
+                <a class="fancy-button blanc" href="@Url.Action("Modifier", "Jeu", new { id = Model.id, nomJeu = Model.nomJeu })">
+                    Mettre à jour «@ViewBag.nomJeu»
+                </a>
+            }
+        </div>
+
+        <hr class="end-div" />
     </div>
-
-    <div class="element">
-        @Html.LabelFor(model => model.urlReference)
-
-        @if (Model.urlReference != null)
-        {
-            <a href="@Model.urlReference"> @Html.DisplayFor(model => model.urlReference) </a>
-        }
-        else
-        {
-            @:Aucune adresse URL de référence n'a été fournie pour @Model.nomJeu
-        }
-    </div>
-
-    @if (Model.Caracteristique.Count == 0)
-    {
-        <header class="light-header">
-            <h3>Aucune caractéristique n'est actuellement associée à «@ViewBag.nomJeu».</h3>
-        </header>
-    }
-    else if (Model.Caracteristique.Count == 1)
-    {
-        <header class="light-header">
-            <h3>Caractéristique associée à «@ViewBag.nomJeu» : </h3>
-        </header>
-
-        foreach (var carac in Model.Caracteristique)
-        {
-            <div class="element">
-                @Html.Label(carac.nomCaracteristique)
-
-                @if (carac.Item.Count == 0)
-                {
-                    @:Aucun item n'est associé à cette caractéristique.
-                }
-                else
-                {
-                    foreach (var item in carac.Item.OrderBy(i => i.nomItem))
-                    {
-                        @: @item.nomItem
-                        <br/>
-                    }
-                }
-            </div>
-        }
-    }
-    else
-    {
-        <header class="light-header">
-            <h3>Caractéristiques associées à «@ViewBag.nomJeu» : </h3>
-        </header>
-
-        foreach (var carac in Model.Caracteristique.OrderBy(c => c.nomCaracteristique))
-        {
-            <div class="element">
-                @Html.Label(carac.nomCaracteristique)
-
-                @if (carac.Item.Count == 0)
-                {
-                    @:Aucun item n'est associé à cette caractéristique.
-                }
-                else
-                {
-                    foreach (var item in carac.Item.OrderBy(i => i.nomItem))
-                    {
-                        @: @item.nomItem
-                        <br/>
-                    }
-                }
-            </div>
-        }
-    }
-
-    <hr class="end-div"/>
-
-    @if (Model.Equipe.Count == 0)
-    {
-        <header class="light-header">
-            <h3>Aucune équipe n'est actuellement associée à «@ViewBag.nomJeu».</h3>
-        </header>
-    }
-    else if (Model.Equipe.Count == 1)
-    {
-        <header class="light-header">
-            <h3>Équipe associée à «@ViewBag.nomJeu» : </h3>
-        </header>
-
-        foreach (var equipes in Model.Equipe.Where(e => e.estMonojoueur == false))
-        {
-            <div class="element">
-
-                @Html.Label(equipes.nomEquipe)
-
-                @if (equipes.Joueur.Count == 0)
-                {
-                    @: Aucun joueur.
-                }
-                else if (equipes.Joueur.Count == 1)
-                {
-                    foreach (var joueur in equipes.Joueur)
-                    {
-                        @: @joueur.PseudoJoueur (@joueur.Etudiant.Prenom + @joueur.Etudiant.NomDeFamille)
-                    }
-                }
-                else
-                {
-                    foreach (var joueur in equipes.Joueur.OrderBy(j => j.PseudoJoueur))
-                    {
-                        @: @joueur.PseudoJoueur (@joueur.Etudiant.Prenom + @joueur.Etudiant.NomDeFamille)
-                        <br/>
-                    }
-                }
-            </div>
-        }
-    }
-    else
-    {
-        <header class="light-header">
-            <h3>Équipes associées à «@ViewBag.nomJeu» : </h3>
-        </header>
-
-        foreach (var equipes in Model.Equipe.OrderBy(e => e.nomEquipe).Where(e => e.estMonojoueur == false))
-        {
-            <div class="element">
-
-                @Html.Label(equipes.nomEquipe)
-
-                @if (equipes.Joueur.Count == 0)
-                {
-                    @: Aucun joueur.
-                }
-                else if (equipes.Joueur.Count == 1)
-                {
-                    foreach (var joueur in equipes.Joueur)
-                    {
-                        @: @joueur.PseudoJoueur (@joueur.Etudiant.Prenom + @joueur.Etudiant.NomDeFamille)
-                    }
-                }
-                else
-                {
-                    foreach (var joueur in equipes.Joueur.OrderBy(j => j.PseudoJoueur))
-                    {
-                        @: @joueur.PseudoJoueur (@joueur.Etudiant.Prenom + @joueur.Etudiant.NomDeFamille)
-                        <br/>
-                    }
-                }
-            </div>
-        }
-    }
-    <hr class="end-div"/>
-
-    @if (ViewBag.lstJoueursJeu.Count == 0)
-    {
-        <header class="light-header">
-            <h3>Aucun joueur n'est actuellement associé à «@ViewBag.nomJeu».</h3>
-        </header>
-    }
-    else if (ViewBag.lstJoueursJeu.Count == 1)
-    {
-        <header class="light-header">
-            <h3>Joueur associé à «@ViewBag.nomJeu» : </h3>
-        </header>
-
-        foreach (var joueurs in ViewBag.lstJoueursJeu)
-        {
-            <br/>
-            @: @joueurs.pseudoJoueur (@joueurs.Etudiant.nomComplet)
-        }
-    }
-    else
-    {
-        <header class="light-header">
-            <h3>Joueurs associés à «@ViewBag.nomJeu» : </h3>
-        </header>
-
-        foreach (var joueurs in ViewBag.lstJoueursJeu)
-        {
-            <h4>@joueurs.pseudoJoueur (@joueurs.Etudiant.nomComplet)</h4>
-        }
-    }
-</div>
-
-
-<div class="menu-flottant">
-    <a class="fancy-button blanc" href="/Jeu/Index">
-        <span class="glyphicon glyphicon-triangle-left"></span>
-        Retour
-    </a>
-    <a class="fancy-button blanc" href="@Url.Action("Modifier", "Jeu", new {id = Model.id, nomJeu = Model.nomJeu})">
-        Mettre à jour «@ViewBag.nomJeu»
-    </a>
-</div>
-
-
-<hr class="end-div"/>
-</div>
 
 </div>

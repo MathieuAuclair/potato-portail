@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
 
@@ -12,7 +12,7 @@ namespace PotatoPortail.Controllers
     [RCPElementCompetenceAuthorize]
     public class ElementCompetenceController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Info(int? idElement)
         {
@@ -57,7 +57,7 @@ namespace PotatoPortail.Controllers
             ElementCompetence elementCompetence = new ElementCompetence
             {
                 EnonceCompetence = enonceCompetence, 
-                idCompetence = enonceCompetence.idCompetence
+                IdCompetence = enonceCompetence.IdCompetence
             };
             return View(elementCompetence);
         }
@@ -73,16 +73,16 @@ namespace PotatoPortail.Controllers
             if (ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la création",
-                    "L'élément de compétence " + '\u0022' + elementCompetence.description + '\u0022' +
+                    "L'élément de compétence " + '\u0022' + elementCompetence.Description + '\u0022' +
                     ", a bien été crée.", Toast.ToastType.Success);
                 _db.ElementCompetence.Add(elementCompetence);
                 _db.SaveChanges();
-                return RedirectToAction("Creation", "CriterePerformance", new {elementCompetence.idElement});
+                return RedirectToAction("Creation", "CriterePerformance", new {elementCompetence.IdElement });
             }
             else
             {
                 this.AddToastMessage("Confirmation de la création",
-                    "L'élément de compétence " + '\u0022' + elementCompetence.description + '\u0022' +
+                    "L'élément de compétence " + '\u0022' + elementCompetence.Description + '\u0022' +
                     ", n'a pas pus être crée.", Toast.ToastType.Error);
             }
 
@@ -94,10 +94,10 @@ namespace PotatoPortail.Controllers
         {
             foreach (var item in listeElement)
             {
-                var element = _db.CriterePerformance.Find(item.idElement);
+                var element = _db.CriterePerformance.Find(item.IdElement);
                 if (element != null)
                 {
-                    element.numero = item.numero;
+                    element.Numero = item.Numero;
                 }
             }
 
@@ -129,17 +129,17 @@ namespace PotatoPortail.Controllers
             if (ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la modificaion",
-                    "L'élément de compétence " + '\u0022' + elementCompetence.description + '\u0022' +
+                    "L'élément de compétence " + '\u0022' + elementCompetence.Description + '\u0022' +
                     ", a bien été modifié.", Toast.ToastType.Success);
                 _db.Entry(elementCompetence).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Creation", "CriterePerformance",
-                    new {idElement = elementCompetence.idElement});
+                    new {idElement = elementCompetence.IdElement});
             }
             else
             {
                 this.AddToastMessage("Confirmation de la modificaion",
-                    "L'élément de compétence " + '\u0022' + elementCompetence.description + '\u0022' +
+                    "L'élément de compétence " + '\u0022' + elementCompetence.Description + '\u0022' +
                     ", n'a pas pus être modifié.", Toast.ToastType.Error);
             }
 
@@ -171,7 +171,7 @@ namespace PotatoPortail.Controllers
         public ActionResult SurpressionConfirmer(int idElement)
         {
             var planCadreElement = from pc in _db.PlanCadreElement
-                where pc.idElement == idElement
+                where pc.IdElement == idElement
                 select pc;
             ElementCompetence elementCompetence = _db.ElementCompetence.Find(idElement);
 
@@ -187,48 +187,48 @@ namespace PotatoPortail.Controllers
                 AjusterNo(elementCompetence);
                 _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la supression",
-                    "L'élément de compétence : " + '\u0022' + elementCompetence.description + '\u0022' +
+                    "L'élément de compétence : " + '\u0022' + elementCompetence.Description + '\u0022' +
                     ", a bien été supprimé.", Toast.ToastType.Success);
             }
             else
             {
                 this.AddToastMessage("Confirmation de la supression",
-                    "L'élément de compétence  " + '\u0022' + elementCompetence.description + '\u0022' +
+                    "L'élément de compétence  " + '\u0022' + elementCompetence.Description + '\u0022' +
                     ", n'a pas pus être supprimé.", Toast.ToastType.Error);
             }
 
-            return RedirectToAction("Info", "EnonceCompetence", new {elementCompetence.idCompetence});
+            return RedirectToAction("Info", "EnonceCompetence", new {elementCompetence.IdCompetence});
         }
 
         private void AssignerNo(ElementCompetence elementCompetence)
         {
             int dernierNo = 0;
             IQueryable<int> requete = (from ec in _db.ElementCompetence
-                where ec.idCompetence == elementCompetence.idCompetence
-                select ec.numero);
+                where ec.IdCompetence == elementCompetence.IdCompetence
+                                       select ec.Numero);
             if (requete.Any())
             {
                 dernierNo = requete.Max();
             }
 
-            elementCompetence.numero = dernierNo + 1;
+            elementCompetence.Numero = dernierNo + 1;
         }
 
         private void AjusterNo(ElementCompetence elementCompetence)
         {
             IQueryable<ElementCompetence> requete = (from ec in _db.ElementCompetence
-                where ec.idCompetence == elementCompetence.idCompetence && ec.numero > elementCompetence.numero
+                where ec.IdCompetence == elementCompetence.IdCompetence && ec.Numero > elementCompetence.Numero
                 select ec);
             foreach (ElementCompetence ec in requete)
             {
-                ec.numero--;
+                ec.Numero--;
             }
         }
 
         private void Trim(ElementCompetence elementCompetence)
         {
-            if (elementCompetence.description != null)
-                elementCompetence.description = elementCompetence.description.Trim();
+            if (elementCompetence.Description != null)
+                elementCompetence.Description = elementCompetence.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)

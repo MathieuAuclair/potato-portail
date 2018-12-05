@@ -5,13 +5,14 @@ using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
     [RCPCriterePerformanceAuthorize]
     public class CriterePerformanceController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult _PartialList(int? idElement)
         {
@@ -22,7 +23,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return PartialView(elementCompetence.CriterePerformance.OrderBy(cp => cp.numero));
+            return PartialView(elementCompetence.CriterePerformance.OrderBy(cp => cp.Numero));
         }
 
         [RCPElementCompetenceAuthorize]
@@ -42,7 +43,7 @@ namespace PotatoPortail.Controllers
             CriterePerformance criterePerformance = new CriterePerformance
             {
                 ElementCompetence = elementCompetence,
-                idElement = elementCompetence.idElement
+                IdElement = elementCompetence.IdElement
             };
             return View(criterePerformance);
         }
@@ -60,16 +61,16 @@ namespace PotatoPortail.Controllers
                 _db.CriterePerformance.Add(criterePerformance);
                 _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la creation",
-                    "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                    "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                     " a bien été créé.", Toast.ToastType.Success);
-                return RedirectToAction("Creation", new {idElement = criterePerformance.idElement});
+                return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement});
             }
 
             this.AddToastMessage("Confirmation de la creation",
-                "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                 " n'a pas été créé.", Toast.ToastType.Error);
 
-            criterePerformance.ElementCompetence = _db.ElementCompetence.Find(criterePerformance.idElement);
+            criterePerformance.ElementCompetence = _db.ElementCompetence.Find(criterePerformance.IdElement);
             return View(criterePerformance);
         }
 
@@ -98,15 +99,15 @@ namespace PotatoPortail.Controllers
             if (ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                    "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                     " a bien été modifié.", Toast.ToastType.Success);
                 _db.Entry(criterePerformance).State = EntityState.Modified;
                 _db.SaveChanges();
-                return RedirectToAction("Creation", new {idElement = criterePerformance.idElement});
+                return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement });
             }
 
             this.AddToastMessage("Confirmation de la modification",
-                "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                 " n'a été modifié.", Toast.ToastType.Error);
 
             return View(criterePerformance);
@@ -128,42 +129,42 @@ namespace PotatoPortail.Controllers
             _db.SaveChanges();
             
             this.AddToastMessage("Confirmation de la supression",
-                "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                 " a bien été suprimmé.", Toast.ToastType.Success);
             
-            return RedirectToAction("Creation", new {criterePerformance.idElement});
+            return RedirectToAction("Creation", new {criterePerformance.IdElement});
         }
 
         private void AssignerNo(CriterePerformance criterePerformance)
         {
             int dernierNo = 0;
             IQueryable<int> requete = (from cp in _db.CriterePerformance
-                where cp.idElement == criterePerformance.idElement
-                select cp.numero);
+                where cp.IdElement == criterePerformance.IdElement
+                                       select cp.Numero);
 
             if (requete.Any())
             {
                 dernierNo = requete.Max();
             }
 
-            criterePerformance.numero = dernierNo + 1;
+            criterePerformance.Numero = dernierNo + 1;
         }
 
         private void AjusterNo(CriterePerformance criterePerformance)
         {
             IQueryable<CriterePerformance> requete = (from cp in _db.CriterePerformance
-                where cp.idElement == criterePerformance.idElement && cp.numero > criterePerformance.numero
-                select cp);
+                where cp.IdElement == criterePerformance.IdElement && cp.Numero > criterePerformance.Numero
+                                                      select cp);
             foreach (CriterePerformance cp in requete)
             {
-                cp.numero--;
+                cp.Numero--;
             }
         }
 
         private void Trim(CriterePerformance criterePerformance)
         {
-            if (criterePerformance.description != null)
-                criterePerformance.description = criterePerformance.description.Trim();
+            if (criterePerformance.Description != null)
+                criterePerformance.Description = criterePerformance.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)

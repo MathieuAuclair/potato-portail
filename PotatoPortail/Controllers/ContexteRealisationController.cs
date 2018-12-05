@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
 
@@ -11,7 +11,7 @@ namespace PotatoPortail.Controllers
     [RCPContexteRealisationAuthorize]
     public class ContexteRealisationController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult _PartialList(int? idCompetence)
         {
@@ -22,7 +22,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return PartialView(enonceCompetence.ContexteRealisation.OrderBy(e => e.numero));
+            return PartialView(enonceCompetence.ContexteRealisation.OrderBy(e => e.Numero));
         }
 
         [RCPEnonceCompetenceAuthorize]
@@ -42,7 +42,7 @@ namespace PotatoPortail.Controllers
             ContexteRealisation contexteRealisation = new ContexteRealisation
             {
                 EnonceCompetence = enonceCompetence, 
-                idCompetence = enonceCompetence.idCompetence
+                IdCompetence = enonceCompetence.IdCompetence
             };
             return View(contexteRealisation);
         }
@@ -58,20 +58,20 @@ namespace PotatoPortail.Controllers
             if (ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la création",
-                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' +
+                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
                     " a bien été créé.", Toast.ToastType.Success);
                 _db.ContexteRealisation.Add(contexteRealisation);
                 _db.SaveChanges();
-                return RedirectToAction("Creation", new {idCompetence = contexteRealisation.idCompetence});
+                return RedirectToAction("Creation", new {idCompetence = contexteRealisation.IdCompetence });
             }
             else
             {
                 this.AddToastMessage("Confirmation de la création",
-                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' +
+                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
                     " n'a pas bien été créé.", Toast.ToastType.Error);
             }
 
-            contexteRealisation.EnonceCompetence = _db.EnonceCompetence.Find(contexteRealisation.idCompetence);
+            contexteRealisation.EnonceCompetence = _db.EnonceCompetence.Find(contexteRealisation.IdCompetence);
             return View(contexteRealisation);
         }
 
@@ -102,13 +102,13 @@ namespace PotatoPortail.Controllers
                 _db.Entry(contexteRealisation).State = EntityState.Modified;
                 _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' +
+                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
                     " a bien été modifié.", Toast.ToastType.Success);
-                return RedirectToAction("Creation", new {idCompetence = contexteRealisation.idCompetence});
+                return RedirectToAction("Creation", new {idCompetence = contexteRealisation.IdCompetence});
             }
 
             this.AddToastMessage("Confirmation de la modification",
-                "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' +
+                "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
                 " n'a pas été modifié.", Toast.ToastType.Error);
 
             return View(contexteRealisation);
@@ -129,7 +129,7 @@ namespace PotatoPortail.Controllers
                 AjusterNo(contexteRealisation);
                 _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la supression",
-                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' +
+                    "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
                     " a bien été supprimé.", Toast.ToastType.Success);
             }
 
@@ -138,39 +138,39 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return RedirectToAction("Creation", new {idCompetence = contexteRealisation.idCompetence});
+            return RedirectToAction("Creation", new {idCompetence = contexteRealisation.IdCompetence});
         }
 
         private void AssignerNo(ContexteRealisation contexteRealisation)
         {
             int dernierNo = 0;
             IQueryable<int> requete = (from cp in _db.ContexteRealisation
-                where cp.idCompetence == contexteRealisation.idCompetence
-                select cp.numero);
+                where cp.IdCompetence == contexteRealisation.IdCompetence
+                select cp.Numero);
 
             if (requete.Any())
             {
                 dernierNo = requete.Max();
             }
 
-            contexteRealisation.numero = dernierNo + 1;
+            contexteRealisation.Numero = dernierNo + 1;
         }
 
         private void AjusterNo(ContexteRealisation contexteRealisation)
         {
             IQueryable<ContexteRealisation> requete = (from cp in _db.ContexteRealisation
-                where cp.idCompetence == contexteRealisation.idCompetence && cp.numero > contexteRealisation.numero
+                where cp.IdCompetence == contexteRealisation.IdCompetence && cp.Numero > contexteRealisation.Numero
                 select cp);
             foreach (ContexteRealisation cp in requete)
             {
-                cp.numero--;
+                cp.Numero--;
             }
         }
 
         private void Trim(ContexteRealisation contexteRealisation)
         {
-            if (contexteRealisation.description != null)
-                contexteRealisation.description = contexteRealisation.description.Trim();
+            if (contexteRealisation.Description != null)
+                contexteRealisation.Description = contexteRealisation.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)

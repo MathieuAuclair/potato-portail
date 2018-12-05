@@ -4,7 +4,7 @@ namespace PotatoPortail.Views.SystemeStage.Application.ApplicationComponent.Mode
 {
     public class StateEntrepriseInformation
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BDPortail _bd = new BDPortail();
         private PotatoPortail.Models.Stage _stage;
         private Contact _contact;
 

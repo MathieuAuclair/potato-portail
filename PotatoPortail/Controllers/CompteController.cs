@@ -26,7 +26,7 @@ namespace PotatoPortail.Controllers
             //Création d'un controlleur sans paramètre override
         }
 
-        private readonly BdPortail _db = new BdPortail();
+        private readonly BDPortail _db = new BDPortail();
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -126,7 +126,7 @@ namespace PotatoPortail.Controllers
 
         private void CreationRcpAccesProgramme(ApplicationUser utilisateur, ICollection<string> codeProgramme)
         {
-            BdPortail bd = new BdPortail();
+            BDPortail bd = new BDPortail();
             foreach (string code in codeProgramme)
             {
                 AccesProgramme accesProgramme = new AccesProgramme
@@ -139,7 +139,7 @@ namespace PotatoPortail.Controllers
 
         private void EnleverToutRcpAccesProgramme(ApplicationUser utilisateur)
         {
-            BdPortail bd = new BdPortail();
+            BDPortail bd = new BDPortail();
             bd.AccesProgramme.RemoveRange(bd.AccesProgramme.Where(e => e.userMail == utilisateur.UserName));
             bd.SaveChanges();
         }
@@ -212,7 +212,7 @@ namespace PotatoPortail.Controllers
 
         private IEnumerable<string> GetCodeProgrammes(ApplicationUser utilisateur)
         {
-            return (from accesProgramme in new BdPortail().AccesProgramme
+            return (from accesProgramme in new BDPortail().AccesProgramme
                 where accesProgramme.userMail == utilisateur.UserName
                 select accesProgramme.codeProgramme).ToList();
         }

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = "Suppression de " + Model.nomEquipe;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Equipe">
 }
 
 <div class="container" style="margin-bottom:5%;">
@@ -13,13 +14,13 @@
         </header>
 
 
-        @if (Model.Joueur.Count > 0)
+        @if (Model.Joueur.Count > 0 && Model.Joueur != null)
         {
             <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueur.Count joueurs.</h3>
 
             foreach (var joueur in Model.Joueur)
             {
-                <h4>@joueur.PseudoJoueur</h4>
+                <h4>@joueur.pseudoJoueur</h4>
             }
         }
         else
@@ -32,13 +33,13 @@
             {
                 @Html.AntiForgeryToken()
 
-            <div class="menu-flottant">
-                <a class="fancy-button blanc" href="/Equipe/Index">
-                    <span class="glyphicon glyphicon-triangle-left"></span>
-                    Annuler
-                </a>
-                <input type="submit" value="Confirmer la suppression" class="fancy-button blanc" />
-            </div>
+                <div class="menu-flottant">
+                    <a class="fancy-button blanc" href="/Equipe/Index">
+                        <span class="glyphicon glyphicon-triangle-left"></span>
+                        Annuler
+                    </a>
+                    <input type="submit" value="Confirmer la suppression" class="fancy-button blanc" />
+                </div>
             }
         </div>
 
