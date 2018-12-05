@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PotatoPortail.Models.ApplicationUser>
+
+@{
+    ViewBag.Titre = "Liste des utilisateurs";
+}
+
+<div class="container" style="margin-bottom:5%;">
+    <div class="box">
+
+        <header class="light-header">
+
+            <h1>@ViewBag.Titre</h1>
+
+        </header>
+
+        <table class="cool-table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.rolesWrap)
+                </th>
+                <th class="action-cell-header">
+                    <b>Modifier</b>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.prenom) @Html.DisplayFor(modelItem => item.nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.rolesWrap)
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("Modifier", new { utilisateurId = item.Id })'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <hr class="end-div"/>
+
+        <div class="menu-flottant">
+
+            <a href='@Url.Action("ConsoleAdmin", "Accueil")' class="fancy-button blanc"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <a href='@Url.Action("Enregistrement", "Compte")' class="fancy-button blanc"><span class="glyphicon glyphicon-plus"></span> Créer un utilisateur</a>
+
+        </div>
+    </div>
+</div>

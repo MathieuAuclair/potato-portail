@@ -1,0 +1,955 @@
+﻿@model ApplicationPlanCadre.Models.GrilleCours
+
+@{
+
+    List<Object> listeCours = new List<object>();
+
+    List<Object> listeCoursS1FG = new List<object>();
+    List<Object> listeCoursS1FC = new List<object>();
+    List<Object> listeCoursS1FS = new List<object>();
+
+    List<Object> listeCoursS2FG = new List<object>();
+    List<Object> listeCoursS2FC = new List<object>();
+    List<Object> listeCoursS2FS = new List<object>();
+
+    List<Object> listeCoursS3FG = new List<object>();
+    List<Object> listeCoursS3FC = new List<object>();
+    List<Object> listeCoursS3FS = new List<object>();
+
+    List<Object> listeCoursS4FG = new List<object>();
+    List<Object> listeCoursS4FC = new List<object>();
+    List<Object> listeCoursS4FS = new List<object>();
+
+    List<Object> listeCoursS5FG = new List<object>();
+    List<Object> listeCoursS5FC = new List<object>();
+    List<Object> listeCoursS5FS = new List<object>();
+
+    List<Object> listeCoursS6FG = new List<object>();
+    List<Object> listeCoursS6FC = new List<object>();
+    List<Object> listeCoursS6FS = new List<object>();
+
+    //En attendant de pouvoir récupérer cette liste via une requête ou dans la table.
+    string[] tabSession = { "I", "II", "IIII", "IV", "V", "VI" };
+
+
+    List<String> listeConpetences = new List<string>();
+
+
+    var listeCompetences = ViewBag.List;
+
+
+}
+
+
+
+@{
+    var cptMaxFG = 0;
+    var cptMaxFS = 0;
+    var cptMaxFC = 0;
+
+
+
+
+    foreach (ApplicationPlanCadre.Models.Cours cours in Model.Cours)
+    {
+        listeCours.Add(cours);
+        if (cours.idSession == 1)
+        {
+            if (cours.PlanCadre.idType == 2)
+            {
+                listeCoursS1FG.Add(cours);
+                if (cptMaxFG < listeCoursS1FG.Count()) { cptMaxFG = listeCoursS1FG.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 1)
+            {
+                listeCoursS1FS.Add(cours);
+                if (cptMaxFS < listeCoursS1FS.Count()) { cptMaxFS = listeCoursS1FS.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 3)
+            {
+                listeCoursS1FC.Add(cours);
+                if (cptMaxFC < listeCoursS1FC.Count()) { cptMaxFC = listeCoursS1FC.Count(); }
+
+            }
+        }
+        if (cours.idSession == 2)
+        {
+            if (cours.PlanCadre.idType == 2)
+            {
+                listeCoursS2FG.Add(cours);
+                if (cptMaxFG < listeCoursS2FG.Count()) { cptMaxFG = listeCoursS2FG.Count(); }
+
+
+            }
+            else if (cours.PlanCadre.idType == 1)
+            {
+                listeCoursS2FS.Add(cours);
+                if (cptMaxFS < listeCoursS2FS.Count()) { cptMaxFS = listeCoursS2FS.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 3)
+            {
+                listeCoursS2FC.Add(cours);
+                if (cptMaxFC < listeCoursS2FC.Count()) { cptMaxFC = listeCoursS2FC.Count(); }
+
+            }
+        }
+        if (cours.idSession == 3)
+        {
+            if (cours.PlanCadre.idType == 2)
+            {
+                listeCoursS3FG.Add(cours);
+                if (cptMaxFG < listeCoursS3FG.Count()) { cptMaxFG = listeCoursS3FG.Count(); }
+            }
+            else if (cours.PlanCadre.idType == 1)
+            {
+                listeCoursS3FS.Add(cours);
+                if (cptMaxFS < listeCoursS3FS.Count()) { cptMaxFS = listeCoursS3FS.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 3)
+            {
+                listeCoursS3FC.Add(cours);
+                if (cptMaxFC < listeCoursS3FC.Count()) { cptMaxFC = listeCoursS3FC.Count(); }
+            }
+        }
+        if (cours.idSession == 4)
+        {
+            if (cours.PlanCadre.idType == 2)
+            {
+                listeCoursS4FG.Add(cours);
+                if (cptMaxFG < listeCoursS4FG.Count()) { cptMaxFG = listeCoursS4FG.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 1)
+            {
+                listeCoursS3FS.Add(cours);
+                if (cptMaxFS < listeCoursS4FS.Count()) { cptMaxFS = listeCoursS4FS.Count(); }
+            }
+            else if (cours.PlanCadre.idType == 3)
+            {
+                listeCoursS4FC.Add(cours);
+                if (cptMaxFC < listeCoursS4FC.Count()) { cptMaxFC = listeCoursS4FC.Count(); }
+            }
+        }
+        if (cours.idSession == 5)
+        {
+            if (cours.PlanCadre.idType == 2)
+            {
+                listeCoursS3FG.Add(cours);
+                if (cptMaxFG < listeCoursS5FG.Count()) { cptMaxFG = listeCoursS5FG.Count(); }
+            }
+            else if (cours.PlanCadre.idType == 1)
+            {
+                listeCoursS5FS.Add(cours);
+                if (cptMaxFS < listeCoursS5FS.Count()) { cptMaxFS = listeCoursS5FS.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 3)
+            {
+                listeCoursS5FC.Add(cours);
+                if (cptMaxFC < listeCoursS5FC.Count()) { cptMaxFC = listeCoursS5FC.Count(); }
+            }
+        }
+        if (cours.idSession == 6)
+        {
+            if (cours.PlanCadre.idType == 2)
+            {
+                listeCoursS6FG.Add(cours);
+                if (cptMaxFG < listeCoursS6FG.Count()) { cptMaxFG = listeCoursS6FG.Count(); }
+            }
+            else if (cours.PlanCadre.idType == 1)
+            {
+                listeCoursS6FS.Add(cours);
+                if (cptMaxFS < listeCoursS6FS.Count()) { cptMaxFS = listeCoursS6FS.Count(); }
+
+            }
+            else if (cours.PlanCadre.idType == 3)
+            {
+                listeCoursS3FC.Add(cours);
+                if (cptMaxFC < listeCoursS6FC.Count()) { cptMaxFC = listeCoursS6FC.Count(); }
+            }
+        }
+    }
+
+}
+
+
+<div class="section-grille">
+    <div class="table-responsive grilleCoursHeure">
+        <table class="table table-bordered">
+            @* Vérifie si la liste est pleine ou vide *@
+            @if (Model.Cours.FirstOrDefault() == null)
+            {
+                <p>Cette grille de cours est vide. Veuillez y associer des cours !!!</p>
+            }
+            else
+            {
+                <thead>
+                    @{
+                        var longueurDeLigne = 0;
+                        longueurDeLigne = cptMaxFC + cptMaxFG + cptMaxFS;
+                        longueurDeLigne = longueurDeLigne * 3;
+                        longueurDeLigne = longueurDeLigne + 5; //Session et pondération
+                        var longueurFG = @cptMaxFG * 3;
+                        var longueurFC = @cptMaxFC * 3;
+                        var longueurFS = @cptMaxFS * 3;
+
+                    }
+                    <tr class="danger">
+                        <td colspan="@longueurDeLigne"><b>Formation</b></td>
+                    </tr>
+                    <tr class="danger">
+                        <td colspan="@longueurFG"><b>Générale</b></td>
+                        <td colspan="@longueurFC"><b>Compplé.</b></td>
+                        <td colspan="2"><b>Session</b></td>
+                        <td colspan="@longueurFS" rowspan="2"><b>Formation spécifique</b></td>
+                        <td colspan="3" rowspan="2"><b>Pondération</b></td>
+                    </tr>
+                    @* ATTENTION : LIGNE DE COMMENTAIRE DEMANDEE PAR LE CLIENT
+                        La ligne du tableau ci-dessous n'est pas intégrée dans cette version car ces types cours/plans cadre ne sont pas pris en compte dans la BD. A ne pas oublier dans la prochaine version
+                        <tr class="danger">
+                            <td colspan="3"><b>Langue maternelle</b></td>
+                            <td colspan="3"><b>Langue secondaire</b></td>
+                            <td colspan="3"><b>Philosophie</b></td>
+                            <td colspan="3"><b>Éducation physique</b></td>
+                            <td colspan="3"></td>
+                            <td colspan="2"></td>
+                            <!--<td colspan="15"></td>
+                            <td colspan="3"></td>-->
+                        </tr>
+                    *@
+                </thead>
+                <tbody>
+                    <tr class="active">
+                        @{
+                            //Les cours de formation générale
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FG)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            var diffFG = cptMaxFG - listeCoursS1FG.Count();
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            //Les cours de formation complémentaires
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FC)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            var diffFC = cptMaxFC - listeCoursS1FC.Count();
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S1</b></td> <!--Le rowspan ne fonctionne pas !-->
+                            //Les cours de formation spécifique
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            var diffFS = cptMaxFS - listeCoursS1FS.Count();
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                        }
+                        @{
+                            var totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                if (cours.idSession == 1)
+                                {
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                }
+                            }
+
+                        }
+                        <td colspan="3" class="danger"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr class="active">
+                        @{
+                            var totalTheoS1 = 0;
+                            var totalPratS1 = 0;
+                            var totalDevS1 = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FG)
+                            {
+                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS1 = totalPratS1 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS1 = totalDevS1 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FC)
+                            {
+                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS1 = totalPratS1 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS1 = totalDevS1 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td colspan="2" class="danger"></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FS)
+                            {
+                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS1 = totalPratS1 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS1 = totalDevS1 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            //Totaux des heures
+                            <td class="danger"><b>@Html.DisplayFor(p => totalTheoS1)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalPratS1)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalDevS1)</b></td>
+                        }
+                    </tr>
+
+
+
+
+                    <!--Session 2 -->
+                    <tr class="warning">
+                        @{
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FG)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFG = cptMaxFG - listeCoursS2FG.Count();
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FC)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFC = cptMaxFC - listeCoursS2FC.Count();
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S2</b></td> <!--Le rowspan ne fonctionne pas !-->
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFS = cptMaxFS - listeCoursS2FS.Count();
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                        }
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                if (cours.idSession == 2)
+                                {
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                }
+                            }
+                        }
+                        <td colspan="3" class="danger"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr class="warning">
+                        @{
+                            var totalTheoS2 = 0;
+                            var totalPratS2 = 0;
+                            var totalDevS2 = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FG)
+                            {
+                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS2 = totalPratS2 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS2 = totalDevS2 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FC)
+                            {
+                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS2 = totalPratS2 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS2 = totalDevS2 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            }
+                            <td colspan="2" class="danger"></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FS)
+                            {
+                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS2 = totalPratS2 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS2 = totalDevS2 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td class="danger"><b>@Html.DisplayFor(p => totalTheoS2)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalPratS2)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalDevS2)</b></td>
+                        }
+                    </tr>
+
+                    <!--Session 3 -->
+
+                    <tr class="active">
+                        @{
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FG)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFG = cptMaxFG - listeCoursS3FG.Count();
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FC)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFC = cptMaxFC - listeCoursS3FC.Count();
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S3</b></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFS = cptMaxFS - listeCoursS3FS.Count();
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                        }
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                if (cours.idSession == 3)
+                                {
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                }
+                            }
+                        }
+                        <td colspan="3" class="danger"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr class="active">
+                        @{
+                            var totalTheoS3 = 0;
+                            var totalPratS3 = 0;
+                            var totalDevS3 = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FG)
+                            {
+                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS3 = totalPratS3 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS3 = totalDevS3 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FC)
+                            {
+                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS3 = totalPratS3 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS3 = totalDevS3 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            }
+                            <td colspan="2" class="danger"></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FS)
+                            {
+                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS3 = totalPratS3 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS3 = totalDevS3 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td class="danger"><b>@Html.DisplayFor(p => totalTheoS3)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalPratS3)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalDevS3)</b></td>
+                        }
+                    </tr>
+
+                    <!--Session 4 -->
+                    <tr class="warning">
+                        @{
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FG)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFG = cptMaxFG - listeCoursS4FG.Count();
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FC)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFC = cptMaxFC - listeCoursS4FC.Count();
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S4</b></td> <!--Le rowspan ne fonctionne pas !-->
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFS = cptMaxFS - listeCoursS4FS.Count();
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                        }
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                if (cours.idSession == 4)
+                                {
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                }
+                            }
+                        }
+                        <td colspan="3" class="danger"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr class="warning">
+                        @{
+                            var totalTheoS4 = 0;
+                            var totalPratS4 = 0;
+                            var totalDevS4 = 0;
+                            //Les cours de formation générale
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FG)
+                            {
+                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS4 = totalPratS4 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS4 = totalDevS4 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FC)
+                            {
+                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS4 = totalPratS4 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS4 = totalDevS4 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            }
+                            <td colspan="2" class="danger"></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FS)
+                            {
+                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS4 = totalPratS4 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS4 = totalDevS4 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td class="danger"><b>@Html.DisplayFor(p => totalTheoS4)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalPratS4)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalDevS4)</b></td>
+                        }
+                    </tr>
+
+                    <!--Session 5 -->
+
+                    <tr class="active">
+                        @{
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FG)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFG = cptMaxFG - listeCoursS5FG.Count();
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FC)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFC = cptMaxFC - listeCoursS5FC.Count();
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S5</b></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFS = cptMaxFS - listeCoursS5FS.Count();
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                        }
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                if (cours.idSession == 5)
+                                {
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                }
+                            }
+                        }
+                        <td colspan="3" class="danger"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr class="active">
+                        @{
+                            var totalTheoS5 = 0;
+                            var totalPratS5 = 0;
+                            var totalDevS5 = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FG)
+                            {
+                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS5 = totalPratS5 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS5 = totalDevS5 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FC)
+                            {
+                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS5 = totalPratS5 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS5 = totalDevS5 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td colspan="2" class="danger"></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FS)
+                            {
+                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS5 = totalPratS5 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS5 = totalDevS5 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td class="danger"><b>@Html.DisplayFor(p => totalTheoS5)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalPratS5)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalDevS5)</b></td>
+                        }
+                    </tr>
+
+                    <!--Session 6 -->
+                    <tr class="warning">
+                        @{
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FG)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFG = cptMaxFG - listeCoursS6FG.Count();
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td colspan="3"></td>
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FC)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFC = cptMaxFC - listeCoursS6FC.Count();
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td colspan="3"></td>
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S6</b></td> <!--Le rowspan ne fonctionne pas !-->
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                            }
+                            diffFS = cptMaxFS - listeCoursS6FS.Count();
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                        }
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                if (cours.idSession == 6)
+                                {
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                }
+                            }
+                        }
+                        <td colspan="3" class="danger"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr class="warning">
+                        @{
+                            var totalTheoS6 = 0;
+                            var totalPratS6 = 0;
+                            var totalDevS6 = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FG)
+                            {
+                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS6 = totalPratS6 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS6 = totalDevS6 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFG; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FC)
+                            {
+                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS6 = totalPratS6 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS6 = totalDevS6 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFC; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            }
+                            <td colspan="2" class="danger"></td>
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FS)
+                            {
+                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalPratS6 = totalPratS6 + cours.PlanCadre.nbHeurePratique.Value;
+                                totalDevS6 = totalDevS6 + cours.PlanCadre.nbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.nbHeureTheorie</td>
+                                <td>@cours.PlanCadre.nbHeurePratique</td>
+                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                            }
+                            for (var x = 0; x < diffFS; x++)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td class="danger"><b>@Html.DisplayFor(p => totalTheoS6)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalPratS6)</b></td>
+                            <td class="danger"><b>@Html.DisplayFor(p => totalDevS6)</b></td>
+                        }
+                    </tr>
+
+                    @*Zone de total*@
+                    <tr>
+                        @{
+                            longueurDeLigne = longueurDeLigne - 3;
+                        }
+                        <td colspan="@longueurDeLigne"></td>
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                            }
+                        }
+                        <td colspan="3" class="success"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="@longueurDeLigne"></td>
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                            }
+                        }
+                        <td class="success"><b>@totalnbH</b></td>
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                            }
+                        }
+                        <td class="success"><b>@totalnbH</b></td>
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                            }
+                        }
+                        <td class="success"><b>@totalnbH</b></td>
+                    </tr>
+                    <tr>
+                        @{
+                            longueurDeLigne = longueurDeLigne - 3;
+                        }
+                        <td colspan="@longueurDeLigne"></td>
+                        <td colspan="3"><b>Durée totale</b></td>
+                        @{
+                            totalnbH = 0;
+                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            {
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                            }
+                            totalnbH = totalnbH * 15;
+                        }
+                        <td colspan="3" class="success"><b>@totalnbH</b></td>
+                    </tr>
+                </tbody>
+                            }
+
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+@* Optimisation du code !!*@
+
+

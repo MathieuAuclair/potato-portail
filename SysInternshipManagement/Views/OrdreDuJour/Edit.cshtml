@@ -1,0 +1,57 @@
+﻿@model ApplicationPlanCadre.Models.ReunionsViewModel.CreerOrdreDuJourViewModel
+
+@{
+    ViewBag.Titre = "Modification de l'ordre du jour";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.ordreDuJour.idOdJ)
+
+    <div class="container">
+        <div class="form-box">
+            <header class="light-header">
+                <h1>@ViewBag.Titre</h1>
+                <h3>@Html.DisplayFor(m => m.ordreDuJour.titreOdJ)</h3>
+            </header>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ordreDuJour.titreOdJ)
+                @Html.TextBoxFor(m => m.ordreDuJour.titreOdJ, new {@class = "form-control small"})
+                @Html.ValidationMessageFor(m => m.ordreDuJour.titreOdJ, "", new {@class = "text-danger"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ordreDuJour.dateOdJ)
+                @Html.EditorFor(m => m.ordreDuJour.dateOdJ, new {htmlAttributes = new {@class = "form-control small"}})
+                @Html.ValidationMessageFor(m => m.ordreDuJour.dateOdJ, "", new {@class = "text-danger"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ordreDuJour.heureDebutReunion)
+                @Html.TextBoxFor(m => m.ordreDuJour.heureDebutReunion, new {@class = "form-control small"})
+                @Html.ValidationMessageFor(m => m.ordreDuJour.heureDebutReunion, "", new {@class = "text-danger"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ordreDuJour.heureFinReunion)
+                @Html.TextBoxFor(m => m.ordreDuJour.heureFinReunion, new {@class = "form-control small"})
+                @Html.ValidationMessageFor(m => m.ordreDuJour.heureFinReunion, "", new {@class = "text-danger"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ordreDuJour.lieuReunionODJ)
+                @Html.TextBoxFor(m => m.ordreDuJour.lieuReunionODJ, new {@class = "form-control small"})
+                @Html.ValidationMessageFor(m => m.ordreDuJour.lieuReunionODJ, "", new {@class = "text-danger"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.sujetPointPrincipal[0].sujetPoint)
+                @for (var x = 0; x < Model.sujetPointPrincipal.Count; x++)
+                {
+                    @Html.EditorFor(m => m.sujetPointPrincipal[x].sujetPoint, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(m => m.sujetPointPrincipal[x].sujetPoint, "", new {@class = "text-danger"})
+                    <p></p>
+                }
+            </div>
+            <hr/>
+            <input type="submit" value="Enregistrer" class="fancy-button"/>
+            <div class="fancy-button rouge" onclick="location.href = '@Url.Action("Annuler", "OrdreDuJour", new {currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
+        </div>
+    </div>
+}

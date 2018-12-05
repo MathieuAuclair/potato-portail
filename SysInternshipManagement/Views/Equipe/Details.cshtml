@@ -1,0 +1,42 @@
+﻿@model ApplicationPlanCadre.Models.eSports.Equipe
+
+@{
+    ViewBag.Titre = "Informations d'équipe";
+}
+
+<div class="container">
+    <div class="box">
+
+        <header class="light-header">
+            <h2>Informations relatives à l'équipe «@ViewBag.nomEquipe» (@ViewBag.nomJeu)</h2>
+        </header>
+
+        <div class="element">
+            @if (Model.Joueur.Count > 0)
+            {
+                <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueur.Count joueurs.</h3>
+
+                foreach (var joueur in Model.Joueur)
+                {
+                    <h4>@joueur.PseudoJoueur</h4>
+                }
+            }
+            else
+            {
+                <h3>«@ViewBag.nomEquipe» est actuellement composée d'aucun joueur.</h3>
+            }
+        </div>
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href='@Url.Action("Index", "Equipe")'>
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+            <a class="fancy-button blanc" href='@Url.Action("Modifier", "Equipe", new { id = Model.id , nomEquipe = Model.nomEquipe, nomJeu = Model.Jeu.nomJeu})'>
+                <span class="glyphicon glyphicon-pencil"></span>
+                Mettre à jour @Model.nomEquipe
+            </a>
+        </div>
+
+    </div>
+</div>

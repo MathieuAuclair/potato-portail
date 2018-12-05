@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SysInternshipManagement.Models
+namespace PotatoPortail.Models
 {
-    public class Application
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Application")]
+    public partial class Application
     {
         [Key]
         public int IdApplication { get; set; }
 
         public DateTime Timestamp { get; set; }
 
-        public virtual Stage Stage { get; set; }
+        public int Etudiant_IdEtudiant { get; set; }
+
+        public int Stage_IdStage { get; set; }
 
         public virtual Etudiant Etudiant { get; set; }
+
+        public virtual Stage Stage { get; set; }
     }
 }

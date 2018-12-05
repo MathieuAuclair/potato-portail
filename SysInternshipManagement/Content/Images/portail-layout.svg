@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="150"
+   height="50"
+   viewBox="0 0 39.687512 13.229175"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="portail-layout.svg"
+   inkscape:export-filename="C:\!ProjetFinal\Sprint 2\Code\ApplicationPlanCadre\ApplicationPlanCadre\Content\Images\portail-layout.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="91.732589"
+     inkscape:cy="6.0702669"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-global="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid5087" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-283.77045)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot10"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Aero Matics';-inkscape-font-specification:'Aero Matics';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion12"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Aero Matics';-inkscape-font-specification:'Aero Matics'"><rect
+           id="rect14"
+           width="688.57141"
+           height="517.14288"
+           x="4.2857141"
+           y="272.51968"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Aero Matics';-inkscape-font-specification:'Aero Matics'" /></flowRegion><flowPara
+         id="flowPara16" /></flowRoot>    <g
+       aria-label="PORTAIL"
+       transform="matrix(0.20290881,0,0,0.20290881,-9.0757214,247.99274)"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       id="flowRoot18"
+       inkscape:export-filename="C:\!ProjetFinal\Sprint 2\Code\ApplicationPlanCadre\ApplicationPlanCadre\Content\Images\portail-layout.png"
+       inkscape:export-xdpi="360"
+       inkscape:export-ydpi="360">
+      <path
+         id="path877"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Aero Matics';-inkscape-font-specification:'Aero Matics';fill:#ffffff;fill-opacity:1"
+         d="m 218.54687,217.75298 h 11.71875 v 5.85937 H 212.6875 V 196.2686 h 5.85937 z m -9.76562,-21.48438 v 27.34375 h -5.85938 V 196.2686 Z m -7.8125,27.34375 h -5.85938 l -1.8164,-5.85937 h -10.03906 l -1.81641,5.85937 h -5.85938 l 8.20313,-27.34375 h 8.98437 z m -15.9375,-11.71875 h 6.48437 l -3.24218,-9.76562 z M 173.625,196.2686 v 5.85938 h -6.83594 v 21.48437 h -5.85937 v -21.48437 h -6.83594 v -5.85938 z m -33.20313,17.57813 h -3.90625 v 9.76562 h -5.85937 V 196.2686 H 142.375 c 5.20833,0 7.8125,2.60417 7.8125,7.8125 v 1.95313 c 0,3.1901 -1.19792,5.4427 -3.59375,6.75781 l 3.59375,10.82031 h -5.85938 z m -3.90625,-11.71875 v 5.85937 h 5.85938 c 1.30208,0 1.95312,-0.65104 1.95312,-1.95312 v -1.95313 c 0,-1.30208 -0.65104,-1.95312 -1.95312,-1.95312 z m -74.738886,11.71875 v 9.76562 H 55.917359 V 196.2686 h 11.71875 c 5.208336,0 7.812505,2.60417 7.812505,7.8125 v 1.95313 c 0,5.20833 -2.604169,7.8125 -7.812505,7.8125 z m 0,-11.71875 v 5.85937 h 5.859375 c 1.302083,0 1.953125,-0.65104 1.953125,-1.95312 v -1.95313 c 0,-1.30208 -0.651042,-1.95312 -1.953125,-1.95312 z"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccccsssccccccsssscccccsssscccssssc" />
+    </g>
+    <g
+       transform="matrix(0.02476755,0,0,0.02476755,-0.38615529,283.15434)"
+       id="g14"
+       style="fill:#ffffff"
+       inkscape:export-filename="C:\!ProjetFinal\Sprint 2\Code\ApplicationPlanCadre\ApplicationPlanCadre\Content\Images\portail-layout.png"
+       inkscape:export-xdpi="360"
+       inkscape:export-ydpi="360">
+      <path
+         style="fill:#ffffff;fill-opacity:1"
+         d="m -232.88904,-2.2890625 -193,111.3984425 0.0996,222.80078 192.90039,111.40039 193.000007,-111.40039 V 109.10938 Z m 0,42.0996095 156.500007,90.400393 v 180.69922 l -156.500007,90.59961 v -47.29883 l 115.80078,-66.80078 V 153.60938 L -232.88904,86.810547 -348.68787,153.60938 v 133.80078 l 59.89844,35.09961 20.47461,-45.46485 c 0.51151,-1.19123 1.04534,-2.36957 1.59375,-3.53711 l 4.62305,-10.26367 c 2.53418,-6.01416 4.93337,-12.16086 7.60937,-18.0332 0.7,-1.6 0.50039,-1.9 -1.09961,-2 -1.4,-0.1 -2.90078,-0.30039 -4.30078,-0.40039 -5.5,-0.5 -11,-0.99961 -16.5,-1.59961 -5.2,-0.7 -8.69922,-3.70117 -10.19922,-8.70117 -1.6,-5 -0.2,-9.40041 3.5,-12.90039 5.6,-5.5 11.39922,-10.79961 17.19922,-16.09961 16,-15 32.09961,-30 48.09961,-45 5.6,-5.2 11.20078,-10.49922 16.80078,-15.69922 4.7,-4.3 11.6,-4.59961 16.5,-0.59961 3.4,2.8 4.59961,6.49883 4.59961,10.79883 v 56 c -0.3,11.5 0.10117,23 -0.29883,34.5 -0.2,7.1 -0.10156,14.30039 -0.10156,21.40039 0,1.9 -0.29961,3.79961 -1.09961,5.59961 -3.7,7.7 -13.5,9.5 -20,3.5 -4.4,-4.1 -8.79961,-8.19883 -13.09961,-12.29883 -0.84064,-0.7964 -1.34193,-1.21615 -1.74218,-1.25586 l -14.66993,32.55078 c -0.0292,0.0683 -0.0587,0.13677 -0.0879,0.20508 -0.021,0.0482 -0.0452,0.0909 -0.0664,0.13867 l -39.23438,87.06055 -119.09961,-69.59961 V 130.21094 Z"
+         id="polygon2"
+         transform="translate(724.11104,79.489951)"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccccccccccccccccccccccccccsccsccccccccccc" />
+      <g
+         id="g10"
+         style="fill:#ffffff" />
+    </g>
+  </g>
+</svg>

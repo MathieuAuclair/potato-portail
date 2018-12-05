@@ -1,0 +1,33 @@
+﻿@model ApplicationPlanCadre.Models.ElementCompetence
+
+@{
+    ViewBag.Titre = "Modification d'un élèment de compétence";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.numero)
+    @Html.HiddenFor(m => m.idCompetence)
+
+    <div class="container">
+        <div class="form-box">
+
+            <header class="light-header">
+
+                <h1>@ViewBag.Titre</h1>
+
+            </header>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.description)
+                @Html.TextAreaFor(m => m.description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+            </div>
+
+            <input type="submit" value="Suivant" class="fancy-button" />
+            <a class="fancy-button rouge" onclick="location.href='@Url.Action("Info", "ElementCompetence", new { idElement = Model.idElement })'">Annuler</a>
+
+        </div>
+    </div>
+}

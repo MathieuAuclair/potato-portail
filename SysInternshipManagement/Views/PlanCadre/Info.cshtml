@@ -1,0 +1,222 @@
+﻿@model ApplicationPlanCadre.Models.PlanCadre
+@using ApplicationPlanCadre.Models;
+
+@{
+    ViewBag.Titre = Model.titreCours;
+    string idRecherche = "";
+}
+
+@Html.Action("ListeProgramme", "Programme", new {idPlan = @ViewBag.idPlanCadreActuel})
+
+
+<div class="super-view">
+<header class="fat-header">
+    <h3>Plan cadre</h3>
+    <h1>@ViewBag.Titre</h1>
+    <hr/>
+    <h3>@Html.DisplayFor(m => m.numeroCours)</h3>
+</header>
+
+<div class="plan-cadre-table-container">
+    <table class="plan-cadre-table">
+        <tr>
+            <th style="width: 20%">Objectif - Énoncé des compétences</th>
+            <th style="width: 45%">Standard - Contexte de réalisation</th>
+            <th style="width: 35%">Indication pédagogiques, s'il y a lieu</th>
+        </tr>
+        @foreach (var planCadreEnonce in Model.PlanCadreEnonce)
+        {
+            <tr>
+
+                <td style="width: 20%">
+                    <p>@Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.description) (@Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.codeCompetence))</p>
+                    <p>@Html.DisplayFor(m => planCadreEnonce.ponderationEnHeure) heures</p>
+                </td>
+
+                <td style="width: 45%">
+                    <ul class="hyphen-list">
+                        @foreach (var contexteRealisation in planCadreEnonce.EnonceCompetence.ContexteRealisation)
+                        {
+                            <li>@Html.DisplayFor(m => contexteRealisation.description)</li>
+                        }
+                    </ul>
+                </td>
+
+                @if (planCadreEnonce == Model.PlanCadreEnonce.First())
+                {
+                    <td rowspan="@Model.PlanCadreEnonce.Count()" style="width: 35%">
+                        @Html.DisplayFor(m => Model.indicationPedago)
+                    </td>
+                }
+
+            </tr>
+        }
+    </table>
+    @foreach (var planCadreEnonce in Model.PlanCadreEnonce)
+    {
+        idRecherche = "enc" + planCadreEnonce.idPlanCadreEnonce.ToString() + "enc";
+        <table class="plan-cadre-table">
+            <tr>
+                <th colspan="4" id="@idRecherche">
+                    @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.description) (@Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.codeCompetence))
+                </th>
+            </tr>
+            <tr>
+                <th style="width: 15%">
+                    Éléments de compétence
+                </th>
+                <th style="width: 30%">
+                    Critères de performance
+                </th>
+                <th style="width: 30%">
+                    Éléments de connaissances
+                </th>
+                <th style="width: 25%">
+                    Activités d'apprentissage suggérées
+                </th>
+            </tr>
+            @for (int i = 0; i < planCadreEnonce.PlanCadreElement.Count(); i++)
+            {
+                var planCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(i);
+                var elementCompetence = planCadreElement.ElementCompetence;
+                idRecherche = "el" + elementCompetence.idElement;
+
+                <tr>
+
+                    <td style="width: 15%">
+                        <ol start="@elementCompetence.numero">
+                            <li id="@idRecherche"> @Html.DisplayFor(m => elementCompetence.description)</li>
+                        </ol>
+                    </td>
+
+                    <td style="width: 30%">
+                        <ol>
+                            @foreach (var criterePerformance in planCadreElement.ElementCompetence.CriterePerformance)
+                            {
+                                <li>@Html.DisplayFor(m => criterePerformance.description)</li>
+                            }
+                        </ol>
+                    </td>
+
+                    @{
+                        bool isPreviousUsingSameConnaissance = false;
+                        if (i > 0)
+                        {
+                            var previousPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(i - 1);
+                            isPreviousUsingSameConnaissance = previousPlanCadreElement.ElementConnaissance.idElementConnaissance == planCadreElement.ElementConnaissance.idElementConnaissance;
+                        }
+
+                        bool isThereConnaissanceFollowing = false;
+                        int connaissanceRowspan = 1;
+                        for (int j = i + 1; j < planCadreEnonce.PlanCadreElement.Count(); j++)
+                        {
+                            var followingPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(j);
+                            if (followingPlanCadreElement.ElementConnaissance.idElementConnaissance == planCadreElement.ElementConnaissance.idElementConnaissance)
+                            {
+                                isThereConnaissanceFollowing = true;
+                                connaissanceRowspan++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    @if (!isPreviousUsingSameConnaissance)
+                    {
+                        if (isThereConnaissanceFollowing)
+                        {
+                            <td rowspan="@connaissanceRowspan" class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.description)</td>
+                        }
+                        else
+                        {
+                            <td class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.description)</td>
+                        }
+                    }
+
+                    @{
+                        bool isPreviousUsingSameActivite = false;
+                        if (i > 0)
+                        {
+                            var previousPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(i - 1);
+                            isPreviousUsingSameActivite = previousPlanCadreElement.ElementConnaissance.idActiviteApprentissage == planCadreElement.ElementConnaissance.idActiviteApprentissage;
+                        }
+
+                        bool isThereActiviteFollowing = false;
+                        int activiteRowspan = 1;
+                        for (int j = i + 1; j < planCadreEnonce.PlanCadreElement.Count(); j++)
+                        {
+                            var followingPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(j);
+                            if (followingPlanCadreElement.ElementConnaissance.idActiviteApprentissage == planCadreElement.ElementConnaissance.idActiviteApprentissage)
+                            {
+                                isThereActiviteFollowing = true;
+                                activiteRowspan++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    @if (!isPreviousUsingSameActivite)
+                    {
+                        if (isThereActiviteFollowing)
+                        {
+                            <td rowspan="@activiteRowspan" class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.ActiviteApprentissage.description)</td>
+                        }
+                        else
+                        {
+                            <td class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.ActiviteApprentissage.description)</td>
+                        }
+                    }
+
+                </tr>
+            }
+        </table>
+    }
+
+    <table class="plan-cadre-table">
+
+        <tr>
+
+            <th style="width: 50%">
+                Environnement physique
+            </th>
+
+            <th style="width: 50%">
+                Ressources didactiques suggérées
+            </th>
+
+        </tr>
+
+        <tr>
+
+            <td style="width: 50%" class="rich-cell">
+                @Html.Raw(Model.environnementPhys)
+            </td>
+
+            <td style="width: 50%" class="rich-cell">
+                @Html.Raw(Model.ressource)
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+<hr class="end-div"/>
+
+<div class="menu-flottant">
+    <a class="fancy-button blanc" onclick="location.href = '@Url.Action("Info", "Programme", new {idProgramme = Model.idProgramme})'"><span class="glyphicon glyphicon-triangle-left"></span>Retour</a>
+</div>
+</div>
+
+<script>
+    $(("#p" + @Model.Programme.idProgramme)).collapse('show');
+    $(("#pc" + @Model.idPlanCadre + "element")).addClass('active');
+    $(("#pc" + @Model.idPlanCadre)).collapse('show');
+
+</script>

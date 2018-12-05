@@ -1,0 +1,47 @@
+@using PotatoPortail.Views.Shared.Widget.Model
+@model IEnumerable<PotatoPortail.Models.Contact>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Contact</h1>
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <form action="/Contact/Creation" method="post">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau contact"))
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>Nom du contact</th>
+            <th>Courriel</th>
+            <th>Téléphone</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Courriel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Telephone)
+                </td>
+                <td>
+                    <div>
+                        <form action="/Contact/Edition" method="post">
+                            <input name="idContact" type="hidden" value="@Html.DisplayFor(model => item.IdContact)" />
+                            <button>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
+                            </button>
+                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Contact", new { id = item.IdContact })'" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

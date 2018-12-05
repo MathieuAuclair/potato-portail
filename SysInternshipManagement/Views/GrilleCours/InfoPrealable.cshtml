@@ -1,0 +1,40 @@
+﻿@model ApplicationPlanCadre.Models.GrilleCours
+
+
+@Html.Action("ListeGrilleCours")
+<div class="super-view">
+
+    <header class="fat-header">Supression
+
+        <h1>Grille de cours : @Model.nom</h1>
+
+    </header>
+
+    <div class="section-grille">
+        <h1>@ViewBag.nom</h1>
+
+        <hr />
+
+        <div class="select-grille">
+            <div class="row">
+                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("Info", "grilleCours", new { id = Model.idGrille })'"><h3>Structure</h3></div>
+                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("InfoHeure", "grilleCours", new { id = Model.idGrille })'"><h3>Heure</h3></div>
+                <div class="col-sm-4" id="selected-grille"><h3>Préalable</h3></div>
+            </div>
+        </div>
+
+        <hr />
+
+    </div>
+
+    @Html.Action("_Prealable")
+
+    <div class="menu-flottant">
+
+        <a class="fancy-button blanc" href='@Url.Action("Index","GrilleCours")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+        @*<div class="fancy-button blanc" onclick="location.href='@Url.Action("Modifier", "grilleCours", new { id = Model.idGrille })'"><span class="glyphicon glyphicon-pencil"></span> Modifier</div>*@
+        <div class="fancy-button blanc rouge" onclick="location.href='@Url.Action("Supression", "grilleCours", new { id = Model.idGrille })'"><span class="glyphicon glyphicon-trash"></span> Supprimer</div>
+
+    </div>
+
+</div>

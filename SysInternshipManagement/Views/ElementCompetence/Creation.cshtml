@@ -1,0 +1,31 @@
+﻿@model ApplicationPlanCadre.Models.ElementCompetence
+
+@{
+    ViewBag.Titre = "Création d'un nouvel élément de compétence";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="form-box">
+            
+            <header class="light-header">
+
+                <h1>@ViewBag.Titre</h1>
+
+            </header>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.description)
+                @Html.TextAreaFor(m => m.description, new {@rows = "3", @maxlength = "300", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+            </div>
+
+            <input type="submit" value="Suivant" class="fancy-button"/>
+            <div class="fancy-button rouge" onclick="location.href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.idCompetence })'">Annuler</div>
+
+        </div>
+    </div>
+}

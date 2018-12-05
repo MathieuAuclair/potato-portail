@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
+
+
+@Html.Action("ListeOrdreDuJour")
+
+<div class="super-view">
+    <div class="form-box">
+
+        <header class="light-header">
+            <h1>Ordre du jour - @ViewBag.AnneeODJ</h1>
+        </header>
+
+        @foreach (var odj in Model.OrderByDescending(m => m.dateOdJ))
+        {
+            <div>
+                <a class="info-child clearfix vertical-align" href='@Url.Action("Details", new { id = odj.idOdJ })'>
+                    <p class="gauche">@Html.DisplayFor(p => odj.dateOdJ)</p><p class="droiteG">@Html.DisplayFor(p => odj.titreOdJ)</p>
+                </a>
+                @*<a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "EnonceCompetence", new { idCompetence = enonceCompetence.idCompetence })'><span class="glyphicon glyphicon-trash"></span></a>*@
+            </div>
+        }
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href='@Url.Action("Index", "OrdreDuJour")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+        </div>
+    </div>
+</div>

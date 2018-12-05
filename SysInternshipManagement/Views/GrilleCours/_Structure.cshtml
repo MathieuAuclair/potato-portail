@@ -1,0 +1,119 @@
+﻿@model ApplicationPlanCadre.Models.GrilleCours
+
+@{ 
+    //En attendant de pouvoir récupérer cette liste via une requête ou dans la table. 
+    List<string> listeSession = new List<string> { "I", "II", "III", "IV", "V", "VI" };
+}
+
+@* Début du tableau *@
+<div class="section-grille">
+
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            @* Vérifie si la liste est pleine ou vide *@
+            @if (Model.Cours.FirstOrDefault() == null)
+            {
+                <p>Cette grille de cours est vide. Veuillez y associer des cours !!!</p>
+            }
+            else
+            {
+                <thead>
+                    <tr class="danger">
+                        <td colspan="2"></td>
+                        @{
+                            foreach (var ec in Model.Cours.FirstOrDefault().PlanCadre.Programme.DevisMinistere.EnonceCompetence)
+                            {
+                                var totalPonderation = 0;
+                                foreach (var ponderation in ec.PlanCadreEnonce)
+                                {
+                                    totalPonderation = totalPonderation + ponderation.ponderationEnHeure;
+                                }
+                                <td>@totalPonderation</td>
+
+                            }
+                        }
+                        <td><b>Total</b></td>
+
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        @{
+                            foreach (var ec in Model.Cours.FirstOrDefault().PlanCadre.Programme.DevisMinistere.EnonceCompetence)
+                            {
+                                <th>@ec.codeCompetence.Substring(1, 3)</th>
+                            }
+                            <th></th>
+                        }
+                    </tr>
+                </thead>
+                <tbody id="grilleBody" class="grilleBody">
+
+                    @foreach (var session in listeSession)
+                {
+                        <tr class="success">
+                            <td>Session @session </td>
+                            <td></td>
+                        </tr>
+                        foreach (var cours in Model.Cours)
+                        {
+                            if (cours.idSession == cours.Session.idSession)
+                            {
+                                if (cours.Session.nom == session)
+                                {
+                                    if (cours.PlanCadre.idType == 2)
+                                    {
+                                        <tr class="warning" id="collapseTest" aria-expanded="false">
+                                            <td id="infobulle"><b>@cours.PlanCadre.titreCours.Substring(0, 7)</b> <span>@cours.PlanCadre.titreCours (@cours.PlanCadre.numeroCours)</span> </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td id="infobulle" colspan="2"><b>@cours.PlanCadre.titreCours.Substring(0, 7)</b> <span>@cours.PlanCadre.titreCours (@cours.PlanCadre.numeroCours)</span> </td>
+                                            @{
+                                                var cpt = 0;
+                                                foreach (var ec in Model.Cours.FirstOrDefault().PlanCadre.Programme.DevisMinistere.EnonceCompetence)
+                                                {
+                                                    cpt++;
+                                                    foreach (var pce in cours.PlanCadre.PlanCadreEnonce)
+                                                    {
+                                                        if (ec.idCompetence == pce.idCompetence)
+                                                        {
+                                                            <td class="default">@Html.DisplayFor(p => pce.ponderationEnHeure)</td>
+                                                        }
+                                                        else if (ec.idCompetence == pce.idCompetence)
+                                                        {
+
+                                                        }
+                                                    }
+                                                    <td></td>
+                                                }
+                                                var totalPonderation = 0;
+                                                foreach (var pce in cours.PlanCadre.PlanCadreEnonce)
+                                                {
+                                                    totalPonderation = totalPonderation + pce.ponderationEnHeure;
+                                                }
+                                                <td class="danger">@totalPonderation</td>
+
+                                            }
+                                        </tr>
+                                                                }
+
+
+                                                            }
+
+                                                        }
+
+                                                    }
+                                                }
+
+                </tbody>
+                                                }
+        </table>
+    </div>
+
+</div>
+
+

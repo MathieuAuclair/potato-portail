@@ -4,12 +4,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Gestion de stage</title>
+    <title>@ViewBag.Titre</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/Styles/flat-props.css")
-    @Styles.Render("~/Content/Styles/navigation.css")
-    @Styles.Render("~/Content/Styles/edition.css")
+    @Styles.Render("~/Content/material-icons.css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", false)
+
+    <script>
+        function rechercheLayout() {
+            var stringRech = document.getElementById("txtRecherche").value;
+            //TODO implement
+            //window.location.href = "@*Url.Action("Recherche", "Recherche"*@)?stringRechercher=" + stringRech;
+        }
+
+        $(document).bind('keydown',
+            function(e) {
+                if (e.which === 13) {
+                    $('#rechercheLayout').trigger('click');
+                }
+            });
+    </script>
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,14 +56,8 @@
 </div>
 <div class="container body-content">
     @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Gestion de stage</p>
-    </footer>
-</div>
+    @Html.Partial("_Toastr")
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+</section>
 </body>
 </html>

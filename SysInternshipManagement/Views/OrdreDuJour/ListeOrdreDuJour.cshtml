@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
+
+<div class="tree-view">
+
+    @{ int annee = 23; }
+
+    @foreach (var ordreDuJour in Model.OrderByDescending(m => m.dateOdJ))
+    {
+        string p_id = "p" + ordreDuJour.idOdJ.ToString();
+        string p_element = p_id + "element";
+        string p_target = "#" + p_id;
+
+        if (ordreDuJour.dateOdJ.Year != annee)
+        {
+            annee = ordreDuJour.dateOdJ.Year;
+            <div id=@annee class="tree-view-item">
+                <div class="collapse-button" data-toggle="collapse" data-target=@p_target>
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </div>
+                <a href='@Url.Action("Info", new {id = ordreDuJour.idOdJ, year = ordreDuJour.dateOdJ.Year})'>
+                    <p>@annee</p>
+                </a>
+            </div>
+        }
+
+        <div id=@p_id class="collapse">
+            <div class="tree-view-item-container">
+                @foreach (var EnonceOrdreDuJour in Model.OrderByDescending(m => m.dateOdJ))
+                {
+                    string odjc_id = "odj" + EnonceOrdreDuJour.idOdJ.ToString();
+                    string odjc_element = odjc_id + "element";
+                    string odjc_target = "#" + odjc_id;
+                    <div id=@odjc_element class="tree-view-item">
+                        <div class="no-button"></div>
+                        @if (EnonceOrdreDuJour.dateOdJ.Year == annee)
+                        {
+                            <a href='@Url.Action("Details", new {id = EnonceOrdreDuJour.idOdJ})'>
+                                @Html.DisplayFor(m => EnonceOrdreDuJour.titreOdJ)
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.tree-view');
+</script>

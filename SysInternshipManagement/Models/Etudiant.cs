@@ -1,11 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SysInternshipManagement.Models
+namespace PotatoPortail.Models
 {
-    public class Etudiant
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Etudiant")]
+    public partial class Etudiant
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Etudiant()
+        {
+            Application = new HashSet<Application>();
+        }
+
         [Key]
         public int IdEtudiant { get; set; }
 
@@ -32,15 +41,12 @@ namespace SysInternshipManagement.Models
 
         [Required]
         public string Role { get; set; }
-        
-        public virtual Preference Preference { get; set; }
 
-        public string NomComplet
-        {
-            get
-            {
-                return Prenom + " " + NomDeFamille;
-            }
-        }
+        public int? Preference_IdPreference { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Application> Application { get; set; }
+
+        public virtual Preference Preference { get; set; }
     }
 }

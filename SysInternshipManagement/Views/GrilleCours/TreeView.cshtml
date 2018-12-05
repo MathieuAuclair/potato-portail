@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.GrilleCours>
+
+<div id="tree-view">
+    @foreach (var grille in Model)
+    {
+        <a>@Html.DisplayFor(p => grille.nom)</a>
+        foreach (var nomGrille in grille.nom)
+        {
+            <a>@Html.DisplayFor(nomG => grille.nom)</a>
+        }
+    }
+</div>
+

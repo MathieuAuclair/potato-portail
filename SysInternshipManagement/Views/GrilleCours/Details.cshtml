@@ -1,0 +1,26 @@
+﻿@model ApplicationPlanCadre.Models.GrilleCours
+
+@{
+    ViewBag.Titre = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GrilleCours</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Modifier", new { id = Model.idGrille }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

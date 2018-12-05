@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Titre = "Gérer";
+}
+
+<h2>@ViewBag.Titre.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Changer les paramètres de votre compte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Mot de passe :</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Changer votre mot de passe", "ChangePassword")
+            }
+            ]
+        </dd>
+        <dt>Connexions externes :</dt>
+        <dd>
+        </dd>
+    </dl>
+</div>

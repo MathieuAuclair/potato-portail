@@ -1,0 +1,142 @@
+﻿@using ApplicationPlanCadre.Models
+@using System.Dynamic;
+@model  dynamic
+
+@{
+    ViewBag.Titre = "Recherche dans les devis";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<div class="container">
+    <div class="form-box">
+        <div id="searchForm">
+            <input type="text" class="form-control" placeholder="Recherche" id="Stxt" name="stringRechercher" value="@ViewBag.txtRecherche">
+            <button id="rechercheView" onclick="rechercheView()"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function rechercheView() {
+        var stringRech = document.getElementById("Stxt").value;
+        window.location.href = "@Url.Action("Recherche", "Recherche")?stringRechercher=" + stringRech;
+    }
+
+    $(document).bind('keydown', function (e) {
+        if (e.which === 13) { // return
+            $('#rechercheView').trigger('click');
+        }
+    });
+</script>
+
+<div id="resultArea">
+    <div class="container">
+        <div class="form-box">
+            <h1>Résultat</h1>
+           @if (Model != null)
+            {
+                if ((Model.EnonceCompetence != null) || (Model.ElementCompetence != null) || (Model.DevisMinistere != null) || (Model.CriterePerformance != null) || (Model.ContexteRealisation != null))
+                {
+                    if ((Model.EnonceCompetence.Count == 0) && (Model.ElementCompetence.Count == 0) && (Model.DevisMinistere.Count == 0) && (Model.CriterePerformance.Count == 0) && (Model.ContexteRealisation.Count == 0))
+                    {
+                        <p style="color:red;">Aucune information à été trouvée</p>
+                    }
+                    else
+                    {
+                        if (Model.EnonceCompetence.Count != 0)
+                        {
+                            <h2>Énoncer Compétence</h2>
+                            <hr />
+                            foreach (RechecheEnonceCompetence enonceCmpt in Model.EnonceCompetence)
+                            {
+                                <a class="info-child clearfix" href="@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCmpt.idCompetence })">
+                                    <p><span class="ligne">Code compétence : </span>@Html.Raw(enonceCmpt.codeCompetence)</p>
+                                    <p><span class="ligne">Description : </span>@Html.Raw(enonceCmpt.description)</p>
+                                </a>
+                            }
+                        }
+
+                        if (((IDictionary<string, object>)Model).ContainsKey("ElementCompetence"))
+                        {
+                            if (Model.ElementCompetence != null)
+                            {
+                                if (Model.ElementCompetence.Count != 0)
+                                {
+                                    <h2>Élément Compétence</h2>
+                                    <hr />
+                                    foreach (RechecheElementCompetence elementCompt in Model.ElementCompetence)
+                                    {
+                                        <a class="info-child clearfix" href="@Url.Action("Info", "ElementCompetence", new { idElement = elementCompt.idElement })">
+                                            <p><span class="ligne">Description : </span>@Html.Raw(elementCompt.description)</p>
+                                        </a>
+                                    }
+
+                                }
+
+                            }
+
+                            if (((IDictionary<string, object>)Model).ContainsKey("DevisMinistere"))
+                            {
+                                if (Model.DevisMinistere.Count != 0)
+                                {
+                                    <h2>Devis ministériel</h2>
+                                    <hr />
+                                    foreach (RechercheDevisMinistere devis in Model.DevisMinistere)
+                                    {
+                                        <a class="info-child clearfix" href="@Url.Action("Info", "DevisMinistere", new { idDevis = devis.idDevis })">
+                                            <p><span class="ligne">Année : </span>@Html.Raw(devis.annee)</p>
+                                            <p><span class="ligne">Code de spécialisation : </span>@Html.Raw(devis.codeSpecialisation)</p>
+                                            <p><span class="ligne">Spécialisation : </span>@Html.Raw(devis.specialisation)</p>
+                                            <p><span class="ligne">Condition : </span>@Html.Raw(devis.condition)</p>
+                                            <p><span class="ligne">Sanction : </span>@Html.Raw(devis.sanction)</p>
+                                            <p><span class="ligne">Code de programme : </span>@Html.Raw(devis.codeProgramme)</p>
+                                        </a>
+                                    }
+                                }
+                            }
+
+                            if (((IDictionary<string, object>)Model).ContainsKey("ContexteRealisation"))
+                            {
+                                if (Model.ContexteRealisation != null)
+                                {
+                                    if (Model.ContexteRealisation.Count != 0)
+                                    {
+                                        <h2>Contexte de réalisation</h2>
+                                        <hr />
+
+                                        foreach (RechercheContexteRealisation contexteReal in Model.ContexteRealisation)
+                                        {
+                                            <a class="info-child clearfix" href="@Url.Action("Info", "EnonceCompetence", new { idCompetence = contexteReal.idCompetence })">
+                                                <p><span class="ligne">Description : </span>@Html.Raw(contexteReal.description)</p>
+                                            </a>
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if (((IDictionary<string, object>)Model).ContainsKey("CriterePerformance"))
+                            {
+                                if (Model.CriterePerformance != null)
+                                {
+                                    if (Model.CriterePerformance.Count != 0)
+                                    {
+                                        <h2>Critère de performance</h2>
+                                        <hr />
+                                        foreach (RechecheCriterePerformance critPerf in Model.CriterePerformance)
+                                        {
+                                            <a class="info-child clearfix" href="@Url.Action("Info", "ElementCompetence", new { idElement = critPerf.idElement })">
+                                                <p><span class="ligne">Description : </span>@Html.Raw(critPerf.description)</p>
+                                            </a>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

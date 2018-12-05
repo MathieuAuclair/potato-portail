@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="contain">
+        <div class="footer-left"><span>Cégep de Jonquière</span> </div>
+        <div class="footer-center">
+            Page <span id='page'></span> sur
+            <span id='topage'></span>
+        </div>
+        <div class="footer-right"><span id="date"></span></div>
+
+    </div>
+</body>
+</html>
+
+<style>
+    .footer-left {
+        display: inline-block;
+        width: 33%;
+        
+    }
+    
+    .footer-center {
+        display:inline-block;
+        width:33%;
+        text-align:center;
+    }
+
+    .footer-right {
+        display: inline-block;
+        width:33%;
+        
+        
+    }
+    .contain {
+        width: 100%;        
+    }
+
+    #date{
+        float:right;
+    }
+</style>
+
+<script>
+    var vars = {};
+    var x = window.location.search.substring(1).split('&');
+    for (var i in x) {
+        var z = x[i].split('=', 2);
+        vars[z[0]] = unescape(z[1]);
+    }
+    document.getElementById('page').innerHTML = vars.page;
+    document.getElementById('topage').innerHTML = vars.topage; 
+
+    n = new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date").innerHTML = y + "/" + m + "/" + d;
+</script>

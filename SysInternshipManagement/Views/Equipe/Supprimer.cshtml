@@ -1,0 +1,46 @@
+﻿@model ApplicationPlanCadre.Models.eSports.Equipe
+
+@{
+    ViewBag.Titre = "Suppression de " + Model.nomEquipe;
+}
+
+<div class="container" style="margin-bottom:5%;">
+
+    <div class="box">
+
+        <header class="light-header">
+            <h1>Suppression de l'équipe «@ViewBag.nomEquipe» (@ViewBag.nomJeu)</h1>
+        </header>
+
+
+        @if (Model.Joueur.Count > 0)
+        {
+            <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueur.Count joueurs.</h3>
+
+            foreach (var joueur in Model.Joueur)
+            {
+                <h4>@joueur.PseudoJoueur</h4>
+            }
+        }
+        else
+        {
+            <h3>«@ViewBag.nomEquipe» est actuellement composée d'aucun joueur.</h3>
+        }
+        <div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" href="/Equipe/Index">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Confirmer la suppression" class="fancy-button blanc" />
+            </div>
+            }
+        </div>
+
+    </div>
+</div>

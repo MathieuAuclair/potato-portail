@@ -1,0 +1,49 @@
+﻿@model PotatoPortail.Models.eSports.Joueur
+
+@{
+    ViewBag.Titre = "Suppression de " + Model.PseudoJoueur;
+}
+
+<div class="container">
+    <div class="box">
+        <header class="light-header">
+            <h1>Êtes-vous sûr de vouloir supprimer ce joueur ?</h1>
+        </header>
+        <div>
+            <div class="element">
+                @Html.Label("Nom du joueur")
+                @Html.DisplayFor(model => model.Etudiant.Prenom + @Model.Etudiant.NomDeFamille)
+            </div>
+            <div class="element">
+                @Html.LabelFor(model => model.PseudoJoueur)
+                @Html.DisplayFor(model => model.PseudoJoueur)
+            </div>
+            <div class="element">
+                @Html.Label("Autre jeu")
+                @if (Model.Profil.JeuSecondaire != null)
+                {
+                    @Html.DisplayFor(model => model.Profil.JeuSecondaire.nomJeu)
+                }
+                else
+                {
+                    @:Aucun jeu secondaire n'a été spécifié à l'inscription
+                }
+            </div>
+            <div class="element">
+                @Html.LabelFor(model => model.Profil.Courriel)
+                @Html.DisplayFor(model => model.Profil.Courriel)
+            </div>
+        </div>
+        {
+        @Html.AntiForgeryToken()
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href='@Url.Action("Index", "Joueur")'>
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Annuler
+            </a>
+            <input type="submit" value="Confirmer la suppression" class="fancy-button blanc"/>
+        </div>
+        }
+    </div>
+</div>

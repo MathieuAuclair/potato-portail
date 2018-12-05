@@ -1,0 +1,39 @@
+@using PotatoPortail.Views.Shared.Widget.Model
+@model IEnumerable<PotatoPortail.Models.Poste>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Contact</h1>
+    
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <form action="/Poste/Creation" method="post">
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau type de poste"))
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>Nom du poste</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Nom)
+                </td>
+                <td>
+                    <div>
+                        <form action="/Poste/Edition" method="post">
+                            <input name="idPoste" type="hidden" value="@Html.DisplayFor(model => item.IdPoste)"/>
+                            <button>
+                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg"/>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ApplicationPlanCadre.Models.DevisMinistere>
+
+<div class="tree-view">
+    <div class="tree-view-header">
+        Devis ministériels
+        <a href="@Url.Action("Recherche", "Recherche")">
+            <span class="glyphicon glyphicon glyphicon-search"></span>
+        </a>
+    </div>
+    @foreach (var devisMinistere in Model.OrderBy(m => m.codeProgramme))
+    {
+        string p_id = "p" + devisMinistere.idDevis.ToString();
+        string p_element = p_id + "element";
+        string p_target = "#" + p_id;
+
+        <div id=@p_element class="tree-view-item">
+
+            @if (devisMinistere.EnonceCompetence.Count > 0)
+            {
+                <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+            }
+            else
+            {
+                <div class="no-button"></div>
+            }
+
+            <a href='@Url.Action("Info", "DevisMinistere", new { idDevis = devisMinistere.idDevis })'>
+                @Html.DisplayFor(m => devisMinistere.nom)
+            </a>
+
+        </div>
+        <div id=@p_id class="collapse">
+            <div class="tree-view-item-container">
+
+                <div class="tree-view-header">Énoncés de compétence</div>
+
+                @foreach (var enonceCompetence in devisMinistere.EnonceCompetence.OrderBy(m => m.codeCompetence))
+                {
+                    string enc_id = "enc" + enonceCompetence.idCompetence.ToString();
+                    string enc_element = enc_id + "element";
+                    string enc_target = "#" + enc_id;
+                    <div id=@enc_element class="tree-view-item">
+
+                        @if (enonceCompetence.ElementCompetence.Count > 0)
+                        {
+                            <div class="collapse-button" data-toggle="collapse" data-target=@enc_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+                        }
+                        else
+                        {
+                            <div class="no-button"></div>
+                        }
+
+                        <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCompetence.idCompetence })'>
+                            @Html.DisplayFor(m => enonceCompetence.nom)
+                        </a>
+
+                    </div>
+                    <div id=@enc_id class="collapse">
+                        <div class="tree-view-item-container">
+                            <div class="tree-view-header">Éléments de compétence</div>
+                            @foreach (var elementCompetence in enonceCompetence.ElementCompetence.OrderBy(m => m.numero))
+                            {
+                                string el_item = "el" + elementCompetence.idElement.ToString() + "element";
+
+                                <div id=@el_item class="tree-view-item">
+
+                                    <div class="no-button"></div>
+
+                                    <a href='@Url.Action("Info", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
+                                        @Html.DisplayFor(m => elementCompetence.description)
+                                    </a>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.tree-view');
+</script>

@@ -1,0 +1,102 @@
+﻿@model PotatoPortail.Models.eSports.Profil
+
+@{
+    ViewBag.Titre = "Inscription";
+}
+
+<div class="container">
+    <div class="form-box">
+
+        <header class="light-header">
+            <h1>Remplissez ce formulaire pour vous inscrire</h1>
+        </header>
+
+        <h3>@ViewBag.equipeMonojoueurExistante</h3>
+        <h3>@ViewBag.jeuxSelectionnesIdentiques</h3>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Pseudo)
+                        @Html.TextBoxFor(model => model.Pseudo, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Pseudo, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Courriel)
+                        @Html.TextBoxFor(model => model.Courriel, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Courriel, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Note)
+                        @Html.TextBoxFor(model => model.Note, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Note, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.EtudiantId)
+                        @Html.DropDownListFor(model => model.EtudiantId, (IEnumerable<SelectListItem>) ViewBag.lstEtudiants, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.EtudiantId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>Jeu primaire</p>
+                                <hr/>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.JeuId, (IEnumerable<SelectListItem>) ViewBag.lstJeux, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.JeuId, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>Jeu secondaire</p>
+                                <hr/>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.JeuSecondaireId, (IEnumerable<SelectListItem>) ViewBag.lstJeuxSecondaires, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.JeuSecondaireId, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" href="/Accueil/ESport">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+
+                <input type="submit" value="Soumettre l'inscription" class="fancy-button blanc"/>
+            </div>
+        }
+
+    </div>
+</div>
+<hr class="end-div"/>

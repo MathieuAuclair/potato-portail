@@ -1,0 +1,49 @@
+﻿@model ApplicationPlanCadre.Models.eSports.Caracteristique
+
+@{
+    ViewBag.Titre = "Ajout de caractéristique - " + ViewBag.nomJeu;
+}
+
+<div class="container">
+
+    <div class="form-box">
+
+
+        <header class="light-header">
+            <h1>Ajout de caractéristique pour «@ViewBag.nomJeu»</h1>
+        </header>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+            <div class="form-group">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.nomCaracteristique)
+                        @Html.TextBoxFor(model => model.nomCaracteristique, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.nomCaracteristique, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.JeuId, htmlAttributes: new {@class = "control-label col-md-2"})
+                        @Html.HiddenFor(model => model.JeuId, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.JeuId, "", new {@class = "text-danger"})
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Ajouter cette caractéristique" class="fancy-button blanc"/>
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@model ApplicationPlanCadre.Models.eSports.Equipe
+
+@{
+    ViewBag.Titre = "Création d'équipe";
+}
+
+<div class="container">
+
+    <div class="form-box">
+
+        <header class="light-header">
+            <h1>Création d'une équipe</h1>
+        </header>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.nomEquipe)
+                        @Html.TextBoxFor(model => model.nomEquipe, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.nomEquipe, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.JeuId)
+                        @Html.DropDownListFor(model => model.JeuId, (IEnumerable<SelectListItem>) ViewBag.Jeux, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.JeuId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" href='@Url.Action("Index", "Equipe")'>
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Créer l'équipe" class="fancy-button blanc"/>
+            </div>
+        }
+
+    </div>
+</div>
+
+<hr class="end-div"/>
