@@ -11,7 +11,7 @@ namespace PotatoPortail.Controllers
     [RCPContexteRealisationAuthorize]
     public class ContexteRealisationController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult _PartialList(int? idCompetence)
         {

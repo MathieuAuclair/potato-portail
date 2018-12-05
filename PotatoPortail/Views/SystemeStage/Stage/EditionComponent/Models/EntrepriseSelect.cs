@@ -7,7 +7,7 @@ namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
     public class EntrepriseSelect
     {
         public List<Entreprise> Entreprises { get; set; }
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BDPortail _bd = new BDPortail();
 
         public EntrepriseSelect()
         {

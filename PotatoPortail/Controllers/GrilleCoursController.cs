@@ -9,7 +9,7 @@ namespace PotatoPortail.Controllers
 {
     public class GrilleCoursController : Controller
     {
-        private DatabaseContext db = new DatabaseContext();
+        private BDPortail db = new BDPortail();
 
         public ActionResult Index()
         {

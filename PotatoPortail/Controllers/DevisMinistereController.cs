@@ -15,7 +15,7 @@ namespace PotatoPortail.Controllers
     [RCPDevisMinistereAuthorize]
     public class DevisMinistereController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         private IQueryable<DevisMinistere> GetRcpDevisMinistere()
         {

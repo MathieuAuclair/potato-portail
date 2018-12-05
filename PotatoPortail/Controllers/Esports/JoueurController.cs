@@ -9,7 +9,7 @@ namespace PotatoPortail.Controllers.Esports
 {
     public class JoueurController : Controller
     {
-        private readonly BdPortail _db = new BdPortail();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Index(string sortOrder)
         {

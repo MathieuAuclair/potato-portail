@@ -12,7 +12,7 @@ namespace PotatoPortail.Controllers
     [RCPElementCompetenceAuthorize]
     public class ElementCompetenceController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Info(int? idElement)
         {

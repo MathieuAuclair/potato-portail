@@ -12,7 +12,7 @@ namespace PotatoPortail.Controllers.Esports
 {
     public class JeuController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Index()
         {
@@ -107,7 +107,7 @@ namespace PotatoPortail.Controllers.Esports
         // GET: Jeu/Edit/5
         public ActionResult Modifier(int? id, string nomJeu)
         {
-            var caracJeu = from carac in _db.Caracteristiques
+            var caracJeu = from carac in _db.Caracteristique
                 where carac.JeuId == id
                 select carac;
 

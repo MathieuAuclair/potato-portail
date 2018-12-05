@@ -7,7 +7,7 @@ namespace PotatoPortail.Controllers.Esports
 {
     public class ItemController : Controller
     {
-        private readonly BdPortail _db = new BdPortail();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Index(int? id, string nomCaracterisque, string nomJeu)
         {
@@ -15,7 +15,7 @@ namespace PotatoPortail.Controllers.Esports
                 where entity.IdCaracteristique == id
                 select entity;
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = _db.Caracteristique.Find(id);
 
             if (caracteristique == null)
             {
@@ -56,7 +56,7 @@ namespace PotatoPortail.Controllers.Esports
 
         public ActionResult Creation(int? caracteristiqueId, string nomCarac, string nomJeu)
         {
-            _db.Caracteristiques.Find(caracteristiqueId);
+            _db.Caracteristique.Find(caracteristiqueId);
 
             ViewBag.CaracteristiqueId = caracteristiqueId;
             ViewBag.nomCarac = nomCarac;
@@ -75,7 +75,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(item.CaracteristiqueId);
+            Caracteristique caracteristique = _db.Caracteristique.Find(item.CaracteristiqueId);
 
             if (caracteristique == null)
             {
@@ -112,7 +112,7 @@ namespace PotatoPortail.Controllers.Esports
             ViewBag.nomCaracteristique = nomCarac;
             ViewBag.nomJeu = nomJeu;
             ViewBag.CaracteristiqueId =
-                new SelectList(_db.Caracteristiques, "id", "nomCaracteristique", item.CaracteristiqueId);
+                new SelectList(_db.Caracteristique, "id", "nomCaracteristique", item.CaracteristiqueId);
 
             return View(item);
         }
@@ -127,7 +127,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(item.CaracteristiqueId);
+            Caracteristique caracteristique = _db.Caracteristique.Find(item.CaracteristiqueId);
 
             if (caracteristique == null)
             {
@@ -183,7 +183,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(item.CaracteristiqueId);
+            Caracteristique caracteristique = _db.Caracteristique.Find(item.CaracteristiqueId);
 
             if (caracteristique == null)
             {

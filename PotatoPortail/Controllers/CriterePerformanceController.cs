@@ -5,13 +5,14 @@ using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
     [RCPCriterePerformanceAuthorize]
     public class CriterePerformanceController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult _PartialList(int? idElement)
         {
@@ -60,16 +61,16 @@ namespace PotatoPortail.Controllers
                 _db.CriterePerformance.Add(criterePerformance);
                 _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la creation",
-                    "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                    "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                     " a bien été créé.", Toast.ToastType.Success);
-                return RedirectToAction("Creation", new {idElement = criterePerformance.idElement});
+                return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement});
             }
 
             this.AddToastMessage("Confirmation de la creation",
-                "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                 " n'a pas été créé.", Toast.ToastType.Error);
 
-            criterePerformance.ElementCompetence = _db.ElementCompetence.Find(criterePerformance.idElement);
+            criterePerformance.ElementCompetence = _db.ElementCompetence.Find(criterePerformance.IdElement);
             return View(criterePerformance);
         }
 
@@ -98,15 +99,15 @@ namespace PotatoPortail.Controllers
             if (ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                    "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                     " a bien été modifié.", Toast.ToastType.Success);
                 _db.Entry(criterePerformance).State = EntityState.Modified;
                 _db.SaveChanges();
-                return RedirectToAction("Creation", new {idElement = criterePerformance.idElement});
+                return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement });
             }
 
             this.AddToastMessage("Confirmation de la modification",
-                "Le critère de performance " + '\u0022' + criterePerformance.description + '\u0022' +
+                "Le critère de performance " + '\u0022' + criterePerformance.Description + '\u0022' +
                 " n'a été modifié.", Toast.ToastType.Error);
 
             return View(criterePerformance);

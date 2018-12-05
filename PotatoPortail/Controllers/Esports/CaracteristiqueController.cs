@@ -9,7 +9,7 @@ namespace PotatoPortail.Controllers.Esports
 {
     public class CaracteristiqueController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Details(int? id)
         {
@@ -18,7 +18,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = _db.Caracteristique.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace PotatoPortail.Controllers.Esports
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
                 }
 
-                _db.Caracteristiques.Add(caracteristique);
+                _db.Caracteristique.Add(caracteristique);
                 _db.SaveChanges();
                 return RedirectToAction("Modifier", "Jeu", new {jeu.id, jeu.nomJeu});
             }
@@ -69,7 +69,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = _db.Caracteristique.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
@@ -111,7 +111,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = _db.Caracteristique.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
@@ -131,7 +131,7 @@ namespace PotatoPortail.Controllers.Esports
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = _db.Caracteristique.Find(id);
 
             if (caracteristique == null)
             {
@@ -145,7 +145,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            _db.Caracteristiques.Remove(caracteristique);
+            _db.Caracteristique.Remove(caracteristique);
             _db.SaveChanges();
 
             return RedirectToAction("Modifier", "Jeu", new {jeu.id, jeu.nomJeu});

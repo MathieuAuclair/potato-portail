@@ -8,7 +8,7 @@ namespace PotatoPortail.Views.Stage.EditionComponent.Models
     public class StatusSelect
     {
         public List<Status> Status { get; set; }
-        private DatabaseContext _bd = new DatabaseContext();
+        private BDPortail _bd = new BDPortail();
 
         public StatusSelect()
         {

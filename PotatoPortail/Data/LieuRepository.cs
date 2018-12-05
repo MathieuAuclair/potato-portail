@@ -10,7 +10,7 @@ namespace PotatoPortail.Data
 
         public IEnumerable<SelectListItem> getLieu()
         {
-            using (var context = new DatabaseContext())
+            using (var context = new BDPortail())
             {
                 List<SelectListItem> lieu = context.LieuDeLaReunion.AsNoTracking().Select(local => new SelectListItem { Value = local.idLieu.ToString(), Text = local.emplacementReunion}).ToList();
                 var defaut = new SelectListItem()

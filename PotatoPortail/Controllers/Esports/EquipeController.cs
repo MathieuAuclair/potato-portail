@@ -11,7 +11,7 @@ namespace PotatoPortail.Controllers.Esports
 {
     public class EquipeController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BDPortail _db = new BDPortail();
 
         public ActionResult Index(int? searchIdJeu)
         {
