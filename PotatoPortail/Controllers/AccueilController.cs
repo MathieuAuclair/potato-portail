@@ -1,14 +1,23 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using ApplicationPlanCadre.Helpers;
 
-namespace PotatoPortail.Controllers
+namespace ApplicationPlanCadre.Controllers
 {
     public class AccueilController : Controller
     {
         [Authorize]
         public ActionResult Index()
         {
-            ViewBag.prenom = "test";
-            return View("/Views/Accueil/Index.cshtml");
+            ViewBag.prenom = HttpContext.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>()
+                .FindById(User.Identity.GetUserId()).prenom;
+            return View();
         }
 
         [Authorize(Roles = "RCP")]
@@ -29,8 +38,13 @@ namespace PotatoPortail.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult Reunions()
+        {
+            return View();
+        }
+        [Authorize]
+
+        public ActionResult OrdreDuJour()
         {
             return View();
         }

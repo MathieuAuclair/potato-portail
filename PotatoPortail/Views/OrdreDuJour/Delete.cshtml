@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.ReunionsViewModel.CreerOrdreDuJourViewModel
+﻿@model ApplicationPlanCadre.ViewModels.OrdresDuJourVM.OrdreDuJourViewModel
 
 @{
     ViewBag.Titre = "Supression d'un ordre du jour";
@@ -14,9 +14,7 @@
         <header class="light-header">
 
             <h1>@ViewBag.Titre</h1>
-
-            <h3>@Html.DisplayFor(m => m.ordreDuJour.titreOdJ)</h3>
-
+            <h3>@Html.DisplayFor(m => m.ordreDuJour.TitreOdJ)</h3>
         </header>
 
 
@@ -24,73 +22,7 @@
 
         <hr />
         <input type="submit" value="Confirmer" class="fancy-button" />
-        <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "OrdreDuJour", new { currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
-
+        <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "OrdreDuJour", new { currentUrl = Request.UrlReferrer.ToString() })'">Annuler</div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-    @*<div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ordreDuJour.titreOdJ)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ordreDuJour.titreOdJ)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ordreDuJour.dateOdJ)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ordreDuJour.dateOdJ)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ordreDuJour.heureDebutReunion)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ordreDuJour.heureDebutReunion)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ordreDuJour.heureFinReunion)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ordreDuJour.heureFinReunion)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ordreDuJour.lieuReunionODJ)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ordreDuJour.lieuReunionODJ)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => Model.sujetPointPrincipal[0].sujetPoint)
-            </dt>
-            @foreach (var item in Model.sujetPointPrincipal)
-            {
-                <dd>
-                    @Html.DisplayFor(Model => item.sujetPoint)
-                </dd>
-            }
-        </dl>
-
-        
-    </div>*@
-    }
-
-
+}

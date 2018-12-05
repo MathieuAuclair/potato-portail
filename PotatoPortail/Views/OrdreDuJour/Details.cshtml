@@ -1,55 +1,76 @@
-﻿@model ApplicationPlanCadre.Models.ReunionsViewModel.CreerOrdreDuJourViewModel
+﻿@model ApplicationPlanCadre.ViewModels.OrdresDuJourVM.OrdreDuJourViewModel
 
 @{
-    ViewBag.Titre = Model.ordreDuJour.titreOdJ;
+    ViewBag.Titre = Model.ordreDuJour.TitreOdJ;
 }
 
 @Html.Action("ListeOrdreDuJour")
+
 <div class="super-view">
     <header class="fat-header">
         <h3>Ordre du jour</h3>
         <h1>@ViewBag.Titre</h1>
         <hr/>
     </header>
+
     <div class="row">
         <div class="col-md-6">
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.dateOdJ)
-                @Html.DisplayFor(m => m.ordreDuJour.dateOdJ)
+                @Html.LabelFor(m => m.ordreDuJour.DateOdJ)
+                @Html.DisplayFor(m => m.ordreDuJour.DateOdJ)
             </div>
+
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.heureDebutReunion)
-                @Html.DisplayFor(m => m.ordreDuJour.heureDebutReunion)
+                @Html.LabelFor(m => m.ordreDuJour.HeureDebutReunion)
+                @Html.DisplayFor(m => m.ordreDuJour.HeureDebutReunion)
             </div>
+
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.heureFinReunion)
-                @Html.DisplayFor(m => m.ordreDuJour.heureFinReunion)
+                @Html.LabelFor(m => m.ordreDuJour.HeureFinReunion)
+                @Html.DisplayFor(m => m.ordreDuJour.HeureFinReunion)
             </div>
+
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.lieuReunionODJ)
-                @Html.DisplayFor(m => m.ordreDuJour.lieuReunionODJ)
+                @Html.LabelFor(m => m.ordreDuJour.LieuReunionODJ)
+                @Html.DisplayFor(m => m.ordreDuJour.LieuReunionODJ)
             </div>
-            <hr/>
+            <hr />
         </div>
+
         <div class="col-md-6">
             <div class="field-box">
                 @Html.Label("Points principaux de l'ordre du jour")
-                <hr/>
+                <hr />
                 <div class="element">
                     @foreach (var item in Model.sujetPointPrincipal)
                     {
                         <dd>
-                            @Html.DisplayFor(Model => item.sujetPoint)
+                        <span style="font-weight: bold;">@Html.DisplayFor(Model => item.SujetPoint)</span>
+                            @if(Model.listeSousPointSujet != null)
+                            {
+                                foreach(var sp in Model.listeSousPointSujet)
+                                {
+                                    <ul style="margin:0;">
+                                    @if (sp.IdSujetPointPrincipal == item.IdPointPrincipal)
+                                    {
+                                        @Html.DisplayFor(Model => sp.SujetSousPoint)
+                                    }
+                                    </ul>
+                                }
+                            }                        
                         </dd>
                     }
                 </div>
             </div>
         </div>
 
+        <hr class="end-div" />
+
+
         <div class="menu-flottant">
             <a class="fancy-button blanc" href='@Url.Action("Index", "OrdreDuJour")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-            <a class="fancy-button blanc" href='@Url.Action("Edit", new {id = Model.ordreDuJour.idOdJ})'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
-            <a class="fancy-button rouge blanc" onclick="location.href = '@Url.Action("Delete", new {id = Model.ordreDuJour.idOdJ})'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'ordre du jour</a>
+            <a class="fancy-button blanc" href='@Url.Action("Edit", new { id = Model.ordreDuJour.IdOdJ })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+            <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Delete", new { id = Model.ordreDuJour.IdOdJ })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'ordre du jour</a>
         </div>
     </div>
 </div>
