@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using PotatoPortail.Models.eSports;
-using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers.Esports
@@ -19,7 +14,7 @@ namespace PotatoPortail.Controllers.Esports
         // GET: Caracteristique
         public ActionResult Index()
         {
-            return View(db.Caracteristiques.ToList());
+            return View(_db.Caracteristiques.ToList());
         }
 
         // GET: Caracteristique/Details/5
@@ -29,7 +24,7 @@ namespace PotatoPortail.Controllers.Esports
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Caracteristique caracteristique = db.Caracteristiques.Find(id);
+            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
@@ -40,7 +35,7 @@ namespace PotatoPortail.Controllers.Esports
         // GET: Caracteristique/Create
         public ActionResult Creation(int? JeuId, string nomJeu)
         {
-            Jeu jeu = db.Jeux.Find(JeuId);
+            Jeu jeu = _db.Jeux.Find(JeuId);
             if (jeu == null)
             {
                 return HttpNotFound();
@@ -62,14 +57,9 @@ namespace PotatoPortail.Controllers.Esports
             {
                 Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
-                db.Caracteristiques.Add(caracteristique);
-                db.SaveChanges();
-                return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
-            }
-
                 _db.Caracteristiques.Add(caracteristique);
                 _db.SaveChanges();
-                return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
+                return RedirectToAction("Modifier", "Jeu", new { jeu.Id, jeu.NomJeu});
             }
 
             return View(caracteristique);
@@ -109,15 +99,10 @@ namespace PotatoPortail.Controllers.Esports
 
             Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
-                db.Entry(caracteristique).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
-            }
-
             _db.Entry(caracteristique).State = EntityState.Modified;
             _db.SaveChanges();
-
-            return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
+            return RedirectToAction("Modifier", "Jeu", new { jeu.Id, jeu.NomJeu});
+            
         }
 
         // GET: Caracteristique/Delete/5
@@ -166,16 +151,16 @@ namespace PotatoPortail.Controllers.Esports
             _db.Caracteristiques.Remove(caracteristique);
             _db.SaveChanges();
 
-            db.Caracteristiques.Remove(caracteristique);
-            db.SaveChanges();
-            return RedirectToAction("Modifier", "Jeu", new { jeu.id, jeu.nomJeu});
+            _db.Caracteristiques.Remove(caracteristique);
+            _db.SaveChanges();
+            return RedirectToAction("Modifier", "Jeu", new { jeu.Id, jeu.NomJeu});
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

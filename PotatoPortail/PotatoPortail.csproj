@@ -309,7 +309,8 @@
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
     <Compile Include="ViewModels\eSports\EquipeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\OrdresDuJour\CreerOrdreDuJourViewModel.cs" />
+    <Compile Include="ViewModels\OrdresDuJour\ModificationModeleViewModel.cs" />
+    <Compile Include="ViewModels\OrdresDuJour\OrdreDuJourViewModel.cs" />
     <Compile Include="ViewModels\PageTitreViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\ActiviteViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\CompetenceViewModel.cs" />

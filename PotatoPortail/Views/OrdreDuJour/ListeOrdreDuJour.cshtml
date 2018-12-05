@@ -1,45 +1,57 @@
 ﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
-
 <div class="tree-view">
 
-    @{ int annee = 23; }
+    @{ int annee = 3000;}
 
-    @foreach (var ordreDuJour in Model.OrderByDescending(m => m.dateOdJ))
+    @foreach (var ordreDuJour in Model.OrderByDescending(m => m.DateOdJ))
     {
-        string p_id = "p" + ordreDuJour.idOdJ.ToString();
+        string p_id = "p" + ordreDuJour.IdOdJ.ToString();
         string p_element = p_id + "element";
         string p_target = "#" + p_id;
 
-        if (ordreDuJour.dateOdJ.Year != annee)
+        if (ordreDuJour.DateOdJ.Year != annee)
         {
-            annee = ordreDuJour.dateOdJ.Year;
+            annee = ordreDuJour.DateOdJ.Year;
             <div id=@annee class="tree-view-item">
-                <div class="collapse-button" data-toggle="collapse" data-target=@p_target>
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </div>
-                <a href='@Url.Action("Info", new {id = ordreDuJour.idOdJ, year = ordreDuJour.dateOdJ.Year})'>
+                <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+                <a href='@Url.Action("Info", new { id = ordreDuJour.IdOdJ, year = ordreDuJour.DateOdJ.Year })'>
                     <p>@annee</p>
                 </a>
             </div>
         }
 
+        @*<div id=@p_element class="tree-view-item">
+                <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+
+                <a>
+                    <p>@annee</p>
+                </a>
+
+            </div>*@
+
         <div id=@p_id class="collapse">
             <div class="tree-view-item-container">
-                @foreach (var EnonceOrdreDuJour in Model.OrderByDescending(m => m.dateOdJ))
+                <div class="tree-view-header">Ordre du jour</div>
+
+                @foreach (var EnonceOrdreDuJour in Model.OrderByDescending(m => m.IdOdJ))
                 {
-                    string odjc_id = "odj" + EnonceOrdreDuJour.idOdJ.ToString();
+                    string odjc_id = "odj" + EnonceOrdreDuJour.IdOdJ.ToString();
                     string odjc_element = odjc_id + "element";
                     string odjc_target = "#" + odjc_id;
+
                     <div id=@odjc_element class="tree-view-item">
+
                         <div class="no-button"></div>
-                        @if (EnonceOrdreDuJour.dateOdJ.Year == annee)
+
+                        @if (EnonceOrdreDuJour.DateOdJ.Year == annee)
                         {
-                            <a href='@Url.Action("Details", new {id = EnonceOrdreDuJour.idOdJ})'>
-                                @Html.DisplayFor(m => EnonceOrdreDuJour.titreOdJ)
+                            <a href='@Url.Action("Details", new { id = EnonceOrdreDuJour.IdOdJ })'>
+                                @Html.DisplayFor(m => EnonceOrdreDuJour.DateOdJ)
                             </a>
                         }
                     </div>
                 }
+
             </div>
         </div>
     }

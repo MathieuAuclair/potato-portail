@@ -1,7 +1,8 @@
-namespace PotatoPortail.Models
+﻿namespace ApplicationPlanCadre.Models.Reunions
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -20,6 +21,7 @@ namespace PotatoPortail.Models
 
         [Required]
         [StringLength(50)]
+        [DisplayName("Sujet principal")]
         public string SujetPoint { get; set; }
 
         public int? PositionPP { get; set; }

@@ -1,0 +1,92 @@
+﻿@model ApplicationPlanCadre.ViewModels.ModificationModeleViewModel
+
+@{
+    ViewBag.Title = "ModifierModeleOrdreDuJour";
+}
+<script src="~/Scripts/modifModeleDynamique.js" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="form-box">
+        <header class="light-header">
+            <h1>Modification du modèle de l'ordre du jour</h1>
+        </header>
+
+        <h3>@Html.Label("Points principaux")</h3>
+        @if (Model.listPP != null)
+        {
+            int cpt = 0;
+            foreach (var item in Model.listPP)
+            {
+                if (cpt == Model.listPP.Count - 1)
+                {
+                    <div class="form-group">
+                        <input id="ajoutPP" type="button" onclick="ajoutPPrincipal(this.id)" value="Ajout d'un sujet" class="fancy-button" />
+                    </div>
+                    <div id="PointPrincipal1">
+                        <input type="text" name="listPP" class="form-control inline" value="@item">
+                        <a class="fancy-button rouge vertical-align margin-left" id="btnMoins_@cpt" onclick="enleverPPrincipal(this.id,@cpt)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div id="PointPrincipal1">
+                        <input type="text" name="listPP" class="form-control inline" value="@item">
+                        <a class="fancy-button rouge vertical-align margin-left" id="btnMoins_@cpt" onclick="enleverPPrincipal(this.id,@cpt)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                }
+                cpt++;
+            }
+        }
+        else
+        {
+            <div id="PointPrincipal1">
+                <input type="text" name="listPP" class="form-control inline">
+                <a class="fancy-button rouge vertical-align margin-left" id="btnMoins1" onclick="enleverPPrincipal(this.id,1)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
+
+            <div id="PointPrincipal2">
+                <input type="text" name="listPP" class="form-control inline">
+                <a class="fancy-button rouge vertical-align margin-left" id="btnMoins2" onclick="enleverPPrincipal(this.id,2)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
+
+            <div id="PointPrincipal3">
+                <input type="text" name="listPP" class="form-control inline">
+                <a class="fancy-button rouge vertical-align margin-left" id="btnMoins3" onclick="enleverPPrincipal(this.id,3)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
+
+            <div class="form-group">
+                <input id="ajoutPP" type="button" onclick="ajoutPPrincipal(this.id)" value="Ajout d'un sujet" class="fancy-button" />
+            </div>
+
+            <div id="PointPrincipal4">
+                <input type="text" name="listPP" class="form-control inline" value="Varia">
+                <a class="fancy-button rouge vertical-align margin-left" id="btnMoins4" onclick="enleverPPrincipal(this.id,4)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
+        }
+        <input type="submit" value="Enregistrer" class="fancy-button" />
+        <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "OrdreDuJour", new { currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
+
+    </div>
+
+</div>
+}
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.tree-view');
+</script>
