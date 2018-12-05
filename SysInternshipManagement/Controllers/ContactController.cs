@@ -19,7 +19,6 @@ namespace SysInternshipManagement.Controllers
         [HttpPost]
         public ActionResult Modifier(int? idContact)
         {
-
             var contact = _bd.contact.Find(idContact);
 
             if (contact == null)

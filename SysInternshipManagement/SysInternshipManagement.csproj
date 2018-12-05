@@ -227,7 +227,7 @@
     <Content Include="Views\Stage\EditionComponent\EntrepriseSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\PosteSelect.cshtml" />
     <Content Include="Views\Stage\EditionComponent\StatusSelect.cshtml" />
-    <Content Include="Views\Status\Edition.cshtml" />
+    <Content Include="Views\Status\Modifier.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

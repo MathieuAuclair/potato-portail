@@ -10,49 +10,44 @@
 
     <h2>Applications aux stages</h2>
 
-    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
-    <div style="margin-top: 15px; margin-bottom: 15px;">
-        <form action="/Application/Creation" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Appliquer pour un stage"))
-        </form>
-
-    </div>
-    <input type="button" value="Appliquer à un stage" class="btn btn-default" onclick="location.href = '@Url.Action("Creation", "Application")'" />
+    <input class="fancy-button" type="button" value="Appliquer à un stage" onclick="location.href = '@Url.Action("Creation", "Application")'" />
     <div class="row">
         <div class="col-md-11">
             <table class="cool-table">
                 <tr>
-                    <th colspan="1" class="action-cell-header">Nom de l'étudiant</th>
-                    <th colspan="1" class="action-cell-header">Code permanent</th>
-                    <th colspan="1" class="action-cell-header">Description du stage</th>
+                    <th colspan="2">Nom de l'étudiant</th>
+                    <th colspan="2" >Code permanent</th>
+                    <th colspan="3" >Description du stage</th>
+                    <th colspan="1" class="action-cell-header">Modifier</th>
+                    <th colspan="1" class="action-cell-header">Supprimer</th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Etudiant.NomComplet)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Etudiant.CodePermanent)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Stage.Description)
-                        </td>
-                        <td>
-                            <div>
-                                <form action="/Entreprise/Edition" method="post">
-                                    <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => item.IdApplication)" />
-                                    <button>
-                                        <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Etudiant.NomComplet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Etudiant.CodePermanent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stage.Description)
+                    </td>
+                   
+                    <td colspan="1" class="action-cell">
 
-                    <input type="button" value="Modifier" class="btn btn-default" onclick="location.href = '@Url.Action("Edition", "Application", new { id = item.IdApplication })'" />
-                    <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Application", new { id = item.IdApplication })'" />
+                        <a href='@Url.Action("Edition", "Application", new { id = item.IdApplication })'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                    <td colspan="1" class="action-cell">
+                        <a href='@Url.Action("Suppression", "Application", new { id = item.IdApplication })'>
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+
                 }
             </table>
         </div>
