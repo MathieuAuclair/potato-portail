@@ -28,7 +28,7 @@
                     string pc_element = pc_id + "element";
                     string pc_target = "#" + pc_id;
                     <div id=@pc_element class="tree-view-item">
-                        @if (planCadre.PlanCadreEnonce.Count > 0)
+                        @if (planCadre.PlanCadreCompetence.Count > 0)
                         {
                             <div class="collapse-button" data-toggle="collapse" data-target=@pc_target><span class="glyphicon glyphicon-chevron-right"></span></div> }
                         else
@@ -41,31 +41,28 @@
                     <div id=@pc_id class="collapse">
                         <div class="tree-view-item-container">
                             <div class="tree-view-header">Énoncés de compétence</div>
-                            @foreach (var planCadreEnonce in planCadre.PlanCadreEnonce.OrderBy(e => e.idPlanCadreEnonce))
+                            @foreach (var planCadreCompetence in planCadre.PlanCadreCompetence.OrderBy(e => e.idPlanCadreCompetence))
                             {
-                                string idPlanCadreEnonce = planCadreEnonce.idPlanCadreEnonce.ToString();
-                                string enc_recherche="#enc" + idPlanCadreEnonce+"enc";
-                                string enc_id = "enc" + idPlanCadreEnonce;
+                                string idPlanCadreCompetence = planCadreCompetence.idPlanCadreCompetence.ToString();
+                                string enc_recherche="#enc" + idPlanCadreCompetence+"enc";
+                                string enc_id = "enc" + idPlanCadreCompetence;
                                 string enc_element = enc_id + "element";
                                 string enc_target = "#" + enc_id;
 
                                 <div id=@enc_element class="tree-view-item">
-                                @if (planCadreEnonce.PlanCadreElement.Count() > 0)
-                                {
-                                <div class="collapse-button" data-toggle="collapse" data-target=@enc_target><span class="glyphicon glyphicon-chevron-right"></span></div> }
-                                else
-                                {
-                                    <div class="no-button"></div>}
+          
+                                    <div class="collapse-button" data-toggle="collapse" data-target=@enc_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+
                                 @if (ViewBag.idPlanCadreActuel != planCadre.idPlanCadre)
                                 {
                                     <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre })@enc_recherche'>
-                                    @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.description)
+                                    @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.description)
                                     </a>
 
                                  }
                                 else {
                                     <a href="@enc_recherche">
-                                    @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreEnonce.EnonceCompetence.description)
+                                    @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.description)
                                     </a>
                                 }
 
@@ -73,7 +70,8 @@
                                 <div id=@enc_id class="collapse">
                                     <div class="tree-view-item-container">
                                         <div class="tree-view-header">Éléments de compétence</div>
-                                        @foreach (var planCadreElement in planCadreEnonce.PlanCadreElement)
+                                    
+                                        @foreach (var planCadreElement in planCadreCompetence.PlanCadreElement)
                                         {
                                             string el_item = "el" + planCadreElement.idElement.ToString() + "element";
                                             string el_recherche = "#el" + planCadreElement.idElement.ToString();

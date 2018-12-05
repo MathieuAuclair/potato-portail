@@ -23,6 +23,7 @@
 
 
 <div id="super-view">
+    @*@Html.Action("_TreeView")*@
     <div class="container">
         <div class="form-box">
 
@@ -48,7 +49,7 @@
             {
                 <a class="info-child clearfix" target="_blank" href='@Url.Action("RapportProgramme", "Rapport",new { id = programme.idProgramme})'>
                     <p class="droiteG">@Html.DisplayFor(x => programme.nom)</p>
-                    <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.EnteteProgramme.codeProgramme)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
+                    <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.Departement.discipline)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
                 </a>
             }
 

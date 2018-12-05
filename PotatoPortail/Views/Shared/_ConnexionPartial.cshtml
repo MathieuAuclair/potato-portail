@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("Deconnexion", "Compte"))
+    using (Html.BeginForm("Deconnexion", "Compte", FormMethod.Post, new { id = "logoutForm" }))
     {
         @Html.AntiForgeryToken()
         <div onclick="javascript:document.getElementById('logoutForm').submit()" class="layout-button"><span class="glyphicon glyphicon-log-out"></span></div>

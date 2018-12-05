@@ -3,11 +3,8 @@
 <div class="tree-view">
     <div class="tree-view-header">
         Devis ministériels
-        <a href="@Url.Action("Recherche", "Recherche")">
-            <span class="glyphicon glyphicon glyphicon-search"></span>
-        </a>
     </div>
-    @foreach (var devisMinistere in Model.OrderBy(m => m.codeProgramme))
+    @foreach (var devisMinistere in Model.OrderBy(m => m.discipline))
     {
         string p_id = "p" + devisMinistere.idDevis.ToString();
         string p_element = p_id + "element";

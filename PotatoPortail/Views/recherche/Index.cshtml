@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Titre = "Plan cadre";
-    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Cours">
 }
 
 @Html.Action("ListeProgramme")
@@ -30,8 +29,8 @@
         </div>
     }
 
-    <hr class="end-div" />
-
+    <hr class="end-div"/>
+    
     <div class="menu-flottant">
         <a class="fancy-button blanc" onclick="location.href='@Url.Action("Pedagogie", "Accueil")'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
     </div>

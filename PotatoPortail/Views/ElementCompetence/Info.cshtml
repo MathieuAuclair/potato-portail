@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = Model.description;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="ElementCompetence">
 }
 
 @Html.Action("ListeDevis", "DevisMinistere")
@@ -27,7 +28,7 @@
                 <div>
                     <a id="@criterePerformance.idCritere"
                        class="info-child clearfix vertical-align"
-                       href='@Url.Action("Modifier","CriterePerformance", new { idCritere = criterePerformance.idCritere }/*fait une erreur quand on effectue la modification */)'> 
+                       href='@Url.Action("Modifier","CriterePerformance", new { idCritere = criterePerformance.idCritere }/*fait une erreur quand on effectue la modification */)'>
                         <p class="droite">@Html.DisplayFor(m => criterePerformance.description)</p>
                         <p class="gauche">@Html.DisplayFor(m => criterePerformance.numero)</p>
                     </a>
@@ -55,7 +56,7 @@
                     // gets the new and old index then removes the temporary attribute
                     var ordre = 1;
                     var listeElement = [];
-                   
+
                     $("#listeCriterePerformance div").each(function () {
                         var idelement = $(this)[0].children[0].id;
                         var objModel = { idelement: idelement, numero: ordre };

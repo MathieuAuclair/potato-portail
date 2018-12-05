@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = "Suppression d'un élément de compétence";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="ElementCompetence">
 }
 
 @using (Html.BeginForm())
@@ -21,7 +22,7 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @if (Model.PlanCadreElement.Count() > 0)
+            @if (Model.PlanCadreCompetence.Count() > 0)
             {
                 <p>Cet élément est lié à des plans cadre, la suppression est impossible.</p>
             }
@@ -33,7 +34,7 @@
 
                 <input type="submit" value="Confirmer" class="fancy-button" />
             }
-            
+
             <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "ElementCompetence", new { currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
 
         </div>

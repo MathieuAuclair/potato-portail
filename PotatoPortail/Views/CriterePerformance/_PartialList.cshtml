@@ -14,6 +14,9 @@
         <th class="action-cell-header">
             <b>Supprimer</b>
         </th>
+        <th class="action-cell-header">
+            <b>Déplacer</b>
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -34,6 +37,14 @@
             <td class="action-cell">
                 <a href='@Url.Action("Supression", new { idCritere = item.idCritere })'>
                     <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
+            <td class="action-cell">
+                <a href='@Url.Action("DeplacementHaut", new { idCritere = item.idCritere })'>
+                    <span class="glyphicon glyphicon glyphicon-arrow-up"></span>
+                </a>
+                <a href='@Url.Action("MouvementBas", new { idCritere = item.idCritere })'>
+                    <span class="glyphicon glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
         </tr>

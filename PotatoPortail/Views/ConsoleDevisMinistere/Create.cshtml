@@ -4,7 +4,7 @@
     ViewBag.Title = "Ajout d'un devis ministériel";
 }
 
-@using (Html.BeginForm("Creation", "ConsoleDevisMinistere", FormMethod.Post))
+@using (Html.BeginForm("Create", "ConsoleDevisMinistere", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -17,13 +17,13 @@
 
             </header>
 
-            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="field-box">
                 <div class="row">
                     <div class="col-md-8">
 
-                        @Html.ValidationMessage("Duplique", new {@class = "text-danger"})
+                        @Html.ValidationMessage("Duplique", new { @class = "text-danger" })
 
                         <div class="element">
 
@@ -34,24 +34,24 @@
 
                         <div class="form-group">
                             @Html.LabelFor(m => m.codeProgramme)
-                            @Html.DropDownList("codeProgramme", null, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.codeProgramme, "", new {@class = "text-danger"})
+                            @Html.DropDownList("codeProgramme", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.codeProgramme, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(m => m.annee)
-                            @Html.TextBoxFor(m => m.annee, null, new {@class = "form-control small", @maxlength = 4, @onkeydown = "return (!(event.keyCode>=65) && event.keyCode!=32);"})
-                            @Html.ValidationMessageFor(m => m.annee, "", new {@class = "text-danger"})
+                            @Html.TextBoxFor(m => m.annee, null, new { @class = "form-control small", @maxlength = 4, @onkeydown = "return (!(event.keyCode>=65) && event.keyCode!=32);" })
+                            @Html.ValidationMessageFor(m => m.annee, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(m => m.codeSpecialisation)
-                            @Html.TextBoxFor(m => m.codeSpecialisation, null, new {@class = "form-control small", @maxlength = 2})
-                            @Html.ValidationMessageFor(m => m.codeSpecialisation, "", new {@class = "text-danger"})
+                            @Html.TextBoxFor(m => m.codeSpecialisation, null, new { @class = "form-control small", @maxlength = 2 })
+                            @Html.ValidationMessageFor(m => m.codeSpecialisation, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="element">
-                            <input type="submit" value="Ajouter" class="fancy-button"/>
+                            <input type="submit" value="Ajouter" class="fancy-button" />
                             <a href='@Url.Action("Index")' class="fancy-button rouge">Annuler</a>
 
                         </div>
@@ -59,8 +59,9 @@
                     </div>
                 </div>
             </div>
-            <hr/>
-
+            <hr />
+            
         </div>
     </div>
+
 }

@@ -6,9 +6,9 @@
     <title>@ViewBag.Titre</title>
     Layout = null;
     bool rowspanIndicationPedago = false;
-    int nbCompetence = Model.PlanCadreEnonce.Count();
+    int nbCompetence = Model.PlanCadreCompetence.Count();
     int planCadrPrealableHold = 0;
-
+    ViewBag.Nom = Model.titreCours;
 }
 <style>
 
@@ -43,13 +43,9 @@
         font-weight: bold;
     }
 
-    tfoot {
-        display: table-footer-group
-    }
+    tfoot { display: table-footer-group }
 
-    div {
-        page-break-after: auto
-    }
+    div { page-break-after: auto }
 
     .divtop {
         width: 100%;
@@ -68,29 +64,33 @@
 
     .entete-left {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         width: 50%;
         float: left;
-        margin: 0px;
+        margin: 0;
     }
 
     .entete-right {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         width: 50%;
         float: right;
-        margin: 0px;
+        margin: 0;
     }
 
     .inner-left {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: left;
-        margin: 0px;
+        margin: 0;
     }
 
     .inner-right {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: left;
         margin-left: 10px;
@@ -98,6 +98,7 @@
 
     .inner2-left {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: right;
         margin-left: 10px;
@@ -105,172 +106,134 @@
 
     .inner2-right {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: right;
-        margin: 0px;
-    }
-
-    .prealable-right {
+        margin: 0;
     }
 
     .critere-left {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: left;
-        margin: 0px;
+        margin: 0;
         width: 4%;
         margin-right: 15px;
     }
 
     .critere-right {
         display: inline;
+        -moz-box-sizing: border-box;
         box-sizing: border-box;
-        margin: 0px;
+        margin: 0;
         float: left;
         width: 90%;
     }
 
 
-    .corps {
-        padding-top: 25px;
-    }
+    .corps { padding-top: 25px; }
 
     .line-prealable {
         margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    #clear {
-        clear: both;
-    }
+    #clear { clear: both; }
 </style>
 <div class="pdf">
-    @Html.Partial("~/Views/static/headerPlanCadre.cshtml")
-    <!-- barre top -->
-    <div class="divtop">
-        @Html.DisplayFor(x => Model.Programme.nom)@*nom programme*@
-        <br />
-        @Html.DisplayFor(x => Model.Programme.DevisMinistere.specialisation)@*devis specialisation*@
-    </div>
-    <!-- début de l'entête -->
-    <div class="entete">
-        <div class="entete-left">
-            <br />
-            <div class="inner-left">
-                Titre du cours :
-                <br />
-                Pondération :
-            </div>
-            <div class="inner-right">
-                @Html.DisplayFor(x => Model.titreCours)@*titre cours*@
-                <br />
-                @Html.DisplayFor(x => Model.nbHeureTheorie) - @Html.DisplayFor(x => Model.nbHeurePratique) - @Html.DisplayFor(x => Model.nbHeureDevoir)
-            </div>
+@Html.Partial("~/Views/static/header.cshtml", (string) ViewBag.Nom)
+<!-- barre top -->
+<div class="divtop">
+    @Html.DisplayFor(x => Model.Programme.nom)@*nom programme*@
+    <br/>
+    @Html.DisplayFor(x => Model.Programme.DevisMinistere.specialisation)@*devis specialisation*@
+</div>
+<!-- début de l'entête -->
+<div class="entete">
+    <div class="entete-left">
+        <br/>
+        <div class="inner-left">
+            Titre du cours :
+            <br/>
+            Pondération :
         </div>
-        <div class="entete-right">
-            <br />
-            <div class="inner2-left">
-                @Html.DisplayFor(x => Model.numeroCours)
-                <br />
-                @Html.DisplayFor(x => Model.Programme.DevisMinistere.codeProgramme)@*code programme devis*@.@Html.DisplayFor(x => Model.Programme.DevisMinistere.codeSpecialisation)
-            </div>
-            <div class="inner2-right">
-                Numéro du cours :
-                <br />
-                Programme :
-
-            </div>
+        <div class="inner-right">
+            @Html.DisplayFor(x => Model.titreCours)@*titre cours*@
+            <br/>
+            @Html.DisplayFor(x => Model.nbHeureTheorie) - @Html.DisplayFor(x => Model.nbHeurePratique) - @Html.DisplayFor(x => Model.nbHeureDevoir)
         </div>
     </div>
-    <div id="clear"></div>
+    <div class="entete-right">
+        <br/>
+        <div class="inner2-left">
+            @Html.DisplayFor(x => Model.numeroCours)
+            <br/>
+            @Html.DisplayFor(x => Model.Programme.DevisMinistere.discipline)@*code programme devis*@.@Html.DisplayFor(x => Model.Programme.DevisMinistere.codeSpecialisation)
+        </div>
+        <div class="inner2-right">
+            Numéro du cours :
+            <br/>
+            Programme :
 
-    <!-- début du corps du plan cadre-->
-    <div class="corps">
-        <table style="margin-bottom:25px">
-            <thead>
-                <tr>
-                    <td style="width:20%;">
-                        Objectif - Énoncé des compétences
-                    </td>
-                    <td style="width:45%;">
-                        Standard - Contexte de réalisation
-                    </td>
-                    <td>
-                        Indication pédagogiques, s'il y a lieu
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (PlanCadreEnonce a in Model.PlanCadreEnonce)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(x => a.EnonceCompetence.description) (@Html.DisplayFor(x => a.EnonceCompetence.codeCompetence))
-                            <br />
-                            <br />
-                            @Html.DisplayFor(x => a.ponderationEnHeure) heures
-                        </td>
-                        <td>
-                            <ul>
-                                @foreach (ContexteRealisation c in a.EnonceCompetence.ContexteRealisation)
-                                {
-                                    <li>@Html.DisplayFor(x => c.description)</li>
-                                }
-                            </ul>
-                        </td>
-                        @if (rowspanIndicationPedago != true)
+        </div>
+    </div>
+</div>
+<div id="clear"></div>
+
+<!-- début du corps du plan cadre-->
+<div class="corps">
+<table style="margin-bottom: 25px">
+    <thead>
+    <tr>
+        <td style="width: 20%;">
+            Objectif - Énoncé des compétences
+        </td>
+        <td style="width: 45%;">
+            Standard - Contexte de réalisation
+        </td>
+        <td>
+            Indication pédagogiques, s'il y a lieu
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (PlanCadreCompetence a in Model.PlanCadreCompetence)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(x => a.EnonceCompetence.description) (@Html.DisplayFor(x => a.EnonceCompetence.codeCompetence))
+                <br/>
+                <br/>
+                @Html.DisplayFor(x => a.ponderationEnHeure) heures
+            </td>
+            <td>
+                <ul>
+                    @foreach (ContexteRealisation c in a.EnonceCompetence.ContexteRealisation)
+                    {
+                        <li>@Html.DisplayFor(x => c.description)</li>
+                    }
+                </ul>
+            </td>
+            @if (rowspanIndicationPedago != true)
+            {
+                <td rowspan=@Html.Raw(nbCompetence)>
+                    @if (ViewData["listPcPrealableA"] != null)
+                    {
+                        foreach (PlanCadre pc in (List<PlanCadre>) ViewData["listPcPrealableA"])
                         {
-                            <td rowspan=@Html.Raw(nbCompetence)>
-                                @if (ViewData["listPcPrealableA"] != null)
-                                {
-                                    foreach (PlanCadre pc in ViewData["listPcPrealableA"] as List<PlanCadre>)
-                                    {
-                                        foreach (PlanCadrePrealable prealable in pc.PlanCadrePrealable)
-                                        {
-                                            if (planCadrPrealableHold != prealable.idPlanCadre)
-                                            {
-                                                if (prealable.idStatus == 2)
-                                                {
-                                                    <div class="prealableA">
-                                                        <div class="prealable-left">
-                                                            <div>Préalable absolu à:</div>
-                                                        </div>
-                                                        <div class="prealable-right">
-                                                            <div class="line-prealable">@Html.DisplayFor(x => pc.titreCours) @Html.DisplayFor(x => pc.numeroCours)</div>
-                                                        </div>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    if (prealable.idStatus == 1)
-                                                    {
-                                                        <div class="prealableA">
-                                                            <div class="prealable-left">
-                                                                <div>Préalable Relatif à:</div>
-                                                            </div>
-                                                            <div class="prealable-right">
-                                                                <div class="line-prealable">@Html.DisplayFor(x => pc.titreCours) @Html.DisplayFor(x => pc.numeroCours)</div>
-                                                            </div>
-                                                        </div>
-                                                    }
-
-                                                }
-                                                planCadrPrealableHold = prealable.idPlanCadre;
-                                            }
-                                        }
-                                    }
-                                }
-                                <div class="clearfix"></div>
-                                @foreach (PlanCadrePrealable prealable in a.PlanCadre.PlanCadrePrealable)
+                            foreach (PlanCadrePrealable prealable in pc.PlanCadrePrealable)
+                            {
+                                if (planCadrPrealableHold != prealable.idPlanCadre)
                                 {
                                     if (prealable.idStatus == 2)
                                     {
                                         <div class="prealableA">
                                             <div class="prealable-left">
-                                                <div>Préalable absolu :</div>
+                                                <div>Préalable absolu à:</div>
                                             </div>
                                             <div class="prealable-right">
-                                                <div class="line-prealable">@Html.DisplayFor(x => prealable.Prealable.titreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.Prealable.numeroCours)@Html.Raw(")")</div>
+                                                <div class="line-prealable">@Html.DisplayFor(x => pc.titreCours) @Html.DisplayFor(x => pc.numeroCours)</div>
                                             </div>
                                         </div>
                                     }
@@ -280,168 +243,200 @@
                                         {
                                             <div class="prealableA">
                                                 <div class="prealable-left">
-                                                    <div>Préalable relatif :</div>
+                                                    <div>Préalable Relatif à:</div>
                                                 </div>
                                                 <div class="prealable-right">
-                                                    <div class="line-prealable">@Html.DisplayFor(x => prealable.Prealable.titreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.Prealable.numeroCours)@Html.Raw(")")</div>
+                                                    <div class="line-prealable">@Html.DisplayFor(x => pc.titreCours) @Html.DisplayFor(x => pc.numeroCours)</div>
                                                 </div>
                                             </div>
                                         }
                                     }
+                                    planCadrPrealableHold = prealable.idPlanCadre;
                                 }
-
-                                @Html.DisplayFor(x => Model.indicationPedago)
-                            </td>
-                            rowspanIndicationPedago = true;
+                            }
                         }
-                    </tr>
-                }
-            </tbody>
-        </table>
-        @foreach (PlanCadreEnonce planCadreEnonce in Model.PlanCadreEnonce)
-        {
-            <!-- Affichage en boucle des tableau des ennoncer compétence-->
-
-            <div style="margin-top:50px;">
-                <table>
-                    <thead>
-                        <tr>
-                            <td colspan="4">
-                                @Html.DisplayFor(x => planCadreEnonce.EnonceCompetence.description) (@Html.DisplayFor(x => planCadreEnonce.EnonceCompetence.codeCompetence))
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Les éléments de compétence
-                            </td>
-                            <td>
-                                Critères de performance
-                            </td>
-                            <td>
-                                Éléments de connaissances
-                            </td>
-                            <td width="25%">
-                                Activités d'apprentissage suggérées
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < planCadreEnonce.PlanCadreElement.Count(); i++)
+                    }
+                    <div class="clearfix"></div>
+                    @foreach (PlanCadrePrealable prealable in a.PlanCadre.PlanCadrePrealable)
+                    {
+                        if (prealable.idStatus == 2)
                         {
-                            var planCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(i);
-                            var elementCompetence = planCadreElement.ElementCompetence;
-
-                            <tr>
-                                <td style="width:15%">
-                                    <ol start="@elementCompetence.numero">
-                                        <li>@Html.DisplayFor(m => elementCompetence.description)</li>
-                                    </ol>
-                                </td>
-                                <td style="width:30%">
-                                    <ol>
-                                        @foreach (var criterePerformance in planCadreElement.ElementCompetence.CriterePerformance)
-                                        {
-                                            <li>@Html.DisplayFor(m => criterePerformance.description)</li>
-                                        }
-                                    </ol>
-                                </td>
-                                @{
-                                    bool isPreviousUsingSameConnaissance = false;
-                                    if (i > 0)
-                                    {
-                                        var previousPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(i - 1);
-                                        isPreviousUsingSameConnaissance = previousPlanCadreElement.ElementConnaissance.idElementConnaissance == planCadreElement.ElementConnaissance.idElementConnaissance;
-                                    }
-
-                                    bool isThereConnaissanceFollowing = false;
-                                    int connaissanceRowspan = 1;
-                                    for (int j = i + 1; j < planCadreEnonce.PlanCadreElement.Count(); j++)
-                                    {
-                                        var followingPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(j);
-                                        if (followingPlanCadreElement.ElementConnaissance.idElementConnaissance == planCadreElement.ElementConnaissance.idElementConnaissance)
-                                        {
-                                            isThereConnaissanceFollowing = true;
-                                            connaissanceRowspan++;
-                                        }
-                                        else
-                                        {
-                                            break;
-                                        }
-                                    }
-                                }
-                                @if (!isPreviousUsingSameConnaissance)
-                                {
-                                    if (isThereConnaissanceFollowing)
-                                    {
-                                        <td rowspan="@connaissanceRowspan" class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.description)</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.description)</td>
-                                    }
-                                }
-                                @{
-                                    bool isPreviousUsingSameActivite = false;
-                                    if (i > 0)
-                                    {
-                                        var previousPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(i - 1);
-                                        isPreviousUsingSameActivite = previousPlanCadreElement.ElementConnaissance.idActiviteApprentissage == planCadreElement.ElementConnaissance.idActiviteApprentissage;
-                                    }
-
-                                    bool isThereActiviteFollowing = false;
-                                    int activiteRowspan = 1;
-                                    for (int j = i + 1; j < planCadreEnonce.PlanCadreElement.Count(); j++)
-                                    {
-                                        var followingPlanCadreElement = planCadreEnonce.PlanCadreElement.ElementAt(j);
-                                        if (followingPlanCadreElement.ElementConnaissance.idActiviteApprentissage == planCadreElement.ElementConnaissance.idActiviteApprentissage)
-                                        {
-                                            isThereActiviteFollowing = true;
-                                            activiteRowspan++;
-                                        }
-                                        else
-                                        {
-                                            break;
-                                        }
-                                    }
-                                }
-                                @if (!isPreviousUsingSameActivite)
-                                {
-                                    if (isThereActiviteFollowing)
-                                    {
-                                        <td rowspan="@activiteRowspan" class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.ActiviteApprentissage.description)</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="rich-cell">@Html.Raw(planCadreElement.ElementConnaissance.ActiviteApprentissage.description)</td>
-                                    }
-                                }
-                            </tr>
+                            <div class="prealableA">
+                                <div class="prealable-left">
+                                    <div>Préalable absolu :</div>
+                                </div>
+                                <div class="prealable-right">
+                                    <div class="line-prealable">@Html.DisplayFor(x => prealable.Prealable.titreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.Prealable.numeroCours)@Html.Raw(")")</div>
+                                </div>
+                            </div>
                         }
-                </table>
-            </div>
+                        else
+                        {
+                            if (prealable.idStatus == 1)
+                            {
+                                <div class="prealableA">
+                                    <div class="prealable-left">
+                                        <div>Préalable relatif :</div>
+                                    </div>
+                                    <div class="prealable-right">
+                                        <div class="line-prealable">@Html.DisplayFor(x => prealable.Prealable.titreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.Prealable.numeroCours)@Html.Raw(")")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
 
-        }
+                    @Html.DisplayFor(x => Model.indicationPedago)
+                </td>
+                rowspanIndicationPedago = true;
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+@foreach (PlanCadreCompetence planCadreCompetence in Model.PlanCadreCompetence)
+{
+    <!-- Affichage en boucle des tableau des ennoncer compétence-->
+
+    <div style="margin-top: 50px;">
         <table>
             <thead>
-                <tr>
-                    <td>
-                        Environement physique
-                    </td>
-                    <td>
-                        Ressources didactiques suggérées
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayFor(x => planCadreCompetence.EnonceCompetence.description) (@Html.DisplayFor(x => planCadreCompetence.EnonceCompetence.codeCompetence))
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Les éléments de compétence
+                </td>
+                <td>
+                    Critères de performance
+                </td>
+                <td>
+                    Éléments de connaissances
+                </td>
+                <td width="25%">
+                    Activités d'apprentissage suggérées
+                </td>
+            </tr>
             </thead>
             <tbody>
+            @for (int i = 0; i < planCadreCompetence.PlanCadreCompetence.Count(); i++)
+            {
+                var planCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(i);
+                var elementCompetence = planCadreCompetence.ElementCompetence;
+
                 <tr>
-                    <td width="45%">
-                        @Html.Raw(Model.environnementPhys)
+                    <td style="width: 15%">
+                        <ol start="@elementCompetence.numero">
+                            <li>@Html.DisplayFor(m => elementCompetence.description)</li>
+                        </ol>
                     </td>
-                    <td>
-                        @Html.Raw(Model.ressource)
+                    <td style="width: 30%">
+                        <ol>
+                            @foreach (var criterePerformance in planCadreCompetence.ElementCompetence.CriterePerformance)
+                            {
+                                <li>@Html.DisplayFor(m => criterePerformance.description)</li>
+                            }
+                        </ol>
                     </td>
+                    @{
+                        bool isPreviousUsingSameConnaissance = false;
+                        if (i > 0)
+                        {
+                            var previousPlanCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(i - 1);
+                            isPreviousUsingSameConnaissance = previousPlanCadreCompetence.ElementConnaissance.idElementConnaissance == planCadreCompetence.ElementConnaissance.idElementConnaissance;
+                        }
+
+                        bool isThereConnaissanceFollowing = false;
+                        int connaissanceRowspan = 1;
+                        for (int j = i + 1; j < planCadreCompetence.PlanCadreCompetence.Count(); j++)
+                        {
+                            var followingPlanCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(j);
+                            if (followingPlanCadreCompetence.ElementConnaissance.idElementConnaissance == planCadreCompetence.ElementConnaissance.idElementConnaissance)
+                            {
+                                isThereConnaissanceFollowing = true;
+                                connaissanceRowspan++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    @if (!isPreviousUsingSameConnaissance)
+                    {
+                        if (isThereConnaissanceFollowing)
+                        {
+                            <td rowspan="@connaissanceRowspan" class="rich-cell">@Html.Raw(planCadreCompetence.ElementConnaissance.description)</td>
+                        }
+                        else
+                        {
+                            <td class="rich-cell">@Html.Raw(planCadreCompetence.ElementConnaissance.description)</td>
+                        }
+                    }
+                    @{
+                        bool isPreviousUsingSameActivite = false;
+                        if (i > 0)
+                        {
+                            var previousPlanCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(i - 1);
+                            isPreviousUsingSameActivite = previousPlanCadreCompetence.ElementConnaissance.idActiviteApprentissage == planCadreCompetence.ElementConnaissance.idActiviteApprentissage;
+                        }
+
+                        bool isThereActiviteFollowing = false;
+                        int activiteRowspan = 1;
+                        for (int j = i + 1; j < planCadreCompetence.PlanCadreCompetence.Count(); j++)
+                        {
+                            var followingPlanCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(j);
+                            if (followingPlanCadreCompetence.ElementConnaissance.idActiviteApprentissage == planCadreCompetence.ElementConnaissance.idActiviteApprentissage)
+                            {
+                                isThereActiviteFollowing = true;
+                                activiteRowspan++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    @if (!isPreviousUsingSameActivite)
+                    {
+                        if (isThereActiviteFollowing)
+                        {
+                            <td rowspan="@activiteRowspan" class="rich-cell">@Html.Raw(planCadreCompetence.ElementConnaissance.ActiviteApprentissage.description)</td>
+                        }
+                        else
+                        {
+                            <td class="rich-cell">@Html.Raw(planCadreCompetence.ElementConnaissance.ActiviteApprentissage.description)</td>
+                        }
+                    }
                 </tr>
-            </tbody>
+            }
         </table>
     </div>
+}
+<table>
+    <thead>
+    <tr>
+        <td>
+            Environement physique
+        </td>
+        <td>
+            Ressources didactiques suggérées
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td width="45%">
+            @Html.Raw(Model.environnementPhys)
+        </td>
+        <td>
+            @Html.Raw(Model.ressource)
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
 </div>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -6,37 +8,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Models;
+using ApplicationPlanCadre.Helpers;
 using Microsoft.AspNet.Identity;
-using PotatoPortail.Helpers;
-using PotatoPortail.Migrations;
+using Microsoft.AspNet.Identity.Owin;
 
-namespace PotatoPortail.Controllers
+namespace ApplicationPlanCadre.Controllers
 {
     [RCPDevisMinistereAuthorize]
     public class DevisMinistereController : Controller
     {
-        private readonly BDPortail _db = new BDPortail();
+        private BDPlanCadre db = new BDPlanCadre();
 
-        private IQueryable<DevisMinistere> GetRcpDevisMinistere()
+        private IQueryable<DevisMinistere> getRCPDevisMinistere()
         {
             string username = User.Identity.GetUserName();
-            return from devisMinistere in _db.DevisMinistere
-                join enteteProgramme in _db.EnteteProgramme on devisMinistere.codeProgramme equals enteteProgramme
-                    .codeProgramme
-                join accesProgramme in _db.AccesProgramme on enteteProgramme.codeProgramme equals accesProgramme
-                    .codeProgramme
-                where accesProgramme.userMail == username
-                select devisMinistere;
+            return from devisMinistere in db.DevisMinistere
+                   join departement in db.Departement on devisMinistere.discipline equals departement.discipline
+                   join accesProgramme in db.AccesProgramme on departement.discipline equals accesProgramme.discipline
+                   where accesProgramme.userMail == username
+                   select devisMinistere;
+           
         }
 
         public ActionResult ListeDevis()
         {
-            return PartialView(GetRcpDevisMinistere().ToList());
+            return PartialView(getRCPDevisMinistere().ToList());
+            
         }
 
         public ActionResult Index()
         {
-            return View(GetRcpDevisMinistere().ToList());
+            return View(getRCPDevisMinistere().ToList());
         }
 
         public ActionResult Info(int? idDevis)
@@ -45,14 +47,13 @@ namespace PotatoPortail.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            DevisMinistere devisMinistere = _db.DevisMinistere.Find(idDevis);
+            DevisMinistere devisMinistere = db.DevisMinistere.Find(idDevis);
             if (devisMinistere == null)
             {
                 return HttpNotFound();
             }
-
             ViewBag.total = devisMinistere.nbHeureFrmGenerale + devisMinistere.nbHeureFrmSpecifique;
+            //ViewBag.dateValidation = checkValidation(devisMinistere);
             return View(devisMinistere);
         }
 
@@ -62,36 +63,31 @@ namespace PotatoPortail.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            DevisMinistere devisMinistere = _db.DevisMinistere.Find(idDevis);
+            DevisMinistere devisMinistere = db.DevisMinistere.Find(idDevis);
             if (devisMinistere == null)
             {
                 return HttpNotFound();
             }
-
             return View(devisMinistere);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include =
-                "idDevis, codeProgramme, annee, codeSpecialisation, nom, dateValidation, docMinistere, specialisation, sanction, nbUnite, condition, nbHeurefrmGenerale,nbHeurefrmSpecifique")]
-            DevisMinistere devisMinistere, HttpPostedFileBase docMinistere)
+        public ActionResult Modifier([Bind(Include = "idDevis, discipline, annee, codeSpecialisation, nom, dateValidation, docMinistere, specialisation, sanction, nbUnite, condition, nbHeurefrmGenerale,nbHeurefrmSpecifique")] DevisMinistere devisMinistere, HttpPostedFileBase docMinistere)
         {
-            devisMinistere.EnteteProgramme = _db.EnteteProgramme.Find(devisMinistere.codeProgramme);
+            devisMinistere.Departement = db.Departement.Find(devisMinistere.discipline);
             if (docMinistere != null)
             {
-                if (!TeleverserFichier(docMinistere, devisMinistere))
-                    ModelState.AddModelError("PDF", @"Le fichier doit être de type PDF.");
+                if(!TeleverserFichier(docMinistere, devisMinistere))
+                    ModelState.AddModelError("PDF", "Le fichier doit être de type PDF.");
             }
-
+            //Trim(devisMinistere);
             if (ModelState.IsValid)
             {
-                _db.Entry(devisMinistere).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Info", "DevisMinistere", new {idDevis = devisMinistere.idDevis});
+                db.Entry(devisMinistere).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Info", "DevisMinistere", new { idDevis = devisMinistere.idDevis });
             }
-
             return View(devisMinistere);
         }
 
@@ -100,8 +96,7 @@ namespace PotatoPortail.Controllers
             try
             {
                 string nomFichier = Path.GetFileName(fichier.FileName);
-                string chemin = Path.Combine(Server.MapPath("~/Files/Document ministériel"),
-                    nomFichier ?? throw new NullReferenceException());
+                string chemin = Path.Combine(Server.MapPath("~/Files/Document ministériel"), nomFichier);
                 string extension = nomFichier.Substring(nomFichier.Length - 4, 4);
                 string ancienChemin = devisMinistere.docMinistere;
                 devisMinistere.docMinistere = nomFichier;
@@ -112,10 +107,9 @@ namespace PotatoPortail.Controllers
                         SupressionFichier(ancienChemin);
                     return true;
                 }
-
                 return false;
             }
-            catch (IOException)
+            catch(IOException)
             {
                 return false;
             }
@@ -128,7 +122,7 @@ namespace PotatoPortail.Controllers
                 System.IO.File.Delete(Path.Combine(Server.MapPath("~/Files/Document ministériel"), nomFichier));
                 return true;
             }
-            catch (IOException)
+            catch(IOException)
             {
                 return false;
             }
@@ -138,9 +132,8 @@ namespace PotatoPortail.Controllers
         {
             if (disposer)
             {
-                _db.Dispose();
+                db.Dispose();
             }
-
             base.Dispose(disposer);
         }
     }
