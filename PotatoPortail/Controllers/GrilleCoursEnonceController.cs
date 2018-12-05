@@ -33,7 +33,7 @@ namespace PotatoPortail.Controllers
                 new EnonceCompetence
                 {
                     IdCompetence = 1,
-                    codeCompetence = "016N",
+                    CodeCompetence = "016N",
                     description = "",
                     obligatoire = true,
                     actif = true

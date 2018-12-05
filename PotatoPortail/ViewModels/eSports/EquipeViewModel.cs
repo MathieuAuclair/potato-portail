@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
-namespace ApplicationPlanCadre.ViewModels.eSportsVM
+namespace PotatoPortail.ViewModels.eSports
 {
     public class CreationEquipeViewModel
     {
 
-        [Required]
+        [Required]        
         public int EquipeId { get; set; }
 
         [Required]
@@ -43,9 +39,9 @@ namespace ApplicationPlanCadre.ViewModels.eSportsVM
 
         [Required]
         [Display(Name = "Jeu de l'équipe")]
-        public int JeuID { get; set; }
+        public int IdJeu { get; set; }
 
-        public ApplicationPlanCadre.Models.eSports.Jeu Jeu { get; set; }
+        public ApplicationPlanCadre.Models.eSports.Jeu Jeu { get; set; } 
 
         [Display(Name = "Entraineurs")]
         public List<ApplicationPlanCadre.Models.Entraineur> Entraineurs { get; set; }
