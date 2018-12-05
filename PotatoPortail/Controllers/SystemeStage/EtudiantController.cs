@@ -8,7 +8,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 {
     public class EtudiantController : Controller
     {
-        private readonly DatabaseContext _bd = new DatabaseContext();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
@@ -128,20 +128,20 @@ namespace PotatoPortail.Controllers.SystemeStage
 
         public ActionResult Suppression(int? id)
         {
-            var etudiant = _bd.etudiant.Find(id);
+            var etudiant = _bd.Etudiant.Find(id);
 
             if (etudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var applicationsParCetEtudiant = from application in _bd.application
+            var applicationsParCetEtudiant = from application in _bd.Application
                                              where application.Etudiant.IdEtudiant == id
                                              select application;
 
             if (!applicationsParCetEtudiant.Any())
             {
-                _bd.etudiant.Remove(etudiant);
+                _bd.Etudiant.Remove(etudiant);
                 _bd.SaveChanges();
             }
 

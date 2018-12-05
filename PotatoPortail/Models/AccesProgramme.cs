@@ -1,10 +1,7 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PotatoPortail.Models { 
 
     [Table("AccesProgramme")]
     public partial class AccesProgramme

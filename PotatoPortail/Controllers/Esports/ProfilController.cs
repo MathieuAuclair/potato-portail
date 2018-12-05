@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models.eSports;
-using PotatoPortail.Migrations;
 using PotatoPortail.Models;
-using PotatoPortail.Models.eSports;
 
 namespace PotatoPortail.Controllers.Esports
 {
     public class ProfilController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult Index()
         {
@@ -23,8 +21,8 @@ namespace PotatoPortail.Controllers.Esports
             ViewBag.inscriptions = inscriptions.ToList();
             ViewBag.msgJoueurExistant = TempData["msgJoueurExistant"];
 
-            var profils = _db.Profils.Include(p => p.Etudiant).Include(p => p.Jeu).Where(p => p.EstArchive == false);
-            return View(profils.ToList());
+            //var profils = _db.Profils.Include(p => p.Etudiant).Include(p => p.Jeu).Where(p => p.EstArchive == false);
+            return View(); //profils.ToList());
         }
 
         public ActionResult Details(int? id)
@@ -34,7 +32,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Profil profil = _db.Profils.Find(id);
+            Profils profil = _db.Profils.Find(id);
 
             if (profil == null)
             {
@@ -51,7 +49,7 @@ namespace PotatoPortail.Controllers.Esports
             List<SelectListItem> lstJeuxSecondaires = new List<SelectListItem>();
 
             var jeuxActifs = from j in _db.Jeux
-                where j.Statut.nomStatut == "Actif"
+                where j.Statuts.NomStatut == "Actif"
                 select j;
 
             foreach (Etudiant etu in _db.Etudiant)
@@ -65,18 +63,18 @@ namespace PotatoPortail.Controllers.Esports
 
             lstJeuxSecondaires.Add(new SelectListItem {Text = @"----------------------------", Value = 0.ToString()});
 
-            foreach (Jeu jeu in jeuxActifs)
+            foreach (Jeux jeu in jeuxActifs)
             {
                 lstJeux.Add(new SelectListItem
                 {
-                    Text = jeu.nomJeu,
-                    Value = jeu.id.ToString()
+                    Text = jeu.NomJeu,
+                    Value = jeu.Id.ToString()
                 });
 
                 lstJeuxSecondaires.Add(new SelectListItem
                 {
-                    Text = jeu.nomJeu,
-                    Value = jeu.id.ToString()
+                    Text = jeu.NomJeu,
+                    Value = jeu.Id.ToString()
                 });
             }
 
@@ -91,23 +89,23 @@ namespace PotatoPortail.Controllers.Esports
         [ValidateAntiForgeryToken]
         public ActionResult Inscription(
             [Bind(Include = "id,pseudo,courriel,note,EtudiantId,JeuId,estArchive,JeuSecondaireId")]
-            Profil profil)
+            Profils profil)
         {
-            Etudiant etu = _db.Etudiant.Find(profil.EtudiantId);
-            Jeu jeu = _db.Jeux.Find(profil.JeuId);
+            Etudiant etu = _db.Etudiant.Find(profil.MembreESports.Id);
+            Jeux jeu = _db.Jeux.Find(profil.IdJeu);
 
             var equipeMonojoueurExistante = from e in _db.Equipes
-                where e.estMonojoueur &&
-                      (e.nomEquipe == etu.Prenom + etu.NomDeFamille + "_" + jeu.abreviation + "_" + profil.EtudiantId)
+                where e.EstMonoJoueur &&
+                      (e.NomEquipe == etu.Prenom + etu.NomDeFamille + "_" + jeu.Abreviation + "_" + profil.MembreESports.Id)
                 select e;
 
-            if (profil.JeuId == profil.JeuSecondaireId)
+            if (profil.IdJeu == profil.IdJeuSecondaire)
             {
                 ViewBag.jeuxSelectionnesIdentiques = "Le jeu primaire et le jeu secondaire ne peuvent être les mêmes!";
             }
             else
             {
-                if (!equipeMonojoueurExistante.Any() && (profil.JeuId != 0))
+                if (!equipeMonojoueurExistante.Any() && (profil.IdJeu != 0))
                 {
                     if (ModelState.IsValid)
                     {
@@ -127,7 +125,7 @@ namespace PotatoPortail.Controllers.Esports
             List<SelectListItem> lstJeuxSecondaires = new List<SelectListItem>();
 
             var jeuxActifs = from j in _db.Jeux
-                where j.Statut.nomStatut == "Actif"
+                where j.Statuts.NomStatut == "Actif"
                 select j;
 
             foreach (Etudiant etudiant in _db.Etudiant)
@@ -141,18 +139,18 @@ namespace PotatoPortail.Controllers.Esports
 
             lstJeuxSecondaires.Add(new SelectListItem {Text = @"----------------------------", Value = 0.ToString()});
 
-            foreach (Jeu jeuActif in jeuxActifs)
+            foreach (Jeux jeuActif in jeuxActifs)
             {
                 lstJeux.Add(new SelectListItem
                 {
-                    Text = jeuActif.nomJeu,
-                    Value = jeuActif.id.ToString()
+                    Text = jeuActif.NomJeu,
+                    Value = jeuActif.Id.ToString()
                 });
 
                 lstJeuxSecondaires.Add(new SelectListItem
                 {
-                    Text = jeuActif.nomJeu,
-                    Value = jeuActif.id.ToString()
+                    Text = jeuActif.NomJeu,
+                    Value = jeuActif.Id.ToString()
                 });
             }
 
@@ -170,21 +168,21 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Profil profil = _db.Profils.Find(id);
+            Profils profil = _db.Profils.Find(id);
             if (profil == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.EtudiantId = new SelectList(_db.Etudiant, "id", "nom", profil.EtudiantId);
-            ViewBag.JeuId = new SelectList(_db.Jeux, "id", "nomJeu", profil.JeuId);
+            ViewBag.EtudiantId = new SelectList(_db.Etudiant, "id", "nom", profil.MembreESports.Id);
+            ViewBag.JeuId = new SelectList(_db.Jeux, "id", "nomJeu", profil.IdJeu);
             return View(profil);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Modifier([Bind(Include = "id,pseudo,courriel,note,EtudiantId,JeuId")]
-            Profil profil)
+            Profils profil)
         {
             if (ModelState.IsValid)
             {
@@ -193,24 +191,24 @@ namespace PotatoPortail.Controllers.Esports
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EtudiantId = new SelectList(_db.Etudiant, "id", "nom", profil.EtudiantId);
-            ViewBag.JeuId = new SelectList(_db.Jeux, "id", "nomJeu", profil.JeuId);
+            ViewBag.EtudiantId = new SelectList(_db.Etudiant, "id", "nom", profil.MembreESports.Id);
+            ViewBag.JeuId = new SelectList(_db.Jeux, "id", "nomJeu", profil.IdJeu);
             return View(profil);
         }
 
         public ActionResult Valider(int? id, int? jeuId)
         {
-            Joueur joueur = new Joueur();
-            Equipe equipeMonojoueur = new Equipe();
+            var joueur = new Joueurs();
+            var equipeMonojoueur = new Equipes();
 
-            Profil profil = _db.Profils.Find(id);
+            var profil = _db.Profils.Find(id);
 
             if (profil == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            Jeu jeu = _db.Jeux.Find(profil.JeuId) ?? _db.Jeux.Find(jeuId);
+            Jeux jeu = _db.Jeux.Find(profil.IdJeu) ?? _db.Jeux.Find(jeuId);
 
             if (jeu == null)
             {
@@ -220,21 +218,21 @@ namespace PotatoPortail.Controllers.Esports
             profil.EstArchive = true;
 
             joueur.PseudoJoueur = profil.Pseudo;
-            joueur.EtudiantId = profil.EtudiantId;
-            joueur.Profil = profil;
+            joueur.IdEtudiant = profil.Id;
+            joueur.Profils = profil;
 
             var equipeMonojoueurJeu = from e in _db.Equipes
-                where (e.estMonojoueur == true) &&
-                      (e.nomEquipe == profil.Etudiant.Prenom + profil.Etudiant.NomDeFamille + "_" + jeu.abreviation +
-                       "_" + profil.EtudiantId)
+                where (e.EstMonoJoueur == true) &&
+                      (e.NomEquipe == profil.MembreESports.Prenom + profil.MembreESports.Nom + "_" + jeu.Abreviation +
+                       "_" + profil.MembreESports.Id)
                 select e;
             if (!equipeMonojoueurJeu.Any())
             {
-                equipeMonojoueur.nomEquipe =
-                    profil.Etudiant.Prenom + profil.Etudiant.NomDeFamille + "_" + jeu.abreviation + "_" +
-                    profil.EtudiantId;
-                equipeMonojoueur.JeuId = jeu.id;
-                equipeMonojoueur.estMonojoueur = true;
+                equipeMonojoueur.NomEquipe =
+                    profil.MembreESports.Prenom + profil.MembreESports.Nom + "_" + jeu.Abreviation + "_" +
+                    profil.MembreESports.Id;
+                equipeMonojoueur.IdJeu = jeu.Id;
+                equipeMonojoueur.EstMonoJoueur = true;
 
                 _db.Joueurs.Add(joueur);
                 _db.Equipes.Add(equipeMonojoueur);
@@ -246,8 +244,8 @@ namespace PotatoPortail.Controllers.Esports
             else
 
             {
-                TempData["msgJoueurExistant"] = profil.Etudiant.Prenom + profil.Etudiant.NomDeFamille +
-                                                " est déjà validé en tant que joueur pour " + profil.Jeu.nomJeu + ".";
+                TempData["msgJoueurExistant"] = profil.MembreESports.Prenom + profil.MembreESports.Nom +
+                                                " est déjà validé en tant que joueur pour " + profil.Jeux.NomJeu + ".";
                 return RedirectToAction("Index", "Profil");
             }
         }
@@ -259,7 +257,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Profil profil = _db.Profils.Find(id);
+            var profil = _db.Profils.Find(id);
 
             if (profil == null)
             {
@@ -276,8 +274,8 @@ namespace PotatoPortail.Controllers.Esports
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Profil profil = _db.Profils.Find(id);
-            _db.Profils.Remove(profil);
+            var profil = _db.Profils.Find(id);
+            _db.Profils.Remove(profil ?? throw new InvalidOperationException());
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,20 +1,18 @@
-﻿using System.Data.Entity.Migrations;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models.eSports;
-using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers.Esports
 {
     public class ItemController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult Index(int? id, string nomCaracterisque, string nomJeu)
         {
             var itemsCaracteristique = from entity in _db.Items
-                where entity.CaracteristiqueId == id
+                where entity.IdCaracteristique == id
                 select entity;
 
             Caracteristique caracteristique = _db.Caracteristiques.Find(id);

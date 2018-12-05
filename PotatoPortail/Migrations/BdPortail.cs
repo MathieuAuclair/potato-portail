@@ -1,18 +1,15 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+using System.Data.Entity;
+using PotatoPortail.Models;
 
+namespace PotatoPortail.Migrations
+{
     public partial class BdPortail : DbContext
     {
         public BdPortail()
             : base("name=BDPortail")
         {
         }
-
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        
         public virtual DbSet<ActiviteApprentissage> ActiviteApprentissage { get; set; }
         public virtual DbSet<Application> Application { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
