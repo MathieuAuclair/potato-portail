@@ -1,0 +1,59 @@
+﻿@model PotatoPortail.Models.SystemeStage.Stage
+@using System.Globalization
+@using PotatoPortail.Views.Shared.Widget.Model
+@using PotatoPortail.Views.Stage.EditionComponent.Models
+@using PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form action="/Stage/Edition" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="idStage" value="@Model.IdStage"/>
+    <div class="form-content">
+        <h1>Stage</h1>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "description", @Model.Description))
+        </div>
+        <div>
+            @Html.Partial("Widget/FlatUiPaysSelect", new FlatUiPaysSelect(@Model.Pays))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Province", "20px", "province", "text", @Model.Province, null))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Ville", "20px", "ville", "string", @Model.Ville, null))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rue", "20px", "rue", "text", @Model.NomRue, null))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "numeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
+        </div>
+        <div class="flat-textarea">
+            <p>Code Postal</p>
+            <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
+        </div>
+        <div>
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())
+        </div>
+        <div>
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/PosteSelect.cshtml", new PosteSelect())
+        </div>
+        <div>
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/StatusSelect.cshtml", new StatusSelect())
+        </div>
+        <div>
+            @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/ContactSelect.cshtml", new ContactSelect())
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("fichier"))
+        </div>
+        <div>
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))
+        </div>
+    </div>
+</form>

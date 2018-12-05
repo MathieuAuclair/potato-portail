@@ -1,0 +1,44 @@
+﻿body {
+    background: #F9F9F9;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+    background: white;
+}
+
+td {
+    margin: 20px;
+}
+
+tr {
+    border-top: 5px solid #F9F9F9;
+}
+
+td div button {
+    width: 100%;
+    background: #0078d7;
+    color: white;
+    border: 1px solid white;
+}
+
+td div button img {
+    padding: 5px;
+}
+
+td div {
+    border: 2px solid black;
+}
+
+textarea {
+    resize: none;
+    border: 1px solid black;
+}
+
+select{
+    width:100%;
+}
