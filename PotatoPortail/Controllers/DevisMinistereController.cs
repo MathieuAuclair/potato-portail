@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 using Microsoft.AspNet.Identity;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
@@ -21,11 +21,11 @@ namespace PotatoPortail.Controllers
         {
             string username = User.Identity.GetUserName();
             return from devisMinistere in _db.DevisMinistere
-                join enteteProgramme in _db.EnteteProgramme on devisMinistere.codeProgramme equals enteteProgramme
-                    .codeProgramme
-                join accesProgramme in _db.AccesProgramme on enteteProgramme.codeProgramme equals accesProgramme
-                    .codeProgramme
-                where accesProgramme.userMail == username
+                join enteteProgramme in _db.Departement on devisMinistere.Discipline equals enteteProgramme
+                    .Discipline
+                join accesProgramme in _db.AccesProgramme on enteteProgramme.Discipline equals accesProgramme
+                    .Discipline
+                   where accesProgramme.UserMail == username
                 select devisMinistere;
         }
 
@@ -52,7 +52,7 @@ namespace PotatoPortail.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.total = devisMinistere.nbHeureFrmGenerale + devisMinistere.nbHeureFrmSpecifique;
+            ViewBag.total = devisMinistere.NbHeureFrmGenerale + devisMinistere.NbHeureFrmSpecifique;
             return View(devisMinistere);
         }
 
@@ -78,7 +78,7 @@ namespace PotatoPortail.Controllers
                 "idDevis, codeProgramme, annee, codeSpecialisation, nom, dateValidation, docMinistere, specialisation, sanction, nbUnite, condition, nbHeurefrmGenerale,nbHeurefrmSpecifique")]
             DevisMinistere devisMinistere, HttpPostedFileBase docMinistere)
         {
-            devisMinistere.EnteteProgramme = _db.EnteteProgramme.Find(devisMinistere.codeProgramme);
+            devisMinistere.Departement = _db.Departement.Find(devisMinistere.Discipline);
             if (docMinistere != null)
             {
                 if (!TeleverserFichier(docMinistere, devisMinistere))
@@ -89,7 +89,7 @@ namespace PotatoPortail.Controllers
             {
                 _db.Entry(devisMinistere).State = EntityState.Modified;
                 _db.SaveChanges();
-                return RedirectToAction("Info", "DevisMinistere", new {idDevis = devisMinistere.idDevis});
+                return RedirectToAction("Info", "DevisMinistere", new {idDevis = devisMinistere.IdDevis});
             }
 
             return View(devisMinistere);
@@ -103,8 +103,8 @@ namespace PotatoPortail.Controllers
                 string chemin = Path.Combine(Server.MapPath("~/Files/Document ministériel"),
                     nomFichier ?? throw new NullReferenceException());
                 string extension = nomFichier.Substring(nomFichier.Length - 4, 4);
-                string ancienChemin = devisMinistere.docMinistere;
-                devisMinistere.docMinistere = nomFichier;
+                string ancienChemin = devisMinistere.DocMinistere;
+                devisMinistere.DocMinistere = nomFichier;
                 if (extension == ".pdf")
                 {
                     fichier.SaveAs(chemin);

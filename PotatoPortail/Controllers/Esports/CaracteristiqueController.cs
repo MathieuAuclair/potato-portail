@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models.eSports;
+using PotatoPortail.Models.eSports;
 using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers.Esports
 {
@@ -18,7 +19,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristique.Find(id);
+            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
@@ -47,16 +48,16 @@ namespace PotatoPortail.Controllers.Esports
         {
             if (ModelState.IsValid)
             {
-                Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
+                Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
                 if (jeu == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
                 }
 
-                _db.Caracteristique.Add(caracteristique);
+                _db.Caracteristiques.Add(caracteristique);
                 _db.SaveChanges();
-                return RedirectToAction("Modifier", "Jeu", new {jeu.id, jeu.nomJeu});
+                return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
             }
 
             return View(caracteristique);
@@ -69,7 +70,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristique.Find(id);
+            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
@@ -91,7 +92,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
+            Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
             if (jeu == null)
             {
@@ -101,7 +102,7 @@ namespace PotatoPortail.Controllers.Esports
             _db.Entry(caracteristique).State = EntityState.Modified;
             _db.SaveChanges();
 
-            return RedirectToAction("Modifier", "Jeu", new {jeu.id, jeu.nomJeu});
+            return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
         }
 
         public ActionResult Supprimer(int? id, string nomJeu)
@@ -111,14 +112,14 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Caracteristique caracteristique = _db.Caracteristique.Find(id);
+            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
             if (caracteristique == null)
             {
                 return HttpNotFound();
             }
 
             var itemsCarac = from i in _db.Items
-                where i.CaracteristiqueId == id
+                where i.IdCaracteristique == id
                 select i;
 
             ViewBag.nomJeu = nomJeu;
@@ -131,24 +132,24 @@ namespace PotatoPortail.Controllers.Esports
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Caracteristique caracteristique = _db.Caracteristique.Find(id);
+            Caracteristique caracteristique = _db.Caracteristiques.Find(id);
 
             if (caracteristique == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            Jeu jeu = _db.Jeux.Find(caracteristique.JeuId);
+            Jeu jeu = _db.Jeux.Find(caracteristique.IdJeu);
 
             if (jeu == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            _db.Caracteristique.Remove(caracteristique);
+            _db.Caracteristiques.Remove(caracteristique);
             _db.SaveChanges();
 
-            return RedirectToAction("Modifier", "Jeu", new {jeu.id, jeu.nomJeu});
+            return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
         }
 
         protected override void Dispose(bool disposing)

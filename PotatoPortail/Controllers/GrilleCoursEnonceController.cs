@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
@@ -20,8 +20,8 @@ namespace PotatoPortail.Controllers
         {
             GrilleCours maGrille = new GrilleCours()
             {
-                idGrille = 1,
-                nom = "mon cours",
+                IdGrille = 1,
+                Nom = "mon cours",
             };
             return maGrille;
         }
@@ -32,7 +32,7 @@ namespace PotatoPortail.Controllers
             {
                 new EnonceCompetence
                 {
-                    idCompetence = 1,
+                    IdCompetence = 1,
                     codeCompetence = "016N",
                     description = "",
                     obligatoire = true,
@@ -40,7 +40,7 @@ namespace PotatoPortail.Controllers
                 },
                 new EnonceCompetence
                 {
-                    idCompetence = 2,
+                    IdCompetence = 2,
                     codeCompetence = "016M",
                     description = "",
                     obligatoire = true,
@@ -48,7 +48,7 @@ namespace PotatoPortail.Controllers
                 },
                 new EnonceCompetence
                 {
-                    idCompetence = 3,
+                    IdCompetence = 3,
                     codeCompetence = "0160",
                     description = "",
                     obligatoire = true,
