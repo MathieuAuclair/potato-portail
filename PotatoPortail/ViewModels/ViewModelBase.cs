@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace ApplicationPlanCadre.ViewModels
+namespace PotatoPortail.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
@@ -18,6 +18,7 @@ namespace ApplicationPlanCadre.ViewModels
         protected void RaisePropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
+
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));

@@ -181,6 +181,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\ApercuPlanCours.cs" />
     <Compile Include="App_Start\Auth.Startup.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -209,6 +210,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdreDuJourController.cs" />
     <Compile Include="Controllers\PlanCadreController.cs" />
+    <Compile Include="Controllers\PlanCours\ApercuController.cs" />
+    <Compile Include="Controllers\PlanCours\PlanCoursController.cs" />
+    <Compile Include="Controllers\PlanCours\SectionController.cs" />
     <Compile Include="Controllers\ProgrammeController.cs" />
     <Compile Include="Controllers\RapportController.cs" />
     <Compile Include="Controllers\RechercheController.cs" />
@@ -230,6 +234,7 @@
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
+    <Compile Include="Interfaces\IApercu.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
     <Compile Include="Models\ActiviteApprentissage.cs" />
     <Compile Include="Models\Application.cs" />
@@ -237,15 +242,14 @@
     <Compile Include="Models\AspNetUserClaims.cs" />
     <Compile Include="Models\AspNetUserLogins.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
-    <Compile Include="Models\BDPortail.cs" />
+    <Compile Include="Migrations\BDPortail.cs" />
     <Compile Include="Models\eSports\Caracteristique.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\PlanCours\ContenuSection.cs" />
+    <Compile Include="Models\Plan_Cours\ContenuSection.cs" />
     <Compile Include="Models\ContexteRealisation.cs" />
     <Compile Include="Models\Cours.cs" />
     <Compile Include="Models\CriterePerformance.cs" />
-    <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\Departement.cs" />
     <Compile Include="Models\DevisMinistere.cs" />
     <Compile Include="Models\ElementCompetence.cs" />
@@ -261,19 +265,20 @@
     <Compile Include="Models\eSports\Item.cs" />
     <Compile Include="Models\eSports\Jeu.cs" />
     <Compile Include="Models\eSports\Joueur.cs" />
+    <Compile Include="Models\Plan_Cours\TexteSection.cs" />
     <Compile Include="Models\Reunions\LieuDeLaReunion.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\eSports\MembreESports.cs" />
     <Compile Include="Models\Reunions\ModeleOrdreDuJour.cs" />
-    <Compile Include="Models\PlanCours\NomSection.cs" />
+    <Compile Include="Models\Plan_Cours\NomSection.cs" />
     <Compile Include="Models\Reunions\OrdreDuJour.cs" />
     <Compile Include="Models\PlanCadre.cs" />
     <Compile Include="Models\PlanCadreCompetence.cs" />
     <Compile Include="Models\PlanCadreElement.cs" />
     <Compile Include="Models\PlanCadrePrealable.cs" />
-    <Compile Include="Models\PlanCours\PlanCours.cs" />
-    <Compile Include="Models\PlanCours\PlanCoursDepart.cs" />
-    <Compile Include="Models\PlanCours\PlanCoursUtilisateur.cs" />
+    <Compile Include="Models\Plan_Cours\PlanCours.cs" />
+    <Compile Include="Models\Plan_Cours\PlanCoursDepart.cs" />
+    <Compile Include="Models\Plan_Cours\PlanCoursUtilisateur.cs" />
     <Compile Include="Models\Poste.cs" />
     <Compile Include="Models\Preference.cs" />
     <Compile Include="Models\eSports\Profil.cs" />
@@ -298,8 +303,28 @@
     <Compile Include="Toast\ToastMessage.cs" />
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
-    <Compile Include="ViewModels\eSports\EditerJoueurVM.cs" />
+    <Compile Include="ViewModels\ApercuViewModel.cs" />
+    <Compile Include="ViewModels\CreatePlanCadreViewModel.cs" />
+    <Compile Include="ViewModels\eSports\EditerJoueurViewModel.cs" />
+    <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
     <Compile Include="ViewModels\eSports\EquipeViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\OrdresDuJour\CreerOrdreDuJourViewModel.cs" />
+    <Compile Include="ViewModels\PageTitreViewModel.cs" />
+    <Compile Include="ViewModels\PlanCadre\ActiviteViewModel.cs" />
+    <Compile Include="ViewModels\PlanCadre\CompetenceViewModel.cs" />
+    <Compile Include="ViewModels\PlanCadre\StructureViewModel.cs" />
+    <Compile Include="ViewModels\PlanCours\apercuViewModel.cs" />
+    <Compile Include="ViewModels\PlanCours\CompetenceViewModel.cs" />
+    <Compile Include="ViewModels\PlanCours\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\PlanCours\PageTitreViewModel.cs" />
+    <Compile Include="ViewModels\PlanCours\servicesAdaptesViewModel.cs" />
+    <Compile Include="ViewModels\ProjetPrincipal\CompteViewModels.cs" />
+    <Compile Include="ViewModels\ProjetPrincipal\GrilleCoursViewModel.cs" />
+    <Compile Include="ViewModels\ProjetPrincipal\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ProjetPrincipal\RechercheViewModels.cs" />
+    <Compile Include="ViewModels\ServicesAdaptesViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Shared\Widget\Model\FlatUiButton.cs" />
     <Compile Include="Views\Shared\Widget\Model\FlatUiInputButton.cs" />
     <Compile Include="Views\Shared\Widget\Model\FlatUiPaysSelect.cs" />
@@ -444,11 +469,36 @@
     <Content Include="scripts\umd\popper.js.map" />
     <Content Include="scripts\umd\popper.min.js" />
     <Content Include="scripts\umd\popper.min.js.map" />
+    <Content Include="Views\static\cj-layout.png" />
+    <Content Include="Views\static\footer.html" />
+    <Content Include="Views\static\header.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <None Include="packages.config" />
     <Content Include="Views\Accueil\ConsoleAdmin.cshtml" />
     <Content Include="Views\Accueil\ESport.cshtml" />
     <Content Include="Views\Accueil\index.cshtml" />
     <Content Include="Views\Accueil\Pedagogie.cshtml" />
     <Content Include="Views\Accueil\Reunions.cshtml" />
+    <Content Include="Views\Apercu\Create.cshtml" />
+    <Content Include="Views\Apercu\Index.cshtml" />
+    <Content Include="Views\Apercu\_Menu.cshtml" />
+    <Content Include="Views\Application\Creation.cshtml" />
+    <Content Include="Views\Application\Edition.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
+    <Content Include="Views\Application\Suppression.cshtml" />
+    <Content Include="Views\Caracteristique\Creation.cshtml" />
+    <Content Include="Views\Caracteristique\Modifier.cshtml" />
+    <Content Include="Views\Caracteristique\Supprimer.cshtml" />
     <Content Include="Views\Compte\Connexion.cshtml" />
     <Content Include="Views\Compte\Enregistrement.cshtml" />
     <Content Include="Views\Compte\Index.cshtml" />
@@ -483,6 +533,14 @@
     <Content Include="Views\EnonceCompetence\Info.cshtml" />
     <Content Include="Views\EnonceCompetence\Modifier.cshtml" />
     <Content Include="Views\EnonceCompetence\Supression.cshtml" />
+    <Content Include="Views\Entraineur\Creation.cshtml" />
+    <Content Include="Views\Entraineur\Index.cshtml" />
+    <Content Include="Views\Entraineur\Modifier.cshtml" />
+    <Content Include="Views\Entraineur\Supprimer.cshtml" />
+    <Content Include="Views\Equipe\Creation.cshtml" />
+    <Content Include="Views\Equipe\Index.cshtml" />
+    <Content Include="Views\Equipe\Modifier.cshtml" />
+    <Content Include="Views\Equipe\Supprimer.cshtml" />
     <Content Include="Views\GrilleCoursEnonce\GetEnonceModel.cshtml" />
     <Content Include="Views\GrilleCours\Creation.cshtml" />
     <Content Include="Views\GrilleCours\Details.cshtml" />
@@ -497,6 +555,20 @@
     <Content Include="Views\GrilleCours\_Heure.cshtml" />
     <Content Include="Views\GrilleCours\_Prealable.cshtml" />
     <Content Include="Views\GrilleCours\_Structure.cshtml" />
+    <Content Include="Views\Item\Creation.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\Modifier.cshtml" />
+    <Content Include="Views\Item\Supprimer.cshtml" />
+    <Content Include="Views\Jeu\Creation.cshtml" />
+    <Content Include="Views\Jeu\Details.cshtml" />
+    <Content Include="Views\Jeu\Index.cshtml" />
+    <Content Include="Views\Jeu\Modifier.cshtml" />
+    <Content Include="Views\Jeu\Supprimer.cshtml" />
+    <Content Include="Views\Joueur\Creation.cshtml" />
+    <Content Include="Views\Joueur\Details.cshtml" />
+    <Content Include="Views\Joueur\Index.cshtml" />
+    <Content Include="Views\Joueur\Modifier.cshtml" />
+    <Content Include="Views\Joueur\Supprimer.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Details.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -510,6 +582,11 @@
     <Content Include="Views\OrdreDuJour\_DropDownList.cshtml" />
     <Content Include="Views\OrdreDuJour\_TreeView.cshtml" />
     <Content Include="Views\PlanCadre\Info.cshtml" />
+    <Content Include="Views\Profil\Details.cshtml" />
+    <Content Include="Views\Profil\Index.cshtml" />
+    <Content Include="Views\Profil\Inscription.cshtml" />
+    <Content Include="Views\Profil\Modifier.cshtml" />
+    <Content Include="Views\Profil\Supprimer.cshtml" />
     <Content Include="Views\Programme\Index.cshtml" />
     <Content Include="Views\Programme\Info.cshtml" />
     <Content Include="Views\Programme\ListeProgramme.cshtml" />
@@ -517,6 +594,7 @@
     <Content Include="Views\Rapport\RapportPlanCadre.cshtml" />
     <Content Include="Views\Rapport\RapportProgramme.cshtml" />
     <Content Include="Views\recherche\Recherche.cshtml" />
+    <Content Include="Views\Section\Create.cshtml" />
     <Content Include="Views\Shared\Erreur.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
@@ -530,9 +608,7 @@
     <Content Include="Views\Shared\_ConnexionPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Toastr.cshtml" />
-    <Content Include="Views\static\cj-layout.png" />
-    <Content Include="Views\static\footer.html" />
-    <Content Include="Views\static\header.html" />
+    <Content Include="Views\Shared\_ViewStart.cshtml" />
     <Content Include="Views\static\headerPlanCadre.cshtml" />
     <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\SystemeStage\Application\Index.cshtml" />
@@ -557,61 +633,13 @@
     <Content Include="Views\SystemeStage\Stage\Index.cshtml" />
     <Content Include="Views\SystemeStage\Status\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Status\Index.cshtml" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
-    <None Include="packages.config" />
-    <Content Include="Views\Caracteristique\Creation.cshtml" />
-    <Content Include="Views\Caracteristique\Modifier.cshtml" />
-    <Content Include="Views\Caracteristique\Supprimer.cshtml" />
-    <Content Include="Views\Equipe\Creation.cshtml" />
-    <Content Include="Views\Equipe\Index.cshtml" />
-    <Content Include="Views\Equipe\Modifier.cshtml" />
-    <Content Include="Views\Equipe\Supprimer.cshtml" />
-    <Content Include="Views\Item\Creation.cshtml" />
-    <Content Include="Views\Item\Index.cshtml" />
-    <Content Include="Views\Item\Modifier.cshtml" />
-    <Content Include="Views\Item\Supprimer.cshtml" />
-    <Content Include="Views\Jeu\Creation.cshtml" />
-    <Content Include="Views\Jeu\Details.cshtml" />
-    <Content Include="Views\Jeu\Index.cshtml" />
-    <Content Include="Views\Jeu\Modifier.cshtml" />
-    <Content Include="Views\Jeu\Supprimer.cshtml" />
-    <Content Include="Views\Joueur\Creation.cshtml" />
-    <Content Include="Views\Joueur\Details.cshtml" />
-    <Content Include="Views\Joueur\Index.cshtml" />
-    <Content Include="Views\Joueur\Modifier.cshtml" />
-    <Content Include="Views\Joueur\Supprimer.cshtml" />
-    <Content Include="Views\Profil\Details.cshtml" />
-    <Content Include="Views\Profil\Index.cshtml" />
-    <Content Include="Views\Profil\Inscription.cshtml" />
-    <Content Include="Views\Profil\Modifier.cshtml" />
-    <Content Include="Views\Profil\Supprimer.cshtml" />
-    <Content Include="Views\Entraineur\Creation.cshtml" />
-    <Content Include="Views\Entraineur\Index.cshtml" />
-    <Content Include="Views\Entraineur\Modifier.cshtml" />
-    <Content Include="Views\Entraineur\Supprimer.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\PlanCours\" />
     <Folder Include="Controllers\Reunions\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Models\SystemeStage\" />
-    <Folder Include="ViewModels\PlanCours\" />
-    <Folder Include="ViewModels\Reunions\" />
-    <Folder Include="ViewModels\SystemeStage\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

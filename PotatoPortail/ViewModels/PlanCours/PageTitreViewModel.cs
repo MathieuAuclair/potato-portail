@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PotatoPortail.Models;
+using ApplicationPlanCadre.Models;
 
-namespace PotatoPortail.ViewModels
+namespace ApplicationPlanCadre.ViewModels
 {
     public class PageTitreViewModel : ViewModelBase
     {
