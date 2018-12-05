@@ -4,15 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ConsoleProgrammeController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult _PartialList()
         {
@@ -40,7 +39,7 @@ namespace PotatoPortail.Controllers
                 ModelState.AddModelError("Duplique",
                     @"Veuillez entrer une année entre celle du devis et l'année courante.");
                 this.AddToastMessage("Confirmation de la création",
-                    "Le programme " + '\u0022' + programme.nom + '\u0022' + ", n'a pas pus être crée.",
+                    "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", n'a pas pus être crée.",
                     Toast.ToastType.Error);
             }
             else
@@ -48,7 +47,7 @@ namespace PotatoPortail.Controllers
                 if (!ProgrammeExiste(programme) && ModelState.IsValid)
                 {
                     this.AddToastMessage("Confirmation de la création",
-                        "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été crée.",
+                        "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été crée.",
                         Toast.ToastType.Success);
                     _db.Programme.Add(programme);
                     _db.SaveChanges();
@@ -56,7 +55,7 @@ namespace PotatoPortail.Controllers
                 }
 
                 this.AddToastMessage("Confirmation de la création",
-                    "Le programme " + programme.nom + ", n'a pas pus être crée.", Toast.ToastType.Error);
+                    "Le programme " + programme.Nom + ", n'a pas pus être crée.", Toast.ToastType.Error);
                 ModelState.AddModelError("Duplique",
                     @"Un programme contenant le même nom et le même devis ministériel existe déjà.");
             }
@@ -78,7 +77,7 @@ namespace PotatoPortail.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.idDevis = ConstruireDevisSelectList(programme.idDevis);
+            ViewBag.idDevis = ConstruireDevisSelectList(programme.IdDevis);
             return View(programme);
         }
 
@@ -96,7 +95,7 @@ namespace PotatoPortail.Controllers
             if (ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été modifié.",
+                    "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été modifié.",
                     Toast.ToastType.Success);
                 _db.Entry(programme).State = EntityState.Modified;
                 _db.SaveChanges();
@@ -106,7 +105,7 @@ namespace PotatoPortail.Controllers
             if (!ValidationDate(programme))
             {
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le programme " + '\u0022' + programme.nom + '\u0022' + ", n'a pas pus être modifié.",
+                    "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", n'a pas pus être modifié.",
                     Toast.ToastType.Error);
                 ModelState.AddModelError("Duplique",
                     @"Veuillez entrer une année entre celle du devis et l'année courante.");
@@ -116,14 +115,14 @@ namespace PotatoPortail.Controllers
                 if (!ProgrammeExiste(programme) && ModelState.IsValid)
                 {
                     this.AddToastMessage("Confirmation de la modification",
-                        "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été modifié.",
+                        "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été modifié.",
                         Toast.ToastType.Success);
                     _db.Programme.Add(programme);
                     _db.SaveChanges();
                 }
             }
 
-            ViewBag.idDevis = ConstruireDevisSelectList(programme.idDevis);
+            ViewBag.idDevis = ConstruireDevisSelectList(programme.IdDevis);
             return View(programme);
         }
 
@@ -136,7 +135,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            programme.statusValider = true;
+            programme.StatutStageValider = true;
 
             _db.Entry(programme).State = EntityState.Modified;
             _db.SaveChanges();
@@ -150,7 +149,7 @@ namespace PotatoPortail.Controllers
             List<SelectListItem> liste = new List<SelectListItem>();
             foreach (DevisMinistere e in devis)
             {
-                liste.Add(new SelectListItem {Value = e.idDevis.ToString(), Text = e.nom});
+                liste.Add(new SelectListItem {Value = e.IdDevis.ToString(), Text = e.nom});
             }
 
             if (idDevis != null)
@@ -171,7 +170,7 @@ namespace PotatoPortail.Controllers
             _db.Programme.Remove(programme);
             _db.SaveChanges();
             this.AddToastMessage("Confirmation de la supression",
-                "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été supprimé",
+                "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été supprimé",
                 Toast.ToastType.Success);
 
 
@@ -191,7 +190,7 @@ namespace PotatoPortail.Controllers
         private bool ProgrammeExiste(Programme programme)
         {
             bool existe = _db.Programme.Any(p =>
-                p.idDevis == programme.idDevis && p.nom == programme.nom && p.annee == programme.annee);
+                p.IdDevis == programme.IdDevis && p.Nom == programme.Nom && p.Annee == programme.Annee);
             return existe;
         }
 
@@ -202,12 +201,12 @@ namespace PotatoPortail.Controllers
 
             IQueryable<DevisMinistere> devisMin =
                 from dev in _db.DevisMinistere
-                where dev.idDevis == programme.idDevis
+                where dev.IdDevis == programme.IdDevis
                 select dev;
 
             anneeCourrante += 2;
-            var anneeDevis = Convert.ToInt32(devisMin.First().annee);
-            var anneeProgramme = Convert.ToInt32(programme.annee);
+            var anneeDevis = Convert.ToInt32(devisMin.First().Annee);
+            var anneeProgramme = Convert.ToInt32(programme.Annee);
 
             if (anneeProgramme >= anneeDevis && anneeProgramme <= anneeCourrante)
             {

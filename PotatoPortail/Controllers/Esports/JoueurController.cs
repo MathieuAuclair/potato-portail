@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models.eSports;
-using PotatoPortail.Migrations;
 using PotatoPortail.Models;
-using PotatoPortail.Models.eSports;
 
 namespace PotatoPortail.Controllers.Esports
 {
     public class JoueurController : Controller
     {
-        private readonly DatabaseContext _db = new DatabaseContext();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult Index(string sortOrder)
         {
-            ViewBag.NomSortParm = String.IsNullOrEmpty(sortOrder) ? "nom_desc" : "";
-            ViewBag.PrenomSortParm = String.IsNullOrEmpty(sortOrder) ? "prenom_desc" : "";
-            ViewBag.PseudoSortParm = String.IsNullOrEmpty(sortOrder) ? "pseudo_desc" : "";
-            ViewBag.JeuSortParm = String.IsNullOrEmpty(sortOrder) ? "jeu_desc" : "";
+            ViewBag.NomSortParm = string.IsNullOrEmpty(sortOrder) ? "nom_desc" : "";
+            ViewBag.PrenomSortParm = string.IsNullOrEmpty(sortOrder) ? "prenom_desc" : "";
+            ViewBag.PseudoSortParm = string.IsNullOrEmpty(sortOrder) ? "pseudo_desc" : "";
+            ViewBag.JeuSortParm = string.IsNullOrEmpty(sortOrder) ? "jeu_desc" : "";
 
             var joueurs = from j in _db.Joueurs
                 select j;
@@ -27,19 +24,19 @@ namespace PotatoPortail.Controllers.Esports
             switch (sortOrder)
             {
                 case "nom_desc":
-                    joueurs = joueurs.OrderByDescending(j => j.Etudiant.NomDeFamille);
+                    joueurs = joueurs.OrderByDescending(j => j.MembreESports.Nom);
                     break;
                 case "prenom_desc":
-                    joueurs = joueurs.OrderBy(j => j.Etudiant.Prenom);
+                    joueurs = joueurs.OrderBy(j => j.MembreESports.Prenom);
                     break;
                 case "pseudo_desc":
                     joueurs = joueurs.OrderBy(j => j.PseudoJoueur);
                     break;
                 case "jeu_desc":
-                    joueurs = joueurs.OrderBy(j => j.Profil.Jeu.nomJeu);
+                    joueurs = joueurs.OrderBy(j => j.Profils.Jeux.NomJeu);
                     break;
                 default:
-                    joueurs = joueurs.OrderBy(j => j.Etudiant.NomDeFamille);
+                    joueurs = joueurs.OrderBy(j => j.MembreESports.Nom);
                     break;
             }
 
@@ -54,7 +51,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Joueur joueur = _db.Joueurs.Find(id);
+            Joueurs joueur = _db.Joueurs.Find(id);
 
             if (joueur == null)
             {
@@ -87,7 +84,7 @@ namespace PotatoPortail.Controllers.Esports
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Creation([Bind(Include = "id,pseudoJoueur,EtudiantId,ProfilId")]
-            Joueur joueur)
+            Joueurs joueur)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +93,7 @@ namespace PotatoPortail.Controllers.Esports
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EtudiantId = new SelectList(_db.Etudiant, "id", "id", joueur.EtudiantId);
+            ViewBag.EtudiantId = new SelectList(_db.Etudiant, "id", "id", joueur.IdEtudiant);
             return View(joueur);
         }
 
@@ -172,7 +169,7 @@ namespace PotatoPortail.Controllers.Esports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Joueur joueur = _db.Joueurs.Find(id);
+            Joueurs joueur = _db.Joueurs.Find(id);
 
             if (joueur == null)
             {
@@ -186,16 +183,16 @@ namespace PotatoPortail.Controllers.Esports
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Joueur joueur = _db.Joueurs.Find(id);
+            Joueurs joueur = _db.Joueurs.Find(id);
 
             if (joueur == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            Etudiant etu = _db.Etudiant.Find(joueur.EtudiantId);
-            Profil profil = _db.Profils.Find(joueur.Profil.Id);
-            Jeu jeu = _db.Jeux.Find(joueur.EquipeMonojoueur.JeuId);
+            Etudiant etu = _db.Etudiant.Find(joueur.IdEtudiant);
+            Profils profil = _db.Profils.Find(joueur.MembreESports.Id);
+            Jeux jeu = _db.Jeux.Find(joueur.EquipeMonojoueur.JeuId);
 
             if (jeu == null || etu == null || profil == null)
             {

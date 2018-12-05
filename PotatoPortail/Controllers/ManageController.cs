@@ -6,6 +6,7 @@ using ApplicationPlanCadre.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PotatoPortail.Models;
+using PotatoPortail.ViewModels.ProjetPrincipal;
 
 namespace PotatoPortail.Controllers
 {

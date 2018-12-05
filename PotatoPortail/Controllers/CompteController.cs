@@ -126,7 +126,7 @@ namespace PotatoPortail.Controllers
 
         private void CreationRcpAccesProgramme(ApplicationUser utilisateur, ICollection<string> codeProgramme)
         {
-            DatabaseContext bd = new DatabaseContext();
+            BdPortail bd = new BdPortail();
             foreach (string code in codeProgramme)
             {
                 AccesProgramme accesProgramme = new AccesProgramme
@@ -137,20 +137,20 @@ namespace PotatoPortail.Controllers
             bd.SaveChanges();
         }
 
-        private void EnleverToutRCPAccesProgramme(ApplicationUser utilisateur)
+        private void EnleverToutRcpAccesProgramme(ApplicationUser utilisateur)
         {
-            DatabaseContext bd = new DatabaseContext();
+            BdPortail bd = new BdPortail();
             bd.AccesProgramme.RemoveRange(bd.AccesProgramme.Where(e => e.userMail == utilisateur.UserName));
             bd.SaveChanges();
         }
 
         private void ModifierRcpAccesProgramme(ApplicationUser utilisateur, ICollection<string> codeProgramme)
         {
-            EnleverToutRCPAccesProgramme(utilisateur);
+            EnleverToutRcpAccesProgramme(utilisateur);
             CreationRcpAccesProgramme(utilisateur, codeProgramme);
         }
 
-        private void ModifierRoles(ApplicationUser utilisateur, ICollection<string> role)
+        private void ModifierRoles(ApplicationUser utilisateur, IEnumerable<string> role)
         {
             UserManager.RemoveFromRoles(utilisateur.Id, utilisateur.roles.ToArray());
             UserManager.AddToRoles(utilisateur.Id, role.ToArray());
@@ -212,7 +212,7 @@ namespace PotatoPortail.Controllers
 
         private IEnumerable<string> GetCodeProgrammes(ApplicationUser utilisateur)
         {
-            return (from accesProgramme in new DatabaseContext().AccesProgramme
+            return (from accesProgramme in new BdPortail().AccesProgramme
                 where accesProgramme.userMail == utilisateur.UserName
                 select accesProgramme.codeProgramme).ToList();
         }
@@ -274,7 +274,7 @@ namespace PotatoPortail.Controllers
                         if (isRcp)
                             ModifierRcpAccesProgramme(utilisateur, codeProgramme);
                         else
-                            EnleverToutRCPAccesProgramme(utilisateur);
+                            EnleverToutRcpAccesProgramme(utilisateur);
                         return RedirectToAction("Index", "Compte");
                     }
 
