@@ -1,99 +1,172 @@
-﻿@model IEnumerable<PotatoPortail.Models.eSports.Profil>
+﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Profil>
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Titre = "Inscriptions";
 }
 
 <div class="container">
+
     <div class="box">
 
-        @if (ViewBag.inscriptions.Count > 0)
+        @if (User.IsInRole("Admin eSports"))
         {
-            <header class="light-header">
-                <h1>Inscriptions déposées</h1>
-            </header>
 
-            <h3>@ViewBag.msgJoueurExistant</h3>
+            if (ViewBag.inscriptions.Count > 0)
+            {
+                <header class="light-header">
+                    <h1>Inscriptions déposées</h1>
+                </header>
 
-            <input type="button" value="Appliquer" class="fancy-button" onclick="location.href = '@Url.Action("Inscription", "Profil")'"/>
-            <br/>
-            <br/>
-
-            <table class="cool-table">
-                <tr>
-                    <th>
-                        @Html.DisplayName("Nom de l'étudiant")
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Pseudo)
-                    </th>
-                    <th class="action-cell-header">
-                        <b>Détails</b>
-                    </th>
-                    <th class="action-cell-header">
-                        <b>Accepter pour jeu primaire</b>
-                    </th>
-                    <th class="action-cell-header">
-                        <b>Accepter pour jeu secondaire</b>
-                    </th>
-                    <th class="action-cell-header">
-                        <b>Refuser</b>
-                    </th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+                <table class="cool-table">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Etudiant.Prenom + item.Etudiant.NomDeFamille)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pseudo)
-                        </td>
-
-                        <td class="action-cell">
-                            <a href='@Url.Action("Details", "Profil", new {id = item.Id})'>
-                                <span class="glyphicon glyphicon-info-sign"></span>
-                            </a>
-                        </td>
-
-                        <td class="action-cell">
-                            <a href='@Url.Action("Valider", "Profil", new {id = item.Id})'>
-                                <span class="glyphicon glyphicon-check"></span>
-                                @item.Jeu.nomJeu
-                            </a>
-                        </td>
-
-                        <td class="action-cell">
-                            @if (item.JeuSecondaire != null)
-                            {
-                                <a href='@Url.Action("Valider", "Profil", new {id = item.Id, JeuId = item.JeuSecondaireId})'>
-                                    <span class="glyphicon glyphicon-check"></span>
-                                    @item.JeuSecondaire.nomJeu
-                                </a>
-                            }
-                        </td>
-
-                        <td class="action-cell">
-                            <a href='@Url.Action("Supprimer", "Profil", new {id = item.Id})'>
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                        </td>
-
+                        <th>
+                            @Html.DisplayName("Nom de l'étudiant")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.pseudo)
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Détails</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Accepter pour jeu primaire</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Accepter pour jeu secondaire</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Refuser</b>
+                        </th>
                     </tr>
-                }
 
-            </table>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembreESports.nomComplet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pseudo)
+                            </td>
+
+                            <td class="action-cell">
+                                <a href='@Url.Action("Details", "Profil", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                </a>
+                            </td>
+
+                            <td class="action-cell">
+                                <a href='@Url.Action("Valider", "Profil", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-check"></span>
+                                    @item.Jeu.nomJeu
+                                </a>
+                            </td>
+
+                            <td class="action-cell">
+                                @if (item.jeuSecondaire != null)
+                                {
+                                    <a href='@Url.Action("Valider", "Profil", new { id = item.id, JeuId = item.JeuSecondaireId })'>
+                                        <span class="glyphicon glyphicon-check"></span>
+                                        @item.jeuSecondaire.nomJeu
+                                    </a>
+                                }
+                            </td>
+
+                            <td class="action-cell">
+                                <a href='@Url.Action("Supprimer", "Profil", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <header class="light-header">
+                    <h1>Aucune inscription n'est actuellement en attente d'approbation.</h1>
+                </header>
+            }
+
         }
         else
         {
-            <br/>
-            <br/>
-            <input type="button" value="Appliquer" class="fancy-button" onclick="location.href = '@Url.Action("Inscription", "Profil")'"/>
-            <br/>
-            <header class="light-header">
-                <h1>Aucune inscription n'est actuellement en attente d'approbation.</h1>
-            </header>
+            if(Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()).Any())
+            {
+
+                <header class="light-header">
+                    <h1>Mes candidatures déposées</h1>
+                </header>
+
+                <table class="cool-table">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Nom de l'étudiant")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.pseudo)
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Détails</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Jeu primaire</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Jeu secondaire</b>
+                        </th>
+                        <th class="action-cell-header">
+                            <b>Supprimer</b>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembreESports.nomComplet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pseudo)
+                            </td>
+
+                            <td class="action-cell">
+                                <a href='@Url.Action("Details", "Profil", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                </a>
+                            </td>
+
+                            <td class="action-cell">
+                                @Html.DisplayFor(modelItem => item.Jeu.nomJeu)
+                            </td>
+
+                            <td class="action-cell">
+                                @if (item.jeuSecondaire != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.jeuSecondaire.nomJeu)
+                                }
+                            </td>
+
+                            <td class="action-cell">
+                                <a href='@Url.Action("Supprimer", "Profil", new { id = item.id })'>
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <header class="light-header">
+                    <h1>Vous n'avez actuellement aucune candidature déposée.</h1>
+                </header>
+            }
         }
 
         <div class="menu-flottant">
@@ -101,7 +174,33 @@
                 <span class="glyphicon glyphicon-triangle-left"></span>
                 Retour
             </a>
+            @if (User.IsInRole("Admin eSports"))
+            {
+                <a class="fancy-button blanc" href="/Joueur/Index">
+                    <span class="mdi mdi-person"></span>
+                    Liste des joueurs
+                </a>
+                if(User.IsInRole("Etudiant"))
+                {
+                    <a class="fancy-button blanc" href="/Profil/Inscription">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Soumettre une inscription
+                    </a>
+                }
+            }
+            else
+            {
+                <a class="fancy-button blanc" href="/Joueur/Index">
+                    <span class="mdi mdi-person"></span>
+                    Mes profils de joueur
+                </a>
+                <a class="fancy-button blanc" href="/Profil/Inscription">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Soumettre une inscription
+                </a>
+            }
         </div>
 
     </div>
+
 </div>
