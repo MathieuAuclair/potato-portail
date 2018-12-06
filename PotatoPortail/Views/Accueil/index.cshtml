@@ -14,17 +14,21 @@
             </a>
         }
 
-        <a class="icon" href='@Url.Action("Index", "Rapport")'>
-            <span class="mdi mdi-folder-open"></span>
-            <p>Rapport</p>
-        </a>
 
-        <a class="icon" href='@Url.Action("Reunions")'>
-            <span class="mdi mdi-date-range"></span>
-            <p>Réunions</p>
-        </a>
+        @if (User.IsInRole("RCP") || User.IsInRole("RDC") || User.IsInRole("Enseignant"))
+        {
+            <a class="icon" href='@Url.Action("Index", "Rapport")'>
+                <span class="mdi mdi-folder-open"></span>
+                <p>Rapport</p>
+                <p>(Bêta)</p>
+            </a>
+            <a class="icon" href='@Url.Action("Reunions")'>
+                <span class="mdi mdi-date-range"></span>
+                <p>Réunions</p>
+            </a>
+        }
 
-        <a class="icon" href=''>
+        <a class="icon" href='@Url.Action("Index","Stages")'>
             <span class="mdi mdi-work"></span>
             <p>Stages</p>
         </a>
@@ -36,10 +40,13 @@
                 <p>Console d'administration</p>
             </a>
         }
+        @if (User.IsInRole("Admin eSports") || User.IsInRole("Etudiant") || User.IsInRole("Joueur eSports"))
+        {
+            <a class="icon" href='@Url.Action("ESport")'>
+                <span class="mdi mdi-videogame-asset"></span>
+                <p>eSport - Gaillard</p>
+            </a>
+        }
+        </div>
 
-        <a class="icon" href='@Url.Action("ESport")'>
-            <span class="mdi mdi-videogame-asset"></span>
-            <p>eSport - Gaillard</p>
-        </a>
-    </div>
 </div>

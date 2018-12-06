@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Titre = Model.description;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Cours">
 }
 
 @Html.Action("ListeProgramme")
@@ -15,7 +16,7 @@
         <h1>@ViewBag.Titre</h1>
         <hr />
 
-        <h3>@Html.DisplayFor(model => model.DevisMinistere.EnteteProgramme.codeProgramme)-@Html.DisplayFor(model => model.annee)-@Html.DisplayFor(model => model.DevisMinistere.codeSpecialisation)</h3>
+        <h3>@Html.DisplayFor(model => model.DevisMinistere.Departement.discipline)-@Html.DisplayFor(model => model.annee)-@Html.DisplayFor(model => model.DevisMinistere.codeSpecialisation)</h3>
 
     </header>
 
@@ -31,13 +32,13 @@
         </div>
     }
 
-    <hr class="end-div"/>
+    <hr class="end-div" />
 
-    
+
     <div class="menu-flottant">
         <a class="fancy-button blanc" onclick="location.href='@Url.Action("Index", "Programme")'"><span class="glyphicon glyphicon-triangle-left"></span>Retour</a>
     </div>
-    
+
 
 </div>
 

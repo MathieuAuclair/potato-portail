@@ -4,8 +4,6 @@
     ViewBag.Titre = "Modification de " + ViewBag.nomJeu;
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Jeu">
 }
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -75,6 +73,7 @@
                 </a>
 
                 <a class="fancy-button blanc" href='@Url.Action("Details","Jeu", new { id = Model.id, nomJeu = Model.nomJeu})'>
+
                     <span class="glyphicon glyphicon-info-sign"></span>
                     Accéder aux détails
                 </a>
@@ -86,12 +85,16 @@
 
                 @if (Model.Statut.nomStatut == "Inactif")
                 {
-                <a class="fancy-button rouge blanc" href='@Url.Action("Supprimer", new { id = Model.id, nomJeu = Model.nomJeu })'>
-                    <span class="glyphicon glyphicon-trash"></span>
-                    Supprimer
-                </a>
+                    <a class="fancy-button rouge blanc" href='@Url.Action("Supprimer", new { id = Model.id, nomJeu = Model.nomJeu })'>
+                      <span class="glyphicon glyphicon-trash"></span>
+                      Supprimer
+                    </a>
                 }
             </div>
+            <a class="fancy-button blanc" href='@Url.Action("Creation","Caracteristique", new { JeuId = Model.id, nomJeu = Model.nomJeu })'>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                Ajouter une caractéristique
+            </a>
         </div>
         <hr class="end-div" />
 
@@ -99,20 +102,20 @@
         {
         <div class="form-box">
 
+
             <header class="light-header">
                 @if (Model.Caracteristique.Count == 1)
-            {
-                <h1>Caractéristique associée à «@Model.nomJeu» : </h1>
-        }
-        else if (Model.Caracteristique.Count > 1)
-        {
-            <h1>Caractéristiques associées à «@Model.nomJeu» : </h1>
-    }
-
+                {
+                    <h1>Caractéristique associée à «@Model.nomJeu» : </h1>
+                }
+                else if (Model.Caracteristique.Count > 1)
+                {
+                    <h1>Caractéristiques associées à «@Model.nomJeu» : </h1>
+                }
             </header>
 
             @foreach (var carac in Model.Caracteristique)
-        {
+            {
             <div class="row">
                 <div class="col-md-11">
                     <table class="cool-table">
@@ -125,7 +128,7 @@
 
 
                         @using (Html.BeginForm("EditItem", "Jeu", FormMethod.Post))
-                    {
+                        {
                         foreach (var item in carac.Item)
                         {
                             string id = "carac_" + carac.id + "_item" + item.id;
@@ -139,7 +142,7 @@
                                     </a>
                                 </td>
                             </tr>
-                    }
+                        }
 
 
                     <tr id="tr_bouton_plus_@carac.id">
@@ -149,15 +152,14 @@
                             var nbrItem = carac.Item.Count - 1;
                             }
                             @if (nbrItem < 0)
-                        {
-
-                            <a id="bonton_plus_null" onclick='ajoutPPrincipal("@carac.id", this.id)'><span class="glyphicon glyphicon-plus"></span></a>
-                    }
-                    else
-                    {
-                        <a id="@carac.Item.ElementAt(nbrItem).id"
-                           onclick='ajoutPPrincipal("@carac.id", this.id)'><span class="glyphicon glyphicon-plus"></span></a>
-                }
+                            {
+                                <a id="bonton_plus_null" onclick='ajoutPPrincipal("@carac.id", this.id)'><span class="glyphicon glyphicon-plus"></span></a>
+                            }
+                            else
+                            {
+                                <a id="@carac.Item.ElementAt(nbrItem).id"
+                                onclick='ajoutPPrincipal("@carac.id", this.id)'><span class="glyphicon glyphicon-plus"></span></a>
+                            }
                         </td>
                         <td class="action-cell"></td>
                     </tr>
@@ -173,6 +175,7 @@
 
         </div>
         <hr class="end-div" />
+
         }
 
 

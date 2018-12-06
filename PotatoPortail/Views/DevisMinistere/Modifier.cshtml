@@ -1,13 +1,14 @@
 ﻿@model ApplicationPlanCadre.Models.DevisMinistere
 @{
     ViewBag.Titre = "Modifier un devis ministériel";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="DevisMinistere">
 }
 
 @using (Html.BeginForm("Modifier", "DevisMinistere", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.idDevis)
-    @Html.HiddenFor(m => m.codeProgramme)
+    @Html.HiddenFor(m => m.discipline)
     @Html.HiddenFor(m => m.annee)
     @Html.HiddenFor(m => m.codeSpecialisation)
     @Html.HiddenFor(m => m.docMinistere)
@@ -42,7 +43,7 @@
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.nbUnite)
-                        @Html.TextBoxFor(m => m.nbUnite, new {@Type = "text", @maxlength = "8", @class = "form-control" })
+                        @Html.TextBoxFor(m => m.nbUnite, new { @Type = "text", @maxlength = "8", @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.nbUnite, "", new { @class = "text-danger" })
                     </div>
 
@@ -76,13 +77,13 @@
 
                         <div class="form-group">
                             @Html.LabelFor(m => m.nbHeureFrmGenerale)
-                            @Html.TextBoxFor(m => m.nbHeureFrmGenerale, new { @type = "number", @min ="0", @step = "10", @maxlength = "4", @class = "form-control small" })
+                            @Html.TextBoxFor(m => m.nbHeureFrmGenerale, new { @type = "number", @min = "0", @step = "10", @maxlength = "4", @class = "form-control small" })
                             @Html.ValidationMessageFor(m => m.nbHeureFrmGenerale, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(m => m.nbHeureFrmSpecifique)
-                            @Html.TextBoxFor(m => m.nbHeureFrmSpecifique, new { @type="number", @min = "0", @step = "10", @maxlength = "4", @class = "form-control small" })
+                            @Html.TextBoxFor(m => m.nbHeureFrmSpecifique, new { @type = "number", @min = "0", @step = "10", @maxlength = "4", @class = "form-control small" })
                             @Html.ValidationMessageFor(m => m.nbHeureFrmSpecifique, "", new { @class = "text-danger" })
                         </div>
 

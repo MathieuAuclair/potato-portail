@@ -4,12 +4,12 @@
     @foreach (var item in Model)
     {
         <div class="tree-view-item">
-            <a href="@Url.Action("Details",  new { id = item.idOdJ })">
+            <a href="@Url.Action("Details",  new { id = item.IdOdJ })">
                 <div id="historique">
-                    @Html.DisplayFor(modelItem => item.titreOdJ)
+                    @Html.DisplayFor(modelItem => item.TitreOdJ)
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.dateOdJ)
+                    @Html.DisplayFor(modelItem => item.DateOdJ)
                 </div>
             </a>
         </div>

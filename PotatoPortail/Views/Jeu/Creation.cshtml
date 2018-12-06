@@ -57,15 +57,19 @@
                             <p>Statut du jeu</p>
                             <hr />
                             <div class="form-group">
+
                                 @Html.DropDownListFor(model => model.StatutId, (IEnumerable<SelectListItem>
                                     )ViewBag.Statuts, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.StatutId, "", new { @class = "text-danger" })
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <div class="menu-flottant">
             <a class="fancy-button blanc" href="@Url.Action("Index","Jeu")">
@@ -79,8 +83,10 @@
     </div>
 
 </div>
+ 
 
 <hr class="end-div" />
+
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

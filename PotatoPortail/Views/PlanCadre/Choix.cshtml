@@ -1,0 +1,80 @@
+﻿@model ApplicationPlanCadre.ViewModels.CompetenceViewModel
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div id="formChoix" class="container">
+    <div class="form-box">
+        <div class="form-group">
+            @Html.LabelFor(model => model.titreCours, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.titreCours, new { htmlAttributes = new { @class = "form-control", @name = "titreCours" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.numeroCours, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.numeroCours, new { htmlAttributes = new { @class = "form-control", @name = "numeroCours" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.nbHeureDevoir, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.nbHeureDevoir, new { htmlAttributes = new { @class = "form-control", @name = "nbHeureDevoir" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.nbHeurePratique, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.nbHeurePratique, new { htmlAttributes = new { @class = "form-control", @name = "nbHeurePratique" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.nbHeureTheorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.nbHeureTheorie, new { htmlAttributes = new { @class = "form-control", @name = "nbHeureTheorie" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.indicationPedago, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.indicationPedago, new { htmlAttributes = new { @class = "form-control", @name = "indicationPedago" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.idType, "Compétence", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.idType, Model.typePlanCadre, htmlAttributes: new { @class = "form-control", @name = "codeCompetence" })
+                @Html.ValidationMessageFor(model => model.idType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div id="divCompetence">
+            <h2>Compétences</h2>
+            <hr />
+            <div id="listeEle">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EnonceCompetence, "Compétence", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.idEnonce, Model.EnonceCompetences, htmlAttributes: new { @class = "form-control", @name = "codeCompetence", @id = "drop" })
+                        @Html.ValidationMessageFor(model => model.EnonceCompetence, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" id="divPartialView">
+                </div>
+            </div>
+        </div>
+        <button id="submitBtn" type="submit" class="fancy-button">Créer</button>
+        <div class="form-group">
+            <div class="fancy-button" id="btnPlus1" onclick="ajoutPPrincipal(" listeEle")"><span class="glyphicon glyphicon-plus"></span></div>
+        </div>
+
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href='@Url.Action("Reunions", "Accueil")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <a class="fancy-button blanc" href='@Url.Action("Create", "OrdreDuJour")'><span class="glyphicon glyphicon-plus"></span> Choisir les éléments de connaissance</a>
+        </div>
+    </div>
+</div>
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $("#drop").on("change", function () {
+        var idCompetence = $("#drop").val()
+        $.ajax({
+            url: '@Url.Action("GetCompetence", "PlanCadre")',
+            type: 'GET',
+            data: { id: idCompetence },
+            dataType: "html",
+            success: function (data) {
+                $('#divPartialView').html(data);
+            }
+        });
+    });
+</script>
+<script src="@Url.Content("~/Scripts/elementsCompetence.js")"></script>

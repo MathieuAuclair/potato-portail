@@ -9,7 +9,7 @@ namespace PotatoPortail.Helpers
 {
     public abstract class RcpAuthorize : AuthorizeAttribute
     {
-        protected readonly DatabaseContext Db = new DatabaseContext();
+        protected readonly BDPortail Db = new BDPortail();
         protected abstract string IdName { get; }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)

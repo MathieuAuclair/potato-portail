@@ -1,14 +1,13 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers.SystemeStage
 {
     public class LocationController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BDPortail _bd = new BDPortail();
 
         [HttpGet]
         public ActionResult Index()

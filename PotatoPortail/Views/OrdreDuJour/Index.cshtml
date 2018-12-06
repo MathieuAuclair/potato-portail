@@ -7,30 +7,63 @@
 @Html.Action("ListeOrdreDuJour")
 
 <div class="super-view">
-    <div class="form-box">
+    <header class="light-header">
+        <h1>Ordre du jour ajouté récemment</h1>
+    </header>
 
-        <header class="light-header">
-            <h1>Ordre du jour ajouté récemment</h1>
-        </header>
+    <div id="dragandropPP">
 
-
-        @foreach (var odj in Model)
+    </div>
+    @foreach (var odj in Model)
+    {
+        if (!(odj.TitreOdJ == "Modele"))
         {
             <div>
-                <a class="info-child clearfix vertical-align" href='@Url.Action("Details", new {id = odj.idOdJ})'>
-                    <p class="gauche">@Html.DisplayFor(p => odj.dateOdJ)</p>
-                    <p class="droiteG">@Html.DisplayFor(p => odj.titreOdJ)</p>
+                <a class="info-child clearfix vertical-align" href='@Url.Action("Details", new { id = odj.IdOdJ })'>
+                    <p class="gauche">@Html.DisplayFor(p => odj.DateOdJ)</p><p class="droiteG">@Html.DisplayFor(p => odj.TitreOdJ)</p>
                 </a>
             </div>
-        }
+        }            
+    }
+    <hr class="end-div" />
 
-        <div class="menu-flottant">
-            <a class="fancy-button blanc" href='@Url.Action("Reunions", "Accueil")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-            <a class="fancy-button blanc" href='@Url.Action("Create", "OrdreDuJour")'><span class="glyphicon glyphicon-plus"></span> Créer un ordre du jour</a>
-        </div>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href='@Url.Action("OrdreDuJour", "Accueil")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+        <a class="fancy-button blanc" href='@Url.Action("Create", "OrdreDuJour")'><span class="glyphicon glyphicon-plus"></span> Créer un ordre du jour</a>
+        <a class="fancy-button blanc" href='@Url.Action("ModifierModeleOrdreDuJour", "OrdreDuJour")'><span class="glyphicon glyphicon-pencil"></span>Modifier le modèle</a>
+
     </div>
 </div>
+
 <script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
 <script>
     var ps = new PerfectScrollbar('.tree-view');
+
+    $("#dragandropPP").sortable({
+                update: function (e,div) {
+                    // gets the new and old index then removes the temporary attribute
+                    var ordre = 1;
+                    var listeElement = [];
+
+                    $("#dragandropPP div").each(function () {
+                        var idelement = $(this)[0].children[0].id;
+                        var objModel = { idelement: idelement, numero: ordre };
+                        $(this)[0].children[0].children[1].innerHTML = ordre;
+                        listeElement.push(objModel);
+                        ordre++;
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: '@Url.Action("MettreAjourOrdre", "OrdreDuJour")', //This is my url put your url here and pass model as data it is an array of my items
+                        data: JSON.stringify({ listeElement: listeElement }),
+                        success: function (data) {
+                        },
+                        error: function (resultat, statut,erreur) {
+                            alert(erreur);
+                        }
+                    });
+                }
+            });
 </script>

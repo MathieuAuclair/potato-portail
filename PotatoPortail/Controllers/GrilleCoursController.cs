@@ -1,34 +1,38 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using System.Dynamic;
 using ApplicationPlanCadre.Models;
-using PotatoPortail.Migrations;
 
-namespace PotatoPortail.Controllers
+namespace ApplicationPlanCadre.Controllers
 {
     public class GrilleCoursController : Controller
     {
-        private DatabaseContext db = new DatabaseContext();
+        private BDPlanCadre db = new BDPlanCadre();
 
+        // GET: GrilleCours
         public ActionResult Index()
         {
             return View(db.GrilleCours.ToList());
         }
 
+        // GET: GrilleCours/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             GrilleCours grilleCours = db.GrilleCours.Find(id);
             if (grilleCours == null)
             {
                 return HttpNotFound();
             }
-
             return View(grilleCours);
         }
 
@@ -47,7 +51,6 @@ namespace PotatoPortail.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(grilleCours);
         }
 
@@ -67,13 +70,11 @@ namespace PotatoPortail.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             GrilleCours grilleCours = db.GrilleCours.Find(id);
             if (grilleCours == null)
             {
                 return HttpNotFound();
             }
-
             return View(grilleCours);
         }
 
@@ -87,7 +88,6 @@ namespace PotatoPortail.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(grilleCours);
         }
 
@@ -96,8 +96,7 @@ namespace PotatoPortail.Controllers
             return View(db.GrilleCours.Find(id));
         }
 
-        public ActionResult InfoHeure(int id)
-        {
+        public ActionResult infoHeure(int id) {
             return View(db.GrilleCours.Find(id));
         }
 
@@ -106,7 +105,7 @@ namespace PotatoPortail.Controllers
             return PartialView(db.GrilleCours.Find(id));
         }
 
-        public ActionResult InfoPrealable(int id)
+        public ActionResult infoPrealable(int id)
         {
             return View(db.GrilleCours.Find(id));
         }
@@ -122,13 +121,11 @@ namespace PotatoPortail.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             GrilleCours grilleCours = db.GrilleCours.Find(id);
             if (grilleCours == null)
             {
                 return HttpNotFound();
             }
-
             return View(grilleCours);
         }
 
@@ -137,12 +134,6 @@ namespace PotatoPortail.Controllers
         public ActionResult SurpressionConfirmer(int id)
         {
             GrilleCours grilleCours = db.GrilleCours.Find(id);
-
-            if (grilleCours == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
             db.GrilleCours.Remove(grilleCours);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -154,8 +145,9 @@ namespace PotatoPortail.Controllers
             {
                 db.Dispose();
             }
-
             base.Dispose(disposer);
         }
+
     }
 }
+

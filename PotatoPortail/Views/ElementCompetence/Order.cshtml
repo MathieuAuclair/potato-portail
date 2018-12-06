@@ -1,0 +1,59 @@
+﻿@model ApplicationPlanCadre.Models.EnonceCompetence
+
+@{
+    ViewBag.Titre = "Changer l'ordre des éléments";
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="ElementCompetence">
+}
+
+<div class="container">
+    <div class="form-box">
+
+        <header class="light-header">
+
+            <h1>@ViewBag.Titre</h1>
+
+        </header>
+
+        <table class="cool-table">
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => Model.ElementCompetence.First().numero)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => Model.ElementCompetence.First().description)
+                </th>
+                <th class="action-cell-header">
+                    <b>Déplacer</b>
+                </th>
+            </tr>
+
+            @foreach (var elementCompetence in Model.ElementCompetence.OrderBy(e => e.numero))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => elementCompetence.numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => elementCompetence.description)
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("DeplacementHaut", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
+                            <span class="glyphicon glyphicon glyphicon-arrow-up"></span>
+                        </a>
+                        <a href='@Url.Action("MouvementBas", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
+                            <span class="glyphicon glyphicon glyphicon-arrow-down"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <hr />
+        <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.idCompetence })' class="fancy-button">Retour</a>
+
+    </div>
+
+</div>
+
