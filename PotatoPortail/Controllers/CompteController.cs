@@ -10,20 +10,21 @@ using System.Data.Entity;
 using System.IO;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ApplicationPlanCadre.Helpers;
-using ApplicationPlanCadre.Toast;
+using PotatoPortail.Helpers;
+using PotatoPortail.Toast;
 using System.Web.Security;
+using PotatoPortail;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CompteController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private BDPortail db = new BDPortail();
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
