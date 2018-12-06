@@ -20,7 +20,8 @@
     if (Model.Any())
     {
 
-    <table class="cool-table">
+       <table class="cool-table">
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.nomJeu)
@@ -53,13 +54,7 @@
                     @Html.DisplayFor(modelItem => jeu.Statut.nomStatut)
                 </td>
                 <td class="action-cell">
-
-                    <a href='@Url.Action("Modifier", new { id = item.id, nomJeu = item.nomJeu })'>
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                </td>
-                <td class="action-cell">
-                    <a href='@Url.Action("Details", new { id = item.id, nomJeu = item.nomJeu })'>
+                    <a href='@Url.Action("Details", new { id = jeu.id, nomJeu = jeu.nomJeu })'>
                         <span class="glyphicon glyphicon-info-sign"></span>
                     </a>
                 </td>
@@ -70,10 +65,14 @@
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     }
+                </td>
+                </tr>
+                
+            
 
-                </table>
-
-            }
+        }
+           </table>
+        }
             else
             {
                 <h3>Aucun jeu n'est actuellement enregistré dans le système.</h3>
