@@ -4,6 +4,8 @@ namespace PotatoPortail.Models
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using ApplicationPlanCadre.Models.Reunions;
+    using PotatoPortail.Models.Plan_Cours;
 
     public partial class BDPortail : DbContext
     {
@@ -332,12 +334,13 @@ namespace PotatoPortail.Models
             modelBuilder.Entity<ModeleOrdreDuJour>()
                 .Property(e => e.PointPrincipal)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<ModeleOrdreDuJour>()
-                .HasMany(e => e.OrdreDuJour)
-                .WithRequired(e => e.ModeleOrdreDuJour)
-                .HasForeignKey(e => e.IdModeleOrdreDuJour)
-                .WillCascadeOnDelete(false);
+            
+            //Peu être inutile
+            //modelBuilder.Entity<ModeleOrdreDuJour>()
+            //    .HasMany(e => e.OrdreDuJour)
+            //    .WithRequired(e => e.ModeleOrdreDuJour)
+            //    .HasForeignKey(e => e.IdModeleOrdreDuJour)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NomSection>()
                 .Property(e => e.titreSection)

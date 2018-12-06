@@ -1,10 +1,10 @@
-namespace PotatoPortail.Models
+﻿namespace ApplicationPlanCadre.Models.Reunions
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("OrdreDuJour")]
     public partial class OrdreDuJour
@@ -22,7 +22,9 @@ namespace PotatoPortail.Models
         [StringLength(50)]
         public string TitreOdJ { get; set; }
 
+        [DisplayName("Date de la réunion")]
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
         public DateTime DateOdJ { get; set; }
 
         [Required]
@@ -38,7 +40,7 @@ namespace PotatoPortail.Models
 
         public int IdModeleOrdreDuJour { get; set; }
 
-        public virtual ModeleOrdreDuJour ModeleOrdreDuJour { get; set; }
+       // public virtual ModeleOrdreDuJour ModeleOrdreDuJour { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SujetPointPrincipal> SujetPointPrincipal { get; set; }
