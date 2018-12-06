@@ -8,22 +8,22 @@ namespace PotatoPortail.Models
 
     public partial class Item
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Item()
         {
-            Joueurs = new HashSet<Joueur>();
+            Joueur = new HashSet<Joueur>();
         }
 
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Nom de l'item")]
         public string NomItem { get; set; }
 
+        [Display(Name = "Caractéristique")]
         public int IdCaracteristique { get; set; }
 
-        public virtual Caracteristique Caracteristiques { get; set; }
+        public virtual Caracteristique Caracteristique { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueur> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueur { get; set; }
     }
 }

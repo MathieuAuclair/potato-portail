@@ -6,45 +6,41 @@ namespace PotatoPortail.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Jeux")]
     public partial class Jeu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Jeu()
         {
-            Caracteristiques = new HashSet<Caracteristique>();
-            Equipes = new HashSet<Equipe>();
-            Profils = new HashSet<Profil>();
-            Rangs = new HashSet<Rang>();
+            Equipe = new HashSet<Equipe>();
         }
 
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Nom du jeu")]
         public string NomJeu { get; set; }
 
+        [Display(Name = "Description du jeu")]
         public string Description { get; set; }
 
+        [Display(Name = "Adresse du site officiel")]
         public string UrlReference { get; set; }
 
         [Required]
-        [StringLength(6)]
+        [Display(Name = "Abréviation")]
+        [StringLength(6, MinimumLength = 2, ErrorMessage = "L'abréviation doit avoir entre 2 et 6 caractères.")]
         public string Abreviation { get; set; }
 
-        public int IdStatuts { get; set; }
+        [Display(Name = "Statut du jeu")]
+        public int IdStatut { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Caracteristique> Caracteristiques { get; set; }
+        public virtual ICollection<Caracteristique> Caracteristique { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipe> Equipes { get; set; }
+        public virtual ICollection<Equipe> Equipe { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profil> Profils { get; set; }
+        public virtual ICollection<Profil> Profil { get; set; }
 
-        public virtual Statut Statuts { get; set; }
+        public virtual ICollection<Rang> Rang { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rang> Rangs { get; set; }
+        public virtual Statut Statut { get; set; }
     }
 }

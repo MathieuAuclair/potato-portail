@@ -19,7 +19,7 @@ namespace PotatoPortail.Models
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Caracteristique> Caracteristiques { get; set; }
+        public virtual DbSet<Caracteristique> Caracteristique { get; set; }
         public virtual DbSet<Contact> Contact { get; set; }
         public virtual DbSet<ContenuSection> ContenuSection { get; set; }
         public virtual DbSet<ContexteRealisation> ContexteRealisation { get; set; }
@@ -30,16 +30,16 @@ namespace PotatoPortail.Models
         public virtual DbSet<ElementCompetence> ElementCompetence { get; set; }
         public virtual DbSet<ElementConnaissance> ElementConnaissance { get; set; }
         public virtual DbSet<EnonceCompetence> EnonceCompetence { get; set; }
-        public virtual DbSet<Entraineur> Entraineurs { get; set; }
+        public virtual DbSet<Entraineur> Entraineur { get; set; }
         public virtual DbSet<Entreprise> Entreprise { get; set; }
         public virtual DbSet<EnvironnementPhysique> EnvironnementPhysique { get; set; }
-        public virtual DbSet<Equipe> Equipes { get; set; }
+        public virtual DbSet<Equipe> Equipe { get; set; }
         public virtual DbSet<Etudiant> Etudiant { get; set; }
         public virtual DbSet<GrilleCours> GrilleCours { get; set; }
         public virtual DbSet<HistoriqueRang> HistoriqueRang { get; set; }
         public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<Jeu> Jeux { get; set; }
-        public virtual DbSet<Joueur> Joueurs { get; set; }
+        public virtual DbSet<Jeu> Jeu { get; set; }
+        public virtual DbSet<Joueur> Joueur { get; set; }
         public virtual DbSet<LieuDeLaReunion> LieuDeLaReunion { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<MembreESports> MembreESports { get; set; }
@@ -54,19 +54,19 @@ namespace PotatoPortail.Models
         public virtual DbSet<PlanCoursUtilisateur> PlanCoursUtilisateur { get; set; }
         public virtual DbSet<Poste> Poste { get; set; }
         public virtual DbSet<Preference> Preference { get; set; }
-        public virtual DbSet<Profil> Profils { get; set; }
+        public virtual DbSet<Profil> Profil { get; set; }
         public virtual DbSet<Programme> Programme { get; set; }
-        public virtual DbSet<Rang> Rangs { get; set; }
-        public virtual DbSet<RessourceDIdactique> RessourceDIdactique { get; set; }
+        public virtual DbSet<Rang> Rang { get; set; }
+        public virtual DbSet<RessourceDIdactique> RessourceDidactique { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<SousActiviteApprentissage> SousActiviteApprentissage { get; set; }
         public virtual DbSet<SousElementConnaissance> SousElementConnaissance { get; set; }
         public virtual DbSet<SousEnvironnementPhysique> SousEnvironnementPhysique { get; set; }
         public virtual DbSet<SousPointSujet> SousPointSujet { get; set; }
-        public virtual DbSet<SousRessourceDIdactique> SousRessourceDIdactique { get; set; }
+        public virtual DbSet<SousRessourceDIdactique> SousRessourceDidactique { get; set; }
         public virtual DbSet<Stage> Stage { get; set; }
         public virtual DbSet<StatutPrealable> StatutPrealable { get; set; }
-        public virtual DbSet<Statut> Statuts { get; set; }
+        public virtual DbSet<Statut> Statut { get; set; }
         public virtual DbSet<StatutStage> StatutStage { get; set; }
         public virtual DbSet<SujetPointPrincipal> SujetPointPrincipal { get; set; }
         public virtual DbSet<sysdiagrams> Sysdiagrams { get; set; }

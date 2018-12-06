@@ -8,12 +8,12 @@ namespace PotatoPortail.Models
 
     public partial class Joueur
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        private BDPortail db = new BDPortail();
+
         public Joueur()
         {
-            HistoriqueRangs = new HashSet<HistoriqueRang>();
-            Equipes = new HashSet<Equipe>();
-            Items = new HashSet<Item>();
+            Equipe = new HashSet<Equipe>();
+            Item = new HashSet<Item>();
         }
 
         public int Id { get; set; }
@@ -29,17 +29,66 @@ namespace PotatoPortail.Models
         [StringLength(128)]
         public string IdMembreESports { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HistoriqueRang> HistoriqueRangs { get; set; }
+        public virtual ICollection<HistoriqueRang> HistoriquesRang { get; set; }
 
         public virtual MembreESports MembreESports { get; set; }
 
-        public virtual Profils Profils { get; set; }
+        public virtual Profil Profil { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipe> Equipes { get; set; }
+        public virtual ICollection<Equipe> Equipe { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Item> Item { get; set; }
+
+        public Equipe equipeMonojoueur
+        {
+            get
+            {
+                var equipeMonojoueurs = from e in db.Equipe
+                                        join j in db.Jeu on e.IdJeu equals j.Id
+                                        join p in db.Profil on e.IdJeu equals p.IdJeu
+                                        join etu in db.MembreESports on p.IdMembreESports equals etu.id.ToString()
+                                        join joueur in db.Joueur on etu.id equals joueur.MembreESportsId
+                                        where (e.estMonojoueur == true) && (e.nomEquipe == MembreESports.nomComplet + "_" + e.Jeu.abreviation + "_" + joueur.Profil.MembreESportsId) && (e.Jeu.nomJeu == p.Jeu.nomJeu) && (joueur.id == id)
+                                        select e;
+
+                int idJeuJoueur = Profil.IdJeu;
+
+                foreach (Equipe equipeMonojoueur in equipeMonojoueurs)
+                {
+                    if (equipeMonojoueur.IdJeu == idJeuJoueur)
+                    {
+                        return equipeMonojoueur;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public string jeuEquipeMonojoueur
+        {
+            get
+            {
+                return equipeMonojoueur.Jeu.NomJeu;
+            }
+        }
+
+        public int nombreJeuxJoueur
+        {
+            get
+            {
+                string nomEquipeMonojoueur = equipeMonojoueur.NomEquipe;
+                int index = nomEquipeMonojoueur.IndexOf("_");
+                int indexIdMembreESports = nomEquipeMonojoueur.IndexOf("_", nomEquipeMonojoueur.IndexOf("_") + 2);
+                string nomCompletEtu = nomEquipeMonojoueur.Substring(0, index);
+                string idEtuEquipeMonojoueur = nomEquipeMonojoueur.Substring(indexIdMembreESports);
+
+                var jeuxJoueur = from e in db.Equipe
+                                 where (e.EstMonojoueur == true) && (e.NomEquipe.StartsWith(nomCompletEtu)) && (("_" + IdMembreESports) == idEtuEquipeMonojoueur)
+                                 select e;
+
+                return jeuxJoueur.Count();
+            }
+        }
     }
 }

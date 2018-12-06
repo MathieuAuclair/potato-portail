@@ -8,23 +8,33 @@ namespace PotatoPortail.Models
 
     public partial class MembreESports
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MembreESports()
         {
-            Joueurs = new HashSet<Joueurs>();
-            Profils = new HashSet<Profils>();
+
         }
 
+        [Display(Name = "ID Étudiant")]
         public string Id { get; set; }
 
+        [Display(Name = "Nom")]
         public string Nom { get; set; }
 
+        [Display(Name = "Prénom")]
         public string Prenom { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueurs> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueur { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profils> Profils { get; set; }
+        public virtual ICollection<Profil> Profil { get; set; }
+
+        public string nomComplet
+        {
+            get
+            {
+                if (Prenom != null)
+                    return Prenom + " " + Nom;
+                else
+                    return Nom;
+            }
+        }
     }
 }
