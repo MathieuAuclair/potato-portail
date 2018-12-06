@@ -17,13 +17,16 @@ using Microsoft.Owin.Security;
 using ApplicationPlanCadre.Helpers;
 using ApplicationPlanCadre.Toast;
 using System.Web.Security;
+using PotatoPortail.Models;
+using PotatoPortail;
+using PotatoPortail.Toast;
 
 namespace ApplicationPlanCadre.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CompteController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private BDPortail db = new BDPortail();
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
