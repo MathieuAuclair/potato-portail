@@ -14,25 +14,25 @@ namespace SysInternshipManagement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Etudiant/Index.cshtml", _bd.etudiant.ToList());
+            return View( _bd.etudiant.ToList());
         }
 
-        [HttpPost]
-        public ActionResult Modifier(int? idEtudiant)
+     //   [HttpPost]
+        public ActionResult Modifier(int? IdEtudiant)
         {
-            if (idEtudiant == null)
+            if (IdEtudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var etudiant = _bd.etudiant.Find(idEtudiant);
+            var etudiant = _bd.etudiant.Find(IdEtudiant);
 
             if (etudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Etudiant/Modifier.cshtml", etudiant);
+            return View(etudiant);
         }
 
         [HttpPost]
@@ -86,7 +86,6 @@ namespace SysInternshipManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var etudiant = new Etudiant
@@ -112,14 +111,14 @@ namespace SysInternshipManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConsulterDossierEtudiant(int? idEtudiant)
+        public ActionResult ConsulterDossierEtudiant(int? IdEtudiant)
         {
-            if (idEtudiant == null)
+            if (IdEtudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var etudiant = _bd.etudiant.Find(idEtudiant);
+            var etudiant = _bd.etudiant.Find(IdEtudiant);
 
             if (etudiant == null)
             {
@@ -129,9 +128,9 @@ namespace SysInternshipManagement.Controllers
             return View("~/Views/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdEtudiant)
         {
-            var etudiant = _bd.etudiant.Find(id);
+            var etudiant = _bd.etudiant.Find(IdEtudiant);
 
             if (etudiant == null)
             {
@@ -139,7 +138,7 @@ namespace SysInternshipManagement.Controllers
             }
 
             var applicationsParCetEtudiant = from application in _bd.application
-                                             where application.Etudiant.IdEtudiant == id
+                                             where application.Etudiant.IdEtudiant == IdEtudiant
                                              select application;
 
             if (!applicationsParCetEtudiant.Any())

@@ -13,14 +13,14 @@ namespace SysInternshipManagement.Controllers
         private readonly DatabaseContext _bd = new DatabaseContext();
 
         [HttpGet]
-        public ActionResult Modifier(int? idStage)
+        public ActionResult Modifier(int? IdStage)
         {
-            if (idStage == null)
+            if (IdStage == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var stage = _bd.stage.Find(idStage);
+            var stage = _bd.stage.Find(IdStage);
             return View(stage);
         }
 
@@ -136,6 +136,7 @@ namespace SysInternshipManagement.Controllers
                 Description = "Description du stage",
                 NomDocument = "",
                 Salaire = 0,
+                
             };
 
             _bd.stage.Add(stage);
@@ -144,9 +145,9 @@ namespace SysInternshipManagement.Controllers
             return View("~/Views/Stage/Modifier.cshtml", stage);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdStage)
         {
-            var stage = _bd.stage.Find(id);
+            var stage = _bd.stage.Find(IdStage);
 
             if (stage == null)
             {
@@ -154,7 +155,7 @@ namespace SysInternshipManagement.Controllers
             }
 
             var applicationsPourCeStage = from application in _bd.application
-                                          where application.Stage.IdStage == id
+                                          where application.Stage.IdStage == IdStage
                                           select application;
 
             if (!applicationsPourCeStage.Any())

@@ -13,65 +13,64 @@ namespace SysInternshipManagement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Status/Index.cshtml", _bd.status.ToList());
+            return View(_bd.status.ToList());
         }
 
         [HttpPost]
-        public ActionResult Modifier(int? idStatus)
+        public ActionResult Modifier(int? IdStatuts)
         {
-            if (idStatus == null)
+            if (IdStatuts == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var status = _bd.status.Find(idStatus);
+            var statuts = _bd.status.Find(IdStatuts);
 
-            if (status == null)
+            if (statuts == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Status/Modifier.cshtml", status);
+            return View(statuts);
         }
 
         [HttpPost]
         public ActionResult EnregistrerLesModifications(
-            int? idStatus,
+            int? idStatuts,
             string nom
         )
         {
-            if (idStatus == null)
+            if (idStatuts == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var status = _bd.status.Find(idStatus);
+            var statuts = _bd.status.Find(idStatuts);
 
-            if (status == null)
+            if (statuts == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            status.StatusStage = nom;
+            statuts.StatusStage = nom;
             _bd.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
-            var status = new Status {StatusStage = "Nouveau status"};
+            var statuts = new Status {StatusStage = "Nouveau statuts"};
 
-            _bd.status.Add(status);
+            _bd.status.Add(statuts);
             _bd.SaveChanges();
 
-            return View("~/Views/Status/Modifier.cshtml", status);
+            return View("~/Views/Status/Modifier.cshtml", statuts);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdStatuts)
         {
-            var statut = _bd.status.Find(id);
+            var statut = _bd.status.Find(IdStatuts);
 
             if (statut == null)
             {
@@ -79,7 +78,7 @@ namespace SysInternshipManagement.Controllers
             }
 
             var stagesAyantCeStatut = from stage in _bd.stage
-                                      where stage.Status.IdStatus == id
+                                      where stage.Status.IdStatus == IdStatuts
                                       select stage;
 
             if (!stagesAyantCeStatut.Any())

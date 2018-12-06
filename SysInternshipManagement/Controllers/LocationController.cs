@@ -14,25 +14,25 @@ namespace SysInternshipManagement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Location/Index.cshtml", _bd.location.ToList());
+            return View( _bd.location.ToList());
         }
 
         [HttpPost]
-        public ActionResult Modifier(int? idLocation)
+        public ActionResult Modifier(int? IdLocation)
         {
-            if (idLocation == null)
+            if (IdLocation == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var location = _bd.location.Find(idLocation);
+            var location = _bd.location.Find(IdLocation);
 
             if (location == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Location/Modifier.cshtml", location);
+            return View(location);
         }
 
         [HttpPost]
@@ -59,7 +59,6 @@ namespace SysInternshipManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var location = new Location {Nom = "Nouvelle location"};
@@ -70,25 +69,17 @@ namespace SysInternshipManagement.Controllers
             return View("~/Views/Location/Modifier.cshtml", location);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? iIdLocationd)
         {
-            var location = _bd.location.Find(id);
+            var location = _bd.location.Find(IdLocation);
 
             if (location == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
-            var stagesAyantCeStatut = from stage in _bd.stage
-                                      where stage.Status.IdStatus == id
-                                      select stage;
-
-            if (!stagesAyantCeStatut.Any())
-            {
-                _bd.location.Remove(location);
-                _bd.SaveChanges();
-            }
-
+            _bd.location.Remove(location);
+            _bd.SaveChanges();
+ 
             return RedirectToAction("Index", "Location");
         }
     }

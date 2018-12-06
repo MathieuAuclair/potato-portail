@@ -6,55 +6,50 @@
 }
 <div>
     <h1>Stagiaire</h1>
-    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
-    <div style="margin-top: 15px; margin-bottom: 15px;">
-        <form action="/Etudiant/Creation" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau stagiaire"))
-        </form>
-    </div>
+>
     <div class="row">
         <div class="col-md-13">
             <table class="cool-table">
                 <tr>
-                    <th colspan="1">Nom</th>
+                    <th colspan="2">Nom</th>
                     <th colspan="2">Courriel personnel</th>
                     <th colspan="2">Courriel scolaire</th>
-                    <th colspan="1">Téléphone</thcolspan="1">
-                    <th colspan="2">Code permanent</thcolspan="2">
-                    <th colspan="2">Numéro DA</th>
+                    <th colspan="1">Téléphone</th>
+                    <th colspan="2">Code permanent</th>
+                    <th colspan="1">Numéro DA</th>
                     <th class="action-cell-header">Modifier</th>
                     <th class="action-cell-header">Supprimer</th>
                 </tr>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td colspan="2">
                             @Html.DisplayFor(model => item.Prenom) @Html.DisplayFor(model => item.NomDeFamille)
                         </td>
-                        <td>
+                        <td colspan="2">
                             @Html.DisplayFor(model => item.CourrielPersonnel)
                         </td>
-                        <td>
+                        <td colspan="2">
                             @Html.DisplayFor(model => item.CourrielEcole)
                         </td>
-                        <td>
+                        <td colspan="1">
                             @Html.DisplayFor(model => item.Telephone)
                         </td>
-                        <td>
+                        <td colspan="2">
                             @Html.DisplayFor(model => item.CodePermanent)
                         </td>
-                        <td>
+                        <td colspan="1">
                             @Html.DisplayFor(model => item.NumeroDa)
                         </td>
-   
-                        <td colspan="1" class="action-cell">
 
-                            <a href='@Url.Action("ConsulterDossierEtudiant", "Etudiant", new { id = item.IdEtudiant })'>
+                        <td class="action-cell">
+
+                            <a href='@Url.Action("ConsulterDossierEtudiant", "Etudiant", new { item.IdEtudiant })'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
-                        <td colspan="1" class="action-cell">
-                            <a href='@Url.Action("Suppression", "Etudiant", new { id = item.IdEtudiant })'>
+                        <td  class="action-cell">
+                            <a href='@Url.Action("Suppression", "Etudiant", new { item.IdEtudiant })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
@@ -63,5 +58,17 @@
                 }
             </table>
         </div>
+    </div>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Accueil/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+
+        <a class="fancy-button blanc" href="@Url.Action("Creation", "Etudiant")">
+            <span class="glyphicon glyphicon-plus"></span>
+            Ajouter un étudiant
+        </a>
+
     </div>
 </div>

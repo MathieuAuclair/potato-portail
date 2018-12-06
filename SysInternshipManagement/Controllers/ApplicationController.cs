@@ -38,12 +38,12 @@ namespace SysInternshipManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation(int? idStage)
+        public ActionResult Creation(int? IdStage)
         {
-            if (idStage == null)
+            if (IdStage == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Stage stage = _db.stage.Find(idStage);
+            Stage stage = _db.stage.Find(IdStage);
 
             if (stage == null)
             {
@@ -61,7 +61,7 @@ namespace SysInternshipManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edition(int? id)
+        public ActionResult Modifier(int? id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace SysInternshipManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edition([Bind(Include = "IdApplication,Timestamp")]
+        public ActionResult Modifier([Bind(Include = "IdApplication,Timestamp")]
             Application application)
         {
             if (!ModelState.IsValid)
@@ -94,9 +94,9 @@ namespace SysInternshipManagement.Controllers
 
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdApplication)
         {
-            var application = _db.application.Find(id);
+            var application = _db.application.Find(IdApplication);
 
             if (application == null)
             {

@@ -15,20 +15,21 @@ namespace SysInternshipManagement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Entreprise/Index.cshtml", _bd.entreprise.ToList());
+            return View(_bd.entreprise.ToList());
         }
 
         [HttpPost]
-        public ActionResult Modifier()
+        public ActionResult Modifier(int IdEntreprise)
         {
-            var entreprise = _bd.entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
+          
+            var entreprise = _bd.entreprise.Find(IdEntreprise);
 
             if (entreprise == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Entreprise/Modifier.cshtml", entreprise);
+            return View(entreprise);
         }
 
         [HttpPost]
@@ -38,7 +39,6 @@ namespace SysInternshipManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
 
             var entreprise = new Entreprise
             {
@@ -69,7 +69,6 @@ namespace SysInternshipManagement.Controllers
                 CodePostal = "G7X7W2",
                 NumeroCivique = 0,
             };
-          
 
             return View("~/Views/Entreprise/Modifier.cshtml", entreprise);
         }
@@ -91,9 +90,9 @@ namespace SysInternshipManagement.Controllers
             );
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdEntreprise)
         {
-            var entreprise = _bd.entreprise.Find(id);
+            var entreprise = _bd.entreprise.Find(IdEntreprise);
 
             if (entreprise == null)
             {

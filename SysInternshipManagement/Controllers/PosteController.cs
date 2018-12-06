@@ -13,25 +13,25 @@ namespace SysInternshipManagement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Poste/Index.cshtml", _bd.poste.ToList());
+            return View(_bd.poste.ToList());
         }
 
         [HttpPost]
-        public ActionResult Modifier(int? idPoste)
+        public ActionResult Modifier(int? IdPoste)
         {
-            if (idPoste == null)
+            if (IdPoste == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var poste = _bd.poste.Find(idPoste);
+            var poste = _bd.poste.Find(IdPoste);
 
             if (poste == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Poste/Modifier.cshtml", poste);
+            return View(poste);
         }
 
         [HttpPost]
@@ -58,7 +58,6 @@ namespace SysInternshipManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var poste = new Poste {Nom = "Nouveau poste"};

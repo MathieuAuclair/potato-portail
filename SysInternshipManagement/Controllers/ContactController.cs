@@ -13,20 +13,18 @@ namespace SysInternshipManagement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Contact/Index.cshtml", _bd.contact.ToList());
-        }
-
-        [HttpPost]
-        public ActionResult Modifier(int? idContact)
+            return View(_bd.contact.ToList());
+        }     
+        public ActionResult Modifier(int IdContact)
         {
-            var contact = _bd.contact.Find(idContact);
+            var contact = _bd.contact.Find(IdContact);
 
             if (contact == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View("~/Views/Contact/Modifier.cshtml", contact);
+            return View(contact);
         }
 
         [HttpPost]
@@ -37,28 +35,28 @@ namespace SysInternshipManagement.Controllers
             string telephone
         )
         {
-            if (idContact == null)
+           
+            if (idContact==null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
+           
             var contact = _bd.contact.Find(idContact);
 
             if (contact == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
             contact.Courriel = courriel;
             contact.Nom = nom;
             contact.Telephone = telephone;
+            
 
             _bd.SaveChanges();
 
             return RedirectToAction("Index", "Contact");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var contact = new Contact
@@ -67,13 +65,14 @@ namespace SysInternshipManagement.Controllers
                 Nom = "Nouveau contact",
                 Telephone = "123-456-7890"
             };
-
+            _bd.contact.Add(contact);
+            _bd.SaveChanges();
             return View("~/Views/Contact/Modifier.cshtml", contact);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdContact)
         {
-            var contact = _bd.contact.Find(id);
+            var contact = _bd.contact.Find(IdContact);
 
             if (contact == null)
             {
@@ -81,7 +80,7 @@ namespace SysInternshipManagement.Controllers
             }
 
             var stagesAyantCeContact = from stage in _bd.stage
-                                       where stage.Contact.IdContact == id
+                                       where stage.Contact.IdContact == IdContact
                                        select stage;
 
             if (!stagesAyantCeContact.Any())

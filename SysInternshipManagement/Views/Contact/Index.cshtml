@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @using SysInternshipManagement.Views.Shared.Widget.Model
 @model IEnumerable<SysInternshipManagement.Models.Contact>
 
@@ -7,12 +6,7 @@
 }
 <div>
     <h1>Contact</h1>
-    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
-    <div style="margin-top: 15px; margin-bottom: 15px;">
-        <form action="/Contact/Creation" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau contact"))
-        </form>
-    </div>
+  
     <div class="row">
         <div class="col-md-11">
             <table class="cool-table">
@@ -25,30 +19,42 @@
                 </tr>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => item.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => item.Courriel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => item.Telephone)
-                    </td>
-                    <td>
-                        <a href='@Url.Action("Modifier", "Contact", new { id = item.IdContact })'>
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                    </td>
+                    <tr>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.Nom)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.Courriel)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.Telephone)
+                        </td>
+                        <td>
+                            <a href='@Url.Action("Modifier", "Contact", new { item.IdContact })'>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
 
-                    <td>
-                        <a href='@Url.Action("Suppression", "Contact", new { id = item.IdContact })'>
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href='@Url.Action("Suppression", "Contact", new { item.IdContact })'>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </table>
         </div>
+    </div>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Accueil/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+   
+            <a class="fancy-button blanc" href="@Url.Action("Creation", "Contact")">
+                <span class="glyphicon glyphicon-plus"></span>
+                Ajouter un contact
+            </a>
+        
     </div>
 </div>

@@ -244,7 +244,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Entreprise\Index.cshtml" />
-    <Content Include="Views\Stage\Edition.cshtml" />
+    <Content Include="Views\Stage\Modifier.cshtml" />
     <Content Include="Views\Stage\Index.cshtml" />
     <Content Include="Views\Shared\Widget\_FlatUiFileInputButton.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
