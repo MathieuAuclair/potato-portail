@@ -2,56 +2,50 @@
 
 @{
     ViewBag.Titre = "Modification de " + ViewBag.nomJeu;
+    <input type="hidden" id="tableRecherche" name="tableRecherche" value="Jeu">
 }
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id)
 
     <div class="container">
         <div class="form-box">
-            <div class="row">
-                <div class="col-md-8">
 
-                    <header class="light-header">
-                        <h1>Modification de jeu</h1>
-                    </header>
+            <header class="light-header">
+                <h1>Modification d'un jeu</h1>
+            </header>
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.nomJeu)
-                                @Html.TextBoxFor(model => model.nomJeu, new {@class = "form-control"})
-                                @Html.ValidationMessageFor(model => model.nomJeu, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.description)
-                                @Html.TextBoxFor(model => model.description, new {@class = "form-control"})
-                                @Html.ValidationMessageFor(model => model.description, "", new {@class = "text-danger"})
-                            </div>
-                        </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.nomJeu)
+                        @Html.TextBoxFor(model => model.nomJeu, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.nomJeu, "", new { @class = "text-danger" })
                     </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-10">
-                                @Html.LabelFor(model => model.urlReference)
-                                @Html.TextBoxFor(model => model.urlReference, new {@class = "form-control"})
-                                @Html.ValidationMessageFor(model => model.urlReference, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="col-md-10">
-                                @Html.HiddenFor(model => model.abreviation)
-                                @Html.HiddenFor(model => model.abreviation, new {@class = "form-control"})
-                                @Html.ValidationMessageFor(model => model.abreviation, "", new {@class = "text-danger"})
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.urlReference)
+                        @Html.TextBoxFor(model => model.urlReference, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.urlReference, "", new { @class = "text-danger" })
                     </div>
-
                 </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.description)
+                @Html.TextAreaFor(model => model.description, new { @rows = "3", @maxlength = "500", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.abreviation)
+                @Html.HiddenFor(model => model.abreviation, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.abreviation, "", new { @class = "text-danger" })
+            </div>
+
 
             <div class="row">
                 <div class="col-md-6">
@@ -59,10 +53,10 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <p>Statut du jeu</p>
-                                <hr/>
+                                <hr />
                                 <div class="form-group">
-                                    @Html.DropDownListFor(model => model.StatutId, (IEnumerable<SelectListItem>) ViewBag.Statuts, new {@class = "form-control"})
-                                    @Html.ValidationMessageFor(model => model.StatutId, "", new {@class = "text-danger"})
+                                    @Html.DropDownListFor(model => model.StatutId, (IEnumerable<SelectListItem>)ViewBag.Statuts, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.StatutId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -70,7 +64,8 @@
                 </div>
             </div>
 
-            <input type="submit" value="Confirmer les modifications" class="fancy-button"/>
+            <input type="submit" value="Confirmer les modifications" class="fancy-button" />
+
 
 
             <div class="menu-flottant">
@@ -79,110 +74,142 @@
                     Retour
                 </a>
 
-                <a class="fancy-button blanc" href='@Url.Action("Details", "Jeu", new {id = Model.id, nomJeu = Model.nomJeu})'>
+                <a class="fancy-button blanc" href='@Url.Action("Details","Jeu", new { id = Model.id, nomJeu = Model.nomJeu})'>
                     <span class="glyphicon glyphicon-info-sign"></span>
                     Accéder aux détails
                 </a>
 
-                <a class="fancy-button blanc" href='@Url.Action("Creation", "Caracteristique", new {JeuId = Model.id, nomJeu = Model.nomJeu})'>
+                <a class="fancy-button blanc" href='@Url.Action("Creation","Caracteristique", new { JeuId = Model.id, nomJeu = Model.nomJeu })'>
                     <span class="glyphicon glyphicon-info-sign"></span>
                     Ajouter une caractéristique
                 </a>
+
+                @if (Model.Statut.nomStatut == "Inactif")
+                {
+                <a class="fancy-button rouge blanc" href='@Url.Action("Supprimer", new { id = Model.id, nomJeu = Model.nomJeu })'>
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Supprimer
+                </a>
+                }
             </div>
         </div>
-        <hr class="end-div"/>
-
+        <hr class="end-div" />
 
         @if (Model.Caracteristique.Count > 0)
         {
-            <div class="form-box">
+        <div class="form-box">
 
-                <header class="light-header">
+            <header class="light-header">
+                @if (Model.Caracteristique.Count == 1)
+            {
+                <h1>Caractéristique associée à «@Model.nomJeu» : </h1>
+        }
+        else if (Model.Caracteristique.Count > 1)
+        {
+            <h1>Caractéristiques associées à «@Model.nomJeu» : </h1>
+    }
 
-                    @if (ViewBag.carac.Count == 1)
-                    {
-                        <h1>Caractéristique associée à «@ViewBag.nomJeu» : </h1>
-                    }
-                    else if (ViewBag.carac.Count > 1)
-                    {
-                        <h1>Caractéristiques associées à «@ViewBag.nomJeu» : </h1>
-                    }
+            </header>
 
-                </header>
-
-
-                @foreach (var carac in ViewBag.carac)
-                {
+            @foreach (var carac in Model.Caracteristique)
+        {
+            <div class="row">
+                <div class="col-md-11">
                     <table class="cool-table">
                         <tr>
-
-                            <th class="action-cell-header">@carac.nomCaracteristique</th>
-
-                            @if (carac.Item.Count < 1)
-                            {
-                                <th class="action-cell-header">Aucun item associé</th>
-                            }
-                            else if (carac.Item.Count == 1)
-                            {
-                                <th class="action-cell-header">1 item associé</th>
-                            }
-                            else
-                            {
-                                <th class="action-cell-header">@carac.Item.Count items associés</th>
-                            }
-
-                            <th class="action-cell-header">
-                                <b>Modifier</b>
-                            </th>
-                            <th class="action-cell-header">
+                            <th colspan="1" class="action-cell-header">@carac.nomCaracteristique</th>
+                            <th colspan="1" class="action-cell-header">
                                 <b>Supprimer</b>
                             </th>
-
                         </tr>
 
-                        <tr>
-                            <td class="action-cell">
-                                <a href='@Url.Action("Creation", "Item", new {CaracteristiqueId = carac.id, nomCarac = carac.nomCaracteristique, nomJeu = ViewBag.nomJeu}))'>
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </a>
-                            </td>
 
-                            @if (carac.Item.Count > 0)
-                            {
-                                <td class="action-cell">
-                                    <a href='@Url.Action("Index", "Item", new {id = carac.id, nomCarac = carac.nomCaracteristique, nomJeu = ViewBag.nomJeu})'>
-                                        <span class="glyphicon glyphicon-file"></span>
+                        @using (Html.BeginForm("EditItem", "Jeu", FormMethod.Post))
+                    {
+                        foreach (var item in carac.Item)
+                        {
+                            string id = "carac_" + carac.id + "_item" + item.id;
+                            <tr id="@id">
+                                <td colspan="1" class="action-cell" onclick="window.location.href = '@Url.Action("Modifier", "Item", new {item.id, carac.nomCaracteristique, Model.nomJeu})'">
+                                    @Html.DisplayFor(model => item.nomItem)
+                                </td>
+                                <td colspan="1" class="action-cell">
+                                    <a href='@Url.Action("Supprimer", "Item", new {id = item.id, nomJeu = Model.nomJeu})'>
+                                        <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>
+                            </tr>
+                    }
+
+
+                    <tr id="tr_bouton_plus_@carac.id">
+                        <td colspan="1" class="action-cell">
+
+                            @{
+                            var nbrItem = carac.Item.Count - 1;
                             }
-                            else
-                            {
-                                <td class="action-cell">
+                            @if (nbrItem < 0)
+                        {
 
-                                </td>
-                            }
-
-                            <td class="action-cell">
-                                <a href='@Url.Action("Modifier", "Caracteristique", new {id = carac.id, nomCarac = carac.nomCaracteristique, nomJeu = ViewBag.nomJeu})'>
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                            </td>
-
-                            <td class="action-cell">
-                                <a href='@Url.Action("Supprimer", "Caracteristique", new {id = carac.id, nomJeu = ViewBag.nomJeu})'>
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <hr class="end-div"/>
+                            <a id="bonton_plus_null" onclick='ajoutPPrincipal("@carac.id", this.id)'><span class="glyphicon glyphicon-plus"></span></a>
+                    }
+                    else
+                    {
+                        <a id="@carac.Item.ElementAt(nbrItem).id"
+                           onclick='ajoutPPrincipal("@carac.id", this.id)'><span class="glyphicon glyphicon-plus"></span></a>
                 }
-
+                        </td>
+                        <td class="action-cell"></td>
+                    </tr>
+            }
+                    </table>
+                </div>
+                <div class="col-md-1">
+                    <a class="fancy-button blanc rouge" href="@Url.Action("Supprimer", "Caracteristique", new {carac.id, carac.Jeu.nomJeu})'"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
             </div>
-            <hr class="end-div"/>
+            <hr class="end-div" />
+    }
+
+        </div>
+        <hr class="end-div" />
         }
+
+
 
     </div>
 }
 
+
+<script>
+    function ajoutPPrincipal(caracID, numeroItem) {
+        var itemID = numeroItem + 1;
+        var souspoint = '<tr id="' +
+            'carac_' +
+            caracID +
+            '_item' +
+            itemID +
+            '"><td contenteditable="true" colspan="1">entrer le nom de l' +
+            'item</td><td colspan="1" class="action-cell"> <a onclick="sauvegarder('+caracID+',this.parentNode.parentNode.innerText)"><span class="glyphicon glyphicon-floppy-disk"></span></a></td></tr>';
+        document.getElementById("tr_bouton_plus_" + caracID).insertAdjacentHTML("beforebegin", souspoint);
+    }
+    function sauvegarder(caracID, nomItem) {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Action("EditItem", "Jeu")', //This is my url put your url here and pass model as data it is an array of my items
+            data: JSON.stringify({ Item: { CaracteristiqueId: caracID, nomItem: nomItem}}),
+            success: function (data) {
+                window.location.href = '@Url.Action("Modifier",new {id = Model.id, nomJeu = Model.nomJeu})';
+            },
+            error: function (resultat, statut,erreur) {
+                alert(erreur);
+            }
+        });
+    }
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
