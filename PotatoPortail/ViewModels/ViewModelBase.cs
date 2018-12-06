@@ -10,19 +10,13 @@ namespace PotatoPortail.ViewModels
     {
         protected void OnNotifyPropertyChanged(string p)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(p));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
         }
         protected void RaisePropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
 
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #region INotifyPropertyChanged Members

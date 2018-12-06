@@ -1,8 +1,8 @@
-﻿using ApplicationPlanCadre.Data;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Models.Reunions;
-using ApplicationPlanCadre.ViewModels;
-using ApplicationPlanCadre.ViewModels.OrdresDuJourVM;
+﻿using PotatoPortail.Data;
+using PotatoPortail.Models;
+using PotatoPortail.Models.Reunions;
+using PotatoPortail.ViewModels;
+using PotatoPortail.ViewModels.OrdresDuJourVM;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,12 +12,15 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using ApplicationPlanCadre.Models.Reunions;
+using ApplicationPlanCadre.ViewModels;
+using ApplicationPlanCadre.ViewModels.OrdresDuJourVM;
 
 namespace ApplicationPlanCadre.Controllers
 {
     public class OrdreDuJourController : Controller
     {
-        private readonly BDPlanCadre _db = new BDPlanCadre();
+        private readonly BDPortail _db = new BDPortail();
 
         // GET: OdJ
         //[Route("Reunions/Index")]
