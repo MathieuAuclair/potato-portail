@@ -12,8 +12,13 @@ using PotatoPortail.Helpers;
 using PotatoPortail.Toast;
 using ApplicationPlanCadre.Controllers;
 using ApplicationPlanCadre.Helpers;
-using ApplicationPlanCadre.Models;
+using ApplicationPlanCadre.Toast;
+using System.Web.Security;
+using PotatoPortail.Models;
+using PotatoPortail;
+using PotatoPortail.Toast;
 using PotatoPortail.Migrations;
+
 
 namespace PotatoPortail.Controllers
 {
