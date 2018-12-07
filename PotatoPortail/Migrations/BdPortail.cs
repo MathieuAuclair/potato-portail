@@ -267,11 +267,6 @@ namespace PotatoPortail.Migrations
                 .WithMany(e => e.Equipe)
                 .Map(m => m.ToTable("EquipeJoueurs").MapLeftKey("IdEquipe").MapRightKey("IdJoueur"));
 
-            modelBuilder.Entity<Etudiant>()
-                .HasMany(e => e.Application)
-                .WithRequired(e => e.Etudiant)
-                .HasForeignKey(e => e.Etudiant_IdEtudiant);
-
             modelBuilder.Entity<GrilleCours>()
                 .Property(e => e.Nom)
                 .IsUnicode(false);
@@ -518,11 +513,6 @@ namespace PotatoPortail.Migrations
             modelBuilder.Entity<SousRessourceDIdactique>()
                 .Property(e => e.NomSousRessource)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Stage>()
-                .HasMany(e => e.Application)
-                .WithRequired(e => e.Stage)
-                .HasForeignKey(e => e.Stage_IdStage);
 
             modelBuilder.Entity<StatutPrealable>()
                 .Property(e => e.Statut)
