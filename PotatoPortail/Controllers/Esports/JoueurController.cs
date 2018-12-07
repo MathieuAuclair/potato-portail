@@ -3,7 +3,7 @@ using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Migrations;
-using PotatoPortail.Models;
+using PotatoPortail.Models.eSports;
 using PotatoPortail.Toast;
 using PotatoPortail.ViewModels.eSports;
 
@@ -20,7 +20,7 @@ namespace PotatoPortail.Controllers.eSports
             ViewBag.PseudoSortParm = string.IsNullOrEmpty(sortOrder) ? "pseudo_desc" : "";
             ViewBag.JeuSortParm = string.IsNullOrEmpty(sortOrder) ? "jeu_desc" : "";
 
-            var joueurs = from tableJoueurs in _db.Joueurs
+            var joueurs = from tableJoueurs in _db.Joueur
                 select tableJoueurs;
 
             switch (sortOrder)
@@ -35,7 +35,7 @@ namespace PotatoPortail.Controllers.eSports
                     joueurs = joueurs.OrderBy(j => j.PseudoJoueur);
                     break;
                 case "jeu_desc":
-                    joueurs = joueurs.OrderBy(j => j.Profils.Jeux.NomJeu);
+                    joueurs = joueurs.OrderBy(j => j.Profil.Jeu.NomJeu);
                     break;
                 default:
                     joueurs = joueurs.OrderBy(j => j.MembreESports.Nom);
@@ -52,7 +52,7 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Joueur joueur = _db.Joueurs.Find(id);
+            Joueur joueur = _db.Joueur.Find(id);
             if (joueur == null)
             {
                 return HttpNotFound();
@@ -80,7 +80,7 @@ namespace PotatoPortail.Controllers.eSports
         {
             if (ModelState.IsValid)
             {
-                _db.Joueurs.Add(joueur);
+                _db.Joueur.Add(joueur);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -93,14 +93,14 @@ namespace PotatoPortail.Controllers.eSports
         {
             var viewModel = new EditerJoueurViewModel();
 
-            var joueur = _db.Joueurs.Find(id);
+            var joueur = _db.Joueur.Find(id);
 
             if (joueur == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var profil = _db.Profils.Find(joueur.Profils.Id);
+            var profil = _db.Profil.Find(joueur.Profil.Id);
 
             if (profil == null)
             {
@@ -111,7 +111,7 @@ namespace PotatoPortail.Controllers.eSports
             viewModel.Pseudo = joueur.PseudoJoueur;
             viewModel.Courriel = profil.Courriel;
             viewModel.MembreESports = _db.MembreESports.Find(joueur.IdMembreESports);
-            viewModel.Jeu = _db.Jeux.Find(profil.IdJeu);
+            viewModel.Jeu = _db.Jeu.Find(profil.IdJeu);
 
             if (id == null)
             {
@@ -126,14 +126,14 @@ namespace PotatoPortail.Controllers.eSports
         public ActionResult Modifier([Bind(Include = "JoueurId,pseudo,courriel")]
             EditerJoueurViewModel viewModel)
         {
-            var joueur = _db.Joueurs.Find(viewModel.JoueurId);
+            var joueur = _db.Joueur.Find(viewModel.JoueurId);
 
             if (joueur == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var profil = _db.Profils.Find(joueur.Profils.Id);
+            var profil = _db.Profil.Find(joueur.Profil.Id);
 
             if (ModelState.IsValid)
             {
@@ -162,7 +162,7 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var joueur = _db.Joueurs.Find(id);
+            var joueur = _db.Joueur.Find(id);
 
             if (joueur == null)
             {
@@ -176,7 +176,7 @@ namespace PotatoPortail.Controllers.eSports
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            var joueur = _db.Joueurs.Find(id);
+            var joueur = _db.Joueur.Find(id);
 
             if (joueur == null)
             {
@@ -184,17 +184,17 @@ namespace PotatoPortail.Controllers.eSports
             }
 
             var membreESports = _db.MembreESports.Find(joueur.IdMembreESports);
-            var profil = _db.Profils.Find(joueur.Profils.Id);
-            var jeu = _db.Jeux.Find(joueur.EquipeMonojoueur.JeuId);
+            var profil = _db.Profil.Find(joueur.Profil.Id);
+            var jeu = _db.Jeu.Find(joueur.EquipeMonojoueur.IdJeu);
 
             if (profil == null || jeu == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var equipeMonojoueur = from tableEquipe in _db.Equipes
-                join tableJeux in _db.Jeux on tableEquipe.IdJeu equals tableJeux.Id
-                join tableProfil in _db.Profils on tableJeux.Id equals tableProfil.IdJeu
+            var equipeMonojoueur = from tableEquipe in _db.Equipe
+                join tableJeu in _db.Jeu on tableEquipe.IdJeu equals tableJeu.Id
+                join tableProfil in _db.Profil on tableJeu.Id equals tableProfil.IdJeu
                 where (tableEquipe.NomEquipe == membreESports.NomComplet + "_" + jeu.Abreviation + "_" + profil.IdMembreESports) &&
                       (tableProfil.Id == profil.Id)
                 select tableEquipe;
@@ -203,8 +203,8 @@ namespace PotatoPortail.Controllers.eSports
                 this.AddToastMessage("Supression effectuée.",
                     membreESports.NomComplet + " n'est plus un joueur de « " + jeu.NomJeu + " ».", ToastType.Success);
 
-            _db.Joueurs.Remove(joueur);
-            _db.Equipes.Remove(equipeMonojoueur.First());
+            _db.Joueur.Remove(joueur);
+            _db.Equipe.Remove(equipeMonojoueur.First());
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

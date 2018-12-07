@@ -11,6 +11,7 @@ using ApplicationPlanCadre.Models.Reunions;
 using ApplicationPlanCadre.ViewModels;
 using ApplicationPlanCadre.ViewModels.OrdresDuJourVM;
 using Microsoft.AspNet.Identity;
+using PotatoPortail.Data;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Toast;
@@ -74,8 +75,8 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Create()
         {
-            var repo = new createRepository();
-            OrdreDuJourViewModel viewmodel = repo.createLieu();
+            var repo = new CreateRepository();
+            var viewmodel = repo.CreateLieu();
             
             var programme = GetProgramme();
             var numProg = Convert.ToInt32(programme.First().Discipline);

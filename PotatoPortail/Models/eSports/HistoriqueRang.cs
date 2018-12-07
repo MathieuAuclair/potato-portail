@@ -6,14 +6,17 @@ namespace PotatoPortail.Models.eSports
 {
     public partial class HistoriqueRang
     {
+        public HistoriqueRang()
+        {
+
+        }
+
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdJoueur { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdRang { get; set; }
 
         public DateTime Date { get; set; }

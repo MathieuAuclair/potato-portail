@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using PotatoPortail.Models;
+using PotatoPortail.Models.eSports;
 
 namespace PotatoPortail.ViewModels.eSports
 {

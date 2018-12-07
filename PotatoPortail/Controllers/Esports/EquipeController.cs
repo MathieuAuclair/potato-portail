@@ -20,20 +20,20 @@ namespace PotatoPortail.Controllers.eSports
         
         public ActionResult Index(int? searchIdJeu)
         {
-            var jeux = from tableJeux in _db.Jeux
-                       orderby tableJeux.Statuts.NomStatut, tableJeux.NomJeu
-                       select tableJeux;
+            var Jeu = from tableJeu in _db.Jeu
+                       orderby tableJeu.Statut.NomStatut, tableJeu.NomJeu
+                       select tableJeu;
 
-            List<SelectListItem> lstJeux = new List<SelectListItem>
+            List<SelectListItem> lstJeu = new List<SelectListItem>
             {
-                new SelectListItem {Text = "Tous les jeux", Value = "0"}
+                new SelectListItem {Text = "Tous les Jeu", Value = "0"}
             };
-            lstJeux.AddRange(jeux.Select(jeu => new SelectListItem {Text = jeu.NomJeu + " (" + jeu.Statuts.NomStatut + ")", Value = jeu.Id.ToString()}));
+            lstJeu.AddRange(Jeu.Select(jeu => new SelectListItem {Text = jeu.NomJeu + " (" + jeu.Statut.NomStatut + ")", Value = jeu.Id.ToString()}));
 
 
-            ViewBag.Jeux = lstJeux;
+            ViewBag.Jeu = lstJeu;
 
-            var equipes = from e in _db.Equipes
+            var Equipe = from e in _db.Equipe
                           where e.EstMonoJoueur == false
                           select e;
 
@@ -45,36 +45,36 @@ namespace PotatoPortail.Controllers.eSports
 
             if (searchIdJeu != null)
             {
-                equipes = equipes.Where(equipe => equipe.Jeux.Id == searchIdJeu);
+                Equipe = Equipe.Where(equipe => equipe.Jeu.Id == searchIdJeu);
 
                 Session["dernierTriApplique"] = searchIdJeu;
             }
 
             if (Session["dernierTriApplique"] != null)
             {
-                var idJeuEquipes = Convert.ToInt32(Session["dernierTriApplique"]);
+                var idJeuEquipe = Convert.ToInt32(Session["dernierTriApplique"]);
 
-                var lstJeuxJeuSelectionne = lstJeux.FirstOrDefault(j => j.Value == idJeuEquipes.ToString());
+                var lstJeuJeuSelectionne = lstJeu.FirstOrDefault(j => j.Value == idJeuEquipe.ToString());
 
-                if (lstJeuxJeuSelectionne != null)
-                    lstJeuxJeuSelectionne.Selected = true;
+                if (lstJeuJeuSelectionne != null)
+                    lstJeuJeuSelectionne.Selected = true;
 
-                if (lstJeuxJeuSelectionne != null && lstJeuxJeuSelectionne.Value != "0")
+                if (lstJeuJeuSelectionne != null && lstJeuJeuSelectionne.Value != "0")
                 {
-                    var arret = lstJeuxJeuSelectionne.Text.IndexOf(" (", StringComparison.Ordinal);
-                    ViewBag.TriSelectionne = lstJeuxJeuSelectionne.Text.Substring(0, arret);
+                    var arret = lstJeuJeuSelectionne.Text.IndexOf(" (", StringComparison.Ordinal);
+                    ViewBag.TriSelectionne = lstJeuJeuSelectionne.Text.Substring(0, arret);
                 }
                 else
-                    ViewBag.TriSelectionne = "Tous les jeux";
+                    ViewBag.TriSelectionne = "Tous les Jeu";
 
-                return View(equipes.OrderBy(e => e.NomEquipe).Where(e => e.IdJeu == idJeuEquipes));
+                return View(Equipe.OrderBy(e => e.NomEquipe).Where(e => e.IdJeu == idJeuEquipe));
             }
 
             fin:
 
-            ViewBag.TriSelectionne = "Tous les jeux";
+            ViewBag.TriSelectionne = "Tous les Jeu";
 
-            return View(equipes.OrderBy(e => e.NomEquipe).ToList());
+            return View(Equipe.OrderBy(e => e.NomEquipe).ToList());
         }
 
         public ActionResult Details(int? id, string nomEquipe, string nomJeu)
@@ -83,7 +83,7 @@ namespace PotatoPortail.Controllers.eSports
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Equipe equipe = _db.Equipes.Find(id);
+            Equipe equipe = _db.Equipe.Find(id);
 
             if (equipe == null)
             {
@@ -101,7 +101,7 @@ namespace PotatoPortail.Controllers.eSports
             var equipeAAjouter = new CreationEquipeViewModel {Entraineurs = new List<string>()};
 
             PopulerEntraineurSelectList();
-            PopulerListJeuxActifs();
+            PopulerListJeuActifs();
 
             return View(equipeAAjouter);
         }
@@ -110,7 +110,7 @@ namespace PotatoPortail.Controllers.eSports
         [ValidateAntiForgeryToken]
         public ActionResult Creation([Bind(Include = "id,nomEquipe,JeuId,Entraineurs")] CreationEquipeViewModel equipeAAjouter, string[] entraineur, string button)
         {
-            PopulerListJeuxActifs();
+            PopulerListJeuActifs();
             PopulerEntraineurSelectList();
 
             if (EstCeQueEquipeUnique(equipeAAjouter))
@@ -125,15 +125,15 @@ namespace PotatoPortail.Controllers.eSports
 
             try
             {
-                _db.Equipes.Add(nouvelleEquipe);
+                _db.Equipe.Add(nouvelleEquipe);
                 _db.SaveChanges();
                 this.AddToastMessage("Ajout d'équipe effectué.", "« " + equipeAAjouter.NomEquipe + " » a été ajoutée à la liste des équipes.", ToastType.Success);
                 if (button == "Ajouter des joueurs")
                 {
-                    ViewBag.nomJeu = nouvelleEquipe.Jeux.NomJeu;
-                    PopulerJoueurSelectList(nouvelleEquipe.Jeux.NomJeu);
+                    ViewBag.nomJeu = nouvelleEquipe.Jeu.NomJeu;
+                    PopulerJoueurSelectList(nouvelleEquipe.Jeu.NomJeu);
 
-                    return RedirectToAction("Modifier", new { nouvelleEquipe.Id, nouvelleEquipe.Jeux.NomJeu });
+                    return RedirectToAction("Modifier", new { nouvelleEquipe.Id, nouvelleEquipe.Jeu.NomJeu });
                 }
                 else
                 {
@@ -148,10 +148,10 @@ namespace PotatoPortail.Controllers.eSports
             }
         }
 
-        private bool EstCeQueEquipeUnique(CreationEquipeViewModel equipesPourAjout)
+        private bool EstCeQueEquipeUnique(CreationEquipeViewModel EquipePourAjout)
         {
-            return (from tableEquipe in _db.Equipes
-                where tableEquipe.NomEquipe.Equals(equipesPourAjout.NomEquipe, StringComparison.OrdinalIgnoreCase) && tableEquipe.IdJeu == equipesPourAjout.IdJeu
+            return (from tableEquipe in _db.Equipe
+                where tableEquipe.NomEquipe.Equals(EquipePourAjout.NomEquipe, StringComparison.OrdinalIgnoreCase) && tableEquipe.IdJeu == EquipePourAjout.IdJeu
                 select tableEquipe).Any();
         }
         
@@ -164,7 +164,7 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var equipeAModifierQuery = from equipe in _db.Equipes
+            var equipeAModifierQuery = from equipe in _db.Equipe
                                        where equipe.Id == id
                                        select equipe;
 
@@ -191,13 +191,13 @@ namespace PotatoPortail.Controllers.eSports
         [ValidateAntiForgeryToken]
         public ActionResult Modifier(int? id, string nomEquipe, string[] entraineur, string[] joueurs)
         {
-            PopulerListJeuxActifs();
+            PopulerListJeuActifs();
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var equipePourModification = _db.Equipes
+            var equipePourModification = _db.Equipe
                 .Include(queryEquipe => queryEquipe.Entraineurs)
                 .Single(queryEquipe => queryEquipe.Id == id);
 
@@ -206,7 +206,7 @@ namespace PotatoPortail.Controllers.eSports
                 return View("Modifier", equipePourModification);
             }
 
-            PopulerJoueurSelectList(equipePourModification.Jeux.NomJeu);
+            PopulerJoueurSelectList(equipePourModification.Jeu.NomJeu);
             PopulerEntraineurSelectList();
             equipePourModification.NomEquipe = nomEquipe;
 
@@ -229,7 +229,7 @@ namespace PotatoPortail.Controllers.eSports
 
         private bool EstCeQueNomEquipeEstUnique(Equipe equipePourModification)
         {
-           return (from tableEquipe in _db.Equipes
+           return (from tableEquipe in _db.Equipe
                 where tableEquipe.NomEquipe.Equals(equipePourModification.NomEquipe, StringComparison.OrdinalIgnoreCase) &&
                       tableEquipe.IdJeu == equipePourModification.IdJeu &&
                       tableEquipe.Id != equipePourModification.Id
@@ -242,7 +242,7 @@ namespace PotatoPortail.Controllers.eSports
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Equipe equipe = _db.Equipes.Find(id);
+            Equipe equipe = _db.Equipe.Find(id);
 
             if (equipe == null)
             {
@@ -259,8 +259,8 @@ namespace PotatoPortail.Controllers.eSports
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Equipe equipe = _db.Equipes.Find(id);
-            _db.Equipes.Remove(equipe);
+            Equipe equipe = _db.Equipe.Find(id);
+            _db.Equipe.Remove(equipe);
             _db.SaveChanges();
             this.AddToastMessage("Suppression effectuée.", "« " + equipe.NomEquipe + " » a été supprimée de la liste.", ToastType.Success);
             return RedirectToAction("Index");
@@ -276,7 +276,7 @@ namespace PotatoPortail.Controllers.eSports
             var entraineurSelectionneHashSet = new HashSet<string>(entraineursSelectionne);
             var equipeEntraineurs = new HashSet<string>(equipePourModification.Entraineurs.Select(e => e.PseudoEntraineur));
 
-            foreach (Entraineur entraineur in _db.Entraineurs)
+            foreach (Entraineur entraineur in _db.Entraineur)
             {
                 if (entraineurSelectionneHashSet.Contains(entraineur.PseudoEntraineur))
                 {
@@ -305,7 +305,7 @@ namespace PotatoPortail.Controllers.eSports
             var joueursSelectionnesHashSet = new HashSet<string>(joueursSelectionnes);
             var equipeJoueurs = new HashSet<string>(equipeAModifier.Joueurs.Select(j => j.PseudoJoueur));
 
-            foreach (Joueur joueur in _db.Joueurs)
+            foreach (Joueur joueur in _db.Joueur)
             {
                 if (joueursSelectionnesHashSet.Contains(joueur.PseudoJoueur.ToString()))
                 {
@@ -324,29 +324,29 @@ namespace PotatoPortail.Controllers.eSports
             }
         }
 
-        private void PopulerListJeuxActifs()
+        private void PopulerListJeuActifs()
         {
-            var jeux = from jeuxActifs in _db.Jeux
-                       where jeuxActifs.Statuts.NomStatut == "Actif"
-                       select jeuxActifs;
+            var jeux = from jeuActifs in _db.Jeu
+                       where jeuActifs.Statut.NomStatut == "Actif"
+                       select jeuActifs;
 
-            var lstJeux = new List<SelectListItem>();
+            var lstJeu = new List<SelectListItem>();
 
             foreach (var jeu in jeux)
             {
-                lstJeux.Add(new SelectListItem
+                lstJeu.Add(new SelectListItem
                 {
                     Text = jeu.NomJeu,
                     Value = jeu.Id.ToString()
                 });
             }
 
-            ViewBag.Jeux = lstJeux;
+            ViewBag.Jeu = lstJeu;
         }
 
         private void PopulerEntraineurSelectList()
         {
-            var entraineurs = from ent in _db.Entraineurs
+            var entraineurs = from ent in _db.Entraineur
                               select ent;
 
             List<SelectListItem> selectListEntraineurs = new List<SelectListItem>();
@@ -366,14 +366,13 @@ namespace PotatoPortail.Controllers.eSports
 
         private void PopulerJoueurSelectList(string nomJeu)
         {
-            //Selectionne tous les joueurs
-            var tousLesJoueurs = from joueur in _db.Joueurs
+            var tousLesJoueurs = from joueur in _db.Joueur
                                  select joueur;
             
             var joueurs = new List<Joueur>();
             foreach (var joueur in tousLesJoueurs)
             {
-                if (joueur.EquipeMonojoueur.Jeu.nomJeu == nomJeu)
+                if (joueur.EquipeMonojoueur.Jeu.NomJeu == nomJeu)
                 {
                     joueurs.Add(joueur);
                 }
@@ -399,8 +398,8 @@ namespace PotatoPortail.Controllers.eSports
             equipeAModifierViewModel.EquipeId = equipeAModifier.Id;
             equipeAModifierViewModel.NomEquipe = equipeAModifier.NomEquipe;
             equipeAModifierViewModel.EstMonoJoueur = equipeAModifier.EstMonoJoueur;
-            equipeAModifierViewModel.IdJeu = equipeAModifier.Jeux.Id;
-            equipeAModifierViewModel.Jeu = equipeAModifier.Jeux;
+            equipeAModifierViewModel.IdJeu = equipeAModifier.Jeu.Id;
+            equipeAModifierViewModel.Jeu = equipeAModifier.Jeu;
             equipeAModifierViewModel.Entraineurs = new List<Entraineur>();
             equipeAModifierViewModel.Joueurs = new List<Joueur>();
 

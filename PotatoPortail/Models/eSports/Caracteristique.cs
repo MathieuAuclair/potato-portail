@@ -1,17 +1,13 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
+namespace PotatoPortail.Models.eSports
+{
     public partial class Caracteristique
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Caracteristique()
         {
-            Items = new HashSet<Item>();
+            Item = new HashSet<Item>();
         }
 
         public int Id { get; set; }
@@ -19,11 +15,11 @@ namespace PotatoPortail.Models
         [Required]
         public string NomCaracteristique { get; set; }
 
+        [Display(Name = "Jeu")]
         public int IdJeu { get; set; }
 
-        public virtual Jeu Jeux { get; set; }
+        public virtual Jeu Jeu { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Item> Item { get; set; }
     }
 }

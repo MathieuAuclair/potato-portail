@@ -16,7 +16,7 @@ namespace PotatoPortail.Controllers.eSports
         
         public ActionResult Index()
         {
-            return View(_db.Entraineurs.OrderBy(entraineur => entraineur.NomEntraineur).ToList());
+            return View(_db.Entraineur.OrderBy(entraineur => entraineur.NomEntraineur).ToList());
         }
         
         public ActionResult Creation()
@@ -29,7 +29,7 @@ namespace PotatoPortail.Controllers.eSports
         public ActionResult Creation([Bind(Include = "id,nomEntraineur,prenomEntraineur,pseudoEntraineur,numTel,adresseCourriel")] Entraineur entraineur)
         {
             if (!ModelState.IsValid) return View(entraineur);
-            _db.Entraineurs.Add(entraineur);
+            _db.Entraineur.Add(entraineur);
             _db.SaveChanges();
             this.AddToastMessage("Ajout d'entraîneur effectué.", entraineur.NomComplet + " a été ajouté(e) à la liste d'entraîneurs sous le pseudo « " + entraineur.PseudoEntraineur + " ».", ToastType.Success);
             return RedirectToAction("Index");
@@ -43,7 +43,7 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var entraineur = _db.Entraineurs.Find(id);
+            var entraineur = _db.Entraineur.Find(id);
             if (entraineur == null)
             {
                 return HttpNotFound();
@@ -71,21 +71,20 @@ namespace PotatoPortail.Controllers.eSports
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entraineur entraineur = _db.Entraineurs.Find(id);
+            var entraineur = _db.Entraineur.Find(id);
             if (entraineur == null)
             {
                 return HttpNotFound();
             }
             return View(entraineur);
         }
-
-        // POST: Entraineur/Delete/5
+        
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Entraineur entraineur = _db.Entraineurs.Find(id);
-            _db.Entraineurs.Remove(entraineur ?? throw new InvalidOperationException());
+            Entraineur entraineur = _db.Entraineur.Find(id);
+            _db.Entraineur.Remove(entraineur ?? throw new InvalidOperationException());
             _db.SaveChanges();
             this.AddToastMessage("Suppression effectuée.", entraineur.NomComplet + " a été supprimé(e) de la liste.", ToastType.Success);
             return RedirectToAction("Index");

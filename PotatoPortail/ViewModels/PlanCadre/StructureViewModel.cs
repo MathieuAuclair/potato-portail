@@ -7,7 +7,6 @@ namespace PotatoPortail.ViewModels.PlanCadre
     public class StructureViewModel
     {
         public Models.PlanCadre PlanCadre { get; set; }
-        public ICollection<ElementEnoncePlanCadre> ElementEnoncePlanCadres { get; set; }
 
         public int RecupererIdPlanCadreElement(int idPlanCadreCompetence, int idElement)
         {

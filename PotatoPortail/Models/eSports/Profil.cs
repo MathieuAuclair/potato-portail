@@ -1,44 +1,50 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using PotatoPortail.Migrations;
 
+namespace PotatoPortail.Models.eSports
+{
     public partial class Profil
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        private readonly BdPortail _db = new BdPortail();
+
         public Profil()
         {
-            Joueurs = new HashSet<Joueur>();
+
         }
 
         public int Id { get; set; }
 
         [Required]
-        [StringLength(25)]
+        [Display(Name = "Pseudonyme")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Votre pseudonyme doit comprendre au minimum 2 caractères et 25 au maximum.")]
         public string Pseudo { get; set; }
 
         [Required]
-        [StringLength(128)]
-        public string IdMembreESports { get; set; }
-
-        public int IdJeu { get; set; }
-
+        [Display(Name = "Adresse courriel")]
         public string Courriel { get; set; }
 
+        [Display(Name = "Informations supplémentaires (facultatives)")]
         public string Note { get; set; }
 
         public bool EstArchive { get; set; }
 
+        [Required]
+        [StringLength(128)]
+        [Display(Name = "Étudiant")]
+        public string IdMembreESports { get; set; }
+
+        [Display(Name = "Jeu")]
+        public int IdJeu { get; set; }
+
         public int? IdJeuSecondaire { get; set; }
 
-        public virtual Jeu Jeux { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueur> Joueurs { get; set; }
-
         public virtual MembreESports MembreESports { get; set; }
+
+        public virtual Jeu Jeu { get; set; }
+
+        public virtual ICollection<Joueur> Joueur { get; set; }
+
+        public Jeu JeuSecondaire => _db.Jeu.Find(IdJeuSecondaire);
     }
 }

@@ -47,7 +47,7 @@
                             <p>Jeu primaire</p>
                             <hr />
                             <div class="form-group">
-                                @Html.DropDownListFor(model => model.JeuId, (IEnumerable<SelectListItem>)ViewBag.lstJeux, new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.JeuId, (IEnumerable<SelectListItem>)ViewBag.lstJeu, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.JeuId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             <p>Jeu secondaire</p>
                             <hr />
                             <div class="form-group">
-                                @Html.DropDownListFor(model => model.JeuSecondaireId, (IEnumerable<SelectListItem>)ViewBag.lstJeuxSecondaires, new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.JeuSecondaireId, (IEnumerable<SelectListItem>)ViewBag.lstJeuSecondaires, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.JeuSecondaireId, "", new { @class = "text-danger" })
                             </div>
                         </div>

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
-using PotatoPortail.Models;
 
 namespace PotatoPortail.Helpers
 {
@@ -47,7 +46,7 @@ namespace PotatoPortail.Helpers
         protected override bool IsRcpOwner(string username, int id)
         {
             var devisMinistere = Db.DevisMinistere.Find(id);
-            return Db.AccesProgramme.Any(accesProgramme => accesProgramme.CodeProgramme == devisMinistere.EnteteProgramme.codeProgramme);
+            return Db.AccesProgramme.Any(accesProgramme => accesProgramme.Discipline == devisMinistere.Discipline);
         }
     }
 
@@ -59,7 +58,7 @@ namespace PotatoPortail.Helpers
         {
             var enonceCompetence = Db.EnonceCompetence.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == enonceCompetence.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == enonceCompetence.DevisMinistere.Discipline);
         }
     }
 
@@ -71,7 +70,7 @@ namespace PotatoPortail.Helpers
         {
             var contexteRealisation = Db.ContexteRealisation.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == contexteRealisation?.EnonceCompetence.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == contexteRealisation.EnonceCompetence.DevisMinistere.Discipline);
         }
     }
 
@@ -83,7 +82,7 @@ namespace PotatoPortail.Helpers
         {
             var elementCompetence = Db.ElementCompetence.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == elementCompetence?.EnonceCompetence.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == elementCompetence.EnonceCompetence.DevisMinistere.Discipline);
         }
     }
 
@@ -94,8 +93,8 @@ namespace PotatoPortail.Helpers
         protected override bool IsRcpOwner(string username, int id)
         {
             var criterePerformance = Db.CriterePerformance.Find(id);
-            return Db.AccesProgramme.Any(e => e.codeProgramme == criterePerformance?.ElementCompetence.EnonceCompetence
-                                                  .DevisMinistere.EnteteProgramme.codeProgramme);
+            return Db.AccesProgramme.Any(e => e.Discipline == criterePerformance.ElementCompetence.EnonceCompetence
+                                                  .DevisMinistere.Discipline);
         }
     }
 
@@ -107,7 +106,7 @@ namespace PotatoPortail.Helpers
         {
             var programme = Db.Programme.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == programme?.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == programme.DevisMinistere.Discipline);
         }
     }
 
@@ -117,9 +116,9 @@ namespace PotatoPortail.Helpers
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            PlanCadre planCadre = Db.PlanCadre.Find(id);
+            var planCadre = Db.PlanCadre.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == planCadre.Programme.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == planCadre.Programme.DevisMinistere.Discipline);
         }
     }
 }

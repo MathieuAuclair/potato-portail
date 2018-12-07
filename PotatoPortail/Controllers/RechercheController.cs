@@ -178,7 +178,7 @@ namespace PotatoPortail.Controllers
         {
             var joueurListe = new List<RechercheJoueur>();
 
-            var lesJoueur = from tableJoueur in _db.Joueurs
+            var lesJoueur = from tableJoueur in _db.Joueur
                 join membreESports in _db.MembreESports on tableJoueur.IdMembreESports equals membreESports.Id into bdMembEsport2
                 from tableMembre in bdMembEsport2
                 where tableJoueur.PseudoJoueur.Contains(stringRechercher) || tableMembre.Prenom.Contains(stringRechercher) || tableMembre.Nom.Contains(stringRechercher)
@@ -187,7 +187,7 @@ namespace PotatoPortail.Controllers
                     idJoueur = tableJoueur.IdMembreESports,
                     NomJoueur = tableMembre.Prenom + " " + tableMembre.Nom,
                     PseudoJoueur = tableJoueur.PseudoJoueur,
-                    CourrielJoueur = tableJoueur.Profils.Courriel
+                    CourrielJoueur = tableJoueur.Profil.Courriel
                 } ;
             foreach ( var tableJoueur in lesJoueur)
             {
@@ -208,7 +208,7 @@ namespace PotatoPortail.Controllers
         {
             var equipeListe = new List<RechercheEquipe>();
 
-            var equipe = from tableEquipe in _db.Equipes
+            var equipe = from tableEquipe in _db.Equipe
                 where tableEquipe.NomEquipe.Contains(stringRechercher) && tableEquipe.EstMonoJoueur==false
                 select tableEquipe;
             foreach (var tableEquipe in equipe)
@@ -227,11 +227,11 @@ namespace PotatoPortail.Controllers
         {
             List<RechercheJeu> jeuListe = new List<RechercheJeu>();
 
-            var jeux = from tableJeu in _db.Jeux
+            var Jeu = from tableJeu in _db.Jeu
                 where tableJeu.NomJeu.Contains(stringRechercher)
                 select tableJeu;
 
-            foreach (var tableJeu in jeux)
+            foreach (var tableJeu in Jeu)
             {
                 jeuListe.Add(new RechercheJeu
                 {
@@ -248,7 +248,7 @@ namespace PotatoPortail.Controllers
         {
             List<RechercheEntraineur> entraineurListe = new List<RechercheEntraineur>();
 
-            var entraineurs = from tableEntraineur in _db.Entraineurs
+            var entraineurs = from tableEntraineur in _db.Entraineur
                               where tableEntraineur.PseudoEntraineur.Contains(stringRechercher) || tableEntraineur.PrenomEntraineur.Contains(stringRechercher) || tableEntraineur.PrenomEntraineur.Contains(stringRechercher)
                               select tableEntraineur;
 

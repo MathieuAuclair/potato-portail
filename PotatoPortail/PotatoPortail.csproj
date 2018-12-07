@@ -241,6 +241,7 @@
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
     <Compile Include="Interfaces\IApercu.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
     <Compile Include="Models\ActiviteApprentissage.cs" />
     <Compile Include="Models\Application.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
     <Compile Include="ViewModels\eSports\EquipeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\OrdreDuJourViewModel.cs" />
     <Compile Include="ViewModels\OrdresDuJour\ModificationModeleViewModel.cs" />
     <Compile Include="ViewModels\OrdresDuJour\OrdreDuJourViewModel.cs" />
     <Compile Include="ViewModels\PageTitreViewModel.cs" />

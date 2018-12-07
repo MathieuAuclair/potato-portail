@@ -14,7 +14,7 @@
         </header>
 
 
-        @if (ViewBag.equipesJeu.Count == 0)
+        @if (ViewBag.EquipeJeu.Count == 0)
         {
             <h3>Aucune équipe n'est actuellement associée à ce jeu. Il peut donc être supprimé.</h3>
             <div>
@@ -65,7 +65,7 @@
                 }
             </div>
         }
-        else if (ViewBag.equipesJeu.Count == 1)
+        else if (ViewBag.EquipeJeu.Count == 1)
         {
             <h3>Il y a 1 équipe actuellement associée à «@ViewBag.nomJeu». Vous ne pouvez donc pas supprimer «@ViewBag.nomJeu» du système.</h3>
 
@@ -78,7 +78,7 @@
         }
         else
         {
-            <h3>Il y a @ViewBag.equipesJeu.Count équipes actuellement associées à «@ViewBag.nomJeu». Vous ne pouvez donc pas supprimer «@ViewBag.nomJeu» du système.</h3>
+            <h3>Il y a @ViewBag.EquipeJeu.Count équipes actuellement associées à «@ViewBag.nomJeu». Vous ne pouvez donc pas supprimer «@ViewBag.nomJeu» du système.</h3>
 
             <div class="menu-flottant">
                 <a class="fancy-button blanc" href="/Jeu/Index">

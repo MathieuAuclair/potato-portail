@@ -17,14 +17,14 @@ namespace PotatoPortail.Controllers.eSports
                 where i.IdCaracteristique == id
                 select i;
 
-            var caracteristique = _db.Caracteristiques.Find(id);
+            var caracteristique = _db.Caracteristique.Find(id);
 
             if (caracteristique == null)
             {
                 return HttpNotFound();
             }
 
-            var jeu = _db.Jeux.Find(caracteristique.IdJeu);
+            var jeu = _db.Jeu.Find(caracteristique.IdJeu);
 
             if (jeu == null)
             {
@@ -72,18 +72,18 @@ namespace PotatoPortail.Controllers.eSports
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.carac = new SelectList(_db.Caracteristiques, "id", "nomCaracteristique", item.IdCaracteristique);
+                ViewBag.carac = new SelectList(_db.Caracteristique, "id", "nomCaracteristique", item.IdCaracteristique);
                 return View(item);
             }
 
-            var caracteristique = _db.Caracteristiques.Find(item.IdCaracteristique);
+            var caracteristique = _db.Caracteristique.Find(item.IdCaracteristique);
 
             if (caracteristique == null)
             {
                 return HttpNotFound();
             }
 
-            var jeu = _db.Jeux.Find(caracteristique.IdJeu);
+            var jeu = _db.Jeu.Find(caracteristique.IdJeu);
 
             if (jeu == null)
             {
@@ -113,7 +113,7 @@ namespace PotatoPortail.Controllers.eSports
             ViewBag.nomCaracteristique = nomCarac;
             ViewBag.nomJeu = nomJeu;
             ViewBag.CaracteristiqueId =
-                new SelectList(_db.Caracteristiques, "id", "nomCaracteristique", item.IdCaracteristique);
+                new SelectList(_db.Caracteristique, "id", "nomCaracteristique", item.IdCaracteristique);
 
             return View(item);
         }
@@ -125,14 +125,14 @@ namespace PotatoPortail.Controllers.eSports
         {
             if (ModelState.IsValid)
             {
-                var caracteristique = _db.Caracteristiques.Find(item.IdCaracteristique);
+                var caracteristique = _db.Caracteristique.Find(item.IdCaracteristique);
 
                 if (caracteristique == null)
                 {
                     return HttpNotFound();
                 }
 
-                var jeu = _db.Jeux.Find(caracteristique.IdJeu);
+                var jeu = _db.Jeu.Find(caracteristique.IdJeu);
 
                 if (jeu == null)
                 {
@@ -146,7 +146,7 @@ namespace PotatoPortail.Controllers.eSports
             }
 
             ViewBag.CaracteristiqueId =
-                new SelectList(_db.Caracteristiques, "id", "nomCaracteristique", item.IdCaracteristique);
+                new SelectList(_db.Caracteristique, "id", "nomCaracteristique", item.IdCaracteristique);
             return View(item);
         }
 
@@ -179,14 +179,14 @@ namespace PotatoPortail.Controllers.eSports
                 return HttpNotFound();
             }
 
-            var caracteristique = _db.Caracteristiques.Find(item.IdCaracteristique);
+            var caracteristique = _db.Caracteristique.Find(item.IdCaracteristique);
 
             if (caracteristique == null)
             {
                 return HttpNotFound();
             }
 
-            var jeu = _db.Jeux.Find(caracteristique.IdJeu);
+            var jeu = _db.Jeu.Find(caracteristique.IdJeu);
 
             if (jeu == null)
             {
