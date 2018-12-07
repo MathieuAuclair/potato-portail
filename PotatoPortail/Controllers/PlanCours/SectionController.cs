@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.ViewModels;
-using ApplicationPlanCadre.App_Code;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using PotatoPortail.ViewModels.PlanCours;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers.PlanCours
 {
     public class SectionController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
-        private servicesAdaptesViewModel servicesAdaptesViewModel = new servicesAdaptesViewModel();
+        private readonly BdPortail _db = new BdPortail();
+        private readonly ServicesAdaptesViewModel _servicesAdaptesViewModel = new ServicesAdaptesViewModel();
         
-        // GET: Section
         public ActionResult Index()
         {
             return RedirectToAction("Index", "PlanCours");
@@ -23,10 +21,10 @@ namespace ApplicationPlanCadre.Controllers
 
         public ActionResult Create(int? idPlancours)
         {
-            string utilisateurDiscipline = chercherUtilisateur();
-            var discipline = from disciplineDepartement in db.Departement
-                             where disciplineDepartement.discipline == utilisateurDiscipline
-                             select disciplineDepartement.nom;
+            string utilisateurDiscipline = ChercherUtilisateur();
+            var discipline = from disciplineDepartement in _db.Departement
+                             where disciplineDepartement.Discipline == utilisateurDiscipline
+                             select disciplineDepartement.Nom;
 
             string departement = utilisateurDiscipline + " - "+ discipline.First();
             //On teste si l'id passé est correct
@@ -34,18 +32,18 @@ namespace ApplicationPlanCadre.Controllers
                 return RedirectToAction("Index");
 
 
-            PlanCours planCours = db.PlanCours.Find(idPlancours);
+            Models.PlanCours planCours = _db.PlanCours.Find(idPlancours);
             if (planCours == null)
             {
                 return HttpNotFound();
             }
-            servicesAdaptesViewModel.idPlanCours = (int)idPlancours;
-            servicesAdaptesViewModel.planCours = planCours;
-            var listeSection = from texteSection in db.NomSection
-                               join contenuSection in db.ContenuSection on texteSection.idNomSection equals contenuSection.idNomSection
-                               where contenuSection.modifiable == true
+            _servicesAdaptesViewModel.IdPlanCours = (int)idPlancours;
+            _servicesAdaptesViewModel.PlanCours = planCours;
+            var listeSection = from texteSection in _db.NomSection
+                               join contenuSection in _db.ContenuSection on texteSection.idNomSection equals contenuSection.idNomSection
+                               where contenuSection.modifiable
                                select texteSection;
-            List < SelectListItem > listeNom = new List<SelectListItem>();
+            var listeNom = new List<SelectListItem>();
             foreach (var nom in listeSection)
             {
                 listeNom.Add(new SelectListItem
@@ -55,31 +53,46 @@ namespace ApplicationPlanCadre.Controllers
                 });
             }
             
-            servicesAdaptesViewModel.NomSections = listeSection;
+            _servicesAdaptesViewModel.NomSections = listeSection;
             ViewBag.nomSections = listeNom;
             ViewBag.departement = departement;
             ViewBag.idPlanCours = idPlancours;
             return View();
         }
-
-        // POST: Student/Create
+        
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            string discipline = chercherUtilisateur();
+            string discipline = ChercherUtilisateur();
+
+            if (discipline == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             try
             {
-                PlanCoursDepart PCD = new PlanCoursDepart();
-                string texte = Request.Form["texteContenu"];
+                var planCoursDepart = new PlanCoursDepart();
+                var texte = Request.Form["texteContenu"];
                 
-                int nomSection = Convert.ToInt32(Request.Form["titreSection"]);
-                int idPlanCours = Convert.ToInt32(Request.Form["idPlanCours"]);
-                PCD.discipline = db.Departement.Find(discipline).discipline;
-                PCD.idNomSection = db.NomSection.Find(nomSection).idNomSection;
-                PCD.idPlanCours = db.PlanCours.Find(idPlanCours).idPlanCours;
-                PCD.texteContenu = texte;
-                db.PlanCoursDeparts.Add(PCD);
-                db.SaveChanges();
+                var nomSection = Convert.ToInt32(Request.Form["titreSection"]);
+                var idPlanCours = Convert.ToInt32(Request.Form["idPlanCours"]);
+
+                planCoursDepart.discipline = _db.Departement.Find(discipline)?.Discipline;
+                var idNomSection = _db.NomSection.Find(nomSection)?.idNomSection;
+                var planCours = _db.PlanCours.Find(idPlanCours)?.idPlanCours;
+
+                if (planCours == null || idNomSection == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                planCoursDepart.idNomSection = (int) idNomSection;
+                planCoursDepart.idPlanCours = (int) planCours;
+
+                planCoursDepart.texteContenu = texte;
+                _db.PlanCoursDepart.Add(planCoursDepart);
+                _db.SaveChanges();
                 return RedirectToAction("Index","Apercu");
             }
             catch
@@ -88,12 +101,12 @@ namespace ApplicationPlanCadre.Controllers
             }
         }
 
-        public string chercherUtilisateur()
+        public string ChercherUtilisateur()
         {
-            var CourrielConnexion = User.Identity.Name;
-            var requete = from acces in db.AccesProgramme
-                          where acces.userMail == CourrielConnexion
-                          select acces.discipline;
+            var courrielConnexion = User.Identity.Name;
+            var requete = from acces in _db.AccesProgramme
+                          where acces.UserMail == courrielConnexion
+                          select acces.Discipline;
             return requete.First();
         }
 

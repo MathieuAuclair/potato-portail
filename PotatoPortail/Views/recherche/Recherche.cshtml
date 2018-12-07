@@ -152,13 +152,13 @@
                                 {
                                     if (Model.jeu.Count != 0)
                                     {
-                                        <h2>Jeux de eSport</h2>
+                                        <h2>Jeu de eSport</h2>
                                         <hr/>
                                         foreach (RechercheJeu jeu in Model.jeu)
                                         {
                                             <a class="info-child clearfix" href="@Url.Action("Index", "Jeu", new { idJeu = jeu.idJeu })">
                                                 <p>
-                                                    <span class="ligne">Nom des jeux : </span>@Html.Raw(jeu.NomJeu)
+                                                    <span class="ligne">Nom des Jeu : </span>@Html.Raw(jeu.NomJeu)
                                                     <br/>
                                                     <span class="ligne">Description du jeu : </span>@Html.Raw(jeu.DescriptionJeu)
                                                 </p>

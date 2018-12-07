@@ -53,7 +53,7 @@ namespace PotatoPortail.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("BDPlanCadre", throwIfV1Schema: false)
+            : base("BdPortail", throwIfV1Schema: false)
         {
         }
 

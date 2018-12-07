@@ -1,24 +1,22 @@
-﻿using ApplicationPlanCadre.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using PotatoPortail.Models;
+using PotatoPortail.ViewModels.ProjetPrincipal;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     public class GrilleCoursEnonceController : Controller
     {
-        // GET: GrilleCoursEnonce
 
         public ActionResult GetEnonce()
         {
-            GrilleCoursViewModel GCVM = new GrilleCoursViewModel();
-            GCVM.Grille = GetGrilleCoursModel();
-            GCVM.Enonces = GetEnonceModel();
+            var grilleCoursViewModel = new GrilleCoursViewModel
+            {
+                Grille = GetGrilleCoursModel(),
+                Enonces = GetEnonceModel()
+            };
 
-            return View(GCVM);
+            return View(grilleCoursViewModel);
         }
 
         public GrilleCours GetGrilleCoursModel() {
@@ -33,11 +31,34 @@ namespace ApplicationPlanCadre.Controllers
 
         public List<EnonceCompetence> GetEnonceModel()
         {
-            List<EnonceCompetence> mesEnonces = new List<EnonceCompetence>();
-            
-            mesEnonces.Add(new EnonceCompetence { idCompetence = 1, codeCompetence = "016N", description = "", obligatoire = true, actif = true });
-            mesEnonces.Add(new EnonceCompetence { idCompetence = 2, codeCompetence = "016M", description = "", obligatoire = true, actif = true });
-            mesEnonces.Add(new EnonceCompetence { idCompetence = 3, codeCompetence = "0160", description = "", obligatoire = true, actif = true });
+            List<EnonceCompetence> mesEnonces = new List<EnonceCompetence>
+            {
+                new EnonceCompetence
+                {
+                    IdCompetence = 1,
+                    CodeCompetence = "016N",
+                    Description = "",
+                    Obligatoire = true,
+                    Actif = true
+                },
+                new EnonceCompetence
+                {
+                    IdCompetence = 2,
+                    CodeCompetence = "016M",
+                    Description = "",
+                    Obligatoire = true,
+                    Actif = true
+                },
+                new EnonceCompetence
+                {
+                    IdCompetence = 3,
+                    CodeCompetence = "0160",
+                    Description = "",
+                    Obligatoire = true,
+                    Actif = true
+                }
+            };
+
 
             return mesEnonces;
         }

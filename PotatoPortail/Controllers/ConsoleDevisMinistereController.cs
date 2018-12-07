@@ -1,26 +1,29 @@
-﻿using ApplicationPlanCadre.Models;
-using System.Data;
+﻿using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ConsoleDevisMinistereController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult _PartialList()
         {
-            var devisMinistere = db.DevisMinistere.Include(p => p.Departement);
+            var devisMinistere = _db.DevisMinistere.Include(p => p.Departement);
             return PartialView(devisMinistere.ToList());
         }
 
         public ActionResult Index()
         {
-            var devisMinistere = db.DevisMinistere.Include(p => p.Departement);
+            var devisMinistere = _db.DevisMinistere.Include(p => p.Departement);
 
             return View(devisMinistere.ToList());
         }
@@ -38,11 +41,11 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (!DevisExiste(devisMinistere) && ModelState.IsValid)
             {
-                devisMinistere.codeSpecialisation = devisMinistere.codeSpecialisation.ToUpper().Trim();
-                db.DevisMinistere.Add(devisMinistere);
-                db.SaveChanges();
+                devisMinistere.CodeSpecialisation = devisMinistere.CodeSpecialisation.ToUpper().Trim();
+                _db.DevisMinistere.Add(devisMinistere);
+                _db.SaveChanges();
                 this.AddToastMessage("Création confirmée",
-                    "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " a bien été créé.",
+                    "Le devis " + '\u0022' + devisMinistere.Nom + '\u0022' + " a bien été créé.",
                     Toast.ToastType.Success);
                 return RedirectToAction("Index");
 
@@ -65,13 +68,13 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            DevisMinistere devisMinistere = db.DevisMinistere.Find(id);
+            DevisMinistere devisMinistere = _db.DevisMinistere.Find(id);
             if (devisMinistere == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.discipline = ConstruireCodeDevisMinistereSelectList(devisMinistere.discipline);
+            ViewBag.discipline = ConstruireCodeDevisMinistereSelectList(devisMinistere.Discipline);
             return View(devisMinistere);
         }
 
@@ -82,19 +85,19 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (!DevisExiste(devisMinistere) && ModelState.IsValid)
             {
-                devisMinistere.codeSpecialisation = devisMinistere.codeSpecialisation.ToUpper();
-                db.Entry(devisMinistere).State = EntityState.Modified;
-                db.SaveChanges();
+                devisMinistere.CodeSpecialisation = devisMinistere.CodeSpecialisation.ToUpper();
+                _db.Entry(devisMinistere).State = EntityState.Modified;
+                _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la modification",
-                    "Le devis " + '\u0022' + devisMinistere.nom + '\u0022' + " a bien été modifié.",
-                    Toast.ToastType.Success);
+                    "Le devis " + '\u0022' + devisMinistere.Nom + '\u0022' + " a bien été modifié.",
+                    ToastType.Success);
                 return RedirectToAction("Index");
             }
 
             if (DevisExiste(devisMinistere))
             {
                 this.AddToastMessage("Problème lors de la modification", "Erreur, ce devis ministeriel existe déjà.",
-                    Toast.ToastType.Error, true);
+                    ToastType.Error, true);
             }
 
             ViewBag.discipline = ConstruireCodeDevisMinistereSelectList();
@@ -103,8 +106,8 @@ namespace ApplicationPlanCadre.Controllers
 
         public SelectList ConstruireCodeDevisMinistereSelectList(string discipline = null)
         {
-            var liste = db.Departement
-                .Select(e => new {discipline = e.discipline, texte = e.discipline + " - " + e.nom}).ToList();
+            var liste = _db.Departement
+                .Select(e => new {discipline = e.Discipline, texte = e.Discipline + " - " + e.Nom}).ToList();
             if (discipline != null)
                 return new SelectList(liste, "discipline", "texte", discipline);
             return new SelectList(liste, "discipline", "texte");
@@ -113,12 +116,12 @@ namespace ApplicationPlanCadre.Controllers
         [ActionName("Supression")]
         public ActionResult SurpressionConfirmer(int id)
         {
-            DevisMinistere DevisMinistere = db.DevisMinistere.Find(id);
-            db.DevisMinistere.Remove(DevisMinistere);
-            db.SaveChanges();
+            var devisMinistere = _db.DevisMinistere.Find(id);
+            _db.DevisMinistere.Remove(devisMinistere ?? throw new InvalidOperationException());
+            _db.SaveChanges();
             this.AddToastMessage("Confirmation de la suppression",
-                "Le devis " + '\u0022' + DevisMinistere.nom + '\u0022' + " a bien été supprimé.",
-                Toast.ToastType.Success);
+                "Le devis " + '\u0022' + devisMinistere.Nom + '\u0022' + " a bien été supprimé.",
+                ToastType.Success);
             return RedirectToAction("Index");
 
         }
@@ -127,7 +130,7 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
 
             base.Dispose(disposer);
@@ -135,10 +138,9 @@ namespace ApplicationPlanCadre.Controllers
 
         private bool DevisExiste(DevisMinistere devisMinistere)
         {
-            bool existe = db.DevisMinistere.Any(p =>
-                p.discipline == devisMinistere.discipline && p.annee == devisMinistere.annee &&
-                p.codeSpecialisation == devisMinistere.codeSpecialisation && p.idDevis != devisMinistere.idDevis);
-            return existe;
+            return _db.DevisMinistere.Any(tableDevisMinistere =>
+                tableDevisMinistere.Discipline == devisMinistere.Discipline && tableDevisMinistere.Annee == devisMinistere.Annee &&
+                tableDevisMinistere.CodeSpecialisation == devisMinistere.CodeSpecialisation && tableDevisMinistere.IdDevis != devisMinistere.IdDevis);
         }
 
     }

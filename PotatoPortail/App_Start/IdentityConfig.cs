@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail
@@ -36,7 +37,7 @@ namespace PotatoPortail
             IOwinContext context)
         {
             var manager = new ApplicationUserManager(
-                new UserStore<ApplicationUser>(context.Get<BDPortail>())
+                new UserStore<ApplicationUser>(context.Get<BdPortail>())
             );
 
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)

@@ -1,34 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Dynamic;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     public class GrilleCoursController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
-
-        // GET: GrilleCours
+        private readonly BdPortail _db = new BdPortail();
+        
         public ActionResult Index()
         {
-            return View(db.GrilleCours.ToList());
+            return View(_db.GrilleCours.ToList());
         }
-
-        // GET: GrilleCours/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrilleCours grilleCours = db.GrilleCours.Find(id);
+            var grilleCours = _db.GrilleCours.Find(id);
             if (grilleCours == null)
             {
                 return HttpNotFound();
@@ -47,8 +42,8 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.GrilleCours.Add(grilleCours);
-                db.SaveChanges();
+                _db.GrilleCours.Add(grilleCours);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(grilleCours);
@@ -56,12 +51,12 @@ namespace ApplicationPlanCadre.Controllers
 
         public ActionResult ListeGrilleCours()
         {
-            return PartialView(db.GrilleCours.ToList());
+            return PartialView(_db.GrilleCours.ToList());
         }
 
         public ActionResult _Structure(int id)
         {
-            return PartialView(db.GrilleCours.Find(id));
+            return PartialView(_db.GrilleCours.Find(id));
         }
 
         public ActionResult Modifier(int? id)
@@ -70,7 +65,7 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrilleCours grilleCours = db.GrilleCours.Find(id);
+            var grilleCours = _db.GrilleCours.Find(id);
             if (grilleCours == null)
             {
                 return HttpNotFound();
@@ -82,37 +77,34 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Modifier([Bind(Include = "idGrille,nom")] GrilleCours grilleCours)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(grilleCours).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(grilleCours);
+            if (!ModelState.IsValid) return View(grilleCours);
+            _db.Entry(grilleCours).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Info(int id)
         {
-            return View(db.GrilleCours.Find(id));
+            return View(_db.GrilleCours.Find(id));
         }
 
-        public ActionResult infoHeure(int id) {
-            return View(db.GrilleCours.Find(id));
+        public ActionResult InfoHeure(int id) {
+            return View(_db.GrilleCours.Find(id));
         }
 
         public ActionResult _Heure(int id)
         {
-            return PartialView(db.GrilleCours.Find(id));
+            return PartialView(_db.GrilleCours.Find(id));
         }
 
-        public ActionResult infoPrealable(int id)
+        public ActionResult InfoPrealable(int id)
         {
-            return View(db.GrilleCours.Find(id));
+            return View(_db.GrilleCours.Find(id));
         }
 
         public ActionResult _Prealable(int id)
         {
-            return PartialView(db.GrilleCours.Find(id));
+            return PartialView(_db.GrilleCours.Find(id));
         }
 
         public ActionResult Supression(int? id)
@@ -121,7 +113,7 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrilleCours grilleCours = db.GrilleCours.Find(id);
+            var grilleCours = _db.GrilleCours.Find(id);
             if (grilleCours == null)
             {
                 return HttpNotFound();
@@ -133,9 +125,9 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SurpressionConfirmer(int id)
         {
-            GrilleCours grilleCours = db.GrilleCours.Find(id);
-            db.GrilleCours.Remove(grilleCours);
-            db.SaveChanges();
+            var grilleCours = _db.GrilleCours.Find(id);
+            _db.GrilleCours.Remove(grilleCours ?? throw new InvalidOperationException());
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -143,7 +135,7 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposer);
         }

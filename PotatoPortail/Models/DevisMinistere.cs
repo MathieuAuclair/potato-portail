@@ -57,5 +57,16 @@ namespace PotatoPortail.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Programme> Programme { get; set; }
+        public string Nom
+        {
+            get
+            {
+                if (Specialisation != "N/A")
+                    return CodeDevis + " • " + Specialisation;
+                return CodeDevis;
+            }
+        }
+
+        public string CodeDevis => Discipline + "-" + Annee + "-" + CodeSpecialisation;
     }
 }

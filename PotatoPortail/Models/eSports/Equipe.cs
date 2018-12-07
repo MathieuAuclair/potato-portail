@@ -1,3 +1,5 @@
+using PotatoPortail.Models.eSports;
+
 namespace PotatoPortail.Models
 {
     using System;
@@ -8,28 +10,30 @@ namespace PotatoPortail.Models
 
     public partial class Equipe
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Equipe()
         {
-            Entraineurs = new HashSet<Entraineurs>();
-            Joueurs = new HashSet<Joueurs>();
+            Entraineurs = new HashSet<Entraineur>();
+            Joueurs = new HashSet<Joueur>();
         }
 
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Nom de l'équipe")]
         public string NomEquipe { get; set; }
 
-        public int IdJeu { get; set; }
-
+        [Required]
         public bool EstMonoJoueur { get; set; }
 
-        public virtual Jeux Jeux { get; set; }
+        [Display(Name = "Jeu associé à l'équipe")]
+        public int IdJeu { get; set; }
+
+        public virtual Jeu Jeu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entraineurs> Entraineurs { get; set; }
+        public virtual ICollection<Entraineur> Entraineurs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueurs> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueurs { get; set; }
     }
 }

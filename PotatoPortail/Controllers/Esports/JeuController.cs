@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Models.eSports;
+using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using PotatoPortail.Models.eSports;
+using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers.eSports
 {
     public class JeuController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
     
         public ActionResult Index()
         {
-            return View(db.Jeux.OrderBy(j => j.nomJeu).ToList());
+            return View(_db.Jeu.OrderBy(jeu => jeu.NomJeu).ToList());
         }
         public ActionResult Details(int? id, string nomJeu)
         {
@@ -30,35 +30,35 @@ namespace ApplicationPlanCadre.Controllers
 
             List<Joueur> lstJoueursJeu = new List<Joueur>();
 
-            Jeu jeu = db.Jeux.Find(id);
+            Jeu jeu = _db.Jeu.Find(id);
 
             if (jeu == null)
             {
                 return HttpNotFound();
             }
 
-            foreach (Joueur joueur in db.Joueurs)
+            foreach (Joueur joueur in _db.Joueur)
             {
-                if (joueur.jeuEquipeMonojoueur == jeu.nomJeu)
+                if (joueur.JeuEquipeMonojoueur == jeu.NomJeu)
                     lstJoueursJeu.Add(joueur);
             }
 
-            ViewBag.lstJoueursJeu = lstJoueursJeu.OrderBy(j => j.pseudoJoueur).ToList();
+            ViewBag.lstJoueursJeu = lstJoueursJeu.OrderBy(joueur => joueur.PseudoJoueur).ToList();
             ViewBag.nomJeu = nomJeu;
 
             return View(jeu);
         }
         public ActionResult Creation()
         {
-            var statuts = db.Statuts.ToList();
-            List<SelectListItem> lstStatuts = new List<SelectListItem>();
+            var statuts = _db.Statut.ToList();
+            var lstStatuts = new List<SelectListItem>();
 
             foreach (Statut statut in statuts)
             {
                 lstStatuts.Add(new SelectListItem
                 {
-                    Text = statut.nomStatut,
-                    Value = statut.id.ToString()
+                    Text = statut.NomStatut,
+                    Value = statut.Id.ToString()
                 });
             }
 
@@ -71,42 +71,42 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Creation([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")] Jeu jeu)
         {
-            var jeuDuMemeNom = from j in db.Jeux
-                               where j.nomJeu.Equals(jeu.nomJeu, StringComparison.OrdinalIgnoreCase)
-                               select j;
+            var jeuDuMemeNom = from tableJeu in _db.Jeu
+                               where tableJeu.NomJeu.Equals(jeu.NomJeu, StringComparison.OrdinalIgnoreCase)
+                               select tableJeu;
 
-            var abvIdentique = from j in db.Jeux
-                               where j.abreviation.Equals(jeu.abreviation, StringComparison.OrdinalIgnoreCase)
-                               select j;
+            var abvIdentique = from tableJeu in _db.Jeu
+                               where tableJeu.Abreviation.Equals(jeu.Abreviation, StringComparison.OrdinalIgnoreCase)
+                               select tableJeu;
 
             if (jeuDuMemeNom.Any())
             {
-                this.AddToastMessage("Jeu déjà existant.", jeuDuMemeNom.First().nomJeu + " est déjà entré dans le système.", Toast.ToastType.Error, true);
-                ViewBag.Statuts = new SelectList(db.Statuts, "id", "nomStatut", jeu.StatutId);
+                this.AddToastMessage("Jeu déjà existant.", jeuDuMemeNom.First().NomJeu + " est déjà entré dans le système.", ToastType.Error, true);
+                ViewBag.Statuts = new SelectList(_db.Statut, "id", "nomStatut", jeu.IdStatut);
                 return View(jeu);
             }
 
             if(abvIdentique.Any())
             {
-                this.AddToastMessage("Abréviation déjà utilisée.", "L'abréviation « " + abvIdentique.First().abreviation + " » est déjà utilisée pour « " + abvIdentique.First().nomJeu + " ». Choisissez-en une autre.", Toast.ToastType.Error, true);
-                ViewBag.AbvExistante = "L'abréviation " + abvIdentique.First().abreviation + " est déjà utilisée pour " + abvIdentique.First().nomJeu + ".";
-                ViewBag.Statuts = new SelectList(db.Statuts, "id", "nomStatut", jeu.StatutId);
+                this.AddToastMessage("Abréviation déjà utilisée.", "L'abréviation « " + abvIdentique.First().Abreviation + " » est déjà utilisée pour « " + abvIdentique.First().NomJeu + " ». Choisissez-en une autre.", ToastType.Error, true);
+                ViewBag.AbvExistante = "L'abréviation " + abvIdentique.First().Abreviation + " est déjà utilisée pour " + abvIdentique.First().NomJeu + ".";
+                ViewBag.Statuts = new SelectList(_db.Statut, "id", "nomStatut", jeu.IdStatut);
                 return View(jeu);
             }
 
             if (ModelState.IsValid)
             {
-                db.Jeux.Add(jeu);
-                db.SaveChanges();
-                this.AddToastMessage("Ajout de jeu effectué.", "« " + jeu.nomJeu + " » a été ajouté à la liste des jeux.", Toast.ToastType.Success);
+                _db.Jeu.Add(jeu);
+                _db.SaveChanges();
+                this.AddToastMessage("Ajout de jeu effectué.", "« " + jeu.NomJeu + " » a été ajouté à la liste des Jeu.", ToastType.Success);
                 return RedirectToAction("Index");
             }
             return View(jeu);
         }
         public ActionResult Modifier(int? id, string nomJeu)
         {
-            var caracJeu = from carac in db.Caracteristiques
-                           where carac.JeuId == id
+            var caracJeu = from carac in _db.Caracteristique
+                           where carac.IdJeu == id
                            select carac;
 
             List<Caracteristique> lstCarac = new List<Caracteristique>();
@@ -116,7 +116,7 @@ namespace ApplicationPlanCadre.Controllers
                 lstCarac.Add(carac);
             }
 
-            var statuts = db.Statuts.ToList();
+            var statuts = _db.Statut.ToList();
 
             List < SelectListItem > lstStatuts = new List<SelectListItem>();
 
@@ -124,8 +124,8 @@ namespace ApplicationPlanCadre.Controllers
             {
                 lstStatuts.Add(new SelectListItem
                 {
-                    Text = statut.nomStatut,
-                    Value = statut.id.ToString()
+                    Text = statut.NomStatut,
+                    Value = statut.Id.ToString()
                 });
             }
 
@@ -134,7 +134,7 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Jeu jeu = db.Jeux.Find(id);
+            Jeu jeu = _db.Jeu.Find(id);
             if (jeu == null)
             {
                 return HttpNotFound();
@@ -149,52 +149,59 @@ namespace ApplicationPlanCadre.Controllers
         [HttpPost]
         public ActionResult EditItem([Bind(Include = "id,nomItem,CaracteristiqueId")] Item item)
         {
-            Caracteristique caracteristique = db.Caracteristiques.Find(item.CaracteristiqueId);
-          
-            Jeu jeu = db.Jeux.Find(caracteristique.JeuId);
-            if (ModelState.IsValid)
+            var caracteristique = _db.Caracteristique.Find(item.IdCaracteristique);
+
+            if (caracteristique == null)
             {
-                caracteristique.Item.Add(item);
-                //db.Set<Caracteristique>().AddOrUpdate(caracteristique);
-                db.SaveChanges();
-               // this.AddToastMessage("Modifications apportées.", "Les changements apportés à « " + caracteristique.nomCaracteristique + " » ont été enregistrés.", Toast.ToastType.Success, true);
-                return RedirectToAction("Modifier", new { jeu.id,jeu.nomJeu });
+                return HttpNotFound();
             }
-            return View(jeu);
+
+            var jeu = _db.Jeu.Find(caracteristique.IdJeu);
+            if (!ModelState.IsValid) return View(jeu);
+            caracteristique.Item.Add(item);
+
+            if (jeu == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Modifier", new { jeu.Id,jeu.NomJeu });
         }
        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Modifier([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")] Jeu jeu)
         {
-            var caracteristiquesJeu = from c in db.Caracteristiques
-                                      where c.JeuId == jeu.id
+            var caracteristiquesJeu = from c in _db.Caracteristique
+                                      where c.IdJeu == jeu.Id
                                       select c;
 
             ViewBag.carac = caracteristiquesJeu.ToList();
-            ViewBag.nomJeu = db.Jeux.Find(jeu.id).nomJeu;
+            ViewBag.nomJeu = _db.Jeu.Find(jeu.Id)?.NomJeu;
 
-            var jeuDuMemeNom = from j in db.Jeux
-                               where j.nomJeu.Equals(jeu.nomJeu, StringComparison.OrdinalIgnoreCase)
-                               select j;
+            var jeuDuMemeNom = from tableJeu in _db.Jeu
+                               where tableJeu.NomJeu.Equals(jeu.NomJeu, StringComparison.OrdinalIgnoreCase)
+                               select tableJeu;
 
             if (jeuDuMemeNom.Any())
             {
-                if (jeu.nomJeu != db.Jeux.Find(jeu.id).nomJeu)
+                if (jeu.NomJeu != _db.Jeu.Find(jeu.Id)?.NomJeu)
                 {
-                    this.AddToastMessage("Jeu déjà existant.", jeuDuMemeNom.First().nomJeu + " est déjà entré dans le système.", Toast.ToastType.Error, true);
-                    ViewBag.Statuts = new SelectList(db.Statuts, "id", "nomStatut", jeu.StatutId);
-                    jeu.nomJeu = db.Jeux.Find(jeu.id).nomJeu;
-                    jeu.Statut = db.Jeux.Find(jeu.id).Statut;
+                    this.AddToastMessage("Jeu déjà existant.", jeuDuMemeNom.First().NomJeu + " est déjà entré dans le système.", ToastType.Error, true);
+                    ViewBag.Statuts = new SelectList(_db.Statut, "id", "nomStatut", jeu.IdStatut);
+                    jeu.NomJeu = _db.Jeu.Find(jeu.Id)?.NomJeu;
+                    jeu.Statut = _db.Jeu.Find(jeu.Id)?.Statut;
                     return View(jeu);
                 }
             }
 
             if (ModelState.IsValid)
             {
-                db.Set<Jeu>().AddOrUpdate(jeu);
-                db.SaveChanges();
-                this.AddToastMessage("Modifications apportées.", "Les changements apportés à « " + jeu.nomJeu + " » ont été enregistrés.", Toast.ToastType.Success);
+                _db.Set<Jeu>().AddOrUpdate(jeu);
+                _db.SaveChanges();
+                this.AddToastMessage("Modifications apportées.", "Les changements apportés à « " + jeu.NomJeu + " » ont été enregistrés.", ToastType.Success);
                 return RedirectToAction("Index");
             }
             return View(jeu);
@@ -207,18 +214,18 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var equipesJeu = from e in db.Equipes
-                             where e.JeuId == id
+            var equipeJeu = from e in _db.Equipe
+                             where e.IdJeu == id
                              select e;
 
-            Jeu jeu = db.Jeux.Find(id);
+            var jeu = _db.Jeu.Find(id);
             if (jeu == null)
             {
                 return HttpNotFound();
             }
 
             ViewBag.nomJeu = nomJeu;
-            ViewBag.equipesJeu = equipesJeu.ToList();
+            ViewBag.EquipeJeu = equipeJeu.ToList();
 
             return View(jeu);
         }
@@ -226,10 +233,16 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Jeu jeu = db.Jeux.Find(id);
-            db.Jeux.Remove(jeu);
-            db.SaveChanges();
-            this.AddToastMessage("Supression effectuée.", "« " + jeu.nomJeu + " » a été supprimé de la liste.", Toast.ToastType.Success);
+            var jeu = _db.Jeu.Find(id);
+
+            if (jeu == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.Jeu.Remove(jeu);
+            _db.SaveChanges();
+            this.AddToastMessage("Supression effectuée.", "« " + jeu.NomJeu + " » a été supprimé de la liste.", ToastType.Success);
             return RedirectToAction("Index");
         }
 
@@ -237,7 +250,7 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

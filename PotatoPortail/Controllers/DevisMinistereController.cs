@@ -1,43 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using PotatoPortail.Models;
-using PotatoPortail.Helpers;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
-    [RCPDevisMinistereAuthorize]
+    [RcpDevisMinistereAuthorize]
     public class DevisMinistereController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
-        private IQueryable<DevisMinistere> getRCPDevisMinistere()
+        private IEnumerable<DevisMinistere> GetRcpDevisMinistere()
         {
             string username = User.Identity.GetUserName();
-            return from devisMinistere in db.DevisMinistere
-                   join departement in db.Departement on devisMinistere.discipline equals departement.discipline
-                   join accesProgramme in db.AccesProgramme on departement.discipline equals accesProgramme.discipline
-                   where accesProgramme.userMail == username
+            return from devisMinistere in _db.DevisMinistere
+                   join departement in _db.Departement on devisMinistere.Discipline equals departement.Discipline
+                   join accesProgramme in _db.AccesProgramme on departement.Discipline equals accesProgramme.Discipline
+                   where accesProgramme.UserMail == username
                    select devisMinistere;
         }
 
         public ActionResult ListeDevis()
         {
-            return PartialView(getRCPDevisMinistere().ToList());
+            return PartialView(GetRcpDevisMinistere().ToList());
             
         }
 
         public ActionResult Index()
         {
-            return View(getRCPDevisMinistere().ToList());
+            return View(GetRcpDevisMinistere().ToList());
         }
 
         public ActionResult Info(int? idDevis)
@@ -46,7 +44,7 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevisMinistere devisMinistere = db.DevisMinistere.Find(idDevis);
+            DevisMinistere devisMinistere = _db.DevisMinistere.Find(idDevis);
             if (devisMinistere == null)
             {
                 return HttpNotFound();
@@ -62,7 +60,7 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevisMinistere devisMinistere = db.DevisMinistere.Find(idDevis);
+            DevisMinistere devisMinistere = _db.DevisMinistere.Find(idDevis);
             if (devisMinistere == null)
             {
                 return HttpNotFound();
@@ -74,40 +72,41 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Modifier([Bind(Include = "idDevis, discipline, annee, codeSpecialisation, nom, dateValidation, docMinistere, specialisation, sanction, nbUnite, condition, nbHeurefrmGenerale,nbHeurefrmSpecifique")] DevisMinistere devisMinistere, HttpPostedFileBase docMinistere)
         {
-            devisMinistere.Departement = db.Departement.Find(devisMinistere.discipline);
+            devisMinistere.Departement = _db.Departement.Find(devisMinistere.Discipline);
             
             if (docMinistere != null)
             {
                 if(!TeleverserFichier(docMinistere, devisMinistere))
                     ModelState.AddModelError("PDF", "Le fichier doit être de type PDF.");
             }
-            //Trim(devisMinistere);
-            if (ModelState.IsValid)
-            {
-                db.Entry(devisMinistere).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Info", "DevisMinistere", new { idDevis = devisMinistere.idDevis });
-            }
-            return View(devisMinistere);
+
+            if (!ModelState.IsValid) return View(devisMinistere);
+            _db.Entry(devisMinistere).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            return RedirectToAction("Info", "DevisMinistere", new { idDevis = devisMinistere.IdDevis });
         }
 
         public bool TeleverserFichier(HttpPostedFileBase fichier, DevisMinistere devisMinistere)
         {
-            try
+            try //Sérieux cette fonction là c'est une vrai fucking pile of shit!!! Reparez moi ça!
             {
-                string nomFichier = Path.GetFileName(fichier.FileName);
-                string chemin = Path.Combine(Server.MapPath("~/Files/Document ministériel"), nomFichier);
-                string extension = nomFichier.Substring(nomFichier.Length - 4, 4);
-                string ancienChemin = devisMinistere.DocMinistere;
-                devisMinistere.DocMinistere = nomFichier;
-                if (extension == ".pdf")
+                var nomFichier = Path.GetFileName(fichier.FileName);
+
+                if (nomFichier == null)
                 {
-                    fichier.SaveAs(chemin);
-                    if (ancienChemin != null)
-                        SupressionFichier(ancienChemin);
-                    return true;
+                    return false;
                 }
-                return false;
+
+                var chemin = Path.Combine(Server.MapPath("~/Files/Document ministériel"), nomFichier);
+                var extension = nomFichier.Substring(nomFichier.Length - 4, 4);
+                var ancienChemin = devisMinistere.DocMinistere;
+                devisMinistere.DocMinistere = nomFichier;
+                if (extension != ".pdf") return false;
+                fichier.SaveAs(chemin);
+                if (ancienChemin != null)
+                    SupressionFichier(ancienChemin);
+                return true;
             }
             catch(IOException)
             {
@@ -132,7 +131,7 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposer);
         }

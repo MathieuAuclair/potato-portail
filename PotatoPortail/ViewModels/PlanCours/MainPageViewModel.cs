@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 
 namespace ApplicationPlanCadre.ViewModels
 {

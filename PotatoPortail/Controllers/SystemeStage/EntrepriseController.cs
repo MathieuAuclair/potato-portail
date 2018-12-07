@@ -10,7 +10,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 {
     public class EntrepriseController : Controller
     {
-        private readonly BDPortail _bd = new BDPortail();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()

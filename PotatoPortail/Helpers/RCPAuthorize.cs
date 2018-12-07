@@ -2,14 +2,13 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
 using PotatoPortail.Migrations;
 
 namespace PotatoPortail.Helpers
 {
     public abstract class RcpAuthorize : AuthorizeAttribute
     {
-        protected readonly BDPortail Db = new BDPortail();
+        protected readonly BdPortail Db = new BdPortail();
         protected abstract string IdName { get; }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
@@ -40,86 +39,86 @@ namespace PotatoPortail.Helpers
         protected abstract bool IsRcpOwner(string username, int id);
     }
 
-    public class RCPDevisMinistereAuthorize : RcpAuthorize
+    public class RcpDevisMinistereAuthorize : RcpAuthorize
     {
         protected override string IdName => "idDevis";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            DevisMinistere devisMinistere = Db.DevisMinistere.Find(id);
-            return Db.AccesProgramme.Any(e => e.codeProgramme == devisMinistere.EnteteProgramme.codeProgramme);
+            var devisMinistere = Db.DevisMinistere.Find(id);
+            return Db.AccesProgramme.Any(accesProgramme => accesProgramme.Discipline == devisMinistere.Discipline);
         }
     }
 
-    public class RCPEnonceCompetenceAuthorize : RcpAuthorize
+    public class RcpEnonceCompetenceAuthorize : RcpAuthorize
     {
         protected override string IdName => "idCompetence";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            EnonceCompetence enonceCompetence = Db.EnonceCompetence.Find(id);
+            var enonceCompetence = Db.EnonceCompetence.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == enonceCompetence.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == enonceCompetence.DevisMinistere.Discipline);
         }
     }
 
-    public class RCPContexteRealisationAuthorize : RcpAuthorize
+    public class RcpContexteRealisationAuthorize : RcpAuthorize
     {
         protected override string IdName => "idContexte";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            ContexteRealisation contexteRealisation = Db.ContexteRealisation.Find(id);
+            var contexteRealisation = Db.ContexteRealisation.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == contexteRealisation.EnonceCompetence.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == contexteRealisation.EnonceCompetence.DevisMinistere.Discipline);
         }
     }
 
-    public class RCPElementCompetenceAuthorize : RcpAuthorize
+    public class RcpElementCompetenceAuthorize : RcpAuthorize
     {
         protected override string IdName => "idElement";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            ElementCompetence elementCompetence = Db.ElementCompetence.Find(id);
+            var elementCompetence = Db.ElementCompetence.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == elementCompetence.EnonceCompetence.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == elementCompetence.EnonceCompetence.DevisMinistere.Discipline);
         }
     }
 
-    public class RCPCriterePerformanceAuthorize : RcpAuthorize
+    public class RcpCriterePerformanceAuthorize : RcpAuthorize
     {
         protected override string IdName => "idCritere";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            CriterePerformance criterePerformance = Db.CriterePerformance.Find(id);
-            return Db.AccesProgramme.Any(e => e.codeProgramme == criterePerformance.ElementCompetence.EnonceCompetence
-                                                  .DevisMinistere.EnteteProgramme.codeProgramme);
+            var criterePerformance = Db.CriterePerformance.Find(id);
+            return Db.AccesProgramme.Any(e => e.Discipline == criterePerformance.ElementCompetence.EnonceCompetence
+                                                  .DevisMinistere.Discipline);
         }
     }
 
-    public class RCPProgrammeAuthorize : RcpAuthorize
+    public class RcpProgrammeAuthorize : RcpAuthorize
     {
         protected override string IdName => "idProgramme";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            Programme programme = Db.Programme.Find(id);
+            var programme = Db.Programme.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == programme.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == programme.DevisMinistere.Discipline);
         }
     }
 
-    public class RCPPlanCadreAuthorize : RcpAuthorize
+    public class RcpPlanCadreAuthorize : RcpAuthorize
     {
         protected override string IdName => "idPlanCadre";
 
         protected override bool IsRcpOwner(string username, int id)
         {
-            PlanCadre planCadre = Db.PlanCadre.Find(id);
+            var planCadre = Db.PlanCadre.Find(id);
             return Db.AccesProgramme.Any(e =>
-                e.codeProgramme == planCadre.Programme.DevisMinistere.EnteteProgramme.codeProgramme);
+                e.Discipline == planCadre.Programme.DevisMinistere.Discipline);
         }
     }
 }

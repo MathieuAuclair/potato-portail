@@ -1,3 +1,5 @@
+using PotatoPortail.Models.eSports;
+
 namespace PotatoPortail.Models
 {
     using System;
@@ -8,10 +10,9 @@ namespace PotatoPortail.Models
 
     public partial class Statut
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Statut()
         {
-            Jeux = new HashSet<Jeu>();
+
         }
 
         public int Id { get; set; }
@@ -19,7 +20,6 @@ namespace PotatoPortail.Models
         [Required]
         public string NomStatut { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Jeu> Jeux { get; set; }
+        public virtual ICollection<Jeu> Jeu { get; set; }
     }
 }

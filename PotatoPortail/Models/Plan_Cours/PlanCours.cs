@@ -25,7 +25,7 @@ namespace PotatoPortail.Models
         [Column(TypeName = "date")]
         public DateTime? dateValidation { get; set; }
 
-        public bool StatutStagePlanCours { get; set; }
+        public bool StatutPlanCours { get; set; }
 
         public int idCours { get; set; }
 

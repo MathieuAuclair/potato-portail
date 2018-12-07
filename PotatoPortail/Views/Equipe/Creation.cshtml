@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.JeuID)
-                        @Html.DropDownListFor(model => model.JeuID, (IEnumerable<SelectListItem>)ViewBag.Jeux, new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.JeuID, (IEnumerable<SelectListItem>)ViewBag.Jeu, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.JeuID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -82,6 +82,6 @@
             initEntraineurDropDown();
         });
     </script>
-    <script src="@Url.Content("~/Scripts/equipeSelect.js")"></script>
+    <script src="@Url.Content("~/Scripts/Equipeelect.js")"></script>
     @Scripts.Render("~/bundles/jqueryval")
 }
