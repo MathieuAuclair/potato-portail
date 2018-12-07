@@ -14,10 +14,6 @@ namespace PotatoPortail.Models
 
         public DateTime Timestamp { get; set; }
 
-        public int Etudiant_IdEtudiant { get; set; }
-
-        public int Stage_IdStage { get; set; }
-
         public virtual Etudiant Etudiant { get; set; }
 
         public virtual Stage Stage { get; set; }
