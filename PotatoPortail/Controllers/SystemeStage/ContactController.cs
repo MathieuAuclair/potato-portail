@@ -1,13 +1,14 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers.SystemeStage
 {
     public class ContactController : Controller
     {
-        private readonly BDPortail _bd = new BDPortail();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()

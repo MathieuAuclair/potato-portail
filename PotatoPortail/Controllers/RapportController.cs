@@ -1,85 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Dynamic;
-using System.Net;
-using System.Data.Entity;
-using ApplicationPlanCadre.Models;
-using Rotativa;
-using Rotativa.Options;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using Rotativa.Core;
+using Rotativa.MVC;
 
-
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     public class RapportController : Controller
     {
-        private BdPortail db = new BdPortail();
-
-        // GET: Rapport
+        private readonly BdPortail _db = new BdPortail();
+        
         public ActionResult Index()
         {
             dynamic model = new ExpandoObject();
 
-            model.Programme = db.Programme.ToList();
-            model.PlanCadre = db.PlanCadre.ToList();
+            model.Programme = _db.Programme.ToList();
+            model.PlanCadre = _db.PlanCadre.ToList();
 
             return View(model);
         }
 
         public ActionResult RapportPlanCadre(int id)
         {
-            List<PlanCadre> planListe = new List<PlanCadre>();
+            var planListe = new List<PlanCadre>();
 
-            var planCadre = from a in db.PlanCadre
-                join b in db.PlanCadrePrealable on a.idPlanCadre equals b.idPlanCadre
-                where b.idPrealable == id
+            var planCadre = from a in _db.PlanCadre
+                join b in _db.PlanCadrePrealable on a.IdPlanCadre equals b.IdPlanCadre
+                where b.IdPrealable == id
                 select a;
 
-            foreach (PlanCadre plan in planCadre)
+            foreach (var plan in planCadre)
             {
                 planListe.Add(plan);
             }
 
             ViewData["listPcPrealableA"] = planListe;
-            string footer = Server.MapPath("~/Views/static/footer.html");
+            var footer = Server.MapPath("~/Views/static/footer.html");
 
-            string reglage = string.Format(
-                "--header-html  \"{0}\" " +
-                "--header-spacing \"3\" " +
-                "--footer-html \"{1}\" " +
-                "--footer-spacing \"10\" " +
-                "--footer-font-size \"10\" "
-                , null, footer);
+            var reglage = $"--header-html  \"{null}\" " + "--header-spacing \"3\" " +
+                             $"--footer-html \"{footer}\" " + "--footer-spacing \"10\" " + "--footer-font-size \"10\" ";
 
-            return new ViewAsPdf("RapportPlanCadre", db.PlanCadre.Find(id))
+            return new ViewAsPdf("RapportPlanCadre", _db.PlanCadre.Find(id))
             {
-                CustomSwitches = reglage,
-                PageSize = Size.A4,
-                PageOrientation = Orientation.Landscape
+                RotativaOptions = new DriverOptions
+                {
+                    PageOrientation = Rotativa.Core.Options.Orientation.Landscape,
+                    PageSize = Rotativa.Core.Options.Size.A4,
+                    CustomSwitches = reglage
+                }
             };
         }
 
         public ActionResult RapportProgramme(int id)
         {
-            Programme prog = db.Programme.Find(id);
-            //string header = Server.MapPath("~/Views/static/header.html");
-            string footer = Server.MapPath("~/Views/static/footer.html");
-            string reglage = string.Format(
-                //"--header-html  \"{0}\" " +
-                //"--header-spacing \"0\" " +
+            var prog = _db.Programme.Find(id);
+            var footer = Server.MapPath("~/Views/static/footer.html");
+            var reglage = string.Format(
                 "--footer-html \"{1}\" " +
                 "--footer-spacing \"0\" " +
                 "--footer-font-size \"10\" "
-                //+ "--header-font-size \"10\" "
                 , null, footer);
 
-            return new ViewAsPdf("RapportProgramme", db.Programme.Find(id))
+            return new ViewAsPdf("RapportPlanCadre", _db.Programme.Find(id))
             {
-                CustomSwitches = reglage,
-                PageSize = Size.A4,
+                RotativaOptions = new DriverOptions
+                {
+                    PageOrientation = Rotativa.Core.Options.Orientation.Landscape,
+                    PageSize = Rotativa.Core.Options.Size.A4,
+                    CustomSwitches = reglage
+                }
             };
         }
     }

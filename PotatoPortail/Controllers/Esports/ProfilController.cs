@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Toast;
 

@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Models.eSports;
 using PotatoPortail.Toast;
 using PotatoPortail.ViewModels.eSports;
 

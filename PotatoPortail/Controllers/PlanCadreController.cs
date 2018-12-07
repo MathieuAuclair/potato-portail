@@ -5,13 +5,14 @@ using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.ViewModels;
 using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 /* !!!ATTENTION!!! aucune idée qui à conçus cette fameuse classe, mais pour le bien de votre CV je la nettoyerais, les nom significatifs c'est pas une blague bordel, définitivement une classe à repasser en vue! */
 
 namespace PotatoPortail.Controllers
 {
-    [RCPPlanCadreAuthorize]
+    [RcpPlanCadreAuthorize]
     public class PlanCadreController : Controller
     {
         private List<SelectListItem> _elements;

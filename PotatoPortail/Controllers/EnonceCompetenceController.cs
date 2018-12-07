@@ -5,12 +5,13 @@ using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
-    [RCPEnonceCompetenceAuthorize]
+    [RcpEnonceCompetenceAuthorize]
     public class EnonceCompetenceController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
@@ -42,7 +43,7 @@ namespace PotatoPortail.Controllers
             return Redirect(currentUrl);
         }
 
-        [RCPDevisMinistereAuthorize]
+        [RcpDevisMinistereAuthorize]
         public ActionResult Creation(int? idDevis)
         {
             if (idDevis == null)
@@ -65,7 +66,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RCPDevisMinistereAuthorize]
+        [RcpDevisMinistereAuthorize]
         public ActionResult Creation([Bind(Include =
                 "idCompetence,codeCompetence,description,motClef,obligatoire,actif,commentaire,idDevis")]
             EnonceCompetence enonceCompetence)

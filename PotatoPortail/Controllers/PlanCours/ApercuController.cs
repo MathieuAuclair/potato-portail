@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Models.Plan_Cours;
 using PotatoPortail.ViewModels;
@@ -84,7 +85,7 @@ namespace PotatoPortail.Controllers.PlanCours
                     var titre = CreationTitreSection(Convert.ToInt32(id), section);
                     viewModel.TitreSection[section] = titre;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     var textecontenu = CreationSectionDefaut(Convert.ToInt32(id), section, requete.First());
                     viewModel.TexteContenu[section] = textecontenu;

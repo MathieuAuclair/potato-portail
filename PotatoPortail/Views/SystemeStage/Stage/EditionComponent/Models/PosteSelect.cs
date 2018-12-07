@@ -3,7 +3,7 @@ using System.Linq;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Views.Stage.EditionComponent.Models
+namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 {
     public class PosteSelect
     {

@@ -9,7 +9,7 @@ using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
-    [RCPProgrammeAuthorize]
+    [RcpProgrammeAuthorize]
     public class ProgrammeController : Controller
     {
         private readonly BdPortail _db = new BdPortail();

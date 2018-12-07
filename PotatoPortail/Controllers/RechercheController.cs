@@ -30,10 +30,10 @@ namespace PotatoPortail.Controllers
                 model.DevisMinistere = GetDevis(stringRechercher);
                 model.Section = GetSections(stringRechercher);
                 model.Cours = GetCours(stringRechercher);
-                model.joueur = getJoueur(stringRechercher);
+                model.joueur = GetJoueur(stringRechercher);
                 model.Equipe = GetEquipe(stringRechercher);
                 model.jeu = GetJeu(stringRechercher);
-                model.entraineur = getEntraineur(stringRechercher);
+                model.entraineur = GetEntraineur(stringRechercher);
                 model.OrdreDuJour = GetOrdreDuJour(stringRechercher);
             }
             else
@@ -138,7 +138,7 @@ namespace PotatoPortail.Controllers
 
         private List<RechercheSection> GetSections(string stringRechercher)
         {
-            List<RechercheSection> sectionListe = new List<RechercheSection>();
+            var sectionListe = new List<RechercheSection>();
 
             var section = from tableSection in _db.NomSection
                           where tableSection.titreSection.Contains(stringRechercher)
@@ -160,41 +160,41 @@ namespace PotatoPortail.Controllers
             List<RechercheCours> coursListe = new List<RechercheCours>();
 
             var cours = from tablePlanCadre in _db.PlanCadre
-                        where tablePlanCadre.titreCours.Contains(stringRechercher)
+                        where tablePlanCadre.TitreCours.Contains(stringRechercher)
                         select tablePlanCadre;
-            foreach (PlanCadre tablePlanCadre in cours)
+            foreach (var tablePlanCadre in cours)
             {
                 coursListe.Add(new RechercheCours
                 {
-                    numeroCours = tablePlanCadre.numeroCours,
-                    titreCours = tablePlanCadre.titreCours.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    NumeroCours = tablePlanCadre.NumeroCours,
+                    TitreCours = tablePlanCadre.TitreCours.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 
             return coursListe;
         }
 
-        private List<RechercheJoueur> getJoueur(string stringRechercher)
+        private List<RechercheJoueur> GetJoueur(string stringRechercher)
         {
-            List<RechercheJoueur> joueurListe = new List<RechercheJoueur>();
+            var joueurListe = new List<RechercheJoueur>();
 
             var lesJoueur = from tableJoueur in _db.Joueurs
-                join membreESports in _db.MembreESports on tableJoueur.MembreESportsId equals membreESports.Id into BDMembEsport2
-                from tableMembre in BDMembEsport2
-                where tableJoueur.pseudoJoueur.Contains(stringRechercher) || tableMembre.prenom.Contains(stringRechercher) || tableMembre.nom.Contains(stringRechercher)
+                join membreESports in _db.MembreESports on tableJoueur.IdMembreESports equals membreESports.Id into bdMembEsport2
+                from tableMembre in bdMembEsport2
+                where tableJoueur.PseudoJoueur.Contains(stringRechercher) || tableMembre.Prenom.Contains(stringRechercher) || tableMembre.Nom.Contains(stringRechercher)
                 select new
                 {
-                    idJoueur = tableJoueur.MembreESportsId,
-                    NomJoueur = tableMembre.prenom + " " + tableMembre.nom,
-                    PseudoJoueur = tableJoueur.pseudoJoueur,
-                    CourrielJoueur = tableJoueur.Profil.courriel
+                    idJoueur = tableJoueur.IdMembreESports,
+                    NomJoueur = tableMembre.Prenom + " " + tableMembre.Nom,
+                    PseudoJoueur = tableJoueur.PseudoJoueur,
+                    CourrielJoueur = tableJoueur.Profils.Courriel
                 } ;
             foreach ( var tableJoueur in lesJoueur)
             {
                 joueurListe.Add(new RechercheJoueur
                 {
-                    idJoueur = tableJoueur.idJoueur,
-                    pseudoJoueur = tableJoueur.PseudoJoueur.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    IdJoueur = tableJoueur.idJoueur,
+                    PseudoJoueur = tableJoueur.PseudoJoueur.SurlignerMotsClee(stringRechercher, "yellow", false),
                     NomJoueur = tableJoueur.NomJoueur.SurlignerMotsClee(stringRechercher, "yellow", false),
                     CourrielJoueur = tableJoueur.CourrielJoueur
                     
@@ -206,21 +206,21 @@ namespace PotatoPortail.Controllers
 
         private List<RechercheEquipe> GetEquipe(string stringRechercher)
         {
-            List<RechercheEquipe> EquipeListe = new List<RechercheEquipe>();
+            var equipeListe = new List<RechercheEquipe>();
 
-            var Equipe = from tableEquipe in _db.Equipes
-                where tableEquipe.nomEquipe.Contains(stringRechercher) && tableEquipe.estMonojoueur==false
+            var equipe = from tableEquipe in _db.Equipes
+                where tableEquipe.NomEquipe.Contains(stringRechercher) && tableEquipe.EstMonoJoueur==false
                 select tableEquipe;
-            foreach (Equipe tableEquipe in Equipe)
+            foreach (var tableEquipe in equipe)
             {
-                EquipeListe.Add(new RechercheEquipe
+                equipeListe.Add(new RechercheEquipe
                 {
-                    idEquipe = tableEquipe.id,
-                    NomEquipe = tableEquipe.nomEquipe.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    IdEquipe = tableEquipe.Id,
+                    NomEquipe = tableEquipe.NomEquipe.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 
-            return EquipeListe;
+            return equipeListe;
         }
 
         private List<RechercheJeu> GetJeu(string stringRechercher)
@@ -244,23 +244,23 @@ namespace PotatoPortail.Controllers
             return jeuListe;
         }
 
-        private List<RechercheEntraineur> getEntraineur(string stringRechercher)
+        private List<RechercheEntraineur> GetEntraineur(string stringRechercher)
         {
             List<RechercheEntraineur> entraineurListe = new List<RechercheEntraineur>();
 
             var entraineurs = from tableEntraineur in _db.Entraineurs
-                              where tableEntraineur.pseudoEntraineur.Contains(stringRechercher) || tableEntraineur.prenomEntraineur.Contains(stringRechercher) || tableEntraineur.prenomEntraineur.Contains(stringRechercher)
+                              where tableEntraineur.PseudoEntraineur.Contains(stringRechercher) || tableEntraineur.PrenomEntraineur.Contains(stringRechercher) || tableEntraineur.PrenomEntraineur.Contains(stringRechercher)
                               select tableEntraineur;
 
             foreach (var tableEntraineur in entraineurs)
             {  
                 entraineurListe.Add(new RechercheEntraineur
                 {
-                    IdEntraineur = tableEntraineur.id,
-                    NomEntraineur = tableEntraineur.nomComplet.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    PseudoEntraineur = tableEntraineur.pseudoEntraineur.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    TelephoneEntraineur = tableEntraineur.numTel,
-                    CourrielEntraineur = tableEntraineur.adresseCourriel
+                    IdEntraineur = tableEntraineur.Id,
+                    NomEntraineur = tableEntraineur.NomComplet.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    PseudoEntraineur = tableEntraineur.PseudoEntraineur.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    TelephoneEntraineur = tableEntraineur.NumeroTelephone,
+                    CourrielEntraineur = tableEntraineur.AdresseCourriel
                 });
             }
 
@@ -279,7 +279,7 @@ namespace PotatoPortail.Controllers
                 ordredujourliste.Add(new RechercheOrdreDuJour
                 {
                     IdOrdreDuJour = tableOrdreDuJour.IdOdJ,
-                    titre = tableOrdreDuJour.TitreOdJ.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    Titre = tableOrdreDuJour.TitreOdJ.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
             return ordredujourliste;

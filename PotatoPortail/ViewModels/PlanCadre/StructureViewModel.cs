@@ -11,7 +11,7 @@ namespace PotatoPortail.ViewModels.PlanCadre
 
         public int RecupererIdPlanCadreElement(int idPlanCadreCompetence, int idElement)
         {
-            BdPortail db = new BdPortail();
+            var db = new BdPortail();
 
             var idsPlanCadreElement = from planCadreElement in db.PlanCadreElement
                 where planCadreElement.IdPlanCadreCompetence == idPlanCadreCompetence &&

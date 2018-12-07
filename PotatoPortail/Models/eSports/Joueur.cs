@@ -1,3 +1,5 @@
+using PotatoPortail.Models.eSports;
+
 namespace PotatoPortail.Models
 {
     using System;

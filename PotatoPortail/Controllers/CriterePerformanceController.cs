@@ -4,11 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
-    [RCPCriterePerformanceAuthorize]
+    [RcpCriterePerformanceAuthorize]
     public class CriterePerformanceController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
@@ -25,7 +26,7 @@ namespace PotatoPortail.Controllers
             return PartialView(elementCompetence.CriterePerformance.OrderBy(cp => cp.Numero));
         }
 
-        [RCPElementCompetenceAuthorize]
+        [RcpElementCompetenceAuthorize]
         public ActionResult Creation(int? idElement)
         {
             if (idElement == null)
@@ -49,7 +50,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RCPElementCompetenceAuthorize]
+        [RcpElementCompetenceAuthorize]
         public ActionResult Creation([Bind(Include = "idCritere,description,numero,commentaire,idElement")]
             CriterePerformance criterePerformance)
         {

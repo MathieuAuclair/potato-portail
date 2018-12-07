@@ -2,9 +2,10 @@
 using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
-using ApplicationPlanCadre.ViewModels.eSports;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Toast;
+using PotatoPortail.ViewModels.eSports;
 
 namespace PotatoPortail.Controllers.eSports
 {
@@ -107,8 +108,8 @@ namespace PotatoPortail.Controllers.eSports
             }
 
             viewModel.JoueurId = joueur.Id;
-            viewModel.pseudo = joueur.PseudoJoueur;
-            viewModel.courriel = profil.Courriel;
+            viewModel.Pseudo = joueur.PseudoJoueur;
+            viewModel.Courriel = profil.Courriel;
             viewModel.MembreESports = _db.MembreESports.Find(joueur.IdMembreESports);
             viewModel.Jeu = _db.Jeux.Find(profil.IdJeu);
 
@@ -139,15 +140,15 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            joueur.PseudoJoueur = viewModel.pseudo;
+            joueur.PseudoJoueur = viewModel.Pseudo;
 
             if (profil == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            profil.Pseudo = viewModel.pseudo;
-            profil.Courriel = viewModel.courriel;
+            profil.Pseudo = viewModel.Pseudo;
+            profil.Courriel = viewModel.Courriel;
             _db.SaveChanges();
             this.AddToastMessage("Modifications apportées.", "Les changements ont été sauvegardés.",
                 ToastType.Success);

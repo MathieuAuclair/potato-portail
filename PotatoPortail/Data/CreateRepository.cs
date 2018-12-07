@@ -1,5 +1,4 @@
-﻿using ApplicationPlanCadre.Models.ReunionsViewModel;
-
+﻿
 namespace PotatoPortail.Data
 {
     public class CreateRepository
@@ -11,7 +10,7 @@ namespace PotatoPortail.Data
 
             var allLieu = new CreerOrdreDuJourViewModel()
             {
-                listLieux = lieuRepo.getLieu()
+                listLieux = lieuRepo.GetLieu()
             };
 
             return allLieu;

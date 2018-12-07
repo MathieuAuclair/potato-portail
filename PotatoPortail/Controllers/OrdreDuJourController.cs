@@ -1,10 +1,4 @@
-﻿using PotatoPortail.Data;
-using PotatoPortail.Models;
-using PotatoPortail.Models.Reunions;
-using PotatoPortail.ViewModels;
-using PotatoPortail.ViewModels.OrdresDuJourVM;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -12,18 +6,21 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using ApplicationPlanCadre.Controllers;
 using ApplicationPlanCadre.Models.Reunions;
 using ApplicationPlanCadre.ViewModels;
 using ApplicationPlanCadre.ViewModels.OrdresDuJourVM;
+using Microsoft.AspNet.Identity;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     public class OrdreDuJourController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
-
-        // GET: OdJ
-        //[Route("Reunions/Index")]
+        
         public ActionResult Index()
         {
             var ordre = GetDixOrdreDuJour(); 
@@ -37,10 +34,10 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            OrdreDuJour OrdreDuJour = _db.OrdreDuJour.Find(id);
-            List<SujetPointPrincipal> sujetPointPrincipal = new List<SujetPointPrincipal>();
-            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
-            if (OrdreDuJour == null)
+            var ordreDuJour = _db.OrdreDuJour.Find(id);
+            var sujetPointPrincipal = new List<SujetPointPrincipal>();
+            var listeSousPoint = new List<SousPointSujet>();
+            if (ordreDuJour == null)
             {
                 return HttpNotFound();
             }
@@ -53,47 +50,41 @@ namespace ApplicationPlanCadre.Controllers
             
             foreach(var item in sujetPointPrincipal)
             {
-                List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
-                if(listeSousPointQuery != null)
+                var listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
+                if (listeSousPointQuery == null) continue;
+                foreach (var sp in listeSousPointQuery)
                 {
-                    foreach (var sp in listeSousPointQuery)
-                    {
-                        listeSousPoint.Add(sp);
-                    }
+                    listeSousPoint.Add(sp);
                 }
             }
 
-            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel();
-            ordreDuJourViewModelCreerOdj.ordreDuJour = OrdreDuJour;
-            ordreDuJourViewModelCreerOdj.sujetPointPrincipal = sujetPointPrincipal;
-            ordreDuJourViewModelCreerOdj.listeSousPointSujet = listeSousPoint;
+            var ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel
+            {
+                ordreDuJour = ordreDuJour,
+                sujetPointPrincipal = sujetPointPrincipal,
+                listeSousPointSujet = listeSousPoint
+            };
             return View(ordreDuJourViewModelCreerOdj);
         }
-
-        //GET: Odj/_TreeView
+        
         public ActionResult _TreeView()
         {
             return View();
         }
 
-        // GET: OdJ/Create
         public ActionResult Create()
         {
-            //createRepository populate la drop down liste en créant un viewmodel
             var repo = new createRepository();
             OrdreDuJourViewModel viewmodel = repo.createLieu();
-
-            //Recherche du numéro de programme
+            
             var programme = GetProgramme();
-            int NumProg = Convert.ToInt32(programme.First().discipline);
-
-            //recherche de l'ordre du jour basé sur le modèle
-            //à l'aide du numéro de programme
-            List<OrdreDuJour> listeOrdreDuJour = GetOrdreDuJourSelonModele(NumProg);
+            var numProg = Convert.ToInt32(programme.First().Discipline);
+            
+            var listeOrdreDuJour = GetOrdreDuJourSelonModele(numProg);
 
             viewmodel.ordreDuJour = listeOrdreDuJour.Last();
 
-            return View(viewmodel); //permet de generer les lieux
+            return View(viewmodel); 
         }
 
         [HttpPost]
@@ -103,14 +94,14 @@ namespace ApplicationPlanCadre.Controllers
             if (!regexHeure(ordreDuJourViewModel.ordreDuJour))
             {
                 this.AddToastMessage("Erreur dans l'entrée de l'heure", "Veuillez entrez le bon format d'heure",
-                    Toast.ToastType.Error);
+                    ToastType.Error);
                 return RedirectToAction("Create", "OrdreDuJour");
             }
 
-            if (!chkDate(ordreDuJourViewModel))
+            if (!ChkDate(ordreDuJourViewModel))
             {
                 this.AddToastMessage("Erreur dans l'entrée de la date", "Veuillez entrez une date ultérieure",
-                    Toast.ToastType.Error);
+                    ToastType.Error);
                 return RedirectToAction("Create", "OrdreDuJour");
             }
 
@@ -122,7 +113,7 @@ namespace ApplicationPlanCadre.Controllers
             InsererOrdreDuJourDansLaBaseDeDonnee(ordreDuJourViewModel);
 
             this.AddToastMessage("Création d'un ordre du jour", "La création a été effectuée",
-                Toast.ToastType.Success);
+                ToastType.Success);
             return RedirectToAction("Index");
         }
 
@@ -167,9 +158,7 @@ namespace ApplicationPlanCadre.Controllers
                 new SqlParameter("IdSujetPointPrincipal", idDuPointPrincipal)
             );
         }
-
-
-        // GET: OdJ/Edit/5
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -177,10 +166,10 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            OrdreDuJour OrdreDuJour = _db.OrdreDuJour.Find(id);
-            List<SujetPointPrincipal> sujetPointPrincipal = new List<SujetPointPrincipal>();
-            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
-            if (OrdreDuJour == null)
+            var ordreDuJour = _db.OrdreDuJour.Find(id);
+            var sujetPointPrincipal = new List<SujetPointPrincipal>();
+            var listeSousPoint = new List<SousPointSujet>();
+            if (ordreDuJour == null)
             {
                 return HttpNotFound();
             }
@@ -193,18 +182,15 @@ namespace ApplicationPlanCadre.Controllers
 
             foreach(var item in sujetPointPrincipal)
             {
-                foreach(var souspoint in _db.SousPointSujet)
-                {
-                    if(item.IdPointPrincipal == souspoint.IdSujetPointPrincipal){
-                        listeSousPoint.Add(souspoint);
-                    }
-                }
+                listeSousPoint.AddRange(_db.SousPointSujet.Where(souspoint => item.IdPointPrincipal == souspoint.IdSujetPointPrincipal));
             }
 
-            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel();
-            ordreDuJourViewModelCreerOdj.ordreDuJour = OrdreDuJour;
-            ordreDuJourViewModelCreerOdj.sujetPointPrincipal = sujetPointPrincipal;
-            ordreDuJourViewModelCreerOdj.listeSousPointSujet = listeSousPoint;
+            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel
+            {
+                ordreDuJour = ordreDuJour,
+                sujetPointPrincipal = sujetPointPrincipal,
+                listeSousPointSujet = listeSousPoint
+            };
             return View(ordreDuJourViewModelCreerOdj);
         }
 
@@ -212,36 +198,30 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(ordreDuJourViewModelCreerOdj);
+            var cpt = 0;
+            _db.Entry(ordreDuJourViewModelCreerOdj.ordreDuJour).State = EntityState.Modified;
+            ordreDuJourViewModelCreerOdj.ordreDuJour.IdModeleOrdreDuJour = _db.ModeleOrdreDuJour.First().IdModele;
+
+            if (ordreDuJourViewModelCreerOdj.sujetPointPrincipal != null)
             {
-                int cpt = 0;
-                _db.Entry(ordreDuJourViewModelCreerOdj.ordreDuJour).State = EntityState.Modified;
-                ordreDuJourViewModelCreerOdj.ordreDuJour.IdModeleOrdreDuJour = _db.ModeleOrdreDuJour.First().IdModele;
-
-                if (ordreDuJourViewModelCreerOdj.sujetPointPrincipal != null)
+                foreach (var item in _db.SujetPointPrincipal)
                 {
-                    foreach (var item in _db.SujetPointPrincipal)
-                    {
-                        if (item.IdOrdreDuJour == ordreDuJourViewModelCreerOdj.ordreDuJour.IdOdJ)
-                        {
-                            var updatedItem = item;
-                            updatedItem.SujetPoint = ordreDuJourViewModelCreerOdj.sujetPointPrincipal[cpt].SujetPoint;
-                            _db.Entry(updatedItem).State = EntityState.Modified;
-                            cpt++;
-                        }
-                    }
+                    if (item.IdOrdreDuJour != ordreDuJourViewModelCreerOdj.ordreDuJour.IdOdJ) continue;
+                    var updatedItem = item;
+                    updatedItem.SujetPoint = ordreDuJourViewModelCreerOdj.sujetPointPrincipal[cpt].SujetPoint;
+                    _db.Entry(updatedItem).State = EntityState.Modified;
+                    cpt++;
                 }
-
-                _db.SaveChanges();
-                this.AddToastMessage("Modification d'un ordre du jour", "La modification a été effectuée",
-                    Toast.ToastType.Success);
-                return RedirectToAction("Index");
             }
 
-            return View(ordreDuJourViewModelCreerOdj);
-        }
+            _db.SaveChanges();
+            this.AddToastMessage("Modification d'un ordre du jour", "La modification a été effectuée",
+                ToastType.Success);
+            return RedirectToAction("Index");
 
-        // GET: OdJ/Delete/5
+        }
+        
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -249,26 +229,21 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            OrdreDuJour OrdreDuJour = _db.OrdreDuJour.Find(id);
-            List<SujetPointPrincipal> sujetPointPrincipal = new List<SujetPointPrincipal>();
-            if (OrdreDuJour == null)
+            var ordreDuJour = _db.OrdreDuJour.Find(id);
+            if (ordreDuJour == null)
             {
                 return HttpNotFound();
             }
 
-            foreach (var item in _db.SujetPointPrincipal)
-            {
-                if (item.IdOrdreDuJour == id)
-                    sujetPointPrincipal.Add(item);
-            }
+            var sujetPointPrincipal = _db.SujetPointPrincipal.Where(item => item.IdOrdreDuJour == id).ToList();
 
-            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel();
-            ordreDuJourViewModelCreerOdj.ordreDuJour = OrdreDuJour;
-            ordreDuJourViewModelCreerOdj.sujetPointPrincipal = sujetPointPrincipal;
+            var ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel
+            {
+                ordreDuJour = ordreDuJour, sujetPointPrincipal = sujetPointPrincipal
+            };
             return View(ordreDuJourViewModelCreerOdj);
         }
-
-        // POST: OdJ/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -286,10 +261,10 @@ namespace ApplicationPlanCadre.Controllers
                     _db.SujetPointPrincipal.Remove(item);
                 }                    
             }
-            _db.OrdreDuJour.Remove(ordredujour);
+            _db.OrdreDuJour.Remove(ordredujour ?? throw new InvalidOperationException());
             _db.SaveChanges();
             this.AddToastMessage("Suppression d'un ordre du jour", "La suppression a été effectuée",
-                Toast.ToastType.Success);
+                ToastType.Success);
             return RedirectToAction("Index");
         }
 
@@ -297,87 +272,66 @@ namespace ApplicationPlanCadre.Controllers
         public ActionResult ModifierModeleOrdreDuJour()
         {
             var programme = GetProgramme();
-            int NumProg = Convert.ToInt32(programme.First().discipline);
-            //Va chercher la liste des ordre du jour en fonction du programme
-            List<OrdreDuJour> listeOrdreDuJour = GetOrdreDuJourSelonModele(NumProg);
+            var numProg = Convert.ToInt32(programme.First().Discipline);
+            var listeOrdreDuJour = GetOrdreDuJourSelonModele(numProg);
 
-            if (listeOrdreDuJour != null)
+            if (listeOrdreDuJour == null) return View();
+            var modeleViewModel = new ModificationModeleViewModel();
+            var listeString = new List<string>();
+            foreach (var item in listeOrdreDuJour)
             {
-                ModificationModeleViewModel ModeleViewModel = new ModificationModeleViewModel();
-                List<string> listeString = new List<string>();
-                foreach (var item in listeOrdreDuJour)
-                {
-                    if (ModeleViewModel.listPP == null)
-                    {
-                        //Ajout d'un if
-                        foreach (var spp in item.SujetPointPrincipal)
-                        {
-                            listeString.Add(spp.SujetPoint);
-                        }
-                        ModeleViewModel.listPP = listeString;
-                    }
-                }
-
-                return View(ModeleViewModel);
+                if (modeleViewModel.listPP != null) continue;
+                listeString.AddRange(item.SujetPointPrincipal.Select(spp => spp.SujetPoint));
+                modeleViewModel.listPP = listeString;
             }
-            return View();
+
+            return View(modeleViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ModifierModeleOrdreDuJour(ModificationModeleViewModel ModifModeleVM)
+        public ActionResult ModifierModeleOrdreDuJour(ModificationModeleViewModel modifModeleVm)
         {
-            if (ModelState.IsValid)
+            if (modifModeleVm == null) throw new ArgumentNullException(nameof(modifModeleVm));
+            if (!ModelState.IsValid) return View(modifModeleVm);
+            var role = User.IsInRole("RCD") ? "D" : "P";
+            var programme = GetProgramme();
+            
+            var numProgramme = Convert.ToInt32(programme.First().Discipline);
+
+            var modele = new ModeleOrdreDuJour
             {
-                string role = "";
-                if (User.IsInRole("RCD"))
-                {
-                    role = "D";
-                }
-                else
-                {
-                    role = "P";
-                }
-                //Recherche du numéro
-                var programme = GetProgramme();
+                Role = role,
+                NumeroProgramme = numProgramme,
+                PointPrincipal = "Default"
+            };
 
-                //Transfert le num programme (string) en int
-                int NumProgramme = Convert.ToInt32(programme.First().discipline);
+            _db.ModeleOrdreDuJour.Add(modele);
+            _db.SaveChanges();
 
-                ModeleOrdreDuJour Modele = new ModeleOrdreDuJour//Creation du modele
+            var odj = new OrdreDuJour
+            {
+                TitreOdJ = "Modele",
+                HeureDebutReunion = "15h00",
+                HeureFinReunion = "16h00",
+                DateOdJ = Convert.ToDateTime("3000-12-25"),
+                IdModeleOrdreDuJour = modele.IdModele
+            };
+            _db.OrdreDuJour.Add(odj);
+
+            foreach (var item in modifModeleVm.listPP)
+            {
+                var pointPrincipal = new SujetPointPrincipal
                 {
-                    Role = role,
-                    NumeroProgramme = NumProgramme,
-                    PointPrincipal = "Default"
+                    SujetPoint = item,
+                    OrdreDuJour = odj,
                 };
-                _db.ModeleOrdreDuJour.Add(Modele);
-                _db.SaveChanges();
-
-                OrdreDuJour odj = new OrdreDuJour//Creation de 'ordre du jour
-                {
-                    TitreOdJ = "Modele",
-                    HeureDebutReunion = "15h00",
-                    HeureFinReunion = "16h00",
-                    DateOdJ = Convert.ToDateTime("3000-12-25"),
-                    IdModeleOrdreDuJour = Modele.IdModele
-                };
-                _db.OrdreDuJour.Add(odj);
-
-                foreach (var item in ModifModeleVM.listPP)//Creation et liaison des PP
-                {
-                    var PointPrincipal = new SujetPointPrincipal
-                    {
-                        SujetPoint = item,
-                        OrdreDuJour = odj,
-                    };
-                    _db.SujetPointPrincipal.Add(PointPrincipal);
-                }
-                _db.SaveChanges();
-                this.AddToastMessage("Modèle enregistré", "Le modèle a bien été enregistré.",
-               Toast.ToastType.Success);
-                return RedirectToAction("Index");
+                _db.SujetPointPrincipal.Add(pointPrincipal);
             }
-            return View(ModifModeleVM);
+            _db.SaveChanges();
+            this.AddToastMessage("Modèle enregistré", "Le modèle a bien été enregistré.",
+                ToastType.Success);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Info(int? id, int year)
@@ -388,11 +342,7 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List<OrdreDuJour> ordre = GetDateOrdreDuJour(year).ToList();
-            if (ordre == null)
-            {
-                return HttpNotFound();
-            }
+            var ordre = GetDateOrdreDuJour(year).ToList();
 
             return View(ordre);
         }
@@ -407,13 +357,12 @@ namespace ApplicationPlanCadre.Controllers
             base.Dispose(disposing);
         }
 
-        private bool chkDate(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
+        private static bool ChkDate(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
         {
-            bool validDate = true;
-            DateTime date, dateCourante;
+            var validDate = true;
 
-            date = ordreDuJourViewModelCreerOdj.ordreDuJour.DateOdJ;
-            dateCourante = DateTime.Today;
+            var date = ordreDuJourViewModelCreerOdj.ordreDuJour.DateOdJ;
+            var dateCourante = DateTime.Today;
 
             if (date < dateCourante)
             {
@@ -433,20 +382,20 @@ namespace ApplicationPlanCadre.Controllers
             return Redirect(currentUrl);
         }
 
-        private IQueryable<OrdreDuJour> GetOrdreDuJour() //permet de generer les odjs dans la colonne de gauche (list)
+        private IQueryable<OrdreDuJour> GetOrdreDuJour()
         {
             return from odj in _db.OrdreDuJour
                    select odj;
         }
 
-        private IQueryable<OrdreDuJour> GetDateOrdreDuJour(int annee) //permet daller chercher la date dun odj
+        private IEnumerable<OrdreDuJour> GetDateOrdreDuJour(int annee)
         {
             return from odj in _db.OrdreDuJour
                    where odj.DateOdJ.Year == annee
                    select odj;
         }
 
-        private IQueryable<OrdreDuJour> GetDixOrdreDuJour() //permet daller chercher les 10 derniers odj
+        private IQueryable<OrdreDuJour> GetDixOrdreDuJour() 
         {
             return (from odj in _db.OrdreDuJour
                     orderby odj.IdOdJ descending
@@ -455,16 +404,14 @@ namespace ApplicationPlanCadre.Controllers
 
         private List<SujetPointPrincipal> GetPointPrincipal(int id)
         {
-            List<SujetPointPrincipal> listeSujetPointPrincipal = new List<SujetPointPrincipal>();
-            var listeSujetPointPrincipalQuery = from SujetPointPrincipal in _db.SujetPointPrincipal
-                                      where SujetPointPrincipal.IdPointPrincipal == id
-                                      select SujetPointPrincipal;
-            if (listeSujetPointPrincipalQuery.Count() != 0)
+            var listeSujetPointPrincipal = new List<SujetPointPrincipal>();
+            var listeSujetPointPrincipalQuery = from sujetPointPrincipal in _db.SujetPointPrincipal
+                                      where sujetPointPrincipal.IdPointPrincipal == id
+                                      select sujetPointPrincipal;
+            if (!listeSujetPointPrincipalQuery.Any()) return listeSujetPointPrincipal;
+            foreach (var item in listeSujetPointPrincipalQuery)
             {
-                foreach (var item in listeSujetPointPrincipalQuery)
-                {
-                    listeSujetPointPrincipal.Add(item);
-                }
+                listeSujetPointPrincipal.Add(item);
             }
             return listeSujetPointPrincipal;
         }
@@ -472,9 +419,9 @@ namespace ApplicationPlanCadre.Controllers
         private List<SousPointSujet> GetSousPoint(int id)
         {
             List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
-            var listeSousPointQuery = from SousPointSujet in _db.SousPointSujet
-                                    where SousPointSujet.IdSujetPointPrincipal == id
-                                    select SousPointSujet;
+            var listeSousPointQuery = from sousPointSujet in _db.SousPointSujet
+                                    where sousPointSujet.IdSujetPointPrincipal == id
+                                    select sousPointSujet;
             if (listeSousPointQuery.Count() != 0)
             {
                 foreach (var item in listeSousPointQuery)
@@ -489,34 +436,30 @@ namespace ApplicationPlanCadre.Controllers
         {
             var username = User.Identity.GetUserName();
             IQueryable<AccesProgramme> programme = from accesProgramme in _db.AccesProgramme
-                                                   where accesProgramme.userMail == username
+                                                   where accesProgramme.UserMail == username
                                                    select accesProgramme;
             return programme;
         }
 
-        private List<OrdreDuJour> GetOrdreDuJourSelonModele(int NumProg)
+        private List<OrdreDuJour> GetOrdreDuJourSelonModele(int numProg)
         {
-            //string programme = Convert.ToString(NumProg);
-            IQueryable<ModeleOrdreDuJour> listeModele = from ModeleOrdreDuJour in _db.ModeleOrdreDuJour
-                                                        where ModeleOrdreDuJour.NumeroProgramme == NumProg
-                                                        orderby ModeleOrdreDuJour.IdModele descending
-                                                        select ModeleOrdreDuJour;
-            int numID = listeModele.First().IdModele;
-            IQueryable<OrdreDuJour> listeOrdreDuJourQuery = from OrdreDuJour in _db.OrdreDuJour
-                                                       where OrdreDuJour.IdModeleOrdreDuJour == numID
-                                                       select OrdreDuJour;
-            List<OrdreDuJour> listeOrdreDuJour = new List<OrdreDuJour>();
-            if(listeOrdreDuJourQuery != null)
+            IQueryable<ModeleOrdreDuJour> listeModele = from modeleOrdreDuJour in _db.ModeleOrdreDuJour
+                                                        where modeleOrdreDuJour.NumeroProgramme == numProg
+                                                        orderby modeleOrdreDuJour.IdModele descending
+                                                        select modeleOrdreDuJour;
+            var numId = listeModele.First().IdModele;
+            var listeOrdreDuJourQuery = from ordreDuJour in _db.OrdreDuJour
+                                                       where ordreDuJour.IdModeleOrdreDuJour == numId
+                                                       select ordreDuJour;
+            var listeOrdreDuJour = new List<OrdreDuJour>();
+            foreach(var item in listeOrdreDuJourQuery)
             {
-                foreach(var item in listeOrdreDuJourQuery)
-                {
-                    listeOrdreDuJour.Add(item);
-                }
-            }            
+                listeOrdreDuJour.Add(item);
+            }
             return listeOrdreDuJour;
         }
 
-        private bool regexHeure(OrdreDuJour odj) //Permet de valider le format de l'heure entré par l'uti
+        private bool regexHeure(OrdreDuJour odj)
         {
             Regex regex = new Regex(@"[0-9]{1,2}h[0-9]{2}");
             if (regex.Match(odj.HeureDebutReunion).Success)

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.ViewModels.eSports
+namespace PotatoPortail.ViewModels.eSports
 {
     public class EditerJoueurViewModel
     {
@@ -11,12 +9,12 @@ namespace ApplicationPlanCadre.ViewModels.eSports
 
         [Required]
         [Display(Name = "Pseudonyme")]
-        public string pseudo { get; set; }
+        public string Pseudo { get; set; }
 
         [Required]
         [Display(Name = "Adresse courriel")]
         [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Veuillez entrer une adresse courriel valide.")]
-        public string courriel { get; set; }
+        public string Courriel { get; set; }
 
         public virtual MembreESports MembreESports { get; set; }
 

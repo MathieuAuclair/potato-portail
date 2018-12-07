@@ -4,12 +4,13 @@ using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
-    [RCPContexteRealisationAuthorize]
+    [RcpContexteRealisationAuthorize]
     public class ContexteRealisationController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
@@ -26,7 +27,7 @@ namespace PotatoPortail.Controllers
             return PartialView(enonceCompetence.ContexteRealisation.OrderBy(e => e.Numero));
         }
 
-        [RCPEnonceCompetenceAuthorize]
+        [RcpEnonceCompetenceAuthorize]
         public ActionResult Creation(int? idCompetence)
         {
             if (idCompetence == null)
@@ -51,7 +52,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RCPEnonceCompetenceAuthorize]
+        [RcpEnonceCompetenceAuthorize]
         public ActionResult Creation([Bind(Include = "idContexte,description,commentaire,idCompetence")] ContexteRealisation contexteRealisation)
         {
             Trim(contexteRealisation);

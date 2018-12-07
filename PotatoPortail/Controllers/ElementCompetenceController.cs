@@ -5,12 +5,13 @@ using System.Net;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
-    [RCPElementCompetenceAuthorize]
+    [RcpElementCompetenceAuthorize]
     public class ElementCompetenceController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
@@ -37,7 +38,7 @@ namespace PotatoPortail.Controllers
             return Redirect(currentUrl);
         }
 
-        [RCPEnonceCompetenceAuthorize]
+        [RcpEnonceCompetenceAuthorize]
         public ActionResult Creation(int? idCompetence)
         {
             if (idCompetence == null)
@@ -60,7 +61,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RCPEnonceCompetenceAuthorize]
+        [RcpEnonceCompetenceAuthorize]
         public ActionResult Creation([Bind(Include = "idElement,description,numero,motClef,commentaire,idCompetence")] ElementCompetence elementCompetence)
         {
             AssignerNo(elementCompetence);

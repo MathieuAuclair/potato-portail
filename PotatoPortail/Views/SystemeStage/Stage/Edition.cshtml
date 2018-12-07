@@ -1,7 +1,6 @@
 ﻿@model PotatoPortail.Models.SystemeStage.Stage
 @using System.Globalization
 @using PotatoPortail.Views.Shared.Widget.Model
-@using PotatoPortail.Views.Stage.EditionComponent.Models
 @using PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -32,7 +31,7 @@
         </div>
         <div class="flat-textarea">
             <p>Code Postal</p>
-            <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
+            <input name="codePostal" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
         </div>
         <div>
             @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())

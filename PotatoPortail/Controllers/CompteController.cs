@@ -13,6 +13,7 @@ using PotatoPortail.Toast;
 using ApplicationPlanCadre.Controllers;
 using ApplicationPlanCadre.Helpers;
 using ApplicationPlanCadre.Models;
+using PotatoPortail.Migrations;
 
 namespace PotatoPortail.Controllers
 {
@@ -199,7 +200,7 @@ namespace PotatoPortail.Controllers
                 else
                     this.AddToastMessage("Problème d'enregistrement",
                         "Une erreur est survenue lors de l'envoi du courriel, veuillez réessayer plus tard.",
-                        Toast.ToastType.Error, true);
+                        ToastType.Error, true);
             }
 
             if (!rolePresent)
@@ -215,7 +216,7 @@ namespace PotatoPortail.Controllers
             return View(model);
         }
 
-        private IEnumerable<string> GetDisciplines(ApplicationUser utilisateur)
+        private static IEnumerable<string> GetDisciplines(ApplicationUser utilisateur)
         {
             return (from accesProgramme in new BdPortail().AccesProgramme
                 where accesProgramme.UserMail == utilisateur.UserName
@@ -250,11 +251,11 @@ namespace PotatoPortail.Controllers
         public ActionResult Modifier(ModifierUtilisateurViewModel model, ICollection<string> role,
             ICollection<string> discipline)
         {
-            bool rolePresent = role != null;
-            bool isRCP = IsRcp(role);
-            bool programmeRCP = isRCP && discipline != null || !isRCP;
+            var rolePresent = role != null;
+            var isRcp = IsRcp(role);
+            var programmeRcp = isRcp && discipline != null || !isRcp;
 
-            if (ModelState.IsValid && rolePresent && programmeRCP)
+            if (ModelState.IsValid && rolePresent && programmeRcp)
             {
                 string password = new PasswordGenerator().GeneratePassword(10);
                 ApplicationUser utilisateur = UserManager.FindById(model.UserId);
@@ -271,7 +272,7 @@ namespace PotatoPortail.Controllers
                         if (resultatUpdate.Succeeded)
                         {
                             ModifierRoles(utilisateur, role);
-                            if (isRCP)
+                            if (isRcp)
                                 ModifierRcpAccesProgramme(utilisateur, discipline);
                             else
                                 EnleverToutRcpAccesProgramme(utilisateur);
@@ -294,7 +295,7 @@ namespace PotatoPortail.Controllers
             if (!rolePresent)
                 this.AddToastMessage("rolePresent", "L'utilisateur doit avoir au minimum un rôle.", ToastType.Error,
                     true);
-            if (!programmeRCP)
+            if (!programmeRcp)
                 this.AddToastMessage("rolePresent", "Un RCP doit avoir au minimum un programme d'assigné.",
                     ToastType.Error, true);
 
@@ -344,10 +345,7 @@ namespace PotatoPortail.Controllers
         // Utilisé(e) pour la protection XSRF lors de l'ajout de connexions externes
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get { return HttpContext.GetOwinContext().Authentication; }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {

@@ -7,11 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
-    [RCPDevisMinistereAuthorize]
+    [RcpDevisMinistereAuthorize]
     public class DevisMinistereController : Controller
     {
         private readonly BdPortail _db = new BdPortail();

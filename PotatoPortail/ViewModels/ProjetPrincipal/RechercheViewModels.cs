@@ -60,39 +60,39 @@
     }
      public class RechercheSection
     {
-        public int idNomSection { get;set;}
-        public string titreSection {get;set;}
+        public int IdNomSection { get;set;}
+        public string TitreSection {get;set;}
     }
 
     public class RechercheCours
     {
-        public string numeroCours { set; get; }
-        public string titreCours { set; get; }
+        public string NumeroCours { set; get; }
+        public string TitreCours { set; get; }
     }
     public class RechercheJoueur
     {
-        public string idJoueur { get; set; }
-        public string pseudoJoueur { get; set; }
+        public string IdJoueur { get; set; }
+        public string PseudoJoueur { get; set; }
         public string NomJoueur { get; set; }
         public string CourrielJoueur { get; set; }
     }
 
     public class RechercheEquipe
     {
-        public int idEquipe { get; set; }
+        public int IdEquipe { get; set; }
         public string NomEquipe { get; set; }
     }
 
     public class RechercheJeu
     {
-        public int idJeu { get; set; }
+        public int IdJeu { get; set; }
         public string NomJeu { get; set; }
         public string DescriptionJeu { get; set; }
     }
 
     public class RechercheEntraineur
     {
-        public int idEntraineur { get; set; }
+        public int IdEntraineur { get; set; }
         public string NomEntraineur{ get; set; }
         public string TelephoneEntraineur { get; set; }
         public string PseudoEntraineur { get; set; }
@@ -102,7 +102,7 @@
     public class RechercheOrdreDuJour
     {
         public int IdOrdreDuJour { get; set; }
-        public string titre { get; set; }
-        public int date { get; set; }
+        public string Titre { get; set; }
+        public int Date { get; set; }
     }
 }
