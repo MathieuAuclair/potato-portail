@@ -125,6 +125,12 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -235,6 +241,7 @@
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
     <Compile Include="Interfaces\IApercu.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
     <Compile Include="Models\ActiviteApprentissage.cs" />
     <Compile Include="Models\Application.cs" />
@@ -309,6 +316,7 @@
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
     <Compile Include="ViewModels\eSports\EquipeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\OrdreDuJourViewModel.cs" />
     <Compile Include="ViewModels\OrdresDuJour\ModificationModeleViewModel.cs" />
     <Compile Include="ViewModels\OrdresDuJour\OrdreDuJourViewModel.cs" />
     <Compile Include="ViewModels\PageTitreViewModel.cs" />
@@ -389,6 +397,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="scripts\bootstrap-wysiwyg.js" />
     <Content Include="scripts\bootstrap.bundle.js" />
     <Content Include="scripts\bootstrap.bundle.js.map" />
@@ -430,6 +439,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />

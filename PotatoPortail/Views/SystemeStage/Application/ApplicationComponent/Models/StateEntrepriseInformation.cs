@@ -1,10 +1,11 @@
+using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Views.SystemeStage.Application.ApplicationComponent.Models
 {
     public class StateEntrepriseInformation
     {
-        private readonly BDPortail _bd = new BDPortail();
+        private readonly BdPortail _bd = new BdPortail();
         private PotatoPortail.Models.Stage _stage;
         private Contact _contact;
 

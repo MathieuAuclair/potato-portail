@@ -10,7 +10,7 @@ namespace PotatoPortail.ViewModels
         public virtual IEnumerable<ContenuSection> ContenuSection { get; set; }
         public int Id { get; set; }
         public string[] TexteContenu { get; set; }
-        public PlanCours PlanCours { get; set; }
+        public Models.PlanCours PlanCours { get; set; }
         public int IdPlanCours { get; set; }
         public string CourrielProf { get; set; } //from aspnetuser
         public string NomProf { get; set; } //from aspnetuser

@@ -10,7 +10,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 {
     public class StageController : Controller
     {
-        private readonly BDPortail _bd = new BDPortail();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Edition(int? idStage)
@@ -138,7 +138,7 @@ namespace PotatoPortail.Controllers.SystemeStage
                 Salaire = 0,
             };
 
-            _bd.StatutStage.Add(stage);
+            _bd.Stage.Add(stage);
             _bd.SaveChanges();
 
             return View("~/Views/Stage/Edition.cshtml", stage);
@@ -146,7 +146,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 
         public ActionResult Suppression(int? id)
         {
-            var stage = _bd.StatutStage.Find(id);
+            var stage = _bd.Stage.Find(id);
 
             if (stage == null)
             {

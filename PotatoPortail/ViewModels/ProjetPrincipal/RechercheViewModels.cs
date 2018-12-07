@@ -47,8 +47,8 @@
     }
     public class RechercheDepartement
     {
-        public string Discipline { get; set; }//la key
-        public string DisciplineSpanned { get; set; } //key qui peut etre modifier avec le span
+        public string Discipline { get; set; }
+        public string DisciplineSpanned { get; set; } 
         public string Commentaire { get; set; }
     }
     public class RechecheProgramme
@@ -57,5 +57,52 @@
         public string Annee { get; set; }
         public string Nom { get; set; }
         public int IdDevis { get; set; }
+    }
+     public class RechercheSection
+    {
+        public int IdNomSection { get;set;}
+        public string TitreSection {get;set;}
+    }
+
+    public class RechercheCours
+    {
+        public string NumeroCours { set; get; }
+        public string TitreCours { set; get; }
+    }
+    public class RechercheJoueur
+    {
+        public string IdJoueur { get; set; }
+        public string PseudoJoueur { get; set; }
+        public string NomJoueur { get; set; }
+        public string CourrielJoueur { get; set; }
+    }
+
+    public class RechercheEquipe
+    {
+        public int IdEquipe { get; set; }
+        public string NomEquipe { get; set; }
+    }
+
+    public class RechercheJeu
+    {
+        public int IdJeu { get; set; }
+        public string NomJeu { get; set; }
+        public string DescriptionJeu { get; set; }
+    }
+
+    public class RechercheEntraineur
+    {
+        public int IdEntraineur { get; set; }
+        public string NomEntraineur{ get; set; }
+        public string TelephoneEntraineur { get; set; }
+        public string PseudoEntraineur { get; set; }
+        public string CourrielEntraineur { get; set; }
+    }
+
+    public class RechercheOrdreDuJour
+    {
+        public int IdOrdreDuJour { get; set; }
+        public string Titre { get; set; }
+        public int Date { get; set; }
     }
 }

@@ -8,11 +8,11 @@ namespace PotatoPortail.Data
     public class LieuRepository
     {
 
-        public IEnumerable<SelectListItem> getLieu()
+        public IEnumerable<SelectListItem> GetLieu()
         {
-            using (var context = new BDPortail())
+            using (var context = new BdPortail())
             {
-                List<SelectListItem> lieu = context.LieuDeLaReunion.AsNoTracking().Select(local => new SelectListItem { Value = local.idLieu.ToString(), Text = local.emplacementReunion}).ToList();
+                List<SelectListItem> lieu = context.LieuDeLaReunion.AsNoTracking().Select(local => new SelectListItem { Value = local.IdLieu.ToString(), Text = local.EmplacementReunion}).ToList();
                 var defaut = new SelectListItem()
                 {
                     Value = null,

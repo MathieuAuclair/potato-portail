@@ -16,7 +16,7 @@
         @using (Html.BeginForm())
         {
         <div class="col-md-4">
-            @Html.DropDownList("searchIDJeu", (IEnumerable<SelectListItem>)ViewBag.Jeux, new { @class = "form-control" })
+            @Html.DropDownList("searchIDJeu", (IEnumerable<SelectListItem>)ViewBag.Jeu, new { @class = "form-control" })
             <br />
             <input type="submit" value="Filtrer" class="fancy-button" onclick="location.href = '@Url.Action("Index", "Equipe")'" />
             <br/><br/>

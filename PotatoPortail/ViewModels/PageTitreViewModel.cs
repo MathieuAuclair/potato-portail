@@ -8,29 +8,29 @@ namespace PotatoPortail.ViewModels
 {
     public class PageTitreViewModel : ViewModelBase
     {
-        public virtual IEnumerable<ContenuSection> contenuSection { get; set; }
+        public virtual IEnumerable<ContenuSection> ContenuSection { get; set; }
         public int Id { get; set; }
-        public string texteContenu { get; set; }
-        public PlanCours planCours { get; set; }
-        public int idPlanCours { get; set; }
-        public string courrielProf { get; set; }
-        public string nomProf { get; set; }
-        public string prenomProf { get; set; }
-        public string bureauProf { get; set; }
-        public string noPoste { get; set; }
-        public string nomFichier { get; set; }
+        public string TexteContenu { get; set; }
+        public Models.PlanCours PlanCours { get; set; }
+        public int IdPlanCours { get; set; }
+        public string CourrielProf { get; set; }
+        public string NomProf { get; set; }
+        public string PrenomProf { get; set; }
+        public string BureauProf { get; set; }
+        public string NoPoste { get; set; }
+        public string NomFichier { get; set; }
         public virtual IEnumerable<NomSection> NomSections { get; set; }
-        public virtual string titreSection { get; set; }
+        public virtual string TitreSection { get; set; }
         public virtual IEnumerable<Departement> Departements { get; set; }
-        public virtual int discipline { get; set; }
-        public virtual string nom { get; set; }
-        public Cours cours { get; set; }
-        public int coursId { get; set; }
-        public PlanCadre planCadre { get; set; }
-        public int planCadreId { get; set; }
+        public virtual int Discipline { get; set; }
+        public virtual string Nom { get; set; }
+        public Cours Cours { get; set; }
+        public int CoursId { get; set; }
+        public Models.PlanCadre PlanCadre { get; set; }
+        public int PlanCadreId { get; set; }
         public virtual IEnumerable<ElementCompetence> ElementCompetences { get; set; }
-        public virtual IEnumerable<string> descriptionElementCompetences { get; set; }
+        public virtual IEnumerable<string> DescriptionElementCompetences { get; set; }
         public virtual IEnumerable<ElementConnaissance> ElementConnaissances { get; set; }
-        public virtual IEnumerable<string> descriptionElementConnaissances { get; set; }
+        public virtual IEnumerable<string> DescriptionElementConnaissances { get; set; }
     }
 }

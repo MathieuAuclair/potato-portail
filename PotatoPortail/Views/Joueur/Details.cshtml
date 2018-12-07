@@ -12,13 +12,13 @@
             <h3>Informations de joueur pour @Model.MembreESports.nomComplet (@Model.jeuEquipeMonojoueur)</h3>
         </header>
 
-        @if (Model.nombreJeuxJoueur > 1)
+        @if (Model.nombreJeuJoueur > 1)
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.nombreJeuxJoueur jeux.</h3>
+            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.nombreJeuJoueur Jeu.</h3>
         }
-        else if (Model.nombreJeuxJoueur == 1)
+        else if (Model.nombreJeuJoueur == 1)
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.nombreJeuxJoueur jeu.</h3>
+            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.nombreJeuJoueur jeu.</h3>
         }
         else
         {

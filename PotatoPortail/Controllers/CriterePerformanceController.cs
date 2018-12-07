@@ -1,61 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using PotatoPortail.Models;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
-    [RCPCriterePerformanceAuthorize]
+    [RcpCriterePerformanceAuthorize]
     public class CriterePerformanceController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult _PartialList(int? idElement)
         {
-            ElementCompetence elementCompetence = db.ElementCompetence.Find(idElement);
-            return PartialView(elementCompetence.CriterePerformance.OrderBy(cp => cp.numero));
+            var elementCompetence = _db.ElementCompetence.Find(idElement);
+
+            if (elementCompetence == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(elementCompetence.CriterePerformance.OrderBy(cp => cp.Numero));
         }
 
-        [RCPElementCompetenceAuthorize]
+        [RcpElementCompetenceAuthorize]
         public ActionResult Creation(int? idElement)
         {
             if (idElement == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ElementCompetence elementCompetence = db.ElementCompetence.Find(idElement);
+
+            ElementCompetence elementCompetence = _db.ElementCompetence.Find(idElement);
             if (elementCompetence == null)
             {
                 return HttpNotFound();
             }
-            CriterePerformance criterePerformance = new CriterePerformance();
-            criterePerformance.ElementCompetence = elementCompetence;
-            criterePerformance.idElement = elementCompetence.idElement;
-            
+
+            CriterePerformance criterePerformance = new CriterePerformance
+            {
+                ElementCompetence = elementCompetence, IdElement = elementCompetence.IdElement
+            };
+
             return View(criterePerformance);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RCPElementCompetenceAuthorize]
-        public ActionResult Creation([Bind(Include = "idCritere,description,numero,commentaire,idElement")] CriterePerformance criterePerformance)
+        [RcpElementCompetenceAuthorize]
+        public ActionResult Creation([Bind(Include = "idCritere,description,numero,commentaire,idElement")]
+            CriterePerformance criterePerformance)
         {
             AssignerNo(criterePerformance);
             Trim(criterePerformance);
             if (ModelState.IsValid)
             {
-                db.CriterePerformance.Add(criterePerformance);
-                db.SaveChanges();
-                return RedirectToAction("Creation", new { idElement = criterePerformance.idElement });
+                _db.CriterePerformance.Add(criterePerformance);
+                _db.SaveChanges();
+                return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement});
             }
-            criterePerformance.ElementCompetence = db.ElementCompetence.Find(criterePerformance.idElement);
+
+            criterePerformance.ElementCompetence = _db.ElementCompetence.Find(criterePerformance.IdElement);
             return View(criterePerformance);
         }
 
@@ -65,75 +73,82 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CriterePerformance criterePerformance = db.CriterePerformance.Find(idCritere);
+
+            CriterePerformance criterePerformance = _db.CriterePerformance.Find(idCritere);
             if (criterePerformance == null)
             {
                 return HttpNotFound();
             }
+
             return View(criterePerformance);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "idCritere,description,numero,commentaire,idElement")] CriterePerformance criterePerformance)
+        public ActionResult Modifier([Bind(Include = "idCritere,description,numero,commentaire,idElement")]
+            CriterePerformance criterePerformance)
         {
             Trim(criterePerformance);
             if (ModelState.IsValid)
             {
-                db.Entry(criterePerformance).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Creation", new { idElement = criterePerformance.idElement });
+                _db.Entry(criterePerformance).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement});
             }
+
             return View(criterePerformance);
         }
 
         [ActionName("Supression")]
         public ActionResult SurpressionConfirmer(int idCritere)
         {
-            CriterePerformance criterePerformance = db.CriterePerformance.Find(idCritere);
-            db.CriterePerformance.Remove(criterePerformance);
-            AjusterNo(criterePerformance);
-            db.SaveChanges();
-            return RedirectToAction("Creation", new { idElement = criterePerformance.idElement });
+            CriterePerformance criterePerformance = _db.CriterePerformance.Find(idCritere);
+            _db.CriterePerformance.Remove(criterePerformance ?? throw new InvalidOperationException());
+            AjusterNo();
+            _db.SaveChanges();
+            return RedirectToAction("Creation", new {idElement = criterePerformance.IdElement});
         }
 
         private void AssignerNo(CriterePerformance criterePerformance)
         {
-            int dernierNo = 0;
-            IQueryable<int> requete = (from cp in db.CriterePerformance
-                                    where cp.idElement == criterePerformance.idElement
-                                    select cp.numero);
+            var dernierNo = 0;
+            var requete = (from tableCriterePerformance in _db.CriterePerformance
+                where tableCriterePerformance.IdElement == criterePerformance.IdElement
+                select tableCriterePerformance.Numero);
 
-            if (requete.Count() > 0)
+            if (requete.Any())
             {
                 dernierNo = requete.Max();
             }
-            criterePerformance.numero = dernierNo + 1;
+
+            criterePerformance.Numero = dernierNo + 1;
         }
 
-        private void AjusterNo(CriterePerformance criterePerformance)
+        private void AjusterNo()
         {
-            IQueryable<CriterePerformance> requete = (from cp in db.CriterePerformance
-                                                    where cp.idElement == criterePerformance.idElement && cp.numero > criterePerformance.numero
-                                                    select cp);
-            foreach(CriterePerformance cp in requete)
+            var requete = (from tableCriterePerformance
+                        in _db.CriterePerformance
+                    select tableCriterePerformance
+                );
+            foreach (var cp in requete)
             {
                 cp.Numero--;
             }
         }
 
-        private void Trim(CriterePerformance criterePerformance)
+        private static void Trim(CriterePerformance criterePerformance)
         {
-            if (criterePerformance.description != null) criterePerformance.description = criterePerformance.description.Trim();
-
+            if (criterePerformance.Description != null)
+                criterePerformance.Description = criterePerformance.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
+
             base.Dispose(disposer);
         }
     }

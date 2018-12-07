@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+using PotatoPortail.Helpers;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
-    [RCPProgrammeAuthorize]
+    [RcpProgrammeAuthorize]
     public class ProgrammeController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
-        private IQueryable<Programme> getRCPProgramme()
+        private IEnumerable<Programme> GetRcpProgramme()
         {
-            string username = User.Identity.GetUserName();
-            return from programme in db.Programme
-                   join devisMinistere in db.DevisMinistere on programme.idDevis equals devisMinistere.idDevis
-                   join departement in db.Departement on devisMinistere.discipline equals departement.discipline
-                   join accesProgramme in db.AccesProgramme on departement.discipline equals accesProgramme.discipline
-                   where accesProgramme.userMail == username
+            var username = User.Identity.GetUserName();
+            return from programme in _db.Programme
+                   join devisMinistere in _db.DevisMinistere on programme.IdDevis equals devisMinistere.IdDevis
+                   join departement in _db.Departement on devisMinistere.Discipline equals departement.Discipline
+                   join accesProgramme in _db.AccesProgramme on departement.Discipline equals accesProgramme.Discipline
+                   where accesProgramme.UserMail == username
                    select programme;
         }
   
@@ -36,12 +31,12 @@ namespace ApplicationPlanCadre.Controllers
             {
                 ViewBag.idPlanCadreActuel = idPlan;
             }
-            return PartialView(getRCPProgramme().ToList());
+            return PartialView(GetRcpProgramme().ToList());
         }
 
         public ActionResult Index()
         {
-            return View(getRCPProgramme().ToList());
+            return View(GetRcpProgramme().ToList());
         }
 
         public ActionResult Info(int? idProgramme)
@@ -51,7 +46,7 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Programme programme = db.Programme.Find(idProgramme);
+            var programme = _db.Programme.Find(idProgramme);
             if (programme == null)
             {
                 return HttpNotFound();

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Dynamic;
+using System.Linq;
 using System.Web.Mvc;
 using ApplicationPlanCadre.Helpers;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Models.eSports;
-using ApplicationPlanCadre.Models.Reunions;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using PotatoPortail.ViewModels.ProjetPrincipal;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     public class RechercheController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
         //todo: la recherche ne support présentement pas la recherche avec les espaces
         [HttpGet]
@@ -25,16 +25,16 @@ namespace ApplicationPlanCadre.Controllers
             {
                 stringRechercher = stringRechercher.Trim();
 
-                model.EnonceCompetence = getEnonceCompetence(stringRechercher);
-                model.ElementCompetence = getElemCompetence(stringRechercher);
-                model.DevisMinistere = getDevis(stringRechercher);
-                model.Section = getSections(stringRechercher);
-                model.Cours = getCours(stringRechercher);
-                model.joueur = getJoueur(stringRechercher);
-                model.Equipe = getEquipe(stringRechercher);
-                model.jeu = getJeu(stringRechercher);
-                model.entraineur = getEntraineur(stringRechercher);
-                model.OrdreDuJour = getOrdreDuJour(stringRechercher);
+                model.EnonceCompetence = GetEnonceCompetence(stringRechercher);
+                model.ElementCompetence = GetElemCompetence(stringRechercher);
+                model.DevisMinistere = GetDevis(stringRechercher);
+                model.Section = GetSections(stringRechercher);
+                model.Cours = GetCours(stringRechercher);
+                model.joueur = GetJoueur(stringRechercher);
+                model.Equipe = GetEquipe(stringRechercher);
+                model.jeu = GetJeu(stringRechercher);
+                model.entraineur = GetEntraineur(stringRechercher);
+                model.OrdreDuJour = GetOrdreDuJour(stringRechercher);
             }
             else
             {
@@ -53,244 +53,233 @@ namespace ApplicationPlanCadre.Controllers
             return View("Recherche", model);
         }
 
-        private List<RechercheDevisMinistere> getDevis(string stringRechercher)
+        private List<RechercheDevisMinistere> GetDevis(string stringRechercher)
         {
             List<RechercheDevisMinistere> devisListe = new List<RechercheDevisMinistere>();
 
-            var devis = from tableDevisMinistere in db.DevisMinistere
-                where tableDevisMinistere.specialisation.Contains(stringRechercher) || tableDevisMinistere.codeSpecialisation.Contains(stringRechercher) ||
-                      tableDevisMinistere.discipline.Contains(stringRechercher) || tableDevisMinistere.annee.Contains(stringRechercher)
+            var devis = from tableDevisMinistere in _db.DevisMinistere
+                where tableDevisMinistere.Specialisation.Contains(stringRechercher) || tableDevisMinistere.CodeSpecialisation.Contains(stringRechercher) ||
+                      tableDevisMinistere.Discipline.Contains(stringRechercher) || tableDevisMinistere.Annee.Contains(stringRechercher)
                 select tableDevisMinistere;
 
             foreach (DevisMinistere tableDevisMinistere in devis)
             {
                 devisListe.Add(new RechercheDevisMinistere
                 {
-                    idDevis = tableDevisMinistere.idDevis,
-                    annee = tableDevisMinistere.annee.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    codeSpecialisation = tableDevisMinistere.codeSpecialisation.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    specialisation = tableDevisMinistere.specialisation.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    nbUnite = tableDevisMinistere.nbUnite,
-                    nbHeureFrmGenerale = tableDevisMinistere.nbHeureFrmGenerale,
-                    nbHeureFrmSpecifique = tableDevisMinistere.nbHeureFrmSpecifique,
-                    condition = tableDevisMinistere.condition.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    sanction = tableDevisMinistere.sanction.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    discipline = tableDevisMinistere.discipline.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    total = Convert.ToInt32((tableDevisMinistere.nbHeureFrmGenerale + tableDevisMinistere.nbHeureFrmSpecifique))
+                    IdDevis = tableDevisMinistere.IdDevis,
+                    Annee = tableDevisMinistere.Annee.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    CodeSpecialisation = tableDevisMinistere.CodeSpecialisation.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    Specialisation = tableDevisMinistere.Specialisation.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    NbUnite = tableDevisMinistere.NbUnite,
+                    NbHeureFrmGenerale = tableDevisMinistere.NbHeureFrmGenerale,
+                    NbHeureFrmSpecifique = tableDevisMinistere.NbHeureFrmSpecifique,
+                    Condition = tableDevisMinistere.Condition.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    Sanction = tableDevisMinistere.Sanction.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    Discipline = tableDevisMinistere.Discipline.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    Total = Convert.ToInt32((tableDevisMinistere.NbHeureFrmGenerale + tableDevisMinistere.NbHeureFrmSpecifique))
                 });
             }
 
             return devisListe;
         }
 
-        private List<RechecheEnonceCompetence> getEnonceCompetence(string stringRechercher)
+        private List<RechecheEnonceCompetence> GetEnonceCompetence(string stringRechercher)
         {
-            List<RechecheEnonceCompetence> enonComptListe = new List<RechecheEnonceCompetence>();
+            var enonComptListe = new List<RechecheEnonceCompetence>();
 
-            var enonce = from tableEnonceCompetence in db.EnonceCompetence
-                where tableEnonceCompetence.codeCompetence.Contains(stringRechercher) || tableEnonceCompetence.description.Contains(stringRechercher)
+            var enonce = from tableEnonceCompetence in _db.EnonceCompetence
+                where tableEnonceCompetence.CodeCompetence.Contains(stringRechercher) || tableEnonceCompetence.Description.Contains(stringRechercher)
                 select tableEnonceCompetence;
 
-            foreach (EnonceCompetence tableEnonceCompetence in enonce)
+            foreach (var tableEnonceCompetence in enonce)
             {
                 enonComptListe.Add(new RechecheEnonceCompetence
                 {
-                    idCompetence = tableEnonceCompetence.idCompetence,
-                    idDevis = tableEnonceCompetence.idDevis,
-                    codeCompetence = tableEnonceCompetence.codeCompetence.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    description = tableEnonceCompetence.description.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    IdCompetence = tableEnonceCompetence.IdCompetence,
+                    IdDevis = tableEnonceCompetence.IdDevis,
+                    CodeCompetence = tableEnonceCompetence.CodeCompetence.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    Description = tableEnonceCompetence.Description.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 
             return enonComptListe;
         }
 
-        private List<RechecheElementCompetence> getElemCompetence(string stringRechercher)
+        private List<RechecheElementCompetence> GetElemCompetence(string stringRechercher)
         {
-            List<RechecheElementCompetence> elementListe = new List<RechecheElementCompetence>();
-
-            var enonce = from tableElementCompetence in db.ElementCompetence
-                where tableElementCompetence.description.Contains(stringRechercher)
-                orderby tableElementCompetence.numero
+            var enonce = from tableElementCompetence in _db.ElementCompetence
+                where tableElementCompetence.Description.Contains(stringRechercher)
+                orderby tableElementCompetence.Numero
                 select tableElementCompetence;
 
-            foreach (ElementCompetence tableElementCompetence in enonce)
-            {
-                elementListe.Add(new RechecheElementCompetence
-                {
-                    idElement = tableElementCompetence.idElement,
-                    idCompetence = tableElementCompetence.idCompetence,
-                    description = tableElementCompetence.description.SurlignerMotsClee(stringRechercher, "yellow", false),
-                });
-            }
-
-            return elementListe;
+            return enonce.Select(tableElementCompetence => new RechecheElementCompetence {IdElement = tableElementCompetence.IdElement, IdCompetence = tableElementCompetence.IdCompetence, Description = tableElementCompetence.Description.SurlignerMotsClee(stringRechercher, "yellow", false),}).ToList();
         }
 
-        private List<RechecheProgramme> getProgram(string stringRechercher)
+        private List<RechecheProgramme> GetProgram(string stringRechercher)
         {
-            List<RechecheProgramme> programme = new List<RechecheProgramme>();
+            var programme = new List<RechecheProgramme>();
 
-            var requete = from tableProgramme in db.Programme
-                where tableProgramme.annee.Contains(stringRechercher) || tableProgramme.nom.Contains(stringRechercher)
+            var requete = from tableProgramme in _db.Programme
+                where tableProgramme.Annee.Contains(stringRechercher) || tableProgramme.Nom.Contains(stringRechercher)
                 select tableProgramme;
 
-            foreach (Programme tableProgramme in requete)
+            foreach (var tableProgramme in requete)
             {
                 programme.Add(new RechecheProgramme
                 {
-                    idProgramme = Convert.ToInt32(tableProgramme.idProgramme),
-                    annee = tableProgramme.annee.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    nom = tableProgramme.nom.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    idDevis = tableProgramme.idDevis
+                    IdProgramme = Convert.ToInt32(tableProgramme.IdProgramme),
+                    Annee = tableProgramme.Annee.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    Nom = tableProgramme.Nom.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    IdDevis = tableProgramme.IdDevis
                 });
             }
             return programme;
         }
 
-        private List<RechercheSection> getSections(string stringRechercher)
+        private List<RechercheSection> GetSections(string stringRechercher)
         {
-            List<RechercheSection> SectionListe = new List<RechercheSection>();
+            var sectionListe = new List<RechercheSection>();
 
-            var Section = from tableSection in db.NomSection
+            var section = from tableSection in _db.NomSection
                           where tableSection.titreSection.Contains(stringRechercher)
                           select tableSection;
-            foreach (NomSection tableSection in Section)
+            foreach (NomSection tableSection in section)
             {
-                SectionListe.Add(new RechercheSection
+                sectionListe.Add(new RechercheSection
                 {
-                    idNomSection = tableSection.idNomSection,
-                    titreSection = tableSection.titreSection.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    IdNomSection = tableSection.idNomSection,
+                    TitreSection = tableSection.titreSection.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 
-            return SectionListe;
+            return sectionListe;
         }
 
-        private List<RechercheCours> getCours(string stringRechercher)
+        private List<RechercheCours> GetCours(string stringRechercher)
         {
-            List<RechercheCours> CoursListe = new List<RechercheCours>();
+            List<RechercheCours> coursListe = new List<RechercheCours>();
 
-            var Cours = from tablePlanCadre in db.PlanCadre
-                        where tablePlanCadre.titreCours.Contains(stringRechercher)
+            var cours = from tablePlanCadre in _db.PlanCadre
+                        where tablePlanCadre.TitreCours.Contains(stringRechercher)
                         select tablePlanCadre;
-            foreach (PlanCadre tablePlanCadre in Cours)
+            foreach (var tablePlanCadre in cours)
             {
-                CoursListe.Add(new RechercheCours
+                coursListe.Add(new RechercheCours
                 {
-                    numeroCours = tablePlanCadre.numeroCours,
-                    titreCours = tablePlanCadre.titreCours.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    NumeroCours = tablePlanCadre.NumeroCours,
+                    TitreCours = tablePlanCadre.TitreCours.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 
-            return CoursListe;
+            return coursListe;
         }
 
-        private List<RechercheJoueur> getJoueur(string stringRechercher)
+        private List<RechercheJoueur> GetJoueur(string stringRechercher)
         {
-            List<RechercheJoueur> JoueurListe = new List<RechercheJoueur>();
+            var joueurListe = new List<RechercheJoueur>();
 
-            var lesJoueur = from tableJoueur in db.Joueurs
-                join BDMembEsport in db.MembreESports on tableJoueur.MembreESportsId equals BDMembEsport.id into BDMembEsport2
-                from tableMembre in BDMembEsport2
-                where tableJoueur.pseudoJoueur.Contains(stringRechercher) || tableMembre.prenom.Contains(stringRechercher) || tableMembre.nom.Contains(stringRechercher)
+            var lesJoueur = from tableJoueur in _db.Joueur
+                join membreESports in _db.MembreESports on tableJoueur.IdMembreESports equals membreESports.Id into bdMembEsport2
+                from tableMembre in bdMembEsport2
+                where tableJoueur.PseudoJoueur.Contains(stringRechercher) || tableMembre.Prenom.Contains(stringRechercher) || tableMembre.Nom.Contains(stringRechercher)
                 select new
                 {
-                    idJoueur = tableJoueur.MembreESportsId,
-                    NomJoueur = tableMembre.prenom + " " + tableMembre.nom,
-                    PseudoJoueur = tableJoueur.pseudoJoueur,
-                    CourrielJoueur = tableJoueur.Profil.courriel
+                    idJoueur = tableJoueur.IdMembreESports,
+                    NomJoueur = tableMembre.Prenom + " " + tableMembre.Nom,
+                    PseudoJoueur = tableJoueur.PseudoJoueur,
+                    CourrielJoueur = tableJoueur.Profil.Courriel
                 } ;
             foreach ( var tableJoueur in lesJoueur)
             {
-                JoueurListe.Add(new RechercheJoueur
+                joueurListe.Add(new RechercheJoueur
                 {
-                    idJoueur = tableJoueur.idJoueur,
-                    pseudoJoueur = tableJoueur.PseudoJoueur.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    IdJoueur = tableJoueur.idJoueur,
+                    PseudoJoueur = tableJoueur.PseudoJoueur.SurlignerMotsClee(stringRechercher, "yellow", false),
                     NomJoueur = tableJoueur.NomJoueur.SurlignerMotsClee(stringRechercher, "yellow", false),
                     CourrielJoueur = tableJoueur.CourrielJoueur
                     
                 });
             }
 
-            return JoueurListe;
+            return joueurListe;
         }
 
-        private List<RechercheEquipe> getEquipe(string stringRechercher)
+        private List<RechercheEquipe> GetEquipe(string stringRechercher)
         {
-            List<RechercheEquipe> EquipeListe = new List<RechercheEquipe>();
+            var equipeListe = new List<RechercheEquipe>();
 
-            var Equipe = from tableEquipe in db.Equipes
-                where tableEquipe.nomEquipe.Contains(stringRechercher) && tableEquipe.estMonojoueur==false
+            var equipe = from tableEquipe in _db.Equipe
+                where tableEquipe.NomEquipe.Contains(stringRechercher) && tableEquipe.EstMonoJoueur==false
                 select tableEquipe;
-            foreach (Equipe tableEquipe in Equipe)
+            foreach (var tableEquipe in equipe)
             {
-                EquipeListe.Add(new RechercheEquipe
+                equipeListe.Add(new RechercheEquipe
                 {
-                    idEquipe = tableEquipe.id,
-                    NomEquipe = tableEquipe.nomEquipe.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    IdEquipe = tableEquipe.Id,
+                    NomEquipe = tableEquipe.NomEquipe.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 
-            return EquipeListe;
+            return equipeListe;
         }
 
-        private List<RechercheJeu> getJeu(string stringRechercher)
+        private List<RechercheJeu> GetJeu(string stringRechercher)
         {
-            List<RechercheJeu> JeuListe = new List<RechercheJeu>();
+            List<RechercheJeu> jeuListe = new List<RechercheJeu>();
 
-            var Jeux = from tableJeu in db.Jeux
-                where tableJeu.nomJeu.Contains(stringRechercher)
+            var Jeu = from tableJeu in _db.Jeu
+                where tableJeu.NomJeu.Contains(stringRechercher)
                 select tableJeu;
-            foreach (Jeu tableJeu in Jeux)
+
+            foreach (var tableJeu in Jeu)
             {
-                JeuListe.Add(new RechercheJeu
+                jeuListe.Add(new RechercheJeu
                 {
-                    idJeu = tableJeu.id,
-                    NomJeu = tableJeu.nomJeu.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    DescriptionJeu = tableJeu.description
+                    IdJeu = tableJeu.Id,
+                    NomJeu = tableJeu.NomJeu.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    DescriptionJeu = tableJeu.Description
                 });
             }
 
-            return JeuListe;
+            return jeuListe;
         }
 
-        private List<RechercheEntraineur> getEntraineur(string stringRechercher)
+        private List<RechercheEntraineur> GetEntraineur(string stringRechercher)
         {
             List<RechercheEntraineur> entraineurListe = new List<RechercheEntraineur>();
 
-            var entraineurs = from tableEntraineur in db.Entraineurs
-                              where tableEntraineur.pseudoEntraineur.Contains(stringRechercher) || tableEntraineur.prenomEntraineur.Contains(stringRechercher) || tableEntraineur.prenomEntraineur.Contains(stringRechercher)
+            var entraineurs = from tableEntraineur in _db.Entraineur
+                              where tableEntraineur.PseudoEntraineur.Contains(stringRechercher) || tableEntraineur.PrenomEntraineur.Contains(stringRechercher) || tableEntraineur.PrenomEntraineur.Contains(stringRechercher)
                               select tableEntraineur;
 
             foreach (var tableEntraineur in entraineurs)
             {  
                 entraineurListe.Add(new RechercheEntraineur
                 {
-                    idEntraineur = tableEntraineur.id,
-                    NomEntraineur = tableEntraineur.nomComplet.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    PseudoEntraineur = tableEntraineur.pseudoEntraineur.SurlignerMotsClee(stringRechercher, "yellow", false),
-                    TelephoneEntraineur = tableEntraineur.numTel,
-                    CourrielEntraineur = tableEntraineur.adresseCourriel
+                    IdEntraineur = tableEntraineur.Id,
+                    NomEntraineur = tableEntraineur.NomComplet.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    PseudoEntraineur = tableEntraineur.PseudoEntraineur.SurlignerMotsClee(stringRechercher, "yellow", false),
+                    TelephoneEntraineur = tableEntraineur.NumeroTelephone,
+                    CourrielEntraineur = tableEntraineur.AdresseCourriel
                 });
             }
 
             return entraineurListe;
         }
 
-        private List<RechercheOrdreDuJour> getOrdreDuJour(string stringRechercher)
+        private List<RechercheOrdreDuJour> GetOrdreDuJour(string stringRechercher)
         {
             List<RechercheOrdreDuJour> ordredujourliste = new List<RechercheOrdreDuJour>();
 
-            var contexte = from tableOrdreDuJour in db.OrdreDuJour
+            var contexte = from tableOrdreDuJour in _db.OrdreDuJour
                            where tableOrdreDuJour.TitreOdJ.Contains(stringRechercher)
                            select tableOrdreDuJour;
-            foreach(OrdreDuJour tableOrdreDuJour in contexte)
+            foreach(var tableOrdreDuJour in contexte)
             {
                 ordredujourliste.Add(new RechercheOrdreDuJour
                 {
                     IdOrdreDuJour = tableOrdreDuJour.IdOdJ,
-                    titre = tableOrdreDuJour.TitreOdJ.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    Titre = tableOrdreDuJour.TitreOdJ.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
             return ordredujourliste;

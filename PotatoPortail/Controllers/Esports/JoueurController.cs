@@ -1,194 +1,211 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Models.eSports;
-using ApplicationPlanCadre.ViewModels.eSportsVM;
+using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Migrations;
+using PotatoPortail.Models.eSports;
+using PotatoPortail.Toast;
+using PotatoPortail.ViewModels.eSports;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers.eSports
 {
     public class JoueurController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
-
-        // GET: Joueur
+        private readonly BdPortail _db = new BdPortail();
+        
         public ActionResult Index(string sortOrder)
         {
-            ViewBag.NomSortParm = String.IsNullOrEmpty(sortOrder) ? "nom_desc" : "";
-            ViewBag.PrenomSortParm = String.IsNullOrEmpty(sortOrder) ? "prenom_desc" : "";
-            ViewBag.PseudoSortParm = String.IsNullOrEmpty(sortOrder) ? "pseudo_desc" : "";
-            ViewBag.JeuSortParm = String.IsNullOrEmpty(sortOrder) ? "jeu_desc" : "";
+            ViewBag.NomSortParm = string.IsNullOrEmpty(sortOrder) ? "nom_desc" : "";
+            ViewBag.PrenomSortParm = string.IsNullOrEmpty(sortOrder) ? "prenom_desc" : "";
+            ViewBag.PseudoSortParm = string.IsNullOrEmpty(sortOrder) ? "pseudo_desc" : "";
+            ViewBag.JeuSortParm = string.IsNullOrEmpty(sortOrder) ? "jeu_desc" : "";
 
-            var joueurs = from j in db.Joueurs
-                          select j;
+            var joueurs = from tableJoueurs in _db.Joueur
+                select tableJoueurs;
 
             switch (sortOrder)
             {
                 case "nom_desc":
-                    joueurs = joueurs.OrderByDescending(j => j.MembreESports.nom);
+                    joueurs = joueurs.OrderByDescending(j => j.MembreESports.Nom);
                     break;
                 case "prenom_desc":
-                    joueurs = joueurs.OrderBy(j => j.MembreESports.prenom);
+                    joueurs = joueurs.OrderBy(j => j.MembreESports.Prenom);
                     break;
                 case "pseudo_desc":
-                    joueurs = joueurs.OrderBy(j => j.pseudoJoueur);
+                    joueurs = joueurs.OrderBy(j => j.PseudoJoueur);
                     break;
                 case "jeu_desc":
-                    joueurs = joueurs.OrderBy(j => j.Profil.Jeu.nomJeu);
+                    joueurs = joueurs.OrderBy(j => j.Profil.Jeu.NomJeu);
                     break;
                 default:
-                    joueurs = joueurs.OrderBy(j => j.MembreESports.nom);
+                    joueurs = joueurs.OrderBy(j => j.MembreESports.Nom);
                     break;
             }
 
             return View(joueurs.ToList());
         }
-
-        // GET: Joueur/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Joueur joueur = db.Joueurs.Find(id);
+
+            Joueur joueur = _db.Joueur.Find(id);
             if (joueur == null)
             {
                 return HttpNotFound();
             }
+
             return View(joueur);
         }
 
-        // GET: Joueur/Create
         public ActionResult Creation()
         {
-            var etudiants = db.MembreESports.ToList();
-            var etus = etudiants.OrderBy(e => e.nom);
+            var etudiants = _db.MembreESports.ToList();
+            var etus = etudiants.OrderBy(e => e.Nom);
 
-            List<SelectListItem> lstEtudiants = new List<SelectListItem>();
+            var lstEtudiants = etus
+                .Select(etu => new SelectListItem {Text = etu.Prenom + " " + etu.Nom, Value = etu.Id}).ToList();
 
-            foreach (MembreESports etu in etus)
-            {
-                lstEtudiants.Add(new SelectListItem
-                {
-                    Text = etu.prenom + " " + etu.nom,
-                    Value = etu.id.ToString()
-                });
-            }
-            
             ViewBag.EtudiantId = lstEtudiants;
             return View();
         }
 
-        // POST: Joueur/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,pseudoJoueur,EtudiantId,ProfilId")] Joueur joueur)
+        public ActionResult Creation([Bind(Include = "id,pseudoJoueur,EtudiantId,ProfilId")]
+            Joueur joueur)
         {
             if (ModelState.IsValid)
             {
-                db.Joueurs.Add(joueur);
-                db.SaveChanges();
+                _db.Joueur.Add(joueur);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EtudiantId = new SelectList(db.MembreESports, "id", "id", joueur.MembreESportsId);
+            ViewBag.EtudiantId = new SelectList(_db.MembreESports, "id", "id", joueur.IdMembreESports);
             return View(joueur);
         }
 
-        // GET: Joueur/Edit/5
         public ActionResult Modifier(int? id)
         {
-            EditerJoueurVm viewModel = new EditerJoueurVm();
+            var viewModel = new EditerJoueurViewModel();
 
-            Joueur joueur = db.Joueurs.Find(id);
-            Profil profil = db.Profils.Find(joueur.Profil.id);
+            var joueur = _db.Joueur.Find(id);
 
-            viewModel.JoueurId = joueur.id;
-            viewModel.pseudo = joueur.pseudoJoueur;
-            viewModel.courriel = profil.courriel;
-            viewModel.MembreESports = db.MembreESports.Find(joueur.MembreESportsId);
-            viewModel.Jeu = db.Jeux.Find(profil.JeuId);
+            if (joueur == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var profil = _db.Profil.Find(joueur.Profil.Id);
+
+            if (profil == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            viewModel.JoueurId = joueur.Id;
+            viewModel.Pseudo = joueur.PseudoJoueur;
+            viewModel.Courriel = profil.Courriel;
+            viewModel.MembreESports = _db.MembreESports.Find(joueur.IdMembreESports);
+            viewModel.Jeu = _db.Jeu.Find(profil.IdJeu);
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }     
-
-            if (joueur == null)
-            {
-                return HttpNotFound();
-            }            
-
-            return View(viewModel);
-        }
-
-        // POST: Joueur/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "JoueurId,pseudo,courriel")]EditerJoueurVm viewModel)
-        {
-            Joueur joueur = db.Joueurs.Find(viewModel.JoueurId);
-            Profil profil = db.Profils.Find(joueur.Profil.id);
-
-            if (ModelState.IsValid)
-            {
-                joueur.pseudoJoueur = viewModel.pseudo;
-                profil.pseudo = viewModel.pseudo;
-                profil.courriel = viewModel.courriel;
-                db.SaveChanges();
-                this.AddToastMessage("Modifications apportées.", "Les changements ont été sauvegardés.", Toast.ToastType.Success);
-                return RedirectToAction("Index");
             }
 
             return View(viewModel);
         }
 
-        // GET: Joueur/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Modifier([Bind(Include = "JoueurId,pseudo,courriel")]
+            EditerJoueurViewModel viewModel)
+        {
+            var joueur = _db.Joueur.Find(viewModel.JoueurId);
+
+            if (joueur == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var profil = _db.Profil.Find(joueur.Profil.Id);
+
+            if (ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            joueur.PseudoJoueur = viewModel.Pseudo;
+
+            if (profil == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            profil.Pseudo = viewModel.Pseudo;
+            profil.Courriel = viewModel.Courriel;
+            _db.SaveChanges();
+            this.AddToastMessage("Modifications apportées.", "Les changements ont été sauvegardés.",
+                ToastType.Success);
+            return RedirectToAction("Index");
+        }
+        
         public ActionResult Supprimer(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Joueur joueur = db.Joueurs.Find(id);
+
+            var joueur = _db.Joueur.Find(id);
+
             if (joueur == null)
             {
                 return HttpNotFound();
             }
+
             return View(joueur);
         }
-
-        // POST: Joueur/Delete/5
+        
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
         {
-            Joueur joueur = db.Joueurs.Find(id);
-            MembreESports etu = db.MembreESports.Find(joueur.MembreESportsId);
-            Profil profil = db.Profils.Find(joueur.Profil.id);
-            Jeu jeu = db.Jeux.Find(joueur.equipeMonojoueur.JeuId);
-            
-            var equipeMonojoueur = from e in db.Equipes
-                                   join j in db.Jeux on e.JeuId equals j.id
-                                   join p in db.Profils on j.id equals p.JeuId
-                                   where (e.nomEquipe == etu.nomComplet + "_" + jeu.abreviation + "_" + profil.MembreESportsId) && (p.id == profil.id)
-                                   select e;
+            var joueur = _db.Joueur.Find(id);
 
-            this.AddToastMessage("Supression effectuée.", etu.nomComplet + " n'est plus un joueur de « " + jeu.nomJeu + " ».", Toast.ToastType.Success);
+            if (joueur == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
 
-            db.Joueurs.Remove(joueur);
-            db.Equipes.Remove(equipeMonojoueur.First());
-            db.SaveChanges();
+            var membreESports = _db.MembreESports.Find(joueur.IdMembreESports);
+            var profil = _db.Profil.Find(joueur.Profil.Id);
+            var jeu = _db.Jeu.Find(joueur.EquipeMonojoueur.IdJeu);
+
+            if (profil == null || jeu == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var equipeMonojoueur = from tableEquipe in _db.Equipe
+                join tableJeu in _db.Jeu on tableEquipe.IdJeu equals tableJeu.Id
+                join tableProfil in _db.Profil on tableJeu.Id equals tableProfil.IdJeu
+                where (tableEquipe.NomEquipe == membreESports.NomComplet + "_" + jeu.Abreviation + "_" + profil.IdMembreESports) &&
+                      (tableProfil.Id == profil.Id)
+                select tableEquipe;
+
+            if (membreESports != null)
+                this.AddToastMessage("Supression effectuée.",
+                    membreESports.NomComplet + " n'est plus un joueur de « " + jeu.NomJeu + " ».", ToastType.Success);
+
+            _db.Joueur.Remove(joueur);
+            _db.Equipe.Remove(equipeMonojoueur.First());
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -196,8 +213,9 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
