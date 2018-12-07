@@ -9,7 +9,7 @@ namespace PotatoPortail.Controllers.Esports
 {
     public class CaracteristiqueController : Controller
     {
-        private readonly BDPortail _db = new BDPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         // GET: Caracteristique
         public ActionResult Index()

@@ -8,7 +8,7 @@ namespace PotatoPortail.Views.Stage.EditionComponent.Models
     public class PosteSelect
     {
         public List<Poste> Postes { get; set; }
-        private readonly BDPortail _bd = new BDPortail();
+        private readonly BdPortail _bd = new BdPortail();
 
         public PosteSelect()
         {

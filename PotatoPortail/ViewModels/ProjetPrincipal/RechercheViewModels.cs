@@ -47,8 +47,8 @@
     }
     public class RechercheDepartement
     {
-        public string Discipline { get; set; }//la key
-        public string DisciplineSpanned { get; set; } //key qui peut etre modifier avec le span
+        public string Discipline { get; set; }
+        public string DisciplineSpanned { get; set; } 
         public string Commentaire { get; set; }
     }
     public class RechecheProgramme

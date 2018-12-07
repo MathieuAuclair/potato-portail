@@ -13,7 +13,7 @@ namespace ApplicationPlanCadre.Controllers
 {
     public class GrilleCoursController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private BdPortail db = new BdPortail();
 
         // GET: GrilleCours
         public ActionResult Index()

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using System.Data;
-using System.Data.Entity;
-using System.IO;
 using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Models;
@@ -16,15 +10,16 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PotatoPortail.Helpers;
 using PotatoPortail.Toast;
-using System.Web.Security;
-using PotatoPortail;
+using ApplicationPlanCadre.Controllers;
+using ApplicationPlanCadre.Helpers;
+using ApplicationPlanCadre.Models;
 
 namespace PotatoPortail.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CompteController : Controller
     {
-        private BDPortail db = new BDPortail();
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -42,7 +37,7 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Index()
         {
-            var utilisateurs = db.Users.ToList();
+            var utilisateurs = _db.Users.ToList();
             foreach (var utilisateur in utilisateurs)
             {
                 utilisateur.roles = UserManager.GetRoles(utilisateur.Id);
@@ -53,21 +48,20 @@ namespace PotatoPortail.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
-            private set { _signInManager = value; }
+            get => _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            private set => _signInManager = value;
         }
 
         public ApplicationUserManager UserManager
         {
-            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
-            private set { _userManager = value; }
+            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => _userManager = value;
         }
 
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Connexion(string returnUrl)
         {
-            string psw = new PasswordGenerator().GeneratePassword(10);
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Accueil");
@@ -98,6 +92,8 @@ namespace PotatoPortail.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    this.AddToastMessage("", "Tentative de connexion non valide.", ToastType.Error, true);
+                    return View(model);
                 default:
                     this.AddToastMessage("", "Tentative de connexion non valide.", ToastType.Error, true);
                     return View(model);
@@ -107,29 +103,15 @@ namespace PotatoPortail.Controllers
         public void EnregistrementModelDefault(EnregistrementViewModel model, IEnumerable<string> role,
             IEnumerable<string> discipline)
         {
-            if (role != null)
-                model.Roles = role;
-            else
-                model.Roles = new List<string>();
-
-            if (discipline != null)
-                model.Disciplines = discipline;
-            else
-                model.Disciplines = new List<string>();
+            model.Roles = role ?? new List<string>();
+            model.Disciplines = discipline ?? new List<string>();
         }
 
         public void ModifierModelDefault(ModifierUtilisateurViewModel model, IEnumerable<string> role,
             IEnumerable<string> discipline)
         {
-            if (role != null)
-                model.Roles = role;
-            else
-                model.Roles = new List<string>();
-
-            if (discipline != null)
-                model.Disciplines = discipline;
-            else
-                model.Disciplines = new List<string>();
+            model.Roles = role ?? new List<string>();
+            model.Disciplines = discipline ?? new List<string>();
         }
 
         public ActionResult Enregistrement()
@@ -141,46 +123,44 @@ namespace PotatoPortail.Controllers
             return View(model);
         }
 
-        private bool IsRCP(ICollection<string> role)
+        private bool IsRcp(ICollection<string> role)
         {
-            bool isRCP = false;
-            if (role != null)
-                foreach (string r in role)
-                    if (r == "RCP")
-                    {
-                        isRCP = true;
-                        break;
-                    }
+            var isRcp = false;
+            if (role == null) return false;
+            if (role.Any(r => r == "RCP"))
+            {
+                isRcp = true;
+            }
 
-            return isRCP;
+            return isRcp;
         }
 
         private void CreationRCPAccesProgramme(ApplicationUser utilisateur, ICollection<string> discipline)
         {
-            BDPlanCadre bd = new BDPlanCadre();
+            BdPortail bd = new BdPortail();
             foreach (string code in discipline)
             {
-                AccesProgramme accesProgramme = new AccesProgramme {userMail = utilisateur.UserName, discipline = code};
+                AccesProgramme accesProgramme = new AccesProgramme {UserMail = utilisateur.UserName, Discipline = code};
                 bd.AccesProgramme.Add(accesProgramme);
             }
 
             bd.SaveChanges();
         }
 
-        private void EnleverToutRCPAccesProgramme(ApplicationUser utilisateur)
+        private static void EnleverToutRcpAccesProgramme(ApplicationUser utilisateur)
         {
-            BDPlanCadre bd = new BDPlanCadre();
-            bd.AccesProgramme.RemoveRange(bd.AccesProgramme.Where(e => e.userMail == utilisateur.UserName));
+            BdPortail bd = new BdPortail();
+            bd.AccesProgramme.RemoveRange(bd.AccesProgramme.Where(e => e.UserMail == utilisateur.UserName));
             bd.SaveChanges();
         }
 
-        private void ModifierRCPAccesProgramme(ApplicationUser utilisateur, ICollection<string> discipline)
+        private void ModifierRcpAccesProgramme(ApplicationUser utilisateur, ICollection<string> discipline)
         {
-            EnleverToutRCPAccesProgramme(utilisateur);
+            EnleverToutRcpAccesProgramme(utilisateur);
             CreationRCPAccesProgramme(utilisateur, discipline);
         }
 
-        private void ModifierRoles(ApplicationUser utilisateur, ICollection<string> role)
+        private void ModifierRoles(ApplicationUser utilisateur, IEnumerable<string> role)
         {
             UserManager.RemoveFromRoles(utilisateur.Id, utilisateur.roles.ToArray());
             UserManager.AddToRoles(utilisateur.Id, role.ToArray());
@@ -191,14 +171,14 @@ namespace PotatoPortail.Controllers
         public ActionResult Enregistrement(EnregistrementViewModel model, ICollection<string> role,
             ICollection<string> discipline)
         {
-            bool rolePresent = role != null;
-            bool isRCP = IsRCP(role);
-            bool programmeRCP = isRCP && discipline != null || !isRCP;
+            var rolePresent = role != null;
+            var isRcp = IsRcp(role);
+            var programmeRcp = isRcp && discipline != null || !isRcp;
 
-            if (ModelState.IsValid && rolePresent && programmeRCP)
+            if (ModelState.IsValid && rolePresent && programmeRcp)
             {
                 string password = new PasswordGenerator().GeneratePassword(10);
-                ApplicationUser utilisateur = new ApplicationUser
+                var utilisateur = new ApplicationUser
                     {nom = model.Nom, prenom = model.Prenom, UserName = model.Email, Email = model.Email};
                 bool courrielEnvoyer = new MailHelper().SendActivationMail(utilisateur, password);
                 if (courrielEnvoyer)
@@ -207,7 +187,7 @@ namespace PotatoPortail.Controllers
                     if (resultat.Succeeded)
                     {
                         UserManager.AddToRoles(utilisateur.Id, role.ToArray());
-                        if (isRCP)
+                        if (isRcp)
                             CreationRCPAccesProgramme(utilisateur, discipline);
 
                         this.AddToastMessage("Confirmation", "Le courriel a été envoyé avec succès", ToastType.Success);
@@ -225,7 +205,7 @@ namespace PotatoPortail.Controllers
             if (!rolePresent)
                 this.AddToastMessage("rolePresent", "L'utilisateur doit avoir au minimum un rôle.", ToastType.Error,
                     true);
-            if (!programmeRCP)
+            if (!programmeRcp)
                 this.AddToastMessage("rolePresent", "Un RCP doit avoir au minimum un programme d'assigné.",
                     ToastType.Error, true);
 
@@ -237,9 +217,9 @@ namespace PotatoPortail.Controllers
 
         private IEnumerable<string> GetDisciplines(ApplicationUser utilisateur)
         {
-            return (from accesProgramme in new BDPlanCadre().AccesProgramme
-                where accesProgramme.userMail == utilisateur.UserName
-                select accesProgramme.discipline).ToList();
+            return (from accesProgramme in new BdPortail().AccesProgramme
+                where accesProgramme.UserMail == utilisateur.UserName
+                select accesProgramme.Discipline).ToList();
         }
 
         public ActionResult Modifier(string utilisateurId)
@@ -271,7 +251,7 @@ namespace PotatoPortail.Controllers
             ICollection<string> discipline)
         {
             bool rolePresent = role != null;
-            bool isRCP = IsRCP(role);
+            bool isRCP = IsRcp(role);
             bool programmeRCP = isRCP && discipline != null || !isRCP;
 
             if (ModelState.IsValid && rolePresent && programmeRCP)
@@ -292,9 +272,9 @@ namespace PotatoPortail.Controllers
                         {
                             ModifierRoles(utilisateur, role);
                             if (isRCP)
-                                ModifierRCPAccesProgramme(utilisateur, discipline);
+                                ModifierRcpAccesProgramme(utilisateur, discipline);
                             else
-                                EnleverToutRCPAccesProgramme(utilisateur);
+                                EnleverToutRcpAccesProgramme(utilisateur);
                             this.AddToastMessage(
                                 "Modification du compte", "Le compte a été modifié avec succès", ToastType.Success);
                             return RedirectToAction("Index", "Compte");
@@ -326,7 +306,7 @@ namespace PotatoPortail.Controllers
 
         private SelectList ConstruireRoleSelectList()
         {
-            var liste = db.Roles.Select(e => e.Name).ToList();
+            var liste = _db.Roles.Select(e => e.Name).ToList();
             return new SelectList(liste, "role");
         }
 

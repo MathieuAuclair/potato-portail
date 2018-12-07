@@ -3,16 +3,16 @@ using System.Linq;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Views.Stage.EditionComponent.Models
+namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 {
     public class StatusSelect
     {
-        public List<Status> Status { get; set; }
-        private BDPortail _bd = new BDPortail();
+        public List<StatutStage> Status { get; set; }
+        private readonly BdPortail _bd = new BdPortail();
 
         public StatusSelect()
         {
-            Status = _bd.Status.ToList();
+            Status = _bd.StatutStage.ToList();
         }
     }
 }

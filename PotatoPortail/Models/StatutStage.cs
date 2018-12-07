@@ -20,7 +20,7 @@ namespace PotatoPortail.Models
 
         [Column("StatutStage")]
         [Required]
-        public string StatutStage1 { get; set; }
+        public string NomStatutStage { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stage> Stage { get; set; }

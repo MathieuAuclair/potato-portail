@@ -1,15 +1,14 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using ApplicationPlanCadre.Models.Reunions;
-    using PotatoPortail.Models.Plan_Cours;
+using System.Data.Entity;
+using ApplicationPlanCadre.Models.Reunions;
+using PotatoPortail.Models;
+using PotatoPortail.Models.eSports;
+using PotatoPortail.Models.Plan_Cours;
 
-    public partial class BDPortail : DbContext
+namespace PotatoPortail.Migrations
+{
+    public partial class BdPortail : DbContext
     {
-        public BDPortail() : base("name=BD__Portail")
+        public BdPortail() : base("name=BD__Portail")
         {
         }
 

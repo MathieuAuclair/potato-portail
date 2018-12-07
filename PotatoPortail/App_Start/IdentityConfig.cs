@@ -36,7 +36,7 @@ namespace PotatoPortail
             IOwinContext context)
         {
             var manager = new ApplicationUserManager(
-                new UserStore<ApplicationUser>(context.Get<BDPortail>())
+                new UserStore<ApplicationUser>(context.Get<BdPortail>())
             );
 
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)

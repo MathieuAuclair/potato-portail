@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using PotatoPortail.Models;
+using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Helpers;
-using PotatoPortail.Migrations;
+using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     [RCPContexteRealisationAuthorize]
     public class ContexteRealisationController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult _PartialList(int? idCompetence)
         {
-            EnonceCompetence enonceCompetence = db.EnonceCompetence.Find(idCompetence);
-            return PartialView(enonceCompetence.ContexteRealisation.OrderBy(e => e.numero));
+            EnonceCompetence enonceCompetence = _db.EnonceCompetence.Find(idCompetence);
+
+            if (enonceCompetence == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(enonceCompetence.ContexteRealisation.OrderBy(e => e.Numero));
         }
 
         [RCPEnonceCompetenceAuthorize]
@@ -30,15 +33,19 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EnonceCompetence enonceCompetence = db.EnonceCompetence.Find(idCompetence);
+
+            var enonceCompetence = _db.EnonceCompetence.Find(idCompetence);
+
             if (enonceCompetence == null)
             {
                 return HttpNotFound();
             }
-            ContexteRealisation contexteRealisation = new ContexteRealisation();
-            contexteRealisation.EnonceCompetence = enonceCompetence;
-            contexteRealisation.idCompetence = enonceCompetence.idCompetence;
-            
+
+            var contexteRealisation = new ContexteRealisation
+            {
+                EnonceCompetence = enonceCompetence, IdCompetence = enonceCompetence.IdCompetence
+            };
+
             return View(contexteRealisation);
         }
 
@@ -51,16 +58,16 @@ namespace ApplicationPlanCadre.Controllers
             AssignerNo(contexteRealisation);
             if (ModelState.IsValid)
             {
-                this.AddToastMessage("Confirmation de la création", "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' + " a bien été créé.", Toast.ToastType.Success);
-                db.ContexteRealisation.Add(contexteRealisation);
-                db.SaveChanges();
-                return RedirectToAction("Creation", new {contexteRealisation.idCompetence});
+                this.AddToastMessage("Confirmation de la création", "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' + " a bien été créé.", ToastType.Success);
+                _db.ContexteRealisation.Add(contexteRealisation);
+                _db.SaveChanges();
+                return RedirectToAction("Creation", new {contexteRealisation.IdCompetence});
             }
             else
             {
-                this.AddToastMessage("Confirmation de la création", "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' + " n'a pas bien été créé.", Toast.ToastType.Error);
+                this.AddToastMessage("Confirmation de la création", "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' + " n'a pas bien été créé.", ToastType.Error);
             }
-            contexteRealisation.EnonceCompetence = db.EnonceCompetence.Find(contexteRealisation.idCompetence);
+            contexteRealisation.EnonceCompetence = _db.EnonceCompetence.Find(contexteRealisation.IdCompetence);
 
             return View(contexteRealisation);
         }
@@ -71,7 +78,7 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ContexteRealisation contexteRealisation = db.ContexteRealisation.Find(idContexte);
+            ContexteRealisation contexteRealisation = _db.ContexteRealisation.Find(idContexte);
             if (contexteRealisation == null)
             {
                 return HttpNotFound();
@@ -86,16 +93,16 @@ namespace ApplicationPlanCadre.Controllers
             Trim(contexteRealisation);
             if (ModelState.IsValid)
             {
-                db.Entry(contexteRealisation).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(contexteRealisation).State = EntityState.Modified;
+                _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la modification",
                     "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' +
-                    " a bien été modifié.", Toast.ToastType.Success);
-                return RedirectToAction("Creation", new {contexteRealisation.idCompetence});
+                    " a bien été modifié.", ToastType.Success);
+                return RedirectToAction("Creation", new {contexteRealisation.IdCompetence});
             }
             else
             {
-                this.AddToastMessage("Confirmation de la modification", "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' + " n'a pas été modifié.", Toast.ToastType.Error);
+                this.AddToastMessage("Confirmation de la modification", "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' + " n'a pas été modifié.", ToastType.Error);
             }
 
             return View(contexteRealisation);
@@ -104,47 +111,54 @@ namespace ApplicationPlanCadre.Controllers
         [ActionName("Supression")]
         public ActionResult SurpressionConfirmer(int idContexte)
         {
-            ContexteRealisation contexteRealisation = db.ContexteRealisation.Find(idContexte);
+            var contexteRealisation = _db.ContexteRealisation.Find(idContexte);
             if (contexteRealisation==null)
             {
-                this.AddToastMessage("Confirmation de la supression", "Le contexte de réalisation n'a pas été supprimé.", Toast.ToastType.Error);
+                this.AddToastMessage("Confirmation de la supression", "Le contexte de réalisation n'a pas été supprimé.", ToastType.Error);
             }
             else
             {
-                db.ContexteRealisation.Remove(contexteRealisation);
+                _db.ContexteRealisation.Remove(contexteRealisation);
                 AjusterNo(contexteRealisation);
-                db.SaveChanges();
-                this.AddToastMessage("Confirmation de la supression", "Le contexte de réalisation " + '\u0022' + contexteRealisation.description + '\u0022' + " a bien été supprimé.", Toast.ToastType.Success);
+                _db.SaveChanges();
+                this.AddToastMessage("Confirmation de la supression", "Le contexte de réalisation " + '\u0022' + contexteRealisation.Description + '\u0022' + " a bien été supprimé.", ToastType.Success);
             }
-            return RedirectToAction("Creation", new {contexteRealisation.idCompetence});
+
+            if (contexteRealisation == null)
+            {
+                return HttpNotFound();
+            }
+
+            return RedirectToAction("Creation", new {contexteRealisation.IdCompetence});
         }
 
         private void AssignerNo(ContexteRealisation contexteRealisation)
         {
-            int dernierNo = 0;
-            IQueryable<int> requete = (from cp in db.ContexteRealisation
-                                     where cp.idCompetence == contexteRealisation.idCompetence
-                                     select cp.numero);
+            var dernierNo = 0;
+            var requete = (from cp in _db.ContexteRealisation
+                                     where cp.IdCompetence == contexteRealisation.IdCompetence
+                                     select cp.Numero);
 
-            if (requete.Count() > 0)
+            if (requete.Any())
             {
                 dernierNo = requete.Max();
             }
-            contexteRealisation.numero = dernierNo + 1;
+            contexteRealisation.Numero = dernierNo + 1;
         }
 
         private void AjusterNo(ContexteRealisation contexteRealisation)
         {
-            IQueryable<ContexteRealisation> requete = (from cp in db.ContexteRealisation
-                                                    where cp.idCompetence == contexteRealisation.idCompetence && cp.numero > contexteRealisation.numero
-                                                    select cp);
-            foreach (ContexteRealisation cp in requete)
-            {
-                cp.Numero--;
+            var requete = (from tableContexteRealisation in _db.ContexteRealisation
+                                                    where tableContexteRealisation.IdCompetence == contexteRealisation.IdCompetence && tableContexteRealisation.Numero > contexteRealisation.Numero
+                                                    select tableContexteRealisation);
+
+            foreach (var childPorn in requete) //la variable s'appelait cp, j'en ai déduis ce que j'ai pu
+            {                                  //donnez des fucking noms significatif, un bon nom aurait été: contexteDeRealisation
+                childPorn.Numero--;
             }
         }
 
-        private void Trim(ContexteRealisation contexteRealisation)
+        private static void Trim(ContexteRealisation contexteRealisation)
         {
             if (contexteRealisation.Description != null)
                 contexteRealisation.Description = contexteRealisation.Description.Trim();
@@ -154,7 +168,7 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposer);
         }

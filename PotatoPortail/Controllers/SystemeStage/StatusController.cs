@@ -1,14 +1,13 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers.SystemeStage
 {
     public class StatusController : Controller
     {
-        private readonly BDPortail _bd = new BDPortail();
+        private readonly BdPortail _bd = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
@@ -82,11 +81,9 @@ namespace PotatoPortail.Controllers.SystemeStage
                                       where stage.StatutStage.IdStatutStage == id
                                       select stage;
 
-            if (!stagesAyantCeStatut.Any())
-            {
-                _bd.StatutStage.Remove(statut);
-                _bd.SaveChanges();
-            }
+            if (stagesAyantCeStatut.Any()) return RedirectToAction("Index", "Status");
+            _bd.StatutStage.Remove(statut);
+            _bd.SaveChanges();
 
             return RedirectToAction("Index", "Status");
         }

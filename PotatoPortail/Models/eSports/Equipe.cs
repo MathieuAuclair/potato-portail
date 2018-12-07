@@ -11,8 +11,8 @@ namespace PotatoPortail.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Equipe()
         {
-            Entraineurs = new HashSet<Entraineurs>();
-            Joueurs = new HashSet<Joueurs>();
+            Entraineurs = new HashSet<Entraineur>();
+            Joueurs = new HashSet<Joueur>();
         }
 
         public int Id { get; set; }
@@ -24,12 +24,12 @@ namespace PotatoPortail.Models
 
         public bool EstMonoJoueur { get; set; }
 
-        public virtual Jeux Jeux { get; set; }
+        public virtual Jeu Jeux { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entraineurs> Entraineurs { get; set; }
+        public virtual ICollection<Entraineur> Entraineurs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueurs> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueurs { get; set; }
     }
 }

@@ -1,88 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Models.eSports;
-using ApplicationPlanCadre.ViewModels.eSportsVM;
-using System.Net.Http;
+using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Models;
+using PotatoPortail.Toast;
+using PotatoPortail.ViewModels.eSports;
 
-namespace ApplicationPlanCadre.Controllers.eSports
+namespace PotatoPortail.Controllers.eSports
 {
     public class EquipeController : Controller
     {
-        private readonly BDPlanCadre _db = new BDPlanCadre();
-
-        // GET: Equipe
-        public ActionResult Index(int? searchIDJeu)
+        private readonly BdPortail _db = new BdPortail();
+        
+        public ActionResult Index(int? searchIdJeu)
         {
             var jeux = from tableJeux in _db.Jeux
-                       orderby tableJeux.Statut.nomStatut, tableJeux.nomJeu
+                       orderby tableJeux.Statuts.NomStatut, tableJeux.NomJeu
                        select tableJeux;
 
-            List<SelectListItem> lstJeux = new List<SelectListItem>();
-
-            lstJeux.Add(new SelectListItem { Text = "Tous les jeux", Value = "0" });
-
-            foreach (Jeu jeu in jeux)
+            List<SelectListItem> lstJeux = new List<SelectListItem>
             {
-                lstJeux.Add(new SelectListItem
-                {
-                    Text = jeu.nomJeu + " (" + jeu.Statut.nomStatut + ")",
-                    Value = jeu.id.ToString()
-                });
-            }
+                new SelectListItem {Text = "Tous les jeux", Value = "0"}
+            };
+            lstJeux.AddRange(jeux.Select(jeu => new SelectListItem {Text = jeu.NomJeu + " (" + jeu.Statuts.NomStatut + ")", Value = jeu.Id.ToString()}));
+
 
             ViewBag.Jeux = lstJeux;
 
             var equipes = from e in _db.Equipes
-                          where e.estMonojoueur == false
+                          where e.EstMonoJoueur == false
                           select e;
 
-            if (searchIDJeu == 0)
+            if (searchIdJeu == 0)
             {
                 Session["dernierTriApplique"] = null;
                 goto fin;
             }
-            else if (searchIDJeu != null)
-            {
-                equipes = equipes.Where(e => e.Jeu.id == searchIDJeu);
 
-                Session["dernierTriApplique"] = searchIDJeu;
+            if (searchIdJeu != null)
+            {
+                equipes = equipes.Where(equipe => equipe.Jeux.Id == searchIdJeu);
+
+                Session["dernierTriApplique"] = searchIdJeu;
             }
 
             if (Session["dernierTriApplique"] != null)
             {
-                string texteItemSelectionne = Session["dernierTriApplique"].ToString();
-
-                int idJeuEquipes = Convert.ToInt32(Session["dernierTriApplique"]);
+                var idJeuEquipes = Convert.ToInt32(Session["dernierTriApplique"]);
 
                 var lstJeuxJeuSelectionne = lstJeux.FirstOrDefault(j => j.Value == idJeuEquipes.ToString());
 
                 if (lstJeuxJeuSelectionne != null)
                     lstJeuxJeuSelectionne.Selected = true;
 
-                if (lstJeuxJeuSelectionne.Value != "0")
+                if (lstJeuxJeuSelectionne != null && lstJeuxJeuSelectionne.Value != "0")
                 {
-                    int arret = lstJeuxJeuSelectionne.Text.IndexOf(" (");
+                    var arret = lstJeuxJeuSelectionne.Text.IndexOf(" (", StringComparison.Ordinal);
                     ViewBag.TriSelectionne = lstJeuxJeuSelectionne.Text.Substring(0, arret);
                 }
                 else
                     ViewBag.TriSelectionne = "Tous les jeux";
 
-                return View(equipes.OrderBy(e => e.nomEquipe).Where(e => e.JeuId == idJeuEquipes));
+                return View(equipes.OrderBy(e => e.NomEquipe).Where(e => e.IdJeu == idJeuEquipes));
             }
 
             fin:
 
             ViewBag.TriSelectionne = "Tous les jeux";
 
-            return View(equipes.OrderBy(e => e.nomEquipe).ToList());
+            return View(equipes.OrderBy(e => e.NomEquipe).ToList());
         }
 
         public ActionResult Details(int? id, string nomEquipe, string nomJeu)
@@ -106,9 +96,8 @@ namespace ApplicationPlanCadre.Controllers.eSports
 
         public ActionResult Creation()
         {
-            CreationEquipeViewModel equipeAAjouter = new CreationEquipeViewModel();
+            var equipeAAjouter = new CreationEquipeViewModel {Entraineurs = new List<string>()};
 
-            equipeAAjouter.Entraineurs = new List<string>();
             PopulerEntraineurSelectList();
             PopulerListJeuxActifs();
 
@@ -122,18 +111,13 @@ namespace ApplicationPlanCadre.Controllers.eSports
             PopulerListJeuxActifs();
             PopulerEntraineurSelectList();
 
-            //Valide l'unicité
-            var equipeMemeNom = from tableEquipe in _db.Equipes
-                                where tableEquipe.nomEquipe.Equals(equipeAAjouter.NomEquipe, StringComparison.OrdinalIgnoreCase) && tableEquipe.JeuId == equipeAAjouter.JeuID
-                                select tableEquipe;
-
-            if (equipeMemeNom.Any())
+            if (EstCeQueEquipeUnique(equipeAAjouter))
             {
-                this.AddToastMessage("Ajout d'équipe annulé.", "Le nom « " + equipeAAjouter.NomEquipe + " » est déjà utilisé.", Toast.ToastType.Error);
+                this.AddToastMessage("Ajout d'équipe annulé.", "Le nom « " + equipeAAjouter.NomEquipe + " » est déjà utilisé.", ToastType.Error);
                 return View("Creation");
             }
 
-            Equipe nouvelleEquipe = new Equipe { JeuId = equipeAAjouter.JeuID, nomEquipe = equipeAAjouter.NomEquipe, estMonojoueur = equipeAAjouter.EstMonoJoueur };
+            Equipe nouvelleEquipe = new Equipe { IdJeu = equipeAAjouter.IdJeu, NomEquipe = equipeAAjouter.NomEquipe, EstMonoJoueur = equipeAAjouter.EstMonoJoueur };
             
             ActualiserEquipeEntraineur(entraineur, nouvelleEquipe);
 
@@ -141,13 +125,13 @@ namespace ApplicationPlanCadre.Controllers.eSports
             {
                 _db.Equipes.Add(nouvelleEquipe);
                 _db.SaveChanges();
-                this.AddToastMessage("Ajout d'équipe effectué.", "« " + equipeAAjouter.NomEquipe + " » a été ajoutée à la liste des équipes.", Toast.ToastType.Success);
+                this.AddToastMessage("Ajout d'équipe effectué.", "« " + equipeAAjouter.NomEquipe + " » a été ajoutée à la liste des équipes.", ToastType.Success);
                 if (button == "Ajouter des joueurs")
                 {
-                    ViewBag.nomJeu = nouvelleEquipe.Jeu.nomJeu;
-                    PopulerJoueurSelectList(nouvelleEquipe.Jeu.nomJeu);
+                    ViewBag.nomJeu = nouvelleEquipe.Jeux.NomJeu;
+                    PopulerJoueurSelectList(nouvelleEquipe.Jeux.NomJeu);
 
-                    return RedirectToAction("Modifier", new { nouvelleEquipe.id, nouvelleEquipe.Jeu.nomJeu });
+                    return RedirectToAction("Modifier", new { nouvelleEquipe.Id, nouvelleEquipe.Jeux.NomJeu });
                 }
                 else
                 {
@@ -157,15 +141,21 @@ namespace ApplicationPlanCadre.Controllers.eSports
             }
             catch
             {
-                this.AddToastMessage("Ajout d'équipe annulé.", "Une erreur est survenue", Toast.ToastType.Error);
+                this.AddToastMessage("Ajout d'équipe annulé.", "Une erreur est survenue", ToastType.Error);
                 return RedirectToAction("Creation");
             }
         }
 
-        // GET: Equipe/Modifier/5
+        private bool EstCeQueEquipeUnique(CreationEquipeViewModel equipesPourAjout)
+        {
+            return (from tableEquipe in _db.Equipes
+                where tableEquipe.NomEquipe.Equals(equipesPourAjout.NomEquipe, StringComparison.OrdinalIgnoreCase) && tableEquipe.IdJeu == equipesPourAjout.IdJeu
+                select tableEquipe).Any();
+        }
+        
         public ActionResult Modifier(int? id, string nomJeu, bool? rappelleDetailsJeu)
         {
-            ModifierEquipeViewModel equipeAModifierViewModel = new ModifierEquipeViewModel();
+            var equipeAModifierViewModel = new ModifierEquipeViewModel();
 
             if (id == null)
             {
@@ -173,10 +163,10 @@ namespace ApplicationPlanCadre.Controllers.eSports
             }
 
             var equipeAModifierQuery = from equipe in _db.Equipes
-                                       where equipe.id == id
+                                       where equipe.Id == id
                                        select equipe;
 
-            Equipe equipeAModifier = equipeAModifierQuery.First();
+            var equipeAModifier = equipeAModifierQuery.First();
 
             if (equipeAModifier == null)
             {
@@ -184,7 +174,7 @@ namespace ApplicationPlanCadre.Controllers.eSports
             }
 
 
-            EquipeAEquipeVM(equipeAModifier, equipeAModifierViewModel);
+            EquipeAEquipeViewModel(equipeAModifier, equipeAModifierViewModel);
 
             PopulerEntraineurSelectList();
             PopulerJoueurSelectList(nomJeu);
@@ -194,10 +184,7 @@ namespace ApplicationPlanCadre.Controllers.eSports
             return View(equipeAModifierViewModel);
 
         }
-
-
-
-        // POST: Equipe/Modifier/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Modifier(int? id, string nomEquipe, string[] entraineur, string[] joueurs)
@@ -208,49 +195,45 @@ namespace ApplicationPlanCadre.Controllers.eSports
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var equipeAModifier = _db.Equipes
-                .Include(queryEquipe => queryEquipe.Entraineur)
-                .Where(queryEquipe => queryEquipe.id == id)
-                .Single();
+            var equipePourModification = _db.Equipes
+                .Include(queryEquipe => queryEquipe.Entraineurs)
+                .Single(queryEquipe => queryEquipe.Id == id);
 
-            //Valide l'unicité
-            var equipeMemeNom = from tableEquipe in _db.Equipes
-                                where tableEquipe.nomEquipe.Equals(nomEquipe, StringComparison.OrdinalIgnoreCase) &&
-                                      tableEquipe.JeuId == equipeAModifier.JeuId &&
-                                      tableEquipe.id != equipeAModifier.id
-                                select tableEquipe;
-
-            if (equipeMemeNom.Any())
+            if (EstCeQueNomEquipeEstUnique(equipePourModification))
             {
-                //Si équipe déjà existante avec le même jeu.
-                return View("Modifier", equipeAModifier);
+                return View("Modifier", equipePourModification);
             }
 
-            PopulerJoueurSelectList(equipeAModifier.Jeu.nomJeu);
+            PopulerJoueurSelectList(equipePourModification.Jeux.NomJeu);
             PopulerEntraineurSelectList();
-            equipeAModifier.nomEquipe = nomEquipe;
+            equipePourModification.NomEquipe = nomEquipe;
 
-            //Ajout à la BD
-            if (TryUpdateModel(equipeAModifier, "",
-                new string[] { "id,nomEquipe,JeuId,Entraineur,Joueur" }))
+            if (!TryUpdateModel(equipePourModification, "",
+                new[] {"id,nomEquipe,JeuId,Entraineur,Joueur"})) return View(equipePourModification);
+            try
             {
-                try
-                {
-                    ActualiserEquipeEntraineur(entraineur, equipeAModifier);
-                    ActualiserEquipeJoueur(joueurs, equipeAModifier);
-                    _db.SaveChanges();
-                    this.AddToastMessage("Modifications apportées.", "Les changements apportés à l'équipe « " + equipeAModifier.nomEquipe + " » ont été sauvegardés.", Toast.ToastType.Success);
-                    return RedirectToAction("Index");
-                }
-                catch (RetryLimitExceededException)
-                {
-                    ModelState.AddModelError("", "Impossible de sauvegarder");
-                }
+                ActualiserEquipeEntraineur(entraineur, equipePourModification);
+                ActualiserEquipeJoueur(joueurs, equipePourModification);
+                _db.SaveChanges();
+                this.AddToastMessage("Modifications apportées.", "Les changements apportés à l'équipe « " + equipePourModification.NomEquipe + " » ont été sauvegardés.", ToastType.Success);
+                return RedirectToAction("Index");
             }
-            return View(equipeAModifier);
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Impossible de sauvegarder");
+            }
+            return View(equipePourModification);
         }
 
-        // GET: Equipe/Delete/5
+        private bool EstCeQueNomEquipeEstUnique(Equipe equipePourModification)
+        {
+           return (from tableEquipe in _db.Equipes
+                where tableEquipe.NomEquipe.Equals(equipePourModification.NomEquipe, StringComparison.OrdinalIgnoreCase) &&
+                      tableEquipe.IdJeu == equipePourModification.IdJeu &&
+                      tableEquipe.Id != equipePourModification.Id
+                select tableEquipe).Any();
+        }
+        
         public ActionResult Supprimer(int? id, string nomEquipe, string nomJeu)
         {
             if (id == null)
@@ -269,8 +252,7 @@ namespace ApplicationPlanCadre.Controllers.eSports
 
             return View(equipe);
         }
-
-        // POST: Equipe/Delete/5
+        
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmationSupprimer(int id)
@@ -278,34 +260,34 @@ namespace ApplicationPlanCadre.Controllers.eSports
             Equipe equipe = _db.Equipes.Find(id);
             _db.Equipes.Remove(equipe);
             _db.SaveChanges();
-            this.AddToastMessage("Suppression effectuée.", "« " + equipe.nomEquipe + " » a été supprimée de la liste.", Toast.ToastType.Success);
+            this.AddToastMessage("Suppression effectuée.", "« " + equipe.NomEquipe + " » a été supprimée de la liste.", ToastType.Success);
             return RedirectToAction("Index");
         }
 
-        private void ActualiserEquipeEntraineur(string[] entraineursSelectionne, Equipe equipeAModifier)
+        private void ActualiserEquipeEntraineur(string[] entraineursSelectionne, Equipe equipePourModification)
         {
             if (entraineursSelectionne == null)
             {
-                equipeAModifier.Entraineur = new List<Entraineur>();
+                equipePourModification.Entraineurs = new List<Entraineur>();
                 return;
             }
             var entraineurSelectionneHashSet = new HashSet<string>(entraineursSelectionne);
-            var equipeEntraineurs = new HashSet<string>(equipeAModifier.Entraineur.Select(e => e.pseudoEntraineur));
+            var equipeEntraineurs = new HashSet<string>(equipePourModification.Entraineurs.Select(e => e.PseudoEntraineur));
 
             foreach (Entraineur entraineur in _db.Entraineurs)
             {
-                if (entraineurSelectionneHashSet.Contains(entraineur.pseudoEntraineur.ToString()))
+                if (entraineurSelectionneHashSet.Contains(entraineur.PseudoEntraineur))
                 {
-                    if (!equipeEntraineurs.Contains(entraineur.pseudoEntraineur))
+                    if (!equipeEntraineurs.Contains(entraineur.PseudoEntraineur))
                     {
-                        equipeAModifier.Entraineur.Add(entraineur);
+                        equipePourModification.Entraineurs.Add(entraineur);
                     }
                 }
                 else
                 {
-                    if (equipeEntraineurs.Contains(entraineur.pseudoEntraineur))
+                    if (equipeEntraineurs.Contains(entraineur.PseudoEntraineur))
                     {
-                        equipeAModifier.Entraineur.Remove(entraineur);
+                        equipePourModification.Entraineurs.Remove(entraineur);
                     }
                 }
             }
@@ -314,27 +296,27 @@ namespace ApplicationPlanCadre.Controllers.eSports
         {
             if (joueursSelectionnes == null)
             {
-                equipeAModifier.Joueur = new List<Joueur>();
-                equipeAModifier.Joueur.Clear();
+                equipeAModifier.Joueurs = new List<Joueur>();
+                equipeAModifier.Joueurs.Clear();
                 return;
             }
             var joueursSelectionnesHashSet = new HashSet<string>(joueursSelectionnes);
-            var equipeJoueurs = new HashSet<string>(equipeAModifier.Joueur.Select(j => j.pseudoJoueur));
+            var equipeJoueurs = new HashSet<string>(equipeAModifier.Joueurs.Select(j => j.PseudoJoueur));
 
             foreach (Joueur joueur in _db.Joueurs)
             {
-                if (joueursSelectionnesHashSet.Contains(joueur.pseudoJoueur.ToString()))
+                if (joueursSelectionnesHashSet.Contains(joueur.PseudoJoueur.ToString()))
                 {
-                    if (!equipeJoueurs.Contains(joueur.pseudoJoueur))
+                    if (!equipeJoueurs.Contains(joueur.PseudoJoueur))
                     {
-                        equipeAModifier.Joueur.Add(joueur);
+                        equipeAModifier.Joueurs.Add(joueur);
                     }
                 }
                 else
                 {
-                    if (equipeJoueurs.Contains(joueur.pseudoJoueur))
+                    if (equipeJoueurs.Contains(joueur.PseudoJoueur))
                     {
-                        equipeAModifier.Joueur.Remove(joueur);
+                        equipeAModifier.Joueurs.Remove(joueur);
                     }
                 }
             }
@@ -343,17 +325,17 @@ namespace ApplicationPlanCadre.Controllers.eSports
         private void PopulerListJeuxActifs()
         {
             var jeux = from jeuxActifs in _db.Jeux
-                       where jeuxActifs.Statut.nomStatut == "Actif"
+                       where jeuxActifs.Statuts.NomStatut == "Actif"
                        select jeuxActifs;
 
-            List<SelectListItem> lstJeux = new List<SelectListItem>();
+            var lstJeux = new List<SelectListItem>();
 
-            foreach (Jeu jeu in jeux)
+            foreach (var jeu in jeux)
             {
                 lstJeux.Add(new SelectListItem
                 {
-                    Text = jeu.nomJeu,
-                    Value = jeu.id.ToString()
+                    Text = jeu.NomJeu,
+                    Value = jeu.Id.ToString()
                 });
             }
 
@@ -371,8 +353,8 @@ namespace ApplicationPlanCadre.Controllers.eSports
             {
                 selectListEntraineurs.Add(new SelectListItem
                 {
-                    Text = e.pseudoEntraineur,
-                    Value = e.id.ToString()
+                    Text = e.PseudoEntraineur,
+                    Value = e.Id.ToString()
                 });
             }
 
@@ -385,49 +367,48 @@ namespace ApplicationPlanCadre.Controllers.eSports
             //Selectionne tous les joueurs
             var tousLesJoueurs = from joueur in _db.Joueurs
                                  select joueur;
-
-            //Filtre les joueurs du jeu seulement
-            List<Joueur> joueurs = new List<Joueur>();
-            foreach (Joueur joueur in tousLesJoueurs)
+            
+            var joueurs = new List<Joueur>();
+            foreach (var joueur in tousLesJoueurs)
             {
-                if (joueur.equipeMonojoueur.Jeu.nomJeu == nomJeu)
+                if (joueur.EquipeMonojoueur.Jeu.nomJeu == nomJeu)
                 {
                     joueurs.Add(joueur);
                 }
             }
-
-            //Transforme en List de SelectListItem
-            List<SelectListItem> selectListJoueurs = new List<SelectListItem>();
+            
+            var selectListJoueurs = new List<SelectListItem>();
 
             foreach (var j in joueurs)
             {
                 selectListJoueurs.Add(new SelectListItem
                 {
-                    Text = j.pseudoJoueur,
-                    Value = j.id.ToString()
+                    Text = j.PseudoJoueur,
+                    Value = j.Id.ToString()
                 });
             }
             ViewBag.Joueurs = selectListJoueurs;
 
         }
 
-        private void EquipeAEquipeVM(Equipe equipeAModifier, ModifierEquipeViewModel equipeAModifierVM)
+        //Quesser ça calisse dans vie cette fonction là? Sérieux common!
+        private static void EquipeAEquipeViewModel(Equipe equipeAModifier, ModifierEquipeViewModel equipeAModifierViewModel)
         {
-            equipeAModifierVM.EquipeId = equipeAModifier.id;
-            equipeAModifierVM.NomEquipe = equipeAModifier.nomEquipe;
-            equipeAModifierVM.EstMonoJoueur = equipeAModifier.estMonojoueur;
-            equipeAModifierVM.JeuID = equipeAModifier.Jeu.id;
-            equipeAModifierVM.Jeu = equipeAModifier.Jeu;
-            equipeAModifierVM.Entraineurs = new List<Entraineur>();
-            equipeAModifierVM.Joueurs = new List<Joueur>();
+            equipeAModifierViewModel.EquipeId = equipeAModifier.Id;
+            equipeAModifierViewModel.NomEquipe = equipeAModifier.NomEquipe;
+            equipeAModifierViewModel.EstMonoJoueur = equipeAModifier.EstMonoJoueur;
+            equipeAModifierViewModel.IdJeu = equipeAModifier.Jeux.Id;
+            equipeAModifierViewModel.Jeu = equipeAModifier.Jeux;
+            equipeAModifierViewModel.Entraineurs = new List<Entraineur>();
+            equipeAModifierViewModel.Joueurs = new List<Joueur>();
 
-            foreach (Entraineur entraineur in equipeAModifier.Entraineur)
+            foreach (var entraineur in equipeAModifier.Entraineurs)
             {
-                equipeAModifierVM.Entraineurs.Add(entraineur);
+                equipeAModifierViewModel.Entraineurs.Add(entraineur);
             }
-            foreach (Joueur joueur in equipeAModifier.Joueur)
+            foreach (var joueur in equipeAModifier.Joueurs)
             {
-                equipeAModifierVM.Joueurs.Add(joueur);
+                equipeAModifierViewModel.Joueurs.Add(joueur);
             }
         }
 

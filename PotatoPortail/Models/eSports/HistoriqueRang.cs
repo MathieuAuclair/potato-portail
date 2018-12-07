@@ -20,8 +20,8 @@ namespace PotatoPortail.Models
 
         public DateTime Date { get; set; }
 
-        public virtual Joueurs Joueurs { get; set; }
+        public virtual Joueur Joueurs { get; set; }
 
-        public virtual Rangs Rangs { get; set; }
+        public virtual Rang Rangs { get; set; }
     }
 }

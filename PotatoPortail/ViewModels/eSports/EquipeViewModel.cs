@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using PotatoPortail.Models;
 
 namespace PotatoPortail.ViewModels.eSports
 {
@@ -18,7 +19,7 @@ namespace PotatoPortail.ViewModels.eSports
 
         [Required]
         [Display(Name = "Jeu de l'équipe")]
-        public int JeuID { get; set; }
+        public int IdJeu { get; set; }
 
         [Display(Name = "Entraineurs")]
         public List<string> Entraineurs { get; set; }
@@ -41,13 +42,13 @@ namespace PotatoPortail.ViewModels.eSports
         [Display(Name = "Jeu de l'équipe")]
         public int IdJeu { get; set; }
 
-        public ApplicationPlanCadre.Models.eSports.Jeu Jeu { get; set; } 
+        public Jeu Jeu { get; set; } 
 
         [Display(Name = "Entraineurs")]
-        public List<ApplicationPlanCadre.Models.Entraineur> Entraineurs { get; set; }
+        public List<Entraineur> Entraineurs { get; set; }
 
         [Display(Name = "Joueurs")]
-        public List<ApplicationPlanCadre.Models.eSports.Joueur> Joueurs { get; set; }
+        public List<Joueur> Joueurs { get; set; }
 
     }
 }

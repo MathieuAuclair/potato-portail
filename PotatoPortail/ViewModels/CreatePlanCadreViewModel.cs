@@ -8,7 +8,7 @@ namespace PotatoPortail.ViewModels
     {
         public ContenuSection ContenuSection { get; set; }
         public virtual List<NomSection> NomSection { get; set; }
-        public virtual PlanCours PlanCours { get; set; }
+        public virtual Models.PlanCours PlanCours { get; set; }
         public virtual IEnumerable<Models.PlanCadre> PlanCadre { get; set; }
         public int IdPlanCours { get; set; }
         public DateTime DateCreation { get; set; }

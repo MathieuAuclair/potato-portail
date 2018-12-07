@@ -16,7 +16,7 @@ namespace ApplicationPlanCadre.Controllers
 {
     public class RapportController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private BdPortail db = new BdPortail();
 
         // GET: Rapport
         public ActionResult Index()

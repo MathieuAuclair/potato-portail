@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
+using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Helpers;
+using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     [RCPEnonceCompetenceAuthorize]
     public class EnonceCompetenceController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult Info(int? idCompetence)
         {
@@ -23,7 +22,7 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            EnonceCompetence enonceCompetence = db.EnonceCompetence.Find(idCompetence);
+            EnonceCompetence enonceCompetence = _db.EnonceCompetence.Find(idCompetence);
             if (enonceCompetence == null)
             {
                 return HttpNotFound();
@@ -51,16 +50,16 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            DevisMinistere devisMinistere = db.DevisMinistere.Find(idDevis);
+            DevisMinistere devisMinistere = _db.DevisMinistere.Find(idDevis);
             if (devisMinistere == null)
             {
                 return HttpNotFound();
             }
 
-            EnonceCompetence enonceCompetence = new EnonceCompetence();
-            enonceCompetence.obligatoire = true;
-            enonceCompetence.actif = true;
-            enonceCompetence.idDevis = devisMinistere.idDevis;
+            EnonceCompetence enonceCompetence = new EnonceCompetence
+            {
+                Obligatoire = true, Actif = true, IdDevis = devisMinistere.IdDevis
+            };
             return View(enonceCompetence);
         }
 
@@ -71,27 +70,26 @@ namespace ApplicationPlanCadre.Controllers
                 "idCompetence,codeCompetence,description,motClef,obligatoire,actif,commentaire,idDevis")]
             EnonceCompetence enonceCompetence)
         {
-            bool existe;
-            existe = db.EnonceCompetence.Any(ec =>
-                ec.codeCompetence == enonceCompetence.codeCompetence && ec.idDevis == enonceCompetence.idDevis);
+            var existe = _db.EnonceCompetence.Any(ec =>
+                ec.CodeCompetence == enonceCompetence.CodeCompetence && ec.IdDevis == enonceCompetence.IdDevis);
             Trim(enonceCompetence);
             if (!existe && ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la création",
-                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.description + '\u0022' +
-                    ", a bien été créé.", Toast.ToastType.Success);
-                enonceCompetence.codeCompetence = enonceCompetence.codeCompetence.ToUpper();
-                db.EnonceCompetence.Add(enonceCompetence);
-                db.SaveChanges();
-                return RedirectToAction("Creation", "ContexteRealisation", new {enonceCompetence.idCompetence});
+                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.Description + '\u0022' +
+                    ", a bien été créé.", ToastType.Success);
+                enonceCompetence.CodeCompetence = enonceCompetence.CodeCompetence.ToUpper();
+                _db.EnonceCompetence.Add(enonceCompetence);
+                _db.SaveChanges();
+                return RedirectToAction("Creation", "ContexteRealisation", new {enonceCompetence.IdCompetence});
             }
 
             if (existe)
             {
                 ModelState.AddModelError("Duplique", "Erreur, un énoncé de compétence avec ce code existe déjà.");
                 this.AddToastMessage("Problème lors de la création",
-                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.description + '\u0022' +
-                    ", n'a pas pus être créé.", Toast.ToastType.Error, true);
+                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.Description + '\u0022' +
+                    ", n'a pas pus être créé.", ToastType.Error, true);
             }
             return View(enonceCompetence);
         }
@@ -103,7 +101,7 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            EnonceCompetence enonceCompetence = db.EnonceCompetence.Find(idCompetence);
+            EnonceCompetence enonceCompetence = _db.EnonceCompetence.Find(idCompetence);
             if (enonceCompetence == null)
             {
                 return HttpNotFound();
@@ -118,25 +116,24 @@ namespace ApplicationPlanCadre.Controllers
                 "idCompetence,codeCompetence,description,motClef,obligatoire,actif,commentaire,idDevis")]
             EnonceCompetence enonceCompetence)
         {
-            bool existe;
-            existe = db.EnonceCompetence.Any(ec =>
-                ec.idCompetence != enonceCompetence.idCompetence &&
-                ec.codeCompetence == enonceCompetence.codeCompetence && ec.idDevis == enonceCompetence.idDevis);
+            var existe = _db.EnonceCompetence.Any(ec =>
+                ec.IdCompetence != enonceCompetence.IdCompetence &&
+                ec.CodeCompetence == enonceCompetence.CodeCompetence && ec.IdDevis == enonceCompetence.IdDevis);
             Trim(enonceCompetence);
             if (!existe && ModelState.IsValid)
             {
                 this.AddToastMessage("Confirmation de la modification",
-                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.description + '\u0022' +
-                    ", a bien été modifié.", Toast.ToastType.Success);
-                db.Entry(enonceCompetence).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Creation", "ContexteRealisation", new {enonceCompetence.idCompetence});
+                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.Description + '\u0022' +
+                    ", a bien été modifié.", ToastType.Success);
+                _db.Entry(enonceCompetence).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Creation", "ContexteRealisation", new {enonceCompetence.IdCompetence});
             }
 
             if (existe)
             {
                 this.AddToastMessage("Problème lors de la modification",
-                    "Erreur, un énoncé de compétence avec ce code existe déjà.", Toast.ToastType.Error, true);
+                    "Erreur, un énoncé de compétence avec ce code existe déjà.", ToastType.Error, true);
             }
 
             return View(enonceCompetence);
@@ -149,7 +146,7 @@ namespace ApplicationPlanCadre.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            EnonceCompetence enonceCompetence = db.EnonceCompetence.Find(idCompetence);
+            var enonceCompetence = _db.EnonceCompetence.Find(idCompetence);
             if (enonceCompetence == null)
             {
                 return HttpNotFound();
@@ -162,32 +159,43 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SurpressionConfirmer(int idCompetence)
         {
-            var PlanCadreEnonce = from pc in db.PlanCadreCompetence
-                where pc.idCompetence == idCompetence
+            var planCadreEnonce = from pc in _db.PlanCadreCompetence
+                where pc.IdCompetence == idCompetence
                 select pc;
-            EnonceCompetence enonceCompetence = db.EnonceCompetence.Find(idCompetence);
-            if (PlanCadreEnonce.Count() == 0)
+            var enonceCompetence = _db.EnonceCompetence.Find(idCompetence);
+            if (!planCadreEnonce.Any())
             {
-                foreach (ElementCompetence ec in enonceCompetence.ElementCompetence)
+                if (enonceCompetence == null)
                 {
-                    db.CriterePerformance.RemoveRange(ec.CriterePerformance);
+                    return HttpNotFound();
                 }
 
-                db.ElementCompetence.RemoveRange(enonceCompetence.ElementCompetence);
-                db.ContexteRealisation.RemoveRange(enonceCompetence.ContexteRealisation);
-                db.EnonceCompetence.Remove(enonceCompetence);
-                db.SaveChanges();
+                foreach (var ec in enonceCompetence.ElementCompetence)
+                {
+                    _db.CriterePerformance.RemoveRange(ec.CriterePerformance);
+                }
+
+                _db.ElementCompetence.RemoveRange(enonceCompetence.ElementCompetence);
+                _db.ContexteRealisation.RemoveRange(enonceCompetence.ContexteRealisation);
+                _db.EnonceCompetence.Remove(enonceCompetence);
+                _db.SaveChanges();
                 this.AddToastMessage("Confirmation de la supression",
-                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.description + '\u0022' +
-                    ", a bien été supprimmé.", Toast.ToastType.Success);
+                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.Description + '\u0022' +
+                    ", a bien été supprimmé.", ToastType.Success);
             }
             else
             {
+                if (enonceCompetence == null)
+                {
+                    return HttpNotFound();
+                }
+
                 this.AddToastMessage("Problème lors de la supression",
-                    "L'énoncé de compétence " + '\u0022' + enonceCompetence.description + '\u0022' +
-                    ", n'a pas pus être supprimmé.", Toast.ToastType.Error, true);
+                        "L'énoncé de compétence " + '\u0022' + enonceCompetence.Description + '\u0022' +
+                        ", n'a pas pus être supprimmé.", ToastType.Error, true);
             }
-            return RedirectToAction("Info", "DevisMinistere", new {enonceCompetence.idDevis});
+
+            return RedirectToAction("Info", "DevisMinistere", new {enonceCompetence.IdDevis});
         }
 
         [HttpPost]
@@ -195,27 +203,27 @@ namespace ApplicationPlanCadre.Controllers
         {
             foreach (var item in listeElement)
             {
-                var element = db.ElementCompetence.Find(item.idElement);
+                var element = _db.ElementCompetence.Find(item.IdElement);
                 if (element != null)
                 {
-                    element.numero = item.numero;
+                    element.Numero = item.Numero;
                 }
             }
 
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
-        private void Trim(EnonceCompetence enonceCompetence)
+        private static void Trim(EnonceCompetence enonceCompetence)
         {
-            if (enonceCompetence.description != null)
-                enonceCompetence.description = enonceCompetence.description.Trim();
+            if (enonceCompetence.Description != null)
+                enonceCompetence.Description = enonceCompetence.Description.Trim();
         }
 
         protected override void Dispose(bool disposer)
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
 
             base.Dispose(disposer);

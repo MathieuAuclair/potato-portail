@@ -14,9 +14,9 @@ namespace PotatoPortail.ViewModels.PlanCadre
             BdPortail db = new BdPortail();
 
             var idsPlanCadreElement = from planCadreElement in db.PlanCadreElement
-                where planCadreElement.idPlanCadreCompetence == idPlanCadreCompetence &&
-                      planCadreElement.idElement == idElement
-                select planCadreElement.idElement;
+                where planCadreElement.IdPlanCadreCompetence == idPlanCadreCompetence &&
+                      planCadreElement.IdElement == idElement
+                select planCadreElement.IdElement;
 
             var idPlanCadreElement = idsPlanCadreElement.First();
 

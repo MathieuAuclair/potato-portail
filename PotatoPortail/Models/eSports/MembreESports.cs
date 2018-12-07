@@ -2,18 +2,17 @@ namespace PotatoPortail.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class MembreESports
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MembreESports()
         {
-            Joueurs = new HashSet<Joueurs>();
-            Profils = new HashSet<Profils>();
+            Joueurs = new HashSet<Joueur>();
+            Profils = new HashSet<Profil>();
         }
+
+        public string NomComplet => Prenom + Nom;
 
         public string Id { get; set; }
 
@@ -22,9 +21,9 @@ namespace PotatoPortail.Models
         public string Prenom { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueurs> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueurs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profils> Profils { get; set; }
+        public virtual ICollection<Profil> Profils { get; set; }
     }
 }

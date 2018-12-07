@@ -34,10 +34,10 @@ namespace PotatoPortail.Models
 
         public int? IdJeuSecondaire { get; set; }
 
-        public virtual Jeux Jeux { get; set; }
+        public virtual Jeu Jeux { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueurs> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueurs { get; set; }
 
         public virtual MembreESports MembreESports { get; set; }
     }

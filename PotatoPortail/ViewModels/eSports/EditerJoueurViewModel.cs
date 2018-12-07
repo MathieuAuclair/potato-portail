@@ -5,7 +5,7 @@ using PotatoPortail.Models;
 
 namespace ApplicationPlanCadre.ViewModels.eSports
 {
-    public class EditerJoueurVM
+    public class EditerJoueurViewModel
     {
         public int JoueurId { get; set; }
 
@@ -20,6 +20,6 @@ namespace ApplicationPlanCadre.ViewModels.eSports
 
         public virtual MembreESports MembreESports { get; set; }
 
-        public virtual Jeux Jeu { get; set; }
+        public virtual Jeu Jeu { get; set; }
     }
 }

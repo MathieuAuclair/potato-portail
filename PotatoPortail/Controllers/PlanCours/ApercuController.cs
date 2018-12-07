@@ -16,7 +16,7 @@ namespace PotatoPortail.Controllers.PlanCours
     {
         ApercuViewModel viewModel;
 
-        readonly BDPortail _db = new BDPortail();
+        readonly BdPortail _db = new BdPortail();
 
         ApercuPlanCours _apercu = new ApercuPlanCours();
         

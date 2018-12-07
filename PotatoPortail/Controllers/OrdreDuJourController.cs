@@ -20,7 +20,7 @@ namespace ApplicationPlanCadre.Controllers
 {
     public class OrdreDuJourController : Controller
     {
-        private readonly BDPortail _db = new BDPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         // GET: OdJ
         //[Route("Reunions/Index")]

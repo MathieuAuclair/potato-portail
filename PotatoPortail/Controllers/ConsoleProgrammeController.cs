@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
-using ApplicationPlanCadre.Helpers;
+using ApplicationPlanCadre.Controllers;
+using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Controllers
+namespace PotatoPortail.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ConsoleProgrammeController : Controller
     {
-        private BDPlanCadre db = new BDPlanCadre();
+        private readonly BdPortail _db = new BdPortail();
 
         public ActionResult _PartialList()
         {
-            return PartialView(db.Programme.ToList());
+            return PartialView(_db.Programme.ToList());
         }
 
         public ActionResult Creation()
@@ -29,29 +28,29 @@ namespace ApplicationPlanCadre.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Programme.ToList());
+            return View(_db.Programme.ToList());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Creation([Bind(Include = "idProgramme,nom,annee,dateValidation,idDevis, nbSession")] Programme programme)
         {
-            if (!validationDate(programme))
+            if (!ValidationDate(programme))
             {
-                this.AddToastMessage("Problème lors de la création", "Veuillez entrer une année entre celle du devis et l'année courante", Toast.ToastType.Error, true);
+                this.AddToastMessage("Problème lors de la création", "Veuillez entrer une année entre celle du devis et l'année courante", ToastType.Error, true);
             }
             else
             {
-                if (!programmeExiste(programme) && ModelState.IsValid)
+                if (!ProgrammeExiste(programme) && ModelState.IsValid)
                 {
-                    this.AddToastMessage("Confirmation de la création", "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été crée.", Toast.ToastType.Success);
-                    db.Programme.Add(programme);
-                    db.SaveChanges();
+                    this.AddToastMessage("Confirmation de la création", "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été crée.", ToastType.Success);
+                    _db.Programme.Add(programme);
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    this.AddToastMessage("Problème lors de la création", "Un programme contenant le même nom et le même devis ministériel existe déjà.", Toast.ToastType.Error, true);
+                    this.AddToastMessage("Problème lors de la création", "Un programme contenant le même nom et le même devis ministériel existe déjà.", ToastType.Error, true);
                 }
             }
 
@@ -65,12 +64,12 @@ namespace ApplicationPlanCadre.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Programme programme = db.Programme.Find(idProgramme);
+            Programme programme = _db.Programme.Find(idProgramme);
             if (programme == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idDevis = ConstruireDevisSelectList(programme.idDevis);
+            ViewBag.idDevis = ConstruireDevisSelectList(programme.IdDevis);
             return View(programme);
         }
 
@@ -78,51 +77,58 @@ namespace ApplicationPlanCadre.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Modifier([Bind(Include = "idProgramme,nom,annee,dateValidation,idDevis, nbSession")] Programme programme)
         {
-            if (!validationDate(programme))
+            if (!ValidationDate(programme))
             {               
                 ModelState.AddModelError("Duplique", "Veuillez entrer une année entre celle du devis et l'année courante.");
             }
             if (ModelState.IsValid)
             {
-                this.AddToastMessage("Confirmation de la modification", "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été modifié.", Toast.ToastType.Success);
-                db.Entry(programme).State = EntityState.Modified;
-                db.SaveChanges();
+                this.AddToastMessage("Confirmation de la modification", "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été modifié.", ToastType.Success);
+                _db.Entry(programme).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            if (!validationDate(programme))
+            if (!ValidationDate(programme))
             {
-                this.AddToastMessage("Problème lors de la modification", "Veuillez entrer une année entre celle du devis et l'année courante.", Toast.ToastType.Error,true);
+                this.AddToastMessage("Problème lors de la modification", "Veuillez entrer une année entre celle du devis et l'année courante.", ToastType.Error,true);
             }
             else
             {
-                if (!programmeExiste(programme) && ModelState.IsValid)
+                if (!ProgrammeExiste(programme) && ModelState.IsValid)
                 {
-                    this.AddToastMessage("Confirmation de la modification", "Le programme " + '\u0022' + programme.nom + '\u0022' + ", a bien été modifié.", Toast.ToastType.Success);
-                    db.Programme.Add(programme);
-                    db.SaveChanges();
+                    this.AddToastMessage("Confirmation de la modification", "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été modifié.", ToastType.Success);
+                    _db.Programme.Add(programme);
+                    _db.SaveChanges();
                 }
             }
    
-            ViewBag.idDevis = ConstruireDevisSelectList(programme.idDevis);
+            ViewBag.idDevis = ConstruireDevisSelectList(programme.IdDevis);
             return View(programme);
         }
 		
         public ActionResult Valider(int idProgramme)
         {
-            Programme programme = db.Programme.Find(idProgramme);
-            programme.statusValider = true;
-            db.Entry(programme).State = EntityState.Modified;
-            db.SaveChanges();
+            var programme = _db.Programme.Find(idProgramme);
+
+            if (programme == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            programme.StatutStageValider = true;
+            _db.Entry(programme).State = EntityState.Modified;
+
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         private SelectList ConstruireDevisSelectList(int? idDevis = null)
         {
-            var devis = db.DevisMinistere;
+            var devis = _db.DevisMinistere;
             List<SelectListItem> liste = new List<SelectListItem>();
             foreach (DevisMinistere e in devis)
             {
-                liste.Add(new SelectListItem { Value = e.idDevis.ToString(), Text = e.nom });
+                liste.Add(new SelectListItem { Value = e.IdDevis.ToString(), Text = e.Nom });
             }
             if (idDevis != null)
                 return new SelectList(liste, "Value", "Text", idDevis);
@@ -130,18 +136,20 @@ namespace ApplicationPlanCadre.Controllers
         }
 
         [ActionName("Supression")]
-        public ActionResult SurpressionConfirmer(int idProgramme)
+        public ActionResult SuppressionConfirmer(int idProgramme)
         {
-            Programme Programme = db.Programme.Find(idProgramme);
-            if (Programme == null)
+            var programme = _db.Programme.Find(idProgramme);
+            if (programme == null)
             {
-                this.AddToastMessage("Problème lors de la supression", "Le programme "+ '\u0022' + Programme.nom + '\u0022' + ", n'a pus être supprimé", Toast.ToastType.Error,true);
+                    this.AddToastMessage("Problème lors de la supression",
+                        "Le programme n'a pus être supprimé",
+                        ToastType.Error, true);
             }
             else
             {
-                db.Programme.Remove(Programme);
-                db.SaveChanges();
-                this.AddToastMessage("Confirmation de la supression", "Le programme " + '\u0022' + Programme.nom + '\u0022' + ", a bien été supprimé", Toast.ToastType.Success);
+                _db.Programme.Remove(programme);
+                _db.SaveChanges();
+                this.AddToastMessage("Confirmation de la supression", "Le programme " + '\u0022' + programme.Nom + '\u0022' + ", a bien été supprimé", ToastType.Success);
             }
             return RedirectToAction("Index");
         }
@@ -150,32 +158,30 @@ namespace ApplicationPlanCadre.Controllers
         {
             if (disposer)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposer);
         }
 
-        private bool programmeExiste(Programme programme)
+        private bool ProgrammeExiste(Programme programme)
         {
-            bool existe = db.Programme.Any(p => p.idDevis == programme.idDevis && p.nom == programme.nom && p.annee == programme.annee);
+            var existe = _db.Programme.Any(tableProgramme => tableProgramme.IdDevis == programme.IdDevis && tableProgramme.Nom == programme.Nom && tableProgramme.Annee == programme.Annee);
             return existe;
         }
 
-        private bool validationDate(Programme programme)
+        private bool ValidationDate(Programme programme)
         {
-            bool dateValide = false;
-            int anneeProgramme;
-            int anneeCourrante = DateTime.Now.Year;
-            int anneeDevis;
+            var dateValide = false;
+            var anneeCourrante = DateTime.Now.Year;
 
-            IQueryable<DevisMinistere> DevisMin =
-                from dev in db.DevisMinistere
-                where dev.idDevis == programme.idDevis
+            var devisMin =
+                from dev in _db.DevisMinistere
+                where dev.IdDevis == programme.IdDevis
                 select dev;
 
             anneeCourrante += 2;
-            anneeDevis = Convert.ToInt32(DevisMin.First().annee);
-            anneeProgramme = Convert.ToInt32(programme.annee);
+            var anneeDevis = Convert.ToInt32(devisMin.First().Annee);
+            var anneeProgramme = Convert.ToInt32(programme.Annee);
 
             if (anneeProgramme >= anneeDevis && anneeProgramme <= anneeCourrante)
             {
