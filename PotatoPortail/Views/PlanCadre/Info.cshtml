@@ -1,9 +1,8 @@
-﻿@model ApplicationPlanCadre.Models.PlanCadre
-@using ApplicationPlanCadre.Models;
+﻿@model PotatoPortail.Models.PlanCadre
+@using PotatoPortail.Models;
 
 @{
-    ViewBag.Titre = Model.titreCours;
-    string idRecherche = "";
+    ViewBag.Titre = Model.TitreCours;
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Cours">
 }
 
@@ -19,7 +18,7 @@
         <h1>@ViewBag.Titre</h1>
         <hr />
 
-        <h3>@Html.DisplayFor(m => m.numeroCours)</h3>
+        <h3>@Html.DisplayFor(m => m.NumeroCours)</h3>
 
     </header>
 
@@ -42,15 +41,15 @@
                 <tr>
 
                     <td style="width:20%">
-                        <p>@Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.description) (@Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.codeCompetence))</p>
-                        <p>@Html.DisplayFor(m => planCadreCompetence.ponderationEnHeure) heures</p>
+                        <p>@Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.Description) (@Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.CodeCompetence))</p>
+                        <p>@Html.DisplayFor(m => planCadreCompetence.PonderationEnHeure) heures</p>
                     </td>
 
                     <td style="width:45%">
                         <ul class="hyphen-list">
                             @foreach (var contexteRealisation in planCadreCompetence.EnonceCompetence.ContexteRealisation)
                             {
-                                <li>@Html.DisplayFor(m => contexteRealisation.description)</li>
+                                <li>@Html.DisplayFor(m => contexteRealisation.Description)</li>
                             }
                         </ul>
                     </td>
@@ -58,7 +57,7 @@
                     @if (planCadreCompetence == Model.PlanCadreCompetence.First())
                     {
                         <td rowspan="@Model.PlanCadreCompetence.Count()" style="width:35%">
-                            @Html.DisplayFor(m => Model.indicationPedago)
+                            @Html.DisplayFor(m => Model.IndicationPedago)
                         </td>
                     }
 
@@ -68,46 +67,39 @@
 
         @foreach (var planCadreCompetence in Model.PlanCadreCompetence)
         {
-            idRecherche = "enc" + planCadreCompetence.idPlanCadreCompetence.ToString() + "enc";
+            var idRecherche = "enc" + planCadreCompetence.IdPlanCadreCompetence.ToString() + "enc";
             <table class="plan-cadre-table">
 
                 <tr>
                     <th colspan="4" id="@idRecherche">
-                        @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.description) (@Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.codeCompetence))
+                        @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.Description) (@Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.CodeCompetence))
                     </th>
                 </tr>
-
                 <tr>
-
                     <th style="width:15%">
                         Éléments de compétence
                     </th>
-
                     <th style="width:30%">
                         Critères de performance
                     </th>
-
                     <th style="width:30%">
                         Éléments de connaissances
                     </th>
-
                     <th style="width:25%">
                         Activités d'apprentissage suggérées
                     </th>
-
                 </tr>
-
-                @for (int i = 0; i < planCadreCompetence.PlanCadreElement.Count(); i++)
+                @for (var i = 0; i < planCadreCompetence.PlanCadreElement.Count; i++)
                 {
                     var planCadreElement = planCadreCompetence.PlanCadreElement.ElementAt(i);
                     var elementCompetence = planCadreElement.ElementCompetence;
-                    idRecherche = "el" + elementCompetence.idElement.ToString();
+                    idRecherche = "el" + elementCompetence.IdElement.ToString();
 
                     <tr>
 
                         <td style="width:15%">
-                            <ol start="@elementCompetence.numero">
-                                <li id="@idRecherche"> @Html.DisplayFor(m => elementCompetence.description)</li>
+                            <ol start="@elementCompetence.Numero">
+                                <li id="@idRecherche"> @Html.DisplayFor(m => elementCompetence.Description)</li>
                             </ol>
                         </td>
 
@@ -115,13 +107,13 @@
                             <ol>
                                 @foreach (var criterePerformance in planCadreElement.ElementCompetence.CriterePerformance)
                                 {
-                                    <li>@Html.DisplayFor(m => criterePerformance.description)</li>
+                                    <li>@Html.DisplayFor(m => criterePerformance.Description)</li>
                                 }
                             </ol>
                         </td>
 
                         @{
-                            bool isPreviousUsingSameConnaissance = false;
+                            var isPreviousUsingSameConnaissance = false;
                             if (i > 0)
                             {
                                 var previousPlanCadreElement = planCadreCompetence.PlanCadreElement.ElementAt(i - 1);
@@ -129,8 +121,8 @@
                             }
 
                             bool isThereConnaissanceFollowing = false;
-                            int connaissanceRowspan = 1;
-                            for (int j = i + 1; j < planCadreCompetence.PlanCadreElement.Count(); j++)
+                            var connaissanceRowspan = 1;
+                            for (var j = i + 1; j < planCadreCompetence.PlanCadreElement.Count; j++)
                             {
                                 var followingPlanCadreElement = planCadreCompetence.PlanCadreElement.ElementAt(j);
                                 if (followingPlanCadreElement.ElementConnaissance == planCadreElement.ElementConnaissance)
@@ -153,11 +145,11 @@
                                 <td rowspan="@connaissanceRowspan" class="rich-cell">
                                     @foreach (var elementConnaissance in planCadreElement.ElementConnaissance)
                                     {
-                                        <ul>@Html.Raw(elementConnaissance.description)</ul>
+                                        <ul>@Html.Raw(elementConnaissance.Description)</ul>
 
                                         foreach (var sousElementConnaissance in elementConnaissance.SousElementConnaissance)
                                         {
-                                            <li>@Html.Raw(sousElementConnaissance.descSousElement)</li>
+                                            <li>@Html.Raw(sousElementConnaissance.DescSousElement)</li>
                                         }
                                     }
                                 </td>
@@ -168,12 +160,12 @@
                                     <ul>
                                         @foreach (var elementConnaissance in planCadreElement.ElementConnaissance)
                                         {
-                                            <li>@Html.Raw(elementConnaissance.description)</li>
+                                            <li>@Html.Raw(elementConnaissance.Description)</li>
 
                                             <ul>
                                                 @foreach (var sousElementConnaissance in elementConnaissance.SousElementConnaissance)
                                                 {
-                                                    <li>@Html.Raw(sousElementConnaissance.descSousElement)</li>
+                                                    <li>@Html.Raw(sousElementConnaissance.DescSousElement)</li>
                                                 }
                                             </ul>
                                         }
@@ -192,7 +184,7 @@
 
                             bool isThereActiviteFollowing = false;
                             int activiteRowspan = 1;
-                            for (int j = i + 1; j < planCadreCompetence.PlanCadreElement.Count(); j++)
+                            for (int j = i + 1; j < planCadreCompetence.PlanCadreElement.Count; j++)
                             {
                                 var followingPlanCadreElement = planCadreCompetence.PlanCadreElement.ElementAt(j);
                                 if (followingPlanCadreElement.ElementConnaissance == planCadreElement.ElementConnaissance)
@@ -214,11 +206,11 @@
                                 <td rowspan="@activiteRowspan" class="rich-cell">
                                     @foreach (var activite in planCadreElement.ActiviteApprentissage)
                                     {
-                                        <ul>@Html.Raw(activite.descActivite)</ul>
+                                        <ul>@Html.Raw(activite.DescActivite)</ul>
 
                                         foreach (var sousActivite in activite.SousActiviteApprentissage)
                                         {
-                                            <li>@Html.Raw(sousActivite.nomSousActivite)</li>
+                                            <li>@Html.Raw(sousActivite.NomSousActivite)</li>
                                         }
                                     }
                                 </td>
@@ -229,11 +221,11 @@
                                     <ul>
                                         @foreach (var activite in planCadreElement.ActiviteApprentissage)
                                         {
-                                            <li>@Html.Raw(activite.descActivite)</li>
+                                            <li>@Html.Raw(activite.DescActivite)</li>
                                             <ul>
                                                 @foreach (var sousActivite in activite.SousActiviteApprentissage)
                                                 {
-                                                    <li>@Html.Raw(sousActivite.nomSousActivite)</li>
+                                                    <li>@Html.Raw(sousActivite.NomSousActivite)</li>
                                                 }
                                             </ul>
                                         }
@@ -267,11 +259,11 @@
                     <ul>
                         @foreach (var environnement in Model.EnvironnementPhysique)
                         {
-                            <li>@Html.Raw(environnement.nomEnvPhys)</li>
+                            <li>@Html.Raw(environnement.NomEnvPhys)</li>
                             <ul>
                                 @foreach (var sousEnvironnement in environnement.SousEnvironnementPhysique)
                                 {
-                                    <li>@Html.Raw(sousEnvironnement.nomSousEnvPhys)</li>
+                                    <li>@Html.Raw(sousEnvironnement.NomSousEnvPhys)</li>
                                 }
                             </ul>
                         }
@@ -283,11 +275,11 @@
                     <ul>
                         @foreach (var ressource in Model.RessourceDidactique)
                         {
-                            <li>@Html.Raw(ressource.nomRessource)</li>
+                            <li>@Html.Raw(ressource.NomRessource)</li>
                             <ul>
                                 @foreach (var sousRessource in ressource.SousRessourceDidactique)
                                 {
-                                    <li>@Html.Raw(sousRessource.nomSousRessource)</li>
+                                    <li>@Html.Raw(sousRessource.NomSousRessource)</li>
                                 }
                             </ul>
                         }
@@ -303,15 +295,16 @@
     <hr class="end-div" />
 
     <div class="menu-flottant">
-        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Info", "Programme", new { idProgramme = Model.idProgramme })'"><span class="glyphicon glyphicon-triangle-left"></span>Retour</a>
-        <!--<a class="fancy-button" href='@Url.Action("Modifier", new { idPlanCadre = Model.idPlanCadre })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>-->
-
+        <a class="fancy-button blanc" onclick="location.href = '@Url.Action("Info", "Programme", new {idProgramme = Model.IdProgramme})'">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
     </div>
 </div>
 
 <script>
-    $(("#p" + @Model.Programme.idProgramme)).collapse('show');
-    $(("#pc" + @Model.idPlanCadre + "element")).addClass('active');
-    $(("#pc" + @Model.idPlanCadre)).collapse('show');
+    $(("#p" + @Model.Programme.IdProgramme)).collapse('show');
+    $(("#pc" + @Model.IdPlanCadre + "element")).addClass('active');
+    $(("#pc" + @Model.IdPlanCadre)).collapse('show');
 
 </script>

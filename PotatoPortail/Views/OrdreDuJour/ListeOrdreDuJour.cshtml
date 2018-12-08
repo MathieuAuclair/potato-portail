@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
+﻿@model IEnumerable<PotatoPortail.Models.Reunions.OrdreDuJour>
 <div class="tree-view">
 
-    @{ int annee = 3000;}
+    @{ var annee = 3000;}
 
     @foreach (var ordreDuJour in Model.OrderByDescending(m => m.DateOdJ))
     {

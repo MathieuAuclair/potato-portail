@@ -1,7 +1,7 @@
-﻿@model ApplicationPlanCadre.ViewModels.OrdresDuJourVM.OrdreDuJourViewModel
+﻿@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel
 
 @{
-    ViewBag.Titre = Model.ordreDuJour.TitreOdJ;
+    ViewBag.Titre = Model.OrdreDuJour.TitreOdJ;
 }
 
 @Html.Action("ListeOrdreDuJour")
@@ -16,23 +16,23 @@
     <div class="row">
         <div class="col-md-6">
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.DateOdJ)
-                @Html.DisplayFor(m => m.ordreDuJour.DateOdJ)
+                @Html.LabelFor(m => m.OrdreDuJour.DateOdJ)
+                @Html.DisplayFor(m => m.OrdreDuJour.DateOdJ)
             </div>
 
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.HeureDebutReunion)
-                @Html.DisplayFor(m => m.ordreDuJour.HeureDebutReunion)
+                @Html.LabelFor(m => m.OrdreDuJour.HeureDebutReunion)
+                @Html.DisplayFor(m => m.OrdreDuJour.HeureDebutReunion)
             </div>
 
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.HeureFinReunion)
-                @Html.DisplayFor(m => m.ordreDuJour.HeureFinReunion)
+                @Html.LabelFor(m => m.OrdreDuJour.HeureFinReunion)
+                @Html.DisplayFor(m => m.OrdreDuJour.HeureFinReunion)
             </div>
 
             <div class="element">
-                @Html.LabelFor(m => m.ordreDuJour.LieuReunionODJ)
-                @Html.DisplayFor(m => m.ordreDuJour.LieuReunionODJ)
+                @Html.LabelFor(m => m.OrdreDuJour.LieuReunionODJ)
+                @Html.DisplayFor(m => m.OrdreDuJour.LieuReunionODJ)
             </div>
             <hr />
         </div>
@@ -42,13 +42,13 @@
                 @Html.Label("Points principaux de l'ordre du jour")
                 <hr />
                 <div class="element">
-                    @foreach (var item in Model.sujetPointPrincipal)
+                    @foreach (var item in Model.SujetPointPrincipal)
                     {
                         <dd>
                         <span style="font-weight: bold;">@Html.DisplayFor(Model => item.SujetPoint)</span>
-                            @if(Model.listeSousPointSujet != null)
+                            @if(Model.ListeSousPointSujet != null)
                             {
-                                foreach(var sp in Model.listeSousPointSujet)
+                                foreach(var sp in Model.ListeSousPointSujet)
                                 {
                                     <ul style="margin:0;">
                                     @if (sp.IdSujetPointPrincipal == item.IdPointPrincipal)
@@ -69,8 +69,8 @@
 
         <div class="menu-flottant">
             <a class="fancy-button blanc" href='@Url.Action("Index", "OrdreDuJour")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-            <a class="fancy-button blanc" href='@Url.Action("Edit", new { id = Model.ordreDuJour.IdOdJ })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
-            <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Delete", new { id = Model.ordreDuJour.IdOdJ })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'ordre du jour</a>
+            <a class="fancy-button blanc" href='@Url.Action("Edit", new { id = Model.OrdreDuJour.IdOdJ })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+            <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Delete", new { id = Model.OrdreDuJour.IdOdJ })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'ordre du jour</a>
         </div>
     </div>
 </div>

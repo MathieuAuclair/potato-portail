@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PotatoPortail.Models;
+using PotatoPortail.ViewModels.ProjetPrincipal;
 
 namespace PotatoPortail.Controllers
 {

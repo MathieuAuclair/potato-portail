@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.ContexteRealisation
+﻿@model PotatoPortail.Models.ContexteRealisation
 
 @{
     ViewBag.Titre = "Gérer les contextes de réalisation";
@@ -7,14 +7,14 @@
 @using (Html.BeginForm("Creation", "ContexteRealisation"))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.idCompetence)
+    @Html.HiddenFor(m => m.IdCompetence)
 
     <div class="container">
         <div class="form-box">
 
             <header class="light-header">
 
-                <h3>@Model.EnonceCompetence.nom</h3>
+                <h3>@Model.EnonceCompetence.Description</h3>
 
                 <h1>@ViewBag.Titre</h1>
 
@@ -26,8 +26,8 @@
                 <hr />
 
                 <div class="form-group">
-                    @Html.TextAreaFor(m => m.description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(m => m.Description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                 </div>
 
                 <input type="submit" value="Ajouter" class="fancy-button" />
@@ -37,7 +37,7 @@
             @Html.Action("_PartialList")
 
             <hr />
-            <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.idCompetence })' class="fancy-button">Terminer</a>
+            <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.IdCompetence })' class="fancy-button">Terminer</a>
 
         </div>
     </div>

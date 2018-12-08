@@ -1,42 +1,30 @@
-﻿@model ApplicationPlanCadre.Models.ElementCompetence
-
+﻿@model PotatoPortail.Models.ElementCompetence
 @{
     ViewBag.Titre = "Suppression d'un élément de compétence";
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="ElementCompetence">
 }
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="container">
         <div class="form-box">
-
             <header class="light-header">
-
                 <h1>@ViewBag.Titre</h1>
-
-                <h3>@Html.DisplayFor(m => m.description)</h3>
-
+                <h3>@Html.DisplayFor(m => m.Description)</h3>
             </header>
-
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @if (Model.PlanCadreCompetence.Count() > 0)
+            @if (Model.PlanCadreElement.Any())
             {
                 <p>Cet élément est lié à des plans cadre, la suppression est impossible.</p>
             }
             else
             {
                 <p>Êtes-vous certain de vouloir supprimer cet élément de compétence?</p>
-
                 <hr />
-
                 <input type="submit" value="Confirmer" class="fancy-button" />
             }
-
             <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "ElementCompetence", new { currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
-
         </div>
     </div>
 }

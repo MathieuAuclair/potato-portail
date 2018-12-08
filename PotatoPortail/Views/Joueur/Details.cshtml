@@ -1,76 +1,57 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Joueur
-
+﻿@model PotatoPortail.Models.eSports.Joueur
 @{
-    ViewBag.Titre = "Informations sur " + Model.pseudoJoueur;
+    ViewBag.Titre = "Informations sur " + Model.PseudoJoueur;
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Joueur">
 }
-
 <div class="container">
     <div class="box">
-
         <header class="light-header">
-            <h3>Informations de joueur pour @Model.MembreESports.nomComplet (@Model.jeuEquipeMonojoueur)</h3>
+            <h3>Informations de joueur pour @Model.MembreESports.nomComplet (@Model.JeuEquipeMonojoueur)</h3>
         </header>
-
-        @if (Model.nombreJeuJoueur > 1)
+        @if (Model.NombreJeuJoueur > 1)
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.nombreJeuJoueur Jeu.</h3>
+            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.NombreJeuJoueur Jeu.</h3>
         }
-        else if (Model.nombreJeuJoueur == 1)
+        else if (Model.NombreJeuJoueur == 1)
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.nombreJeuJoueur jeu.</h3>
+            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.NombreJeuJoueur jeu.</h3>
         }
         else
         {
             <h3>@Model.MembreESports.nomComplet est actuellement inscrit à aucun jeu.</h3>
         }
-
         <div class="element">
             @Html.Label("Nom du joueur")
-
             @Html.DisplayFor(model => model.MembreESports.nomComplet)
-
         </div>
-
         <div class="element">
-            @Html.LabelFor(model => model.pseudoJoueur)
-
-            @Html.DisplayFor(model => model.pseudoJoueur)
-
+            @Html.LabelFor(model => model.PseudoJoueur)
+            @Html.DisplayFor(model => model.PseudoJoueur)
         </div>
-
         <div class="element">
             @Html.Label("Autre jeu proposé à l'inscription")
-
-            @if (Model.Profil.jeuSecondaire != null)
+            @if (Model.Profil.JeuSecondaire != null)
             {
-                @Html.DisplayFor(model => model.Profil.jeuSecondaire.nomJeu)
+                @Html.DisplayFor(model => model.Profil.JeuSecondaire.NomJeu)
             }
             else
             {
                 @:Aucun
             }
-
         </div>
-
         <div class="element">
-            @Html.LabelFor(model => model.Profil.courriel)
-
-            @Html.DisplayFor(model => model.Profil.courriel)
-
+            @Html.LabelFor(model => model.Profil.Courriel)
+            @Html.DisplayFor(model => model.Profil.Courriel)
         </div>
-
         <div class="menu-flottant">
             <a class="fancy-button blanc" href='@Url.Action("Index", "Joueur")'>
                 <span class="glyphicon glyphicon-triangle-left"></span>
                 Retour
             </a>
-            <a class="fancy-button blanc" href='@Url.Action("Modifier", "Joueur", new { id = Model.id})'>
+            <a class="fancy-button blanc" href='@Url.Action("Modifier", "Joueur", new {id = Model.Id})'>
                 <span class="glyphicon glyphicon-pencil"></span>
                 Modifier
             </a>
         </div>
-
-
     </div>
 </div>

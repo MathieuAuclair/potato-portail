@@ -6,7 +6,7 @@ namespace PotatoPortail.ViewModels.PlanCours
 {
     public class ApercuViewModel:ViewModelBase
     {
-        public ApplicationPlanCadre.ViewModels.MainPageViewModel MainPageViewModel = new ApplicationPlanCadre.ViewModels.MainPageViewModel();
+        public MainPageViewModel MainPageViewModel = new MainPageViewModel();
         public virtual IEnumerable<ContenuSection> ContenuSection { get; set; }
         public int Id { get; set; }
         public string TexteContenu { get; set; }
@@ -20,7 +20,6 @@ namespace PotatoPortail.ViewModels.PlanCours
         public string NomFichier { get; set; }
         public virtual IEnumerable<NomSection> NomSection { get; set; }
         public virtual string[] TitreSection { get; set; }
-        public virtual string[] texteContenu { get; set; }
         public virtual List<int> IndexSection { get; set; }
         public virtual IEnumerable<Departement> Departement { get; set; }
         public virtual int Discipline { get; set; }

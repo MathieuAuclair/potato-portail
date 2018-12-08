@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.ContexteRealisation
+﻿@model PotatoPortail.Models.ContexteRealisation
 
 @{
     ViewBag.Titre = "Modification d'un contexte de réalisation";
@@ -7,8 +7,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.idCompetence)
-    @Html.HiddenFor(m => m.numero)
+    @Html.HiddenFor(m => m.IdCompetence)
+    @Html.HiddenFor(m => m.Numero)
 
     <div class="container">
         <div class="form-box">
@@ -20,12 +20,12 @@
             </header>
 
             <div class="form-group">
-                @Html.TextAreaFor(m => m.description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(m => m.Description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
             </div>
 
             <input type="submit" value="Confirmer" class="fancy-button" />
-            <a href='@Url.Action("Creation", new { idCompetence = Model.idCompetence })' class="fancy-button rouge">Annuler</a>
+            <a href='@Url.Action("Creation", new { idCompetence = Model.IdCompetence })' class="fancy-button rouge">Annuler</a>
 
         </div>
     </div>

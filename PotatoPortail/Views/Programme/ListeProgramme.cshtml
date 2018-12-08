@@ -1,30 +1,30 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.Programme>
+﻿@model IEnumerable<PotatoPortail.Models.Programme>
 
 <div class="tree-view">
     <div class="tree-view-header">Programme</div>
     @foreach (var programme in Model)
     {
-        string p_id = "p" + programme.idProgramme.ToString();
-        string p_element = p_id + "element";
-        string p_target = "#" + p_id;
-        <div id="@p_element" class="tree-view-item">
-            @if (programme.PlanCadre.Count() > 0)
+        string pId = "p" + programme.IdProgramme.ToString();
+        string pElement = pId + "element";
+        string pTarget = "#" + pId;
+        <div id="@pElement" class="tree-view-item">
+            @if (programme.PlanCadre.Any())
             {
-                <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div> }
+                <div class="collapse-button" data-toggle="collapse" data-target=@pTarget><span class="glyphicon glyphicon-chevron-right"></span></div> }
             else
             {
                 <div class="no-button"></div>
             }
-            <a href='@Url.Action("Info", "Programme", new { idProgramme = programme.idProgramme })'>
-                @Html.DisplayFor(m => programme.description)
+            <a href='@Url.Action("Info", "Programme", new { idProgramme = programme.IdProgramme })'>
+                @Html.DisplayFor(m => programme.Nom)
             </a>
             </div>
-            <div id="@p_id" class="collapse">
+            <div id="@pId" class="collapse">
             <div class="tree-view-item-container">
                 <div class="tree-view-header">Plan cadre</div>
                 @foreach (var planCadre in programme.PlanCadre)
                 {
-                    string pc_id = "pc" + planCadre.idPlanCadre.ToString();
+                    string pc_id = "pc" + planCadre.IdPlanCadre.ToString();
                     string pc_element = pc_id + "element";
                     string pc_target = "#" + pc_id;
                     <div id=@pc_element class="tree-view-item">
@@ -34,16 +34,16 @@
                         else
                         {
                             <div class="no-button"></div>}
-                        <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre})'>
-                            @Html.DisplayFor(m => planCadre.nom)
+                        <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.IdPlanCadre})'>
+                            @Html.DisplayFor(m => planCadre.TitreCours)
                         </a>
                     </div>
                     <div id=@pc_id class="collapse">
                         <div class="tree-view-item-container">
                             <div class="tree-view-header">Énoncés de compétence</div>
-                            @foreach (var planCadreCompetence in planCadre.PlanCadreCompetence.OrderBy(e => e.idPlanCadreCompetence))
+                            @foreach (var planCadreCompetence in planCadre.PlanCadreCompetence.OrderBy(e => e.IdPlanCadreCompetence))
                             {
-                                string idPlanCadreCompetence = planCadreCompetence.idPlanCadreCompetence.ToString();
+                                string idPlanCadreCompetence = planCadreCompetence.IdPlanCadreCompetence.ToString();
                                 string enc_recherche="#enc" + idPlanCadreCompetence+"enc";
                                 string enc_id = "enc" + idPlanCadreCompetence;
                                 string enc_element = enc_id + "element";
@@ -53,16 +53,16 @@
           
                                     <div class="collapse-button" data-toggle="collapse" data-target=@enc_target><span class="glyphicon glyphicon-chevron-right"></span></div>
 
-                                @if (ViewBag.idPlanCadreActuel != planCadre.idPlanCadre)
+                                @if (ViewBag.idPlanCadreActuel != planCadre.IdPlanCadre)
                                 {
-                                    <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre })@enc_recherche'>
-                                    @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.description)
+                                    <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.IdPlanCadre })@enc_recherche'>
+                                    @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.CodeCompetence) • @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.Description)
                                     </a>
 
                                  }
                                 else {
                                     <a href="@enc_recherche">
-                                    @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.codeCompetence) • @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.description)
+                                    @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.CodeCompetence) • @Html.DisplayFor(m => planCadreCompetence.EnonceCompetence.Description)
                                     </a>
                                 }
 
@@ -73,22 +73,21 @@
                                     
                                         @foreach (var planCadreElement in planCadreCompetence.PlanCadreElement)
                                         {
-                                            string el_item = "el" + planCadreElement.idElement.ToString() + "element";
-                                            string el_recherche = "#el" + planCadreElement.idElement.ToString();
+                                            string el_item = "el" + planCadreElement.IdElement + "element";
+                                            string el_recherche = "#el" + planCadreElement.IdElement;
                                          <div id=@el_item class="tree-view-item">
                                          <div class="no-button"></div>
-                                         @if (ViewBag.idPlanCadreActuel != planCadre.idPlanCadre)
+                                         @if (ViewBag.idPlanCadreActuel != planCadre.IdPlanCadre)
                                          {
-                                             <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.idPlanCadre })@el_recherche'>
-                                             @Html.DisplayFor(m => planCadreElement.ElementCompetence.description)
+                                             <a href='@Url.Action("Info", "PlanCadre", new { idPlanCadre = planCadre.IdPlanCadre })@el_recherche'>
+                                             @Html.DisplayFor(m => planCadreElement.ElementCompetence.Description)
                                              </a>
                                          }
                                          else {
                                              <a href="@el_recherche">
-                                             @Html.DisplayFor(m => planCadreElement.ElementCompetence.description)
+                                             @Html.DisplayFor(m => planCadreElement.ElementCompetence.Description)
                                              </a>
                                          }
-      
                                             </div>
                                          }
                                     </div>

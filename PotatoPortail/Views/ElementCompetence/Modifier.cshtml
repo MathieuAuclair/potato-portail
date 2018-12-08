@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.ElementCompetence
+﻿@model PotatoPortail.Models.ElementCompetence
 
 @{
     ViewBag.Titre = "Modification d'un élèment de compétence";
@@ -8,8 +8,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.numero)
-    @Html.HiddenFor(m => m.idCompetence)
+    @Html.HiddenFor(m => m.Numero)
+    @Html.HiddenFor(m => m.IdCompetence)
 
     <div class="container">
         <div class="form-box">
@@ -21,13 +21,13 @@
             </header>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.description)
-                @Html.TextAreaFor(m => m.description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description, new { @rows = "3", @maxlength = "300", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
             </div>
 
             <input type="submit" value="Suivant" class="fancy-button" />
-            <a class="fancy-button rouge" onclick="location.href='@Url.Action("Info", "ElementCompetence", new { idElement = Model.idElement })'">Annuler</a>
+            <a class="fancy-button rouge" onclick="location.href='@Url.Action("Info", "ElementCompetence", new { idElement = Model.IdElement })'">Annuler</a>
 
         </div>
     </div>

@@ -1,23 +1,18 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Item>
-
+﻿@model IEnumerable<PotatoPortail.Models.Item>
 @{
     ViewBag.Titre = "Items pour " + ViewBag.nomCaracteristique;
 }
-
-<div class="container" style="margin-bottom:5%;">
+<div class="container" style="margin-bottom: 5%;">
     <div class="box">
-
-
         @if (ViewBag.itemsCarac.Count > 0)
         {
             <header class="light-header">
                 <h2>Items associés à «@ViewBag.nomCaracteristique» pour «@ViewBag.nomJeu»</h2>
             </header>
-
             <table class="cool-table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.nomItem)
+                        @Html.DisplayNameFor(model => model.NomItem)
                     </th>
                     <th class="action-cell-header">
                         <b>Modifier</b>
@@ -26,26 +21,24 @@
                         <b>Supprimer</b>
                     </th>
                 </tr>
-
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.nomItem)
+                            @Html.DisplayFor(modelItem => item.NomItem)
                         </td>
                         <td class="action-cell">
-                            <a href='@Url.Action("Modifier", "Item", new { id = item.id, ViewBag.nomCaracteristique, ViewBag.nomJeu }))'>
+                            <a href='@Url.Action("Modifier", "Item", new {id = item.Id, ViewBag.nomCaracteristique, ViewBag.nomJeu}))'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
                         <td class="action-cell">
-                            <a href='@Url.Action("Supprimer", "Item", new { id = item.id, nomJeu = ViewBag.nomJeu })'>
+                            <a href='@Url.Action("Supprimer", "Item", new {id = item.Id, nomJeu = ViewBag.nomJeu})'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
                     </tr>
                 }
-
             </table>
         }
         else
@@ -54,17 +47,15 @@
                 <h2>Il n'y a aucun item actuellement associé à «@ViewBag.nomCaracteristique» pour «@ViewBag.nomJeu».</h2>
             </header>
         }
-
         <div class="menu-flottant">
-            <a class="fancy-button blanc" href='@Url.Action("Modifier", "Jeu", new { id = ViewBag.JeuId, nomJeu = ViewBag.nomJeu})'>
+            <a class="fancy-button blanc" href='@Url.Action("Modifier", "Jeu", new {id = ViewBag.JeuId, nomJeu = ViewBag.nomJeu})'>
                 <span class="glyphicon glyphicon-triangle-left"></span>
                 Retour
             </a>
-            <a class="fancy-button blanc" href='@Url.Action("Creation", "Item", new { CaracteristiqueId = ViewBag.CaracteristiqueId, nomCarac = ViewBag.nomCaracteristique, nomJeu = ViewBag.nomJeu})'>
+            <a class="fancy-button blanc" href='@Url.Action("Creation", "Item", new {CaracteristiqueId = ViewBag.CaracteristiqueId, nomCarac = ViewBag.nomCaracteristique, nomJeu = ViewBag.nomJeu})'>
                 <span class="glyphicon glyphicon-plus"></span>
                 Ajouter un item
             </a>
         </div>
-
-</div>
+    </div>
 </div>

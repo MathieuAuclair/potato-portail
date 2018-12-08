@@ -1,7 +1,7 @@
-﻿using ApplicationPlanCadre.Models.Reunions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using PotatoPortail.Models.Reunions;
 
-namespace ApplicationPlanCadre.ViewModels
+namespace PotatoPortail.ViewModels.OrdresDuJour
 {
     public class ModificationModeleViewModel
     {

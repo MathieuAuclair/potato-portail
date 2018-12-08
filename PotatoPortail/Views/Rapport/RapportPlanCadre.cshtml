@@ -1,6 +1,5 @@
-﻿﻿@model ApplicationPlanCadre.Models.PlanCadre
-@using ApplicationPlanCadre.Models
-@using System.Linq;
+﻿﻿@model PotatoPortail.Models.PlanCadre
+@using PotatoPortail.Models
 @{
     ViewBag.Titre = "PDF " + Model.titreCours;
     <title>@ViewBag.Titre</title>
@@ -202,16 +201,16 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(x => a.EnonceCompetence.description) (@Html.DisplayFor(x => a.EnonceCompetence.codeCompetence))
+                @Html.DisplayFor(x => a.EnonceCompetence.Description) (@Html.DisplayFor(x => a.EnonceCompetence.CodeCompetence))
                 <br/>
                 <br/>
-                @Html.DisplayFor(x => a.ponderationEnHeure) heures
+                @Html.DisplayFor(x => a.PonderationEnHeure) heures
             </td>
             <td>
                 <ul>
                     @foreach (ContexteRealisation c in a.EnonceCompetence.ContexteRealisation)
                     {
-                        <li>@Html.DisplayFor(x => c.description)</li>
+                        <li>@Html.DisplayFor(x => c.Description)</li>
                     }
                 </ul>
             </td>
@@ -224,62 +223,62 @@
                         {
                             foreach (PlanCadrePrealable prealable in pc.PlanCadrePrealable)
                             {
-                                if (planCadrPrealableHold != prealable.idPlanCadre)
+                                if (planCadrPrealableHold != prealable.IdPlanCadre)
                                 {
-                                    if (prealable.idStatus == 2)
+                                    if (prealable.IdStatut == 2)
                                     {
                                         <div class="prealableA">
                                             <div class="prealable-left">
                                                 <div>Préalable absolu à:</div>
                                             </div>
                                             <div class="prealable-right">
-                                                <div class="line-prealable">@Html.DisplayFor(x => pc.titreCours) @Html.DisplayFor(x => pc.numeroCours)</div>
+                                                <div class="line-prealable">@Html.DisplayFor(x => pc.TitreCours) @Html.DisplayFor(x => pc.NumeroCours)</div>
                                             </div>
                                         </div>
                                     }
                                     else
                                     {
-                                        if (prealable.idStatus == 1)
+                                        if (prealable.IdStatut == 1)
                                         {
                                             <div class="prealableA">
                                                 <div class="prealable-left">
                                                     <div>Préalable Relatif à:</div>
                                                 </div>
                                                 <div class="prealable-right">
-                                                    <div class="line-prealable">@Html.DisplayFor(x => pc.titreCours) @Html.DisplayFor(x => pc.numeroCours)</div>
+                                                    <div class="line-prealable">@Html.DisplayFor(x => pc.TitreCours) @Html.DisplayFor(x => pc.NumeroCours)</div>
                                                 </div>
                                             </div>
                                         }
                                     }
-                                    planCadrPrealableHold = prealable.idPlanCadre;
+                                    planCadrPrealableHold = prealable.IdPlanCadre;
                                 }
                             }
                         }
                     }
                     <div class="clearfix"></div>
-                    @foreach (PlanCadrePrealable prealable in a.PlanCadre.PlanCadrePrealable)
+                    @foreach (var prealable in a.PlanCadre.PlanCadrePrealable)
                     {
-                        if (prealable.idStatus == 2)
+                        if (prealable.IdStatut == 2)
                         {
                             <div class="prealableA">
                                 <div class="prealable-left">
                                     <div>Préalable absolu :</div>
                                 </div>
                                 <div class="prealable-right">
-                                    <div class="line-prealable">@Html.DisplayFor(x => prealable.Prealable.titreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.Prealable.numeroCours)@Html.Raw(")")</div>
+                                    <div class="line-prealable">@Html.DisplayFor(x => prealable.PlanCadre.TitreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.PlanCadre.NumeroCours)@Html.Raw(")")</div>
                                 </div>
                             </div>
                         }
                         else
                         {
-                            if (prealable.idStatus == 1)
+                            if (prealable.IdStatut == 1)
                             {
                                 <div class="prealableA">
                                     <div class="prealable-left">
                                         <div>Préalable relatif :</div>
                                     </div>
                                     <div class="prealable-right">
-                                        <div class="line-prealable">@Html.DisplayFor(x => prealable.Prealable.titreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.Prealable.numeroCours)@Html.Raw(")")</div>
+                                        <div class="line-prealable">@Html.DisplayFor(x => prealable.PlanCadre.TitreCours) @Html.Raw(" (")@Html.DisplayFor(x => prealable.PlanCadre.NumeroCours)@Html.Raw(")")</div>
                                     </div>
                                 </div>
                             }
@@ -294,7 +293,7 @@
     }
     </tbody>
 </table>
-@foreach (PlanCadreCompetence planCadreCompetence in Model.PlanCadreCompetence)
+@foreach (PlanCadreCompetence cadreCompetence in Model.PlanCadreCompetence)
 {
     <!-- Affichage en boucle des tableau des ennoncer compétence-->
 
@@ -303,7 +302,7 @@
             <thead>
             <tr>
                 <td colspan="4">
-                    @Html.DisplayFor(x => planCadreCompetence.EnonceCompetence.description) (@Html.DisplayFor(x => planCadreCompetence.EnonceCompetence.codeCompetence))
+                    @Html.DisplayFor(x => cadreCompetence.EnonceCompetence.Description) (@Html.DisplayFor(x => cadreCompetence.EnonceCompetence.CodeCompetence))
                 </td>
             </tr>
             <tr>
@@ -322,9 +321,9 @@
             </tr>
             </thead>
             <tbody>
-            @for (int i = 0; i < planCadreCompetence.PlanCadreCompetence.Count(); i++)
+            @for (int i = 0; i < cadreCompetence.PlanCadre.PlanCadreCompetence.Count; i++)
             {
-                var planCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(i);
+                var planCadreCompetence = cadreCompetence.PlanCadre.PlanCadreCompetence.ElementAt(i);
                 var elementCompetence = planCadreCompetence.ElementCompetence;
 
                 <tr>

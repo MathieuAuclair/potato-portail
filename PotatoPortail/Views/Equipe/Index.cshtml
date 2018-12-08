@@ -1,18 +1,13 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Equipe>
-
+﻿@model IEnumerable<PotatoPortail.Models.Equipe>
 @{
     ViewBag.Titre = "Équipes";
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Equipe">
 }
-
 <div class="container" style="margin-bottom:5%;">
-
     <div class="box">
-
         <header class="light-header">
             <h1>Liste des équipes</h1>
         </header>
-
         @using (Html.BeginForm())
         {
         <div class="col-md-4">
@@ -22,17 +17,15 @@
             <br/><br/>
         </div>
         }
-
-
         @if (Model.Any())
         {
         <table class="cool-table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.nomEquipe)
+                    @Html.DisplayNameFor(model => model.NomEquipe)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.JeuId)
+                    @Html.DisplayNameFor(model => model.IdJeu)
                 </th>
                 <th class="action-cell-header">
                     <b>Supprimer</b>
@@ -41,16 +34,16 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr onclick="window.location = '@Url.Action("Modifier", "Equipe", new { id = item.id, nomEquipe = item.nomEquipe, nomJeu = item.Jeu.nomJeu })'">
+                    <tr onclick="window.location = '@Url.Action("Modifier", "Equipe", new { id = item.Id, nomEquipe = item.NomEquipe, nomJeu = item.Jeu.NomJeu })'">
                         <td>
-                            @Html.DisplayFor(modelItem => item.nomEquipe)
+                            @Html.DisplayFor(modelItem => item.NomEquipe)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Jeu.nomJeu)
+                            @Html.DisplayFor(modelItem => item.Jeu.NomJeu)
                         </td>
                         <td class="action-cell">
 
-                            <a href='@Url.Action("Supprimer", "Equipe", new { id = item.id, nomEquipe = item.nomEquipe, nomJeu = item.Jeu.nomJeu })'>
+                            <a href='@Url.Action("Supprimer", "Equipe", new { id = item.Id, nomEquipe = item.NomEquipe, nomJeu = item.Jeu.NomJeu })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>

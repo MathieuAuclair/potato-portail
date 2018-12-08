@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.ApplicationUser>
+﻿@model IEnumerable<PotatoPortail.Models.ApplicationUser>
 
 @{
     ViewBag.Titre = "Liste des utilisateurs";
 }
 
-<div class="container" style="margin-bottom=5%;">
+<div class="container" style="margin-bottom:5%;">
     <div class="box">
 
         <header class="light-header">
@@ -29,7 +29,7 @@
             @foreach (var item in Model)
             {
 
-                <tr onclick="location.href ='@(Url.Action("Modifier", new { utilisateurId = item.Id }))'">
+                <tr onclick="location.href ='@(Url.Action("Modifier", new { idUtilisateur = item.Id }))'">
                     <td>
                         @Html.DisplayFor(modelItem => item.prenom) @Html.DisplayFor(modelItem => item.nom)
                     </td>

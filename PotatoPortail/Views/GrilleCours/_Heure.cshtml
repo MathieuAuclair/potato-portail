@@ -1,7 +1,5 @@
-﻿@model ApplicationPlanCadre.Models.GrilleCours
-
+﻿@model PotatoPortail.Models.GrilleCours
 @{
-
     List<Object> listeCours = new List<object>();
 
     List<Object> listeCoursS1FG = new List<object>();
@@ -31,13 +29,8 @@
     //En attendant de pouvoir récupérer cette liste via une requête ou dans la table.
     string[] tabSession = { "I", "II", "IIII", "IV", "V", "VI" };
 
-
     List<String> listeConpetences = new List<string>();
-
-
     var listeCompetences = ViewBag.List;
-
-
 }
 
 
@@ -50,126 +43,150 @@
 
 
 
-    foreach (ApplicationPlanCadre.Models.Cours cours in Model.Cours)
+    foreach (PotatoPortail.Models.Cours cours in Model.Cours)
     {
         listeCours.Add(cours);
-        if (cours.idSession == 1)
+        if (cours.IdSession == 1)
         {
-            if (cours.PlanCadre.idType == 2)
+            switch (cours.PlanCadre.IdType)
             {
-                listeCoursS1FG.Add(cours);
-                if (cptMaxFG < listeCoursS1FG.Count()) { cptMaxFG = listeCoursS1FG.Count(); }
+                case 2:
+                {
+                    listeCoursS1FG.Add(cours);
+                    if (cptMaxFG < listeCoursS1FG.Count) { cptMaxFG = listeCoursS1FG.Count; }
+                    break;
+                }
+                case 1:
+                {
+                    listeCoursS1FS.Add(cours);
+                    if (cptMaxFS < listeCoursS1FS.Count) { cptMaxFS = listeCoursS1FS.Count; }
+                    break;
+                }
+                default:
+                {
+                    if (cours.PlanCadre.IdType == 3)
+                    {
+                        listeCoursS1FC.Add(cours);
+                        if (cptMaxFC < listeCoursS1FC.Count) { cptMaxFC = listeCoursS1FC.Count; }
 
-            }
-            else if (cours.PlanCadre.idType == 1)
-            {
-                listeCoursS1FS.Add(cours);
-                if (cptMaxFS < listeCoursS1FS.Count()) { cptMaxFS = listeCoursS1FS.Count(); }
-
-            }
-            else if (cours.PlanCadre.idType == 3)
-            {
-                listeCoursS1FC.Add(cours);
-                if (cptMaxFC < listeCoursS1FC.Count()) { cptMaxFC = listeCoursS1FC.Count(); }
-
+                    }
+                    break;
+                }
             }
         }
-        if (cours.idSession == 2)
+        if (cours.IdSession == 2)
         {
-            if (cours.PlanCadre.idType == 2)
+            switch (cours.PlanCadre.IdType)
             {
-                listeCoursS2FG.Add(cours);
-                if (cptMaxFG < listeCoursS2FG.Count()) { cptMaxFG = listeCoursS2FG.Count(); }
-
-
-            }
-            else if (cours.PlanCadre.idType == 1)
-            {
-                listeCoursS2FS.Add(cours);
-                if (cptMaxFS < listeCoursS2FS.Count()) { cptMaxFS = listeCoursS2FS.Count(); }
-
-            }
-            else if (cours.PlanCadre.idType == 3)
-            {
-                listeCoursS2FC.Add(cours);
-                if (cptMaxFC < listeCoursS2FC.Count()) { cptMaxFC = listeCoursS2FC.Count(); }
-
+                case 2:
+                {
+                    listeCoursS2FG.Add(cours);
+                    if (cptMaxFG < listeCoursS2FG.Count) { cptMaxFG = listeCoursS2FG.Count; }
+                    break;
+                }
+                case 1:
+                {
+                    listeCoursS2FS.Add(cours);
+                    if (cptMaxFS < listeCoursS2FS.Count) { cptMaxFS = listeCoursS2FS.Count; }
+                    break;
+                }
+                case 3:
+                {
+                    listeCoursS2FC.Add(cours);
+                    if (cptMaxFC < listeCoursS2FC.Count) { cptMaxFC = listeCoursS2FC.Count; }
+                    break;
+                }
             }
         }
-        if (cours.idSession == 3)
+        if (cours.IdSession == 3)
         {
-            if (cours.PlanCadre.idType == 2)
+            switch (cours.PlanCadre.IdType)
             {
-                listeCoursS3FG.Add(cours);
-                if (cptMaxFG < listeCoursS3FG.Count()) { cptMaxFG = listeCoursS3FG.Count(); }
-            }
-            else if (cours.PlanCadre.idType == 1)
-            {
-                listeCoursS3FS.Add(cours);
-                if (cptMaxFS < listeCoursS3FS.Count()) { cptMaxFS = listeCoursS3FS.Count(); }
-
-            }
-            else if (cours.PlanCadre.idType == 3)
-            {
-                listeCoursS3FC.Add(cours);
-                if (cptMaxFC < listeCoursS3FC.Count()) { cptMaxFC = listeCoursS3FC.Count(); }
+                case 2:
+                {
+                    listeCoursS3FG.Add(cours);
+                    if (cptMaxFG < listeCoursS3FG.Count) { cptMaxFG = listeCoursS3FG.Count; }
+                    break;
+                }
+                case 1:
+                {
+                    listeCoursS3FS.Add(cours);
+                    if (cptMaxFS < listeCoursS3FS.Count) { cptMaxFS = listeCoursS3FS.Count; }
+                    break;
+                }
+                case 3:
+                {
+                    listeCoursS3FC.Add(cours);
+                    if (cptMaxFC < listeCoursS3FC.Count) { cptMaxFC = listeCoursS3FC.Count; }
+                    break;
+                }
             }
         }
-        if (cours.idSession == 4)
+        if (cours.IdSession == 4)
         {
-            if (cours.PlanCadre.idType == 2)
+            switch (cours.PlanCadre.IdType)
             {
-                listeCoursS4FG.Add(cours);
-                if (cptMaxFG < listeCoursS4FG.Count()) { cptMaxFG = listeCoursS4FG.Count(); }
-
-            }
-            else if (cours.PlanCadre.idType == 1)
-            {
-                listeCoursS3FS.Add(cours);
-                if (cptMaxFS < listeCoursS4FS.Count()) { cptMaxFS = listeCoursS4FS.Count(); }
-            }
-            else if (cours.PlanCadre.idType == 3)
-            {
-                listeCoursS4FC.Add(cours);
-                if (cptMaxFC < listeCoursS4FC.Count()) { cptMaxFC = listeCoursS4FC.Count(); }
+                case 2:
+                {
+                    listeCoursS4FG.Add(cours);
+                    if (cptMaxFG < listeCoursS4FG.Count) { cptMaxFG = listeCoursS4FG.Count; }
+                    break;
+                }
+                case 1:
+                {
+                    listeCoursS3FS.Add(cours);
+                    if (cptMaxFS < listeCoursS4FS.Count) { cptMaxFS = listeCoursS4FS.Count; }
+                    break;
+                }
+                case 3:
+                {
+                    listeCoursS4FC.Add(cours);
+                    if (cptMaxFC < listeCoursS4FC.Count) { cptMaxFC = listeCoursS4FC.Count; }
+                    break;
+                }
             }
         }
-        if (cours.idSession == 5)
+        if (cours.IdSession == 5)
         {
-            if (cours.PlanCadre.idType == 2)
+            switch (cours.PlanCadre.IdType)
             {
-                listeCoursS3FG.Add(cours);
-                if (cptMaxFG < listeCoursS5FG.Count()) { cptMaxFG = listeCoursS5FG.Count(); }
-            }
-            else if (cours.PlanCadre.idType == 1)
-            {
-                listeCoursS5FS.Add(cours);
-                if (cptMaxFS < listeCoursS5FS.Count()) { cptMaxFS = listeCoursS5FS.Count(); }
-
-            }
-            else if (cours.PlanCadre.idType == 3)
-            {
-                listeCoursS5FC.Add(cours);
-                if (cptMaxFC < listeCoursS5FC.Count()) { cptMaxFC = listeCoursS5FC.Count(); }
+                case 2:
+                {
+                    listeCoursS3FG.Add(cours);
+                    if (cptMaxFG < listeCoursS5FG.Count) { cptMaxFG = listeCoursS5FG.Count; }
+                    break;
+                }
+                case 1:
+                {
+                    listeCoursS5FS.Add(cours);
+                    if (cptMaxFS < listeCoursS5FS.Count) { cptMaxFS = listeCoursS5FS.Count; }
+                    break;
+                }
+                case 3:
+                {
+                    listeCoursS5FC.Add(cours);
+                    if (cptMaxFC < listeCoursS5FC.Count) { cptMaxFC = listeCoursS5FC.Count; }
+                    break;
+                }
             }
         }
-        if (cours.idSession == 6)
+        if (cours.IdSession == 6)
         {
-            if (cours.PlanCadre.idType == 2)
+            if (cours.PlanCadre.IdType == 2)
             {
                 listeCoursS6FG.Add(cours);
-                if (cptMaxFG < listeCoursS6FG.Count()) { cptMaxFG = listeCoursS6FG.Count(); }
+                if (cptMaxFG < listeCoursS6FG.Count) { cptMaxFG = listeCoursS6FG.Count; }
             }
-            else if (cours.PlanCadre.idType == 1)
+            else if (cours.PlanCadre.IdType == 1)
             {
                 listeCoursS6FS.Add(cours);
-                if (cptMaxFS < listeCoursS6FS.Count()) { cptMaxFS = listeCoursS6FS.Count(); }
+                if (cptMaxFS < listeCoursS6FS.Count) { cptMaxFS = listeCoursS6FS.Count; }
 
             }
-            else if (cours.PlanCadre.idType == 3)
+            else if (cours.PlanCadre.IdType == 3)
             {
                 listeCoursS3FC.Add(cours);
-                if (cptMaxFC < listeCoursS6FC.Count()) { cptMaxFC = listeCoursS6FC.Count(); }
+                if (cptMaxFC < listeCoursS6FC.Count) { cptMaxFC = listeCoursS6FC.Count; }
             }
         }
     }
@@ -180,7 +197,6 @@
 <div class="section-grille">
     <div class="table-responsive grilleCoursHeure">
         <table class="table table-bordered">
-            @* Vérifie si la liste est pleine ou vide *@
             @if (Model.Cours.FirstOrDefault() == null)
             {
                 <p>Cette grille de cours est vide. Veuillez y associer des cours !!!</p>
@@ -208,53 +224,37 @@
                         <td colspan="@longueurFS" rowspan="2"><b>Formation spécifique</b></td>
                         <td colspan="3" rowspan="2"><b>Pondération</b></td>
                     </tr>
-                    @* ATTENTION : LIGNE DE COMMENTAIRE DEMANDEE PAR LE CLIENT
-                        La ligne du tableau ci-dessous n'est pas intégrée dans cette version car ces types cours/plans cadre ne sont pas pris en compte dans la BD. A ne pas oublier dans la prochaine version
-                        <tr class="danger">
-                            <td colspan="3"><b>Langue maternelle</b></td>
-                            <td colspan="3"><b>Langue secondaire</b></td>
-                            <td colspan="3"><b>Philosophie</b></td>
-                            <td colspan="3"><b>Éducation physique</b></td>
-                            <td colspan="3"></td>
-                            <td colspan="2"></td>
-                            <!--<td colspan="15"></td>
-                            <td colspan="3"></td>-->
-                        </tr>
-                    *@
                 </thead>
                 <tbody>
                     <tr class="active">
                         @{
-                            //Les cours de formation générale
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS1FG)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            var diffFG = cptMaxFG - listeCoursS1FG.Count();
-                            for (var x = 0; x < diffFG; x++)
-                            {
-                                <td colspan="3"></td>
-
-                            }
-                            //Les cours de formation complémentaires
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FC)
-                            {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
-                            }
-                            var diffFC = cptMaxFC - listeCoursS1FC.Count();
-                            for (var x = 0; x < diffFC; x++)
+                            var diffFg = cptMaxFG - listeCoursS1FG.Count;
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
-                            <td colspan="2" rowspan="2" class="danger"><b>S1</b></td> <!--Le rowspan ne fonctionne pas !-->
-                            //Les cours de formation spécifique
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS1FC)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            var diffFS = cptMaxFS - listeCoursS1FS.Count();
-                            for (var x = 0; x < diffFS; x++)
+                            var diffFc = cptMaxFC - listeCoursS1FC.Count;
+                            for (var x = 0; x < diffFc; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S1</b></td> 
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS1FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
+                            }
+                            var diffFs = cptMaxFS - listeCoursS1FS.Count;
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td colspan="3"></td>
 
@@ -262,13 +262,13 @@
                         }
                         @{
                             var totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                if (cours.idSession == 1)
+                                if (cours.IdSession == 1)
                                 {
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                                 }
                             }
 
@@ -280,47 +280,47 @@
                             var totalTheoS1 = 0;
                             var totalPratS1 = 0;
                             var totalDevS1 = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS1FG)
                             {
-                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS1 = totalPratS1 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS1 = totalDevS1 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS1 = totalPratS1 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS1 = totalDevS1 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFG; x++)
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS1FC)
                             {
-                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS1 = totalPratS1 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS1 = totalDevS1 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS1 = totalPratS1 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS1 = totalDevS1 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFC; x++)
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
                             <td colspan="2" class="danger"></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS1FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS1FS)
                             {
-                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS1 = totalPratS1 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS1 = totalDevS1 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS1 = totalTheoS1 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS1 = totalPratS1 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS1 = totalDevS1 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFS; x++)
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -339,33 +339,33 @@
                     <!--Session 2 -->
                     <tr class="warning">
                         @{
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS2FG)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFG = cptMaxFG - listeCoursS2FG.Count();
-                            for (var x = 0; x < diffFG; x++)
-                            {
-                                <td colspan="3"></td>
-
-                            }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FC)
-                            {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
-                            }
-                            diffFC = cptMaxFC - listeCoursS2FC.Count();
-                            for (var x = 0; x < diffFC; x++)
+                            diffFg = cptMaxFG - listeCoursS2FG.Count;
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
-                            <td colspan="2" rowspan="2" class="danger"><b>S2</b></td> <!--Le rowspan ne fonctionne pas !-->
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS2FC)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFS = cptMaxFS - listeCoursS2FS.Count();
-                            for (var x = 0; x < diffFS; x++)
+                            diffFc = cptMaxFC - listeCoursS2FC.Count;
+                            for (var x = 0; x < diffFc; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S2</b></td> 
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS2FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
+                            }
+                            diffFs = cptMaxFS - listeCoursS2FS.Count;
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td colspan="3"></td>
 
@@ -373,13 +373,13 @@
                         }
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                if (cours.idSession == 2)
+                                if (cours.IdSession == 2)
                                 {
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                                 }
                             }
                         }
@@ -390,32 +390,31 @@
                             var totalTheoS2 = 0;
                             var totalPratS2 = 0;
                             var totalDevS2 = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS2FG)
                             {
-                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS2 = totalPratS2 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS2 = totalDevS2 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS2 = totalPratS2 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS2 = totalDevS2 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFG; x++)
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
-
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS2FC)
                             {
-                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS2 = totalPratS2 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS2 = totalDevS2 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS2 = totalPratS2 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS2 = totalDevS2 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFC; x++)
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -423,16 +422,16 @@
 
                             }
                             <td colspan="2" class="danger"></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS2FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS2FS)
                             {
-                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS2 = totalPratS2 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS2 = totalDevS2 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS2 = totalTheoS2 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS2 = totalPratS2 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS2 = totalDevS2 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFS; x++)
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -443,38 +442,35 @@
                             <td class="danger"><b>@Html.DisplayFor(p => totalDevS2)</b></td>
                         }
                     </tr>
-
-                    <!--Session 3 -->
-
                     <tr class="active">
                         @{
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS3FG)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFG = cptMaxFG - listeCoursS3FG.Count();
-                            for (var x = 0; x < diffFG; x++)
+                            diffFg = cptMaxFG - listeCoursS3FG.Count;
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS3FC)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFC = cptMaxFC - listeCoursS3FC.Count();
-                            for (var x = 0; x < diffFC; x++)
+                            diffFc = cptMaxFC - listeCoursS3FC.Count;
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
                             <td colspan="2" rowspan="2" class="danger"><b>S3</b></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS3FS)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFS = cptMaxFS - listeCoursS3FS.Count();
-                            for (var x = 0; x < diffFS; x++)
+                            diffFs = cptMaxFS - listeCoursS3FS.Count;
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td colspan="3"></td>
 
@@ -482,13 +478,13 @@
                         }
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                if (cours.idSession == 3)
+                                if (cours.IdSession == 3)
                                 {
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                                 }
                             }
                         }
@@ -499,31 +495,31 @@
                             var totalTheoS3 = 0;
                             var totalPratS3 = 0;
                             var totalDevS3 = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS3FG)
                             {
-                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS3 = totalPratS3 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS3 = totalDevS3 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS3 = totalPratS3 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS3 = totalDevS3 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFG; x++)
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS3FC)
                             {
-                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS3 = totalPratS3 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS3 = totalDevS3 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS3 = totalPratS3 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS3 = totalDevS3 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFC; x++)
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -531,16 +527,16 @@
 
                             }
                             <td colspan="2" class="danger"></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS3FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS3FS)
                             {
-                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS3 = totalPratS3 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS3 = totalDevS3 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS3 = totalTheoS3 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS3 = totalPratS3 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS3 = totalDevS3 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFS; x++)
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -551,37 +547,35 @@
                             <td class="danger"><b>@Html.DisplayFor(p => totalDevS3)</b></td>
                         }
                     </tr>
-
-                    <!--Session 4 -->
                     <tr class="warning">
                         @{
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS4FG)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFG = cptMaxFG - listeCoursS4FG.Count();
-                            for (var x = 0; x < diffFG; x++)
-                            {
-                                <td colspan="3"></td>
-
-                            }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FC)
-                            {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
-                            }
-                            diffFC = cptMaxFC - listeCoursS4FC.Count();
-                            for (var x = 0; x < diffFC; x++)
+                            diffFg = cptMaxFG - listeCoursS4FG.Count();
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
-                            <td colspan="2" rowspan="2" class="danger"><b>S4</b></td> <!--Le rowspan ne fonctionne pas !-->
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS4FC)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFS = cptMaxFS - listeCoursS4FS.Count();
-                            for (var x = 0; x < diffFS; x++)
+                            diffFc = cptMaxFC - listeCoursS4FC.Count();
+                            for (var x = 0; x < diffFc; x++)
+                            {
+                                <td colspan="3"></td>
+
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S4</b></td> 
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS4FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
+                            }
+                            diffFs = cptMaxFS - listeCoursS4FS.Count();
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td colspan="3"></td>
 
@@ -589,13 +583,13 @@
                         }
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                if (cours.idSession == 4)
+                                if (cours.IdSession == 4)
                                 {
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                                 }
                             }
                         }
@@ -607,31 +601,31 @@
                             var totalPratS4 = 0;
                             var totalDevS4 = 0;
                             //Les cours de formation générale
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS4FG)
                             {
-                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS4 = totalPratS4 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS4 = totalDevS4 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS4 = totalPratS4 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS4 = totalDevS4 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFG; x++)
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS4FC)
                             {
-                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS4 = totalPratS4 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS4 = totalDevS4 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS4 = totalPratS4 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS4 = totalDevS4 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFC; x++)
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -639,16 +633,16 @@
 
                             }
                             <td colspan="2" class="danger"></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS4FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS4FS)
                             {
-                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS4 = totalPratS4 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS4 = totalDevS4 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS4 = totalTheoS4 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS4 = totalPratS4 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS4 = totalDevS4 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFS; x++)
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -664,33 +658,33 @@
 
                     <tr class="active">
                         @{
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS5FG)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFG = cptMaxFG - listeCoursS5FG.Count();
-                            for (var x = 0; x < diffFG; x++)
+                            diffFg = cptMaxFG - listeCoursS5FG.Count;
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS5FC)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFC = cptMaxFC - listeCoursS5FC.Count();
-                            for (var x = 0; x < diffFC; x++)
+                            diffFc = cptMaxFC - listeCoursS5FC.Count;
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td colspan="3"></td>
 
                             }
                             <td colspan="2" rowspan="2" class="danger"><b>S5</b></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS5FS)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFS = cptMaxFS - listeCoursS5FS.Count();
-                            for (var x = 0; x < diffFS; x++)
+                            diffFs = cptMaxFS - listeCoursS5FS.Count;
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td colspan="3"></td>
 
@@ -698,13 +692,13 @@
                         }
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                if (cours.idSession == 5)
+                                if (cours.IdSession == 5)
                                 {
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                                 }
                             }
                         }
@@ -715,47 +709,47 @@
                             var totalTheoS5 = 0;
                             var totalPratS5 = 0;
                             var totalDevS5 = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS5FG)
                             {
-                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS5 = totalPratS5 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS5 = totalDevS5 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS5 = totalPratS5 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS5 = totalDevS5 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFG; x++)
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS5FC)
                             {
-                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS5 = totalPratS5 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS5 = totalDevS5 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS5 = totalPratS5 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS5 = totalDevS5 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFC; x++)
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
                             <td colspan="2" class="danger"></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS5FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS5FS)
                             {
-                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS5 = totalPratS5 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS5 = totalDevS5 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS5 = totalTheoS5 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS5 = totalPratS5 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS5 = totalDevS5 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFS; x++)
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -770,31 +764,31 @@
                     <!--Session 6 -->
                     <tr class="warning">
                         @{
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS6FG)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFG = cptMaxFG - listeCoursS6FG.Count();
-                            for (var x = 0; x < diffFG; x++)
-                            {
-                                <td colspan="3"></td>
-                            }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FC)
-                            {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
-                            }
-                            diffFC = cptMaxFC - listeCoursS6FC.Count();
-                            for (var x = 0; x < diffFC; x++)
+                            diffFg = cptMaxFG - listeCoursS6FG.Count;
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td colspan="3"></td>
                             }
-                            <td colspan="2" rowspan="2" class="danger"><b>S6</b></td> <!--Le rowspan ne fonctionne pas !-->
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS6FC)
                             {
-                                <td colspan="3">@cours.PlanCadre.numeroCours @cours.PlanCadre.titreCours</td>
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
                             }
-                            diffFS = cptMaxFS - listeCoursS6FS.Count();
-                            for (var x = 0; x < diffFS; x++)
+                            diffFc = cptMaxFC - listeCoursS6FC.Count;
+                            for (var x = 0; x < diffFc; x++)
+                            {
+                                <td colspan="3"></td>
+                            }
+                            <td colspan="2" rowspan="2" class="danger"><b>S6</b></td>
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS6FS)
+                            {
+                                <td colspan="3">@cours.PlanCadre.NumeroCours @cours.PlanCadre.TitreCours</td>
+                            }
+                            diffFs = cptMaxFS - listeCoursS6FS.Count();
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td colspan="3"></td>
 
@@ -802,13 +796,13 @@
                         }
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                if (cours.idSession == 6)
+                                if (cours.IdSession == 6)
                                 {
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                    totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                    totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                                 }
                             }
                         }
@@ -819,31 +813,31 @@
                             var totalTheoS6 = 0;
                             var totalPratS6 = 0;
                             var totalDevS6 = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FG)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS6FG)
                             {
-                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS6 = totalPratS6 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS6 = totalDevS6 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS6 = totalPratS6 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS6 = totalDevS6 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFG; x++)
+                            for (var x = 0; x < diffFg; x++)
                             {
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             }
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FC)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS6FC)
                             {
-                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS6 = totalPratS6 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS6 = totalDevS6 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS6 = totalPratS6 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS6 = totalDevS6 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFC; x++)
+                            for (var x = 0; x < diffFc; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -851,16 +845,16 @@
 
                             }
                             <td colspan="2" class="danger"></td>
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCoursS6FS)
+                            foreach (PotatoPortail.Models.Cours cours in listeCoursS6FS)
                             {
-                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalPratS6 = totalPratS6 + cours.PlanCadre.nbHeurePratique.Value;
-                                totalDevS6 = totalDevS6 + cours.PlanCadre.nbHeureDevoir.Value;
-                                <td>@cours.PlanCadre.nbHeureTheorie</td>
-                                <td>@cours.PlanCadre.nbHeurePratique</td>
-                                <td>@cours.PlanCadre.nbHeureDevoir</td>
+                                totalTheoS6 = totalTheoS6 + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalPratS6 = totalPratS6 + cours.PlanCadre.NbHeurePratique.Value;
+                                totalDevS6 = totalDevS6 + cours.PlanCadre.NbHeureDevoir.Value;
+                                <td>@cours.PlanCadre.NbHeureTheorie</td>
+                                <td>@cours.PlanCadre.NbHeurePratique</td>
+                                <td>@cours.PlanCadre.NbHeureDevoir</td>
                             }
-                            for (var x = 0; x < diffFS; x++)
+                            for (var x = 0; x < diffFs; x++)
                             {
                                 <td></td>
                                 <td></td>
@@ -871,8 +865,6 @@
                             <td class="danger"><b>@Html.DisplayFor(p => totalDevS6)</b></td>
                         }
                     </tr>
-
-                    @*Zone de total*@
                     <tr>
                         @{
                             longueurDeLigne = longueurDeLigne - 3;
@@ -880,11 +872,11 @@
                         <td colspan="@longueurDeLigne"></td>
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                             }
                         }
                         <td colspan="3" class="success"><b>@totalnbH</b></td>
@@ -893,25 +885,25 @@
                         <td colspan="@longueurDeLigne"></td>
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
                             }
                         }
                         <td class="success"><b>@totalnbH</b></td>
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
                             }
                         }
                         <td class="success"><b>@totalnbH</b></td>
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeureDevoir.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeureDevoir.Value;
                             }
                         }
                         <td class="success"><b>@totalnbH</b></td>
@@ -924,32 +916,18 @@
                         <td colspan="3"><b>Durée totale</b></td>
                         @{
                             totalnbH = 0;
-                            foreach (ApplicationPlanCadre.Models.Cours cours in listeCours)
+                            foreach (PotatoPortail.Models.Cours cours in listeCours)
                             {
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeureTheorie.Value;
-                                totalnbH = totalnbH + cours.PlanCadre.nbHeurePratique.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeureTheorie.Value;
+                                totalnbH = totalnbH + cours.PlanCadre.NbHeurePratique.Value;
                             }
                             totalnbH = totalnbH * 15;
                         }
                         <td colspan="3" class="success"><b>@totalnbH</b></td>
                     </tr>
                 </tbody>
-                            }
-
+                }
         </table>
     </div>
-
 </div>
-
-
-
-
-
-
-
-
-
-
-@* Optimisation du code !!*@
-
 

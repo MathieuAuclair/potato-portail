@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApplicationPlanCadre.Models
+namespace PotatoPortail.ViewModels.ProjetPrincipal
 {
     public class ConnexionViewModel
     {

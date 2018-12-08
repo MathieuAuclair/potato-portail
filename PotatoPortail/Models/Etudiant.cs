@@ -18,6 +18,8 @@ namespace PotatoPortail.Models
         [Key]
         public int IdEtudiant { get; set; }
 
+        public string NomComplet => Prenom + NomComplet;
+
         [Required]
         public string Prenom { get; set; }
 

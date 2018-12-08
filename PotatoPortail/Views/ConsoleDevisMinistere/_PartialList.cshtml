@@ -1,15 +1,15 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.DevisMinistere>
+﻿@model IEnumerable<PotatoPortail.Models.DevisMinistere>
 
 <table class="cool-table">
     <tr>
         <th>
-            @Html.DisplayNameFor(m => m.Departement.discipline)
+            @Html.DisplayNameFor(m => m.Departement.Discipline)
         </th>
         <th>
-            @Html.DisplayNameFor(m => m.annee)
+            @Html.DisplayNameFor(m => m.Annee)
         </th>
         <th>
-            @Html.DisplayNameFor(m => m.specialisation)
+            @Html.DisplayNameFor(m => m.Specialisation)
         </th>
         <th class="action-cell-header">
             <b>Modifier</b>
@@ -22,22 +22,22 @@
     @foreach (var item in Model)
     {
         bool valide = item.EnonceCompetence.Count == 0;
-        string dblclickEvent = valide ? Url.Action("Modifier", new { id = item.idDevis }) : @Url.Action("Creation");
+        string dblclickEvent = valide ? Url.Action("Modifier", new { id = item.IdDevis }) : @Url.Action("Creation");
         string cssClass = valide ? "valide" : "";
         <tr ondblclick="location.href='@dblclickEvent'" class="@cssClass">
             <td>
-                @Html.DisplayFor(m => item.Departement.discipline)
+                @Html.DisplayFor(m => item.Departement.Discipline)
             </td>
             <td>
-                @Html.DisplayFor(m => item.annee)
+                @Html.DisplayFor(m => item.Annee)
             </td>
             <td>
-                @Html.DisplayFor(m => item.codeSpecialisation)
+                @Html.DisplayFor(m => item.CodeSpecialisation)
             </td>
             <td class="action-cell">
                 @if (valide)
                 {
-                    <a href='@Url.Action("Modifier", new { id = item.idDevis })'>
+                    <a href='@Url.Action("Modifier", new { id = item.IdDevis })'>
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 }
@@ -45,7 +45,7 @@
             <td class="action-cell">
                 @if(valide)
                 {
-                    <a href='@Url.Action("Supression", new { id = item.idDevis })'>
+                    <a href='@Url.Action("Supression", new { id = item.IdDevis })'>
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 }

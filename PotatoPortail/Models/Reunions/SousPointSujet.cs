@@ -1,8 +1,8 @@
-﻿namespace ApplicationPlanCadre.Models.Reunions
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace PotatoPortail.Models.Reunions
+{
     [Table("SousPointSujet")]
     public partial class SousPointSujet
     {

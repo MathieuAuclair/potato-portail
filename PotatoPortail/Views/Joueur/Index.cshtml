@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Joueur>
+﻿@model IEnumerable<PotatoPortail.Models.eSports.Joueur>
 @using Microsoft.AspNet.Identity;
 
 @{
@@ -45,20 +45,20 @@
 
                     @foreach (var item in Model)
                     {
-                        <tr onclick="window.location = '@Url.Action("Modifier", "Joueur", new { id = item.id })'">
+                        <tr onclick="window.location = '@Url.Action("Modifier", "Joueur", new { id = item.Id })'">
                             <td>
-                                @Html.DisplayFor(modelItem => item.pseudoJoueur)
+                                @Html.DisplayFor(modelItem => item.PseudoJoueur)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.MembreESports.prenom)
+                                @Html.DisplayFor(modelItem => item.MembreESports.Prenom)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.MembreESports.nom)
+                                @Html.DisplayFor(modelItem => item.MembreESports.Nom)
                             </td>
                             <td>
-                                @if (item.equipeMonojoueur != null)
+                                @if (item.EquipeMonojoueur != null)
                                 {
-                                    @Html.DisplayFor(modelItem => item.equipeMonojoueur.Jeu.nomJeu)
+                                    @Html.DisplayFor(modelItem => item.EquipeMonojoueur.Jeu.NomJeu)
                                 }
                                 else
                                 {
@@ -66,36 +66,31 @@
                                 }
                             </td>
                             <td class="action-cell">
-                                <a href='@Url.Action("Details", "Joueur", new { id = item.id })'>
+                                <a href='@Url.Action("Details", "Joueur", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 </a>
                             </td>
                             <td class="action-cell">
-                                <a href='@Url.Action("Supprimer", "Joueur", new { id = item.id })'>
+                                <a href='@Url.Action("Supprimer", "Joueur", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
                         </tr>
                     }
-
                 </table>
-
             }
             else
             {
                 <h1>Aucun joueur n'est actuellement enregistré dans le système.</h1>
             }
-
         }
         else
         {
-
-            if (Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()).Any())
+            if (Model.Any(m => m.IdMembreESports  == User.Identity.GetUserId()))
             {
                 <header class="light-header">
                     <h1>Mes Profil de joueur</h1>
                 </header>
-
                 <table class="cool-table">
                     <tr>
                         <th>
@@ -108,32 +103,31 @@
                             @Html.ActionLink("Nom", "Index", new { sortOrder = ViewBag.NomSortParm })
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Profil.courriel)
+                            @Html.DisplayNameFor(model => model.Profil.Courriel)
                         </th>
                         <th>
                             @Html.ActionLink("Jeu", "Index", new { sortOrder = ViewBag.JeuSortParm })
                         </th>
                     </tr>
-
-                    @foreach (var item in Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()))
+                    @foreach (var item in Model.Where(m => m.IdMembreESports == User.Identity.GetUserId()))
                     {
-                        <tr onclick="window.location = '@Url.Action("Modifier", "Joueur", new { id = item.id })'">
+                        <tr onclick="window.location = '@Url.Action("Modifier", "Joueur", new { id = item.Id })'">
                             <td>
-                                @Html.DisplayFor(modelItem => item.pseudoJoueur)
+                                @Html.DisplayFor(modelItem => item.PseudoJoueur)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.MembreESports.prenom)
+                                @Html.DisplayFor(modelItem => item.MembreESports.Prenom)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.MembreESports.nom)
+                                @Html.DisplayFor(modelItem => item.MembreESports.Nom)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Profil.courriel)
+                                @Html.DisplayFor(modelItem => item.Profil.Courriel)
                             </td>
                             <td>
-                                @if (item.equipeMonojoueur != null)
+                                @if (item.EquipeMonojoueur != null)
                                 {
-                                    @Html.DisplayFor(modelItem => item.equipeMonojoueur.Jeu.nomJeu)
+                                    @Html.DisplayFor(modelItem => item.EquipeMonojoueur.Jeu.NomJeu)
                                 }
                                 else
                                 {
@@ -150,8 +144,6 @@
                 <h1>Vous n'êtes pas enregistré en tant que joueur des eSports.</h1>
             }
         }
-
-
         <div class="menu-flottant">
             <a class="fancy-button blanc" href="/Accueil/ESport">
                 <span class="glyphicon glyphicon-triangle-left"></span>
@@ -172,6 +164,5 @@
                 </a>
             }
         </div>
-
     </div>
 </div>

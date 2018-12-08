@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.Programme
+﻿@model PotatoPortail.Models.Programme
 
 @{
     ViewBag.Titre = "Ajout d'un programme";
@@ -26,27 +26,27 @@
                         @Html.ValidationMessage("Duplique", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.idDevis)
+                            @Html.LabelFor(model => model.IdDevis)
                             @Html.DropDownList("idDevis", null, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.idDevis, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.IdDevis, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.nom)
-                            @Html.TextBoxFor(model => model.nom, new { @class = "form-control", @maxlength = 50 })
-                            @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Nom)
+                            @Html.TextBoxFor(model => model.Nom, new { @class = "form-control", @maxlength = 50 })
+                            @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
                         </div>
 
                         <div class=" form-group">
-                            @Html.LabelFor(model => model.annee)
-                            @Html.TextBoxFor(model => model.annee, new { @class = "form-control small", @maxlength = 4 })
-                            @Html.ValidationMessageFor(model => model.annee, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Annee)
+                            @Html.TextBoxFor(model => model.Annee, new { @class = "form-control small", @maxlength = 4 })
+                            @Html.ValidationMessageFor(model => model.Annee, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.nbSession)
-                            @Html.TextBoxFor(model => model.nbSession, new { @class = "form-control small", @maxlength = 1 })
-                            @Html.ValidationMessageFor(model => model.nbSession, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.NbSession)
+                            @Html.TextBoxFor(model => model.NbSession, new { @class = "form-control small", @maxlength = 1 })
+                            @Html.ValidationMessageFor(model => model.NbSession, "", new { @class = "text-danger" })
                         </div>
 
                         <input type="submit" value="Ajouter" class="fancy-button" />

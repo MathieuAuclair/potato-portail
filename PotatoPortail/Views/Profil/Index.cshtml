@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Profil>
+﻿@model IEnumerable<PotatoPortail.Models.eSports.Profil>
 @using Microsoft.AspNet.Identity;
 
 @{
@@ -6,9 +6,7 @@
 }
 
 <div class="container">
-
     <div class="box">
-
         @if (User.IsInRole("Admin eSports"))
         {
 
@@ -24,7 +22,7 @@
                             @Html.DisplayName("Nom de l'étudiant")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.pseudo)
+                            @Html.DisplayNameFor(model => model.Pseudo)
                         </th>
                         <th class="action-cell-header">
                             <b>Détails</b>
@@ -39,7 +37,6 @@
                             <b>Refuser</b>
                         </th>
                     </tr>
-
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -47,34 +44,30 @@
                                 @Html.DisplayFor(modelItem => item.MembreESports.nomComplet)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.pseudo)
+                                @Html.DisplayFor(modelItem => item.Pseudo)
                             </td>
-
                             <td class="action-cell">
-                                <a href='@Url.Action("Details", "Profil", new { id = item.id })'>
+                                <a href='@Url.Action("Details", "Profil", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 </a>
                             </td>
-
                             <td class="action-cell">
-                                <a href='@Url.Action("Valider", "Profil", new { id = item.id })'>
+                                <a href='@Url.Action("Valider", "Profil", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-check"></span>
-                                    @item.Jeu.nomJeu
+                                    @item.Jeu.NomJeu
                                 </a>
                             </td>
-
                             <td class="action-cell">
-                                @if (item.jeuSecondaire != null)
+                                @if (item.JeuSecondaire != null)
                                 {
-                                    <a href='@Url.Action("Valider", "Profil", new { id = item.id, JeuId = item.JeuSecondaireId })'>
+                                    <a href='@Url.Action("Valider", "Profil", new { id = item.Id, JeuId = item.IdJeuSecondaire })'>
                                         <span class="glyphicon glyphicon-check"></span>
-                                        @item.jeuSecondaire.nomJeu
+                                        @item.JeuSecondaire.NomJeu
                                     </a>
                                 }
                             </td>
-
                             <td class="action-cell">
-                                <a href='@Url.Action("Supprimer", "Profil", new { id = item.id })'>
+                                <a href='@Url.Action("Supprimer", "Profil", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
@@ -94,7 +87,7 @@
         }
         else
         {
-            if(Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()).Any())
+            if(Model.Any(m => m.IdMembreESports == User.Identity.GetUserId()))
             {
 
                 <header class="light-header">
@@ -107,7 +100,7 @@
                             @Html.DisplayName("Nom de l'étudiant")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.pseudo)
+                            @Html.DisplayNameFor(model => model.Pseudo)
                         </th>
                         <th class="action-cell-header">
                             <b>Détails</b>
@@ -123,35 +116,35 @@
                         </th>
                     </tr>
 
-                    @foreach (var item in Model.Where(m => m.MembreESportsId == User.Identity.GetUserId()))
+                    @foreach (var item in Model.Where(m => m.IdMembreESports == User.Identity.GetUserId()))
                     {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MembreESports.nomComplet)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.pseudo)
+                                @Html.DisplayFor(modelItem => item.Pseudo)
                             </td>
 
                             <td class="action-cell">
-                                <a href='@Url.Action("Details", "Profil", new { id = item.id })'>
+                                <a href='@Url.Action("Details", "Profil", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 </a>
                             </td>
 
                             <td class="action-cell">
-                                @Html.DisplayFor(modelItem => item.Jeu.nomJeu)
+                                @Html.DisplayFor(modelItem => item.Jeu.NomJeu)
                             </td>
 
                             <td class="action-cell">
-                                @if (item.jeuSecondaire != null)
+                                @if (item.JeuSecondaire != null)
                                 {
-                                    @Html.DisplayFor(modelItem => item.jeuSecondaire.nomJeu)
+                                    @Html.DisplayFor(modelItem => item.JeuSecondaire.NomJeu)
                                 }
                             </td>
 
                             <td class="action-cell">
-                                <a href='@Url.Action("Supprimer", "Profil", new { id = item.id })'>
+                                <a href='@Url.Action("Supprimer", "Profil", new { id = item.Id })'>
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>

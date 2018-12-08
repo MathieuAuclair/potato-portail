@@ -1,7 +1,7 @@
-﻿@model ApplicationPlanCadre.Models.DevisMinistere
+﻿@model PotatoPortail.Models.DevisMinistere
 
 @{
-    ViewBag.Titre = Model.nom;
+    ViewBag.Titre = Model.Nom;
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="DevisMinistere">
 }
 
@@ -16,7 +16,7 @@
         <h1>@ViewBag.Titre</h1>
         <hr />
 
-        <h3><b>@Html.DisplayNameFor(m => m.specialisation) : </b>@Html.DisplayFor(m => m.specialisation)</h3>
+        <h3><b>@Html.DisplayNameFor(m => m.Specialisation) : </b>@Html.DisplayFor(m => m.Specialisation)</h3>
 
     </header>
 
@@ -24,25 +24,25 @@
         <div class="col-md-6">
 
             <div class="element">
-                @Html.LabelFor(m => m.sanction)
-                @Html.DisplayFor(m => m.sanction)
+                @Html.LabelFor(m => m.Sanction)
+                @Html.DisplayFor(m => m.Sanction)
             </div>
 
             <div class="element">
-                @Html.LabelFor(m => m.nbUnite)
-                @Html.DisplayFor(m => m.nbUnite)@Html.Raw(" unités")
+                @Html.LabelFor(m => m.NbUnite)
+                @Html.DisplayFor(m => m.NbUnite)@Html.Raw(" unités")
             </div>
 
             <div class="element">
-                @Html.LabelFor(m => m.condition)
-                @Html.DisplayFor(m => m.condition)
+                @Html.LabelFor(m => m.Condition)
+                @Html.DisplayFor(m => m.Condition)
             </div>
 
-            @if (Model.docMinistere != null)
+            @if (Model.DocMinistere != null)
             {
                 <div class="element">
-                    <a class="fancy-button rouge" href='@Url.Content("~/Files/Document ministériel/" + Model.docMinistere)' target="_blank">
-                        <span>@Html.DisplayFor(m => Model.docMinistere)</span> <span class="glyphicon glyphicon-file"></span>
+                    <a class="fancy-button rouge" href='@Url.Content("~/Files/Document ministériel/" + Model.DocMinistere)' target="_blank">
+                        <span>@Html.DisplayFor(m => Model.DocMinistere)</span> <span class="glyphicon glyphicon-file"></span>
                     </a>
                 </div>
             }
@@ -57,13 +57,13 @@
                 <hr />
 
                 <div class="element">
-                    @Html.LabelFor(m => m.nbHeureFrmGenerale)
-                    @Html.DisplayFor(m => m.nbHeureFrmGenerale)@Html.Raw("h")
+                    @Html.LabelFor(m => m.NbHeureFrmGenerale)
+                    @Html.DisplayFor(m => m.NbHeureFrmGenerale)@Html.Raw("h")
                 </div>
 
                 <div class="element">
-                    @Html.LabelFor(m => m.nbHeureFrmSpecifique)
-                    @Html.DisplayFor(m => m.nbHeureFrmSpecifique)@Html.Raw("h")
+                    @Html.LabelFor(m => m.NbHeureFrmSpecifique)
+                    @Html.DisplayFor(m => m.NbHeureFrmSpecifique)@Html.Raw("h")
                 </div>
 
                 <div class="element">
@@ -83,11 +83,11 @@
         foreach (var enonceCompetence in Model.EnonceCompetence)
         {
             <div>
-                <a class="info-child clearfix vertical-align" href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCompetence.idCompetence })'>
-                    <p class="droite">@Html.DisplayFor(p => enonceCompetence.description)</p>
-                    <p class="gauche">@Html.DisplayFor(p => enonceCompetence.codeCompetence)</p>
+                <a class="info-child clearfix vertical-align" href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCompetence.IdCompetence })'>
+                    <p class="droite">@Html.DisplayFor(p => enonceCompetence.Description)</p>
+                    <p class="gauche">@Html.DisplayFor(p => enonceCompetence.CodeCompetence)</p>
                 </a>
-                <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "EnonceCompetence", new { idCompetence = enonceCompetence.idCompetence })'><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "EnonceCompetence", new { idCompetence = enonceCompetence.IdCompetence })'><span class="glyphicon glyphicon-trash"></span></a>
             </div>
         }
     }
@@ -97,12 +97,12 @@
     <div class="menu-flottant">
 
         <a class="fancy-button blanc" href='@Url.Action("Index", "DevisMinistere")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-        <a class="fancy-button blanc" href='@Url.Action("Modifier", new { idDevis = Model.idDevis })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
-        <a class="fancy-button blanc" href='@Url.Action("Creation", "EnonceCompetence", new { idDevis = Model.idDevis })'><span class="glyphicon glyphicon-plus"></span> Ajouter un énoncé</a>
+        <a class="fancy-button blanc" href='@Url.Action("Modifier", new { IdDevis = Model.IdDevis })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+        <a class="fancy-button blanc" href='@Url.Action("Creation", "EnonceCompetence", new { IdDevis = Model.IdDevis })'><span class="glyphicon glyphicon-plus"></span> Ajouter un énoncé</a>
 
     </div>
 </div>
 
 <script>
-    $(("#p" + @Model.idDevis + "element")).addClass('active');
+    $(("#p" + @Model.IdDevis + "element")).addClass('active');
 </script>

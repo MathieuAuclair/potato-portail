@@ -10,14 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PotatoPortail.Helpers;
 using PotatoPortail.Toast;
-using ApplicationPlanCadre.Controllers;
-using ApplicationPlanCadre.Helpers;
-using ApplicationPlanCadre.Toast;
-using System.Web.Security;
-using PotatoPortail.Models;
-using PotatoPortail;
-using PotatoPortail.Toast;
 using PotatoPortail.Migrations;
+using PotatoPortail.ViewModels.ProjetPrincipal;
 
 
 namespace PotatoPortail.Controllers

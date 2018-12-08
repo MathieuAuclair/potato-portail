@@ -1,28 +1,32 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.GrilleCours>
+﻿@model IEnumerable<PotatoPortail.Models.GrilleCours>
 
 <div class="tree-view">
-    <div class="tree-view-header"><a href='@Url.Action("Index","GrilleCours")'>Informatique (420-2001-AA)</a></div>
+    <div class="tree-view-header">
+        <a href='@Url.Action("Index", "GrilleCours")'>Informatique (420-2001-AA)</a>
+    </div>
     @foreach (var grille in Model)
     {
-
-        string p_id = "p" + grille.idGrille.ToString();
-        string p_element = p_id + "element";
-        string p_target = "#" + p_id;
-        <div id=@p_element class="tree-view-item">
-            <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div>
-            <a href='@Url.Action("Info","grilleCours", new { id = grille.idGrille })'>@Html.DisplayFor(p => grille.nom)</a>
+        var pId = "p" + grille.IdGrille;
+        var pElement = pId + "element";
+        var pTarget = "#" + pId;
+        <div id=@pElement class="tree-view-item">
+            <div class="collapse-button" data-toggle="collapse" data-target=@pTarget>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </div>
+            <a href='@Url.Action("Info", "grilleCours", new {id = grille.IdGrille})'>@Html.DisplayFor(p => grille.Nom)</a>
         </div>
-        <div id=@p_id class="collapse">
+        <div id=@pId class="collapse">
             <div class="tree-view-item-container">
-                <div class="tree-view-header" onclick="location.href='@Url.Action("Info", "grilleCours", new { id = grille.idGrille })'">Structure</div>
-                <div class="tree-view-header" onclick="location.href='@Url.Action("InfoHeure", "grilleCours", new { id = grille.idGrille })'">Heure</div>
-                <div class="tree-view-header" onclick="location.href='@Url.Action("InfoPrealable", "grilleCours", new { id = grille.idGrille })'">Préalable</div>
+                <div class="tree-view-header" onclick="location.href = '@Url.Action("Info", "grilleCours", new {id = grille.IdGrille})'">Structure</div>
+                <div class="tree-view-header" onclick="location.href = '@Url.Action("InfoHeure", "grilleCours", new {id = grille.IdGrille})'">Heure</div>
+                <div class="tree-view-header" onclick="location.href = '@Url.Action("InfoPrealable", "grilleCours", new {id = grille.IdGrille})'">Préalable</div>
             </div>
         </div>
     }
 </div>
 
-<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")">
+</script>
 <script>
     var ps = new PerfectScrollbar('.tree-view');
 </script>

@@ -1,12 +1,9 @@
 ﻿@model PotatoPortail.Models.Application
-
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2>Effacer</h2>
+<h3>Êtes-vous certain de vouloir effacer?</h3>
 <div>
     <h4>Application</h4>
     <hr />
@@ -14,13 +11,10 @@
         <dt>
             @Html.DisplayNameFor(model => model.Timestamp)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Timestamp)
         </dd>
-
     </dl>
-
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 

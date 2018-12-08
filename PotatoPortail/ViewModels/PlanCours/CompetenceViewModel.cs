@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
 using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.ViewModels
+namespace PotatoPortail.ViewModels.PlanCours
 {
     public class CompetenceViewModel
     {
@@ -20,7 +16,7 @@ namespace ApplicationPlanCadre.ViewModels
         public string TitreCours { get; set; }
         public string IndicationPedago { get; set; }
 		public virtual int IdPlanCadre { get; set; }
-        public virtual PlanCadre PlanCadre { get; set; }
+        public virtual Models.PlanCadre PlanCadre { get; set; }
         public virtual IEnumerable<string> CodeCompetences { get; set; }
         public virtual IEnumerable<int> IdElements { get; set; }
         public virtual IEnumerable<string> Description { get; set; }

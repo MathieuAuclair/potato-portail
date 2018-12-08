@@ -1,12 +1,12 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.GrilleCours>
+﻿@model IEnumerable<PotatoPortail.Models.GrilleCours>
 
 <div id="tree-view">
     @foreach (var grille in Model)
     {
-        <a>@Html.DisplayFor(p => grille.nom)</a>
-        foreach (var nomGrille in grille.nom)
+        <a>@Html.DisplayFor(p => grille.Nom)</a>
+        foreach (var nomGrille in grille.Nom)
         {
-            <a>@Html.DisplayFor(nomG => grille.nom)</a>
+            <a>@Html.DisplayFor(nomG => grille.Nom)</a>
         }
     }
 </div>

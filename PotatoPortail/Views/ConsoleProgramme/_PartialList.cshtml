@@ -1,18 +1,18 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.Programme>
+﻿@model IEnumerable<PotatoPortail.Models.Programme>
 
 <table class="cool-table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nom)
+            @Html.DisplayNameFor(model => model.Nom)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.annee)
+            @Html.DisplayNameFor(model => model.Annee)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.idDevis)
+            @Html.DisplayNameFor(model => model.IdDevis)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nbSession)
+            @Html.DisplayNameFor(model => model.NbSession)
         </th>
         <th class="action-cell-header">
             <b>Modifier</b>
@@ -24,25 +24,25 @@
 
     @foreach (var item in Model)
     {
-        bool valide = item.dateValidation == null;
-        string dblclickEvent = valide ? Url.Action("Modifier", new { idProgramme = item.idProgramme }) : @Url.Action("Creation");
+        bool valide = item.DateValidation == null;
+        string dblclickEvent = valide ? Url.Action("Modifier", new { idProgramme = item.IdProgramme }) : @Url.Action("Creation");
         <tr ondblclick="location.href='@dblclickEvent'">
             <td>
-                @Html.DisplayFor(modelItem => item.nom)
+                @Html.DisplayFor(modelItem => item.Nom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.annee)
+                @Html.DisplayFor(modelItem => item.Annee)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DevisMinistere.nom)
+                @Html.DisplayFor(modelItem => item.DevisMinistere.Nom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nbSession)
+                @Html.DisplayFor(modelItem => item.NbSession)
             </td>
             <td class="action-cell">
                 @if (valide)
                 {
-                    <a href='@Url.Action("Modifier", new { idProgramme = item.idProgramme })'>
+                    <a href='@Url.Action("Modifier", new { idProgramme = item.IdProgramme })'>
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 }
@@ -50,7 +50,7 @@
             <td class="action-cell">
                 @if(valide)
                 {
-                    <a href='@Url.Action("Supression", new { idProgramme = item.idProgramme })'>
+                    <a href='@Url.Action("Supression", new { idProgramme = item.IdProgramme })'>
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 }

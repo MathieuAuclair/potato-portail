@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.ViewModels.OrdresDuJourVM.OrdreDuJourViewModel
+﻿@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel
 @{
     ViewBag.Titre = "Création d'un nouvel ordre du jour";
 }
@@ -15,40 +15,40 @@
 
             <div class="form-group">
                 @Html.Label("Titre de l'ordre du jour")
-                @Html.TextBoxFor(m => m.ordreDuJour.TitreOdJ, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.TitreOdJ, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.OrdreDuJour.TitreOdJ, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.TitreOdJ, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.Label("Date")
-                @Html.EditorFor(m => m.ordreDuJour.DateOdJ, new { htmlAttributes = new { @type = "date", @class = "form-control date-picker small", @Value = "yyyy-mm-dd", @id = "dateReunion" } })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.DateOdJ, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m.OrdreDuJour.DateOdJ, new { htmlAttributes = new { @type = "date", @class = "form-control date-picker small", @Value = "yyyy-mm-dd", @id = "dateReunion" } })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.DateOdJ, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.Label("Heure de début de la réunion")
-                @Html.TextBoxFor(m => m.ordreDuJour.HeureDebutReunion, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.HeureDebutReunion, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.OrdreDuJour.HeureDebutReunion, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.HeureDebutReunion, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.Label("Heure de fin de la réunion")
-                @Html.TextBoxFor(m => m.ordreDuJour.HeureFinReunion, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.HeureFinReunion, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.OrdreDuJour.HeureFinReunion, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.HeureFinReunion, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.Label("Lieu de la réunion")
-                @Html.DropDownListFor(x => x.ordreDuJour.LieuReunionODJ, new SelectList(Model.listLieux, "Text", "Value"), htmlAttributes: new { @class = "form-control small" })
-                @Html.ValidationMessageFor(x => x.ordreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(x => x.OrdreDuJour.LieuReunionODJ, new SelectList(Model.ListLieux, "Text", "Value"), htmlAttributes: new { @class = "form-control small" })
+                @Html.ValidationMessageFor(x => x.OrdreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
             </div>
             <div id="dragdropPP">
                 @Html.Label("Points principaux")
                 @{ int cpt = 0;}
-                @foreach(var item in Model.ordreDuJour.SujetPointPrincipal)
+                @foreach(var item in Model.OrdreDuJour.SujetPointPrincipal)
                 {
                     <div class="form-group">
-                    @Html.EditorFor(model => Model.sujetPointPrincipal[cpt].SujetPoint, new { htmlAttributes = new { @class = "form-control", @Value = item.SujetPoint } })
+                    @Html.EditorFor(model => Model.SujetPointPrincipal[cpt].SujetPoint, new { htmlAttributes = new { @class = "form-control", @Value = item.SujetPoint } })
                     @Html.ValidationMessageFor(model => item.SujetPoint, "", new { @class = "text-danger" })
                     <ul id="listSP0">
                         <a class="fancy-button" id="btnPlus_@cpt" onclick="ajoutSPoint(this.id,@cpt)"><span class="glyphicon glyphicon-plus"></span></a>

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models.eSports;
 using PotatoPortail.Toast;
@@ -52,7 +51,7 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Joueur joueur = _db.Joueur.Find(id);
+            var joueur = _db.Joueur.Find(id);
             if (joueur == null)
             {
                 return HttpNotFound();

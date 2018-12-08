@@ -1,26 +1,20 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Equipe
-
+﻿@model PotatoPortail.Models.Equipe
 @{
-    ViewBag.Titre = "Suppression de " + Model.nomEquipe;
+    ViewBag.Titre = "Suppression de " + Model.NomEquipe;
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Equipe">
 }
-
 <div class="container" style="margin-bottom:5%;">
-
     <div class="box">
-
         <header class="light-header">
             <h1>Suppression de l'équipe «@ViewBag.nomEquipe» (@ViewBag.nomJeu)</h1>
         </header>
-
-
-        @if (Model.Joueur.Count > 0 && Model.Joueur != null)
+        @if (Model.Joueurs.Count > 0 && Model.Joueurs != null)
         {
-            <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueur.Count joueurs.</h3>
+            <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueurs.Count joueurs.</h3>
 
-            foreach (var joueur in Model.Joueur)
+            foreach (var joueur in Model.Joueurs)
             {
-                <h4>@joueur.pseudoJoueur</h4>
+                <h4>@joueur.PseudoJoueur</h4>
             }
         }
         else
@@ -28,7 +22,6 @@
             <h3>«@ViewBag.nomEquipe» est actuellement composée d'aucun joueur.</h3>
         }
         <div>
-
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -42,6 +35,5 @@
                 </div>
             }
         </div>
-
     </div>
 </div>

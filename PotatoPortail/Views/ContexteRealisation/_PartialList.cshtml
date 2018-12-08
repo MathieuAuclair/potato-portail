@@ -1,9 +1,9 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.ContexteRealisation>
+﻿@model IEnumerable<PotatoPortail.Models.ContexteRealisation>
 
 <table class="cool-table">
     <tr>
         <th>
-            @Html.DisplayNameFor(m => m.description)
+            @Html.DisplayNameFor(m => m.Description)
         </th>
         <th class="action-cell-header">
             <b>Modifier</b>
@@ -16,28 +16,28 @@
         </th>
     </tr>
 
-    @foreach (var item in Model.OrderBy(e => e.numero))
+    @foreach (var item in Model.OrderBy(e => e.Numero))
     {
-        string dblclickEvent = Url.Action("Modifier", new { idContexte = item.idContexte });
+        string dblclickEvent = Url.Action("Modifier", new { idContexte = item.IdContexte });
         <tr ondblclick="location.href='@dblclickEvent'">
             <td>
-                @Html.DisplayFor(m => item.description)
+                @Html.DisplayFor(m => item.Description)
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("Modifier", new { idContexte = item.idContexte })'>
+                <a href='@Url.Action("Modifier", new { idContexte = item.IdContexte })'>
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("Supression", new { idContexte = item.idContexte })'>
+                <a href='@Url.Action("Supression", new { idContexte = item.IdContexte })'>
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("DeplacementHaut", new { idContexte = item.idContexte })'>
+                <a href='@Url.Action("DeplacementHaut", new { idContexte = item.IdContexte })'>
                     <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
-                <a href='@Url.Action("MouvementBas", new { idContexte = item.idContexte })'>
+                <a href='@Url.Action("MouvementBas", new { idContexte = item.IdContexte })'>
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>

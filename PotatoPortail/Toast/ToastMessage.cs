@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PotatoPortail.Toast;
 
-namespace ApplicationPlanCadre.Toast
+namespace PotatoPortail.Toast
 {
     [Serializable]
     public class ToastMessage

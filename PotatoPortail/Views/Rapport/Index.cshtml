@@ -1,5 +1,5 @@
 ﻿@model dynamic
-@using ApplicationPlanCadre.Models
+@using PotatoPortail.Models
 
 @{
     ViewBag.Titre = "Rapport";
@@ -23,7 +23,6 @@
 
 
 <div id="super-view">
-    @*@Html.Action("_TreeView")*@
     <div class="container">
         <div class="form-box">
 
@@ -37,9 +36,9 @@
             <hr />
             @foreach (PlanCadre planCadre in Model.PlanCadre)
             {
-                <a class="info-child clearfix" target="_blank" href='@Url.Action("RapportPlanCadre", "Rapport",new { id = planCadre.idPlanCadre})'>
-                    <p class="droiteG">@Html.DisplayFor(x => planCadre.titreCours)</p>
-                    <p class="gaucheG">@Html.DisplayFor(x => planCadre.numeroCours)</p>
+                <a class="info-child clearfix" target="_blank" href='@Url.Action("RapportPlanCadre", "Rapport",new { id = planCadre.IdPlanCadre})'>
+                    <p class="droiteG">@Html.DisplayFor(x => planCadre.TitreCours)</p>
+                    <p class="gaucheG">@Html.DisplayFor(x => planCadre.NumeroCours)</p>
                 </a>
             }
             <h3>Programmes</h3>
@@ -47,9 +46,9 @@
             <hr />
             @foreach (Programme programme in Model.Programme)
             {
-                <a class="info-child clearfix" target="_blank" href='@Url.Action("RapportProgramme", "Rapport",new { id = programme.idProgramme})'>
-                    <p class="droiteG">@Html.DisplayFor(x => programme.nom)</p>
-                    <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.Departement.discipline)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
+                <a class="info-child clearfix" target="_blank" href='@Url.Action("RapportProgramme", "Rapport",new { id = programme.IdProgramme})'>
+                    <p class="droiteG">@Html.DisplayFor(x => programme.Nom)</p>
+                    <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.Departement.Discipline)-@Html.DisplayFor(model => programme.Annee)-@Html.DisplayFor(model => programme.DevisMinistere.CodeSpecialisation)</p>
                 </a>
             }
 
