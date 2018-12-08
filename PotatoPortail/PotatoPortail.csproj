@@ -222,7 +222,7 @@
     <Compile Include="Controllers\ProgrammeController.cs" />
     <Compile Include="Controllers\RapportController.cs" />
     <Compile Include="Controllers\RechercheController.cs" />
-    <Compile Include="Controllers\SystemeStage\ApplicationStageController.cs" />
+    <Compile Include="Controllers\SystemeStage\ApplicationController.cs" />
     <Compile Include="Controllers\SystemeStage\ContactController.cs" />
     <Compile Include="Controllers\SystemeStage\EntrepriseController.cs" />
     <Compile Include="Controllers\SystemeStage\EtudiantController.cs" />

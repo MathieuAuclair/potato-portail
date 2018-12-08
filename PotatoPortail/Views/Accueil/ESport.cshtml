@@ -5,19 +5,16 @@
 <div id="accueil">
     <h1>eSport - Gaillards</h1>
     <div class="icon-container">
-
         <a class="icon small-margin" href='@Url.Action("Index")'>
             <span class="glyphicon glyphicon-share-alt flip"></span>
             <p>Retour</p>
         </a>
-
         @if(User.IsInRole("Etudiant"))
         {
             <a class="icon small-margin" href='@Url.Action("Inscription", "Profil")'>
                 <span class="mdi mdi-create"></span>
                 <p>S'inscrire</p>
             </a>
-
             if (!User.IsInRole("Admin eSports"))
             {
                 <a class="icon small-margin" href='@Url.Action("Index", "Jeu")'>
@@ -38,36 +35,28 @@
                 </a>
             }
         }
-
         @if (User.IsInRole("Admin eSports"))
         {
-
             <a class="icon small-margin" href='@Url.Action("Index", "Jeu")'>
                 <span class="mdi mdi-games"></span>
                 <p>Jeu</p>
             </a>
-
             <a class="icon small-margin" href='@Url.Action("Index", "Equipe")'>
                 <span class="mdi mdi-people"></span>
                 <p>Équipes</p>
             </a>
-
             <a class="icon small-margin" href='@Url.Action("Index", "Joueur")'>
                 <span class="mdi mdi-person"></span>
                 <p>Joueurs</p>
             </a>
-
             <a class="icon small-margin" href='@Url.Action("Index", "Profil")'>
                 <span class="mdi mdi-library-books"></span>
                 <p>Inscriptions</p>
             </a>
-
             <a class="icon small-margin" href='@Url.Action("Index", "Entraineur")'>
                 <span class="glyphicon glyphicon-eye-open"></span>
                 <p>Entraîneurs</p>
             </a>
-
         }
-
     </div>
 </div>

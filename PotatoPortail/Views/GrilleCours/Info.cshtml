@@ -1,53 +1,36 @@
-﻿@model ApplicationPlanCadre.Models.GrilleCours
+﻿@model PotatoPortail.Models.GrilleCours
 
 @{
-    ViewBag.Titre = "Grille de cours : " + Model.nom;
-
-    //En attendant de pouvoir récupérer cette liste via une requête ou dans la table. 
+    ViewBag.Titre = "Grille de cours : " + Model.Nom;
     string[] tabSession = { "I", "II", "IIII", "IV", "V", "VI" };
-
-    List<String> listeConpetences = new List<string>();
-
+    var listeConpetences = new List<string>();
     var listeCompetences = ViewBag.List;
-
 }
 
 @Html.Action("ListeGrilleCours")
 
 <div class="super-view section-grille">
-
     <header class="fat-header">
-
         <h1>@ViewBag.Titre</h1>
-
     </header>
-
     <hr />
-
     <div class="section-grille">
-
         <div class="select-grille">
             <div class="row">
                 <div class="col-sm-4" id="selected-grille" onclick="testAlert()"><h3>Structure</h3></div>
-                <div class="col-sm-4" id="hover-grille" onclick="location.href = '@Url.Action("InfoHeure", "grilleCours", new { id = Model.idGrille })'"><h3>Heure</h3></div>
-                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("InfoPrealable", "grilleCours", new { id = Model.idGrille })'"><h3>Préalable</h3></div>
+                <div class="col-sm-4" id="hover-grille" onclick="location.href = '@Url.Action("InfoHeure", "grilleCours", new { id = Model.IdGrille })'"><h3>Heure</h3></div>
+                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("InfoPrealable", "grilleCours", new { id = Model.IdGrille })'"><h3>Préalable</h3></div>
             </div>
         </div>
-
         <hr />
-
     </div>
-
     <div id="tableauVuePartielle">
         @Html.Action("_Structure")
     </div>
-
     <hr class="end-div" />
-
     <div class="menu-flottant">
         <a class="fancy-button blanc" href='@Url.Action("Index","GrilleCours")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-        @*<a class="fancy-button blanc" href='@Url.Action("Modifier", "grilleCours", new { id = Model.idGrille })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>*@
-        <a class="fancy-button blanc rouge" href='@Url.Action("Supression", "grilleCours", new { id = Model.idGrille })'><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+        <a class="fancy-button blanc rouge" href='@Url.Action("Supression", "grilleCours", new { id = Model.IdGrille })'><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
         <a class="fancy-button blanc" data-toggle="collapse" data-target="#collapseTest" id="collapse"><span class="glyphicon glyphicon-eye-open"></span><span id="showHide">Afficher les cours de formation générale</span></a>
     </div>
 

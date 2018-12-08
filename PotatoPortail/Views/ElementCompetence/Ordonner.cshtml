@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.EnonceCompetence
+﻿@model PotatoPortail.Models.EnonceCompetence
 
 @{
     ViewBag.Titre = "Changer l'ordre des éléments";
@@ -6,53 +6,44 @@
 
 <div class="container">
     <div class="form-box">
-
         <header class="light-header">
-
             <h1>@ViewBag.Titre</h1>
-
         </header>
-
         <table class="cool-table">
-
             <tr>
                 <th>
-                    @Html.DisplayNameFor(m => Model.ElementCompetence.First().numero)
+                    @Html.DisplayNameFor(m => Model.ElementCompetence.First().Numero)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(m => Model.ElementCompetence.First().description)
+                    @Html.DisplayNameFor(m => Model.ElementCompetence.First().Description)
                 </th>
                 <th class="action-cell-header">
                     <b>Déplacer</b>
                 </th>
             </tr>
-
-            @foreach (var elementCompetence in Model.ElementCompetence.OrderBy(e => e.numero))
+            @foreach (var elementCompetence in Model.ElementCompetence.OrderBy(e => e.Numero))
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(m => elementCompetence.numero)
+                        @Html.DisplayFor(m => elementCompetence.Numero)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => elementCompetence.description)
+                        @Html.DisplayFor(m => elementCompetence.Description)
                     </td>
                     <td class="action-cell">
-                        <a href='@Url.Action("DeplacementHaut", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
+                        <a href='@Url.Action("DeplacementHaut", "ElementCompetence", new {idElement = elementCompetence.IdElement})'>
                             <span class="glyphicon glyphicon glyphicon-arrow-up"></span>
                         </a>
-                        <a href='@Url.Action("DeplacementBas", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
+                        <a href='@Url.Action("DeplacementBas", "ElementCompetence", new {idElement = elementCompetence.IdElement})'>
                             <span class="glyphicon glyphicon glyphicon-arrow-down"></span>
                         </a>
                     </td>
                 </tr>
             }
-
         </table>
-
-        <hr />
-        <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = Model.idCompetence })' class="fancy-button">Retour</a>
+        <hr/>
+        <a href='@Url.Action("Info", "EnonceCompetence", new {idCompetence = Model.IdCompetence})' class="fancy-button">Retour</a>
 
     </div>
 
 </div>
-

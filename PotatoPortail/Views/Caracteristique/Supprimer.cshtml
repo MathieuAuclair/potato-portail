@@ -1,61 +1,57 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Caracteristique
+﻿@model PotatoPortail.Models.eSports.Caracteristique
 
 @{
-    ViewBag.Titre = "Suppression - " + Model.nomCaracteristique;
+    ViewBag.Titre = "Suppression - " + Model.NomCaracteristique;
 }
 
 <div class="container">
-
     <div class="box">
 
-<header class="light-header">
-    <h2>Suppression de caractéristique reliée à «@ViewBag.nomJeu»</h2>
-</header>
+        <header class="light-header">
+            <h2>Suppression de caractéristique reliée à «@ViewBag.nomJeu»</h2>
+        </header>
 
-@if (ViewBag.itemsCarac.Count > 1)
-{
-    
-    <h3>La suppression de la caractéristique entraînera également celle des items suivants :</h3>
-
-@:<div>
-    <hr />
-    
-        foreach (var item in ViewBag.itemsCarac)
+        @if (ViewBag.itemsCarac.Count > 1)
         {
-            <h4>
-                @item.nomItem
-            </h4>
+            <h3>La suppression de la caractéristique entraînera également celle des items suivants :</h3>
+
+            @:<div>
+            <hr/>
+
+            foreach (var item in ViewBag.itemsCarac)
+            {
+                <h4>
+                    @item.nomItem
+                </h4>
+            }
         }
-}
-else if (ViewBag.itemsCarac.Count == 1)
-{
-    <h3>La suppression de la caractéristique entraînera également celle de l'item suivant :</h3>
+        else if (ViewBag.itemsCarac.Count == 1)
+        {
+            <h3>La suppression de la caractéristique entraînera également celle de l'item suivant :</h3>
 
-    foreach (var item in ViewBag.itemsCarac)
-    {
-         <h4>
-             @item.nomItem
-         </h4>
-    }
-}
-else
-{
-      <h3>Il n'y a aucun item actuellement associé à «@Html.DisplayFor(model => model.nomCaracteristique)». La suppression de cette caractéristique n'affectera donc aucun item.</h3>
-}
+            foreach (var item in ViewBag.itemsCarac)
+            {
+                <h4>
+                    @item.nomItem
+                </h4>
+            }
+        }
+        else
+        {
+            <h3>Il n'y a aucun item actuellement associé à «@Html.DisplayFor(model => model.NomCaracteristique)». La suppression de cette caractéristique n'affectera donc aucun item.</h3>
+        }
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="menu-flottant">
-            <a class="fancy-button blanc" onclick="window.history.back()">
-                <span class="glyphicon glyphicon-triangle-left"></span>
-                Annuler
-            </a>
-            <input type="submit" value="Confirmer la suppression" class="fancy-button blanc"/>
-        </div>
-    }
-</div> 
-
-</div>
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Confirmer la suppression" class="fancy-button blanc"/>
+            </div>
+        }
+    </div>
 </div>

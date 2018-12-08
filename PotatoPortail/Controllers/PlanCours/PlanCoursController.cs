@@ -3,9 +3,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.ViewModels;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.ViewModels.PlanCours;
 
 namespace PotatoPortail.Controllers.PlanCours
 {
@@ -18,8 +18,8 @@ namespace PotatoPortail.Controllers.PlanCours
         {
             _mainPageViewModel.PlanCours = _db.PlanCours.ToList();
 
-            _mainPageViewModel.contenuSection = _db.ContenuSection.ToList();
-            _mainPageViewModel.nomSection = _db.NomSection.ToList();
+            _mainPageViewModel.ContenuSection = _db.ContenuSection.ToList();
+            _mainPageViewModel.NomSection = _db.NomSection.ToList();
             return View(_mainPageViewModel);
         }
 

@@ -1,16 +1,16 @@
-﻿namespace ApplicationPlanCadre.ViewModels.OrdresDuJourVM
-{
-    using ApplicationPlanCadre.Models.Reunions;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using PotatoPortail.Models.Reunions;
 
+namespace PotatoPortail.ViewModels.OrdresDuJour
+{
     public class OrdreDuJourViewModel
     {
-        public OrdreDuJour ordreDuJour { get; set; }
-        public List<SousPointSujet> listeSousPointSujet { get; set; }
-        public List<SujetPointPrincipal> sujetPointPrincipal { get; set; }
-        public IEnumerable<SelectListItem> listLieux { get; set; }
-        public List<string> listeSousPoint { get; set; }
-        public List<int> listeIdSousPointCache { get; set; }
+        public OrdreDuJour OrdreDuJour { get; set; }
+        public List<SousPointSujet> ListeSousPointSujet { get; set; }
+        public List<SujetPointPrincipal> SujetPointPrincipal { get; set; }
+        public IEnumerable<SelectListItem> ListLieux { get; set; }
+        public List<string> ListeSousPoint { get; set; }
+        public List<int> ListeIdSousPointCache { get; set; }
     }
 }

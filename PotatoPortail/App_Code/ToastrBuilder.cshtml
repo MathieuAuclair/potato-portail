@@ -1,6 +1,4 @@
-﻿@using ApplicationPlanCadre.Toast
-@using PotatoPortail.Toast
-@using PotatoPortail.Toast
+﻿@using PotatoPortail.Toast
 @helper AfficherToasts(Toastr toastr)
 {
     if (toastr != null)
@@ -12,8 +10,8 @@
 
         @foreach (var message in toastr.ToastMessages)
         {
-          string toastTypeValue = message.ToastType.ToString("F").ToLower();
-          @: var optionsOverride = { /* Add message specific options here */ };
+          var toastTypeValue = message.ToastType.ToString("F").ToLower();
+          @: const optionsOverride = { /* Add message specific options here */ };
           if (message.IsSticky)
           {
             @:optionsOverride.timeOut = 0;

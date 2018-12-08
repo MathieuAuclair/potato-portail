@@ -1,39 +1,33 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Joueur
-
+﻿@model PotatoPortail.Models.eSports.Joueur
 @{
     ViewBag.Title = "Créer joueur";
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Joueur">
 }
-
 <h2>Ajouter un joueur</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.pseudoJoueur, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PseudoJoueur, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.pseudoJoueur, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.pseudoJoueur, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PseudoJoueur, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.PseudoJoueur, "", new {@class = "text-danger"})
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.EtudiantId, "EtudiantId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdEtudiant, "EtudiantId", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownList("EtudiantId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EtudiantId, "", new { @class = "text-danger" })
+                @Html.DropDownList("EtudiantId", null, htmlAttributes: new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.IdEtudiant, "", new {@class = "text-danger"})
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Ajouter ce joueur" class="btn btn-default" />
-                <input type="button" value="Annuler" class="btn btn-default" onclick="window.history.back()" />
+                <input type="submit" value="Ajouter ce joueur" class="btn btn-default"/>
+                <input type="button" value="Annuler" class="btn btn-default" onclick="window.history.back()"/>
             </div>
         </div>
     </div>

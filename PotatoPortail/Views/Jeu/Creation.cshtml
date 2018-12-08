@@ -1,93 +1,74 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Jeu
-
+﻿@model PotatoPortail.Models.eSports.Jeu
 @{
     ViewBag.Titre = "Ajout d'un jeu";
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Jeu">
 }
-
 <div class="container">
     <div class="form-box">
-
         <header class="light-header">
             <h1>Ajout d'un jeu</h1>
         </header>
-
         @using (Html.BeginForm())
         {
-
-        @Html.AntiForgeryToken()
-
-
-        <div class="form-group">
-            <div class="row">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="col-md-6">
-                    @Html.LabelFor(model => model.nomJeu)
-                    @Html.TextBoxFor(model => model.nomJeu, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.nomJeu, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-6">
-                    @Html.LabelFor(model => model.description)
-                    @Html.TextBoxFor(model => model.description, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.NomJeu)
+                        @Html.TextBoxFor(model => model.NomJeu, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.NomJeu, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextBoxFor(model => model.Description, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-6">
-                    @Html.LabelFor(model => model.urlReference)
-                    @Html.TextBoxFor(model => model.urlReference, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.urlReference, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-6">
-                    @Html.LabelFor(model => model.abreviation)
-                    @Html.TextBoxFor(model => model.abreviation, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.abreviation, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.UrlReference)
+                        @Html.TextBoxFor(model => model.UrlReference, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.UrlReference, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Abreviation)
+                        @Html.TextBoxFor(model => model.Abreviation, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Abreviation, "", new {@class = "text-danger"})
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="field-box">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <p>Statut du jeu</p>
-                            <hr />
-                            <div class="form-group">
-
-                                @Html.DropDownListFor(model => model.StatutId, (IEnumerable<SelectListItem>
-                                    )ViewBag.Statuts, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.StatutId, "", new { @class = "text-danger" })
-
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="field-box">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>Statut du jeu</p>
+                                <hr/>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.IdStatut, (IEnumerable<SelectListItem>
+                                        ) ViewBag.Statuts, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.IdStatut, "", new {@class = "text-danger"})
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-
-        <div class="menu-flottant">
-            <a class="fancy-button blanc" href="@Url.Action("Index","Jeu")">
-                <span class="glyphicon glyphicon-triangle-left"></span>
-                Annuler
-            </a>
-            <input type="submit" value="Ajouter ce jeu" class="fancy-button blanc" />
-        </div>
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" href="@Url.Action("Index", "Jeu")">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Ajouter ce jeu" class="fancy-button blanc"/>
+            </div>
         }
-
     </div>
-
 </div>
- 
+<hr class="end-div"/>
 
-<hr class="end-div" />
-
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

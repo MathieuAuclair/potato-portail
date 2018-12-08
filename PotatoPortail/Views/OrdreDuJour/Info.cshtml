@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.Reunions.OrdreDuJour>
+﻿@model IEnumerable<PotatoPortail.Models.Reunions.OrdreDuJour>
 
 
 @Html.Action("ListeOrdreDuJour")
@@ -11,7 +11,7 @@
 
     @foreach (var odj in Model.OrderByDescending(m => m.DateOdJ))
     {
-        if (!(odj.TitreOdJ == "Modele"))
+        if (odj.TitreOdJ != "Modele")
         {
         <div>
             <a class="info-child clearfix vertical-align" href='@Url.Action("Details", new { id = odj.IdOdJ })'>

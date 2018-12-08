@@ -1,5 +1,5 @@
 ﻿
-using ApplicationPlanCadre.ViewModels.OrdresDuJourVM;
+using PotatoPortail.ViewModels.OrdresDuJour;
 
 namespace PotatoPortail.Data
 {
@@ -12,7 +12,7 @@ namespace PotatoPortail.Data
 
             var allLieu = new OrdreDuJourViewModel()
             {
-                listLieux = lieuRepo.GetLieu()
+                ListLieux = lieuRepo.GetLieu()
             };
 
             return allLieu;

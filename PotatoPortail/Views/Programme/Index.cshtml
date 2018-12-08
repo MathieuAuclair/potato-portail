@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.Programme>
+﻿@model IEnumerable<PotatoPortail.Models.Programme>
 
 @{
     ViewBag.Titre = "Plan cadre";
@@ -15,7 +15,7 @@
         <h1>@ViewBag.Titre</h1>
     </header>
     <h3>Choisir un programme :</h3>
-    @if (Model.Count() == 0)
+    @if (!Model.Any())
     {
         <p>Aucun programme de votre département à été trouvé dans le système, veuillez contacter un administrateur.</p>
     }
@@ -23,9 +23,9 @@
     @foreach (var programme in Model)
     {
         <div>
-            <a class="info-child clearfix" href='@Url.Action("Info", "Programme", new { idProgramme = programme.idProgramme })'>
-                <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.Departement.discipline)-@Html.DisplayFor(model => programme.annee)-@Html.DisplayFor(model => programme.DevisMinistere.codeSpecialisation)</p>
-                <p class="droiteG">@Html.DisplayFor(model => programme.description)</p>
+            <a class="info-child clearfix" href='@Url.Action("Info", "Programme", new { idProgramme = programme.IdProgramme })'>
+                <p class="gaucheG">@Html.DisplayFor(model => programme.DevisMinistere.Departement.Discipline)-@Html.DisplayFor(model => programme.Annee)-@Html.DisplayFor(model => programme.DevisMinistere.CodeSpecialisation)</p>
+                <p class="droiteG">@Html.DisplayFor(model => programme.Nom)</p>
             </a>
         </div>
     }

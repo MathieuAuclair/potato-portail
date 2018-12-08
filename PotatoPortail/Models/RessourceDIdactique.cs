@@ -12,7 +12,7 @@ namespace PotatoPortail.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RessourceDIdactique()
         {
-            SousRessourceDIdactique = new HashSet<SousRessourceDIdactique>();
+            SousRessourceDidactique = new HashSet<SousRessourceDIdactique>();
         }
 
         [Key]
@@ -26,6 +26,6 @@ namespace PotatoPortail.Models
         public virtual PlanCadre PlanCadre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SousRessourceDIdactique> SousRessourceDIdactique { get; set; }
+        public virtual ICollection<SousRessourceDIdactique> SousRessourceDidactique { get; set; }
     }
 }

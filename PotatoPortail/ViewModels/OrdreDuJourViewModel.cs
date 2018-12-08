@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models.Reunions;
+using PotatoPortail.Models.Reunions;
 
 namespace PotatoPortail.ViewModels
 {

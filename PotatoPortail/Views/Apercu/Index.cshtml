@@ -2,58 +2,40 @@
 @{
     ViewBag.Title = "Index";
 }
-@Html.Hidden("idPlanCours", (int?)ViewBag.idPlanCours)
-
+@Html.Hidden("idPlanCours", (int?) ViewBag.idPlanCours)
 @Html.Partial("_Menu", Model.MainPageViewModel)
-
 <div class="super-view">
     <div class="form-box" style="width: 1020px; margin-left: auto; margin-right: auto; text-align: center; vertical-align: middle;">
-
-
-        <img src="@ViewBag.imageDepart" alt="DICJ" style="width: 500px; height: 200px; margin: 7px auto 7px auto;" /><br>
+        <img src="@ViewBag.imageDepart" alt="DICJ" style="width: 500px; height: 200px; margin: 7px auto 7px auto;"/><br>
         <p>PLAN DE COURS</p><br>
-    
-    <div style="display: inline-block" class="text-justify">
+        <div style="display: inline-block" class="text-justify">
+            <p>@Html.Raw(ViewBag.infosCours)</p>
+            <p>@Html.Raw(ViewBag.infosProf)</p>
+            <p>@Html.Raw(ViewBag.phrase)</p>
+            <p>@Html.Raw(ViewBag.session)</p>
+            <img src="@ViewBag.imageCegep" alt="CEGEP" style="width: 200px; height: 100px;"/><br><br>
 
-    
-        <p>@Html.Raw(ViewBag.infosCours)</p>
-
-        <p>@Html.Raw(ViewBag.infosProf)</p>
-
-        <p>@Html.Raw(ViewBag.phrase)</p>
-
-        <p>@Html.Raw(ViewBag.session)</p>
-
-        <img src="@ViewBag.imageCegep" alt="CEGEP" style="width: 200px ; height: 100px;" /><br><br>
-
-        @foreach (var section in Model.IndexSection)
-        {
-            <label>@Html.DisplayFor(Model => Model.TitreSection[section])</label>
-            <p>@Html.DisplayFor(Model => Model.texteContenu[section])</p>
-        }
-    </div>
+            @foreach (var section in Model.IndexSection)
+            {
+                <label>@Html.DisplayFor(Model => Model.TitreSection[section])</label>
+                <p>@Html.DisplayFor(Model => Model.TexteContenu[section])</p>
+            }
+        </div>
         <div class="plan-cadre-table-container">
-
             <table class="plan-cadre-table">
-
                 <tr>
-
-                    <th style="width:20%">Objectif - Énoncé des compétences</th>
-
-                    <th style="width:45%">Standard - Contexte de réalisation</th>
-
-                    <th style="width:35%">Indication pédagogiques, s'il y a lieu</th>
-
+                    <th style="width: 20%">Objectif - Énoncé des compétences</th>
+                    <th style="width: 45%">Standard - Contexte de réalisation</th>
+                    <th style="width: 35%">Indication pédagogiques, s'il y a lieu</th>
                 </tr>
-
                 @foreach (var enonceCompetence in Model.ListeEnonceCompetence)
                 {
                     <tr>
-                        <td style="width:20%">
+                        <td style="width: 20%">
                             <p>@Html.DisplayFor(m => enonceCompetence.Description) (@Html.DisplayFor(m => enonceCompetence.CodeCompetence))</p>
                             <p>@Html.DisplayFor(m => m.PonderationEnHeure) heures</p>
                         </td>
-                        <td style="width:45%">
+                        <td style="width: 45%">
                             <ul class="hyphen-list">
                                 @foreach (var elementCompetence in Model.ListeElementCompetence)
                                 {
@@ -67,61 +49,48 @@
                     </tr>
                 }
             </table>
-
             @foreach (var planCadreCompetence in Model.ListePlanCadreCompetence)
             {
                 <table class="plan-cadre-table">
-
                     <tr>
                         <th colspan="4">
-                            @foreach (var Enonce in Model.ListeEnonceCompetence)
+                            @foreach (var enonce in Model.ListeEnonceCompetence)
                             {
-                                if (planCadreCompetence.IdCompetence == Enonce.IdCompetence)
+                                if (planCadreCompetence.IdCompetence == enonce.IdCompetence)
                                 {
-                                    <p>@Html.DisplayFor(m => Enonce.Description) (@Html.DisplayFor(m => Enonce.CodeCompetence))</p>
+                                    <p>@Html.DisplayFor(m => enonce.Description) (@Html.DisplayFor(m => enonce.CodeCompetence))</p>
                                 }
                             }
                         </th>
                     </tr>
-
                     <tr>
-
-                        <th style="width:15%">
+                        <th style="width: 15%">
                             Éléments de compétence
                         </th>
-
-                        <th style="width:30%">
+                        <th style="width: 30%">
                             Critères de performance
                         </th>
-
-                        <th style="width:30%">
+                        <th style="width: 30%">
                             Éléments de connaissances
                         </th>
-
-                        <th style="width:25%">
+                        <th style="width: 25%">
                             Activités d'apprentissage suggérées
                         </th>
-
                     </tr>
-
                     @for (var indexElementCompetence = 0; indexElementCompetence < Model.ListeElementCompetence.Count; indexElementCompetence++)
                     {
                         var planCadreElement = Model.ListePlanCadreElement[indexElementCompetence];
                         if (Model.ListeElementCompetence.Find(x => x.IdElement == planCadreElement.IdElement) != null)
                         {
                             var elementCompetence = Model.ListeElementCompetence.Find(x => x.IdElement == planCadreElement.IdElement);
-
-
                             <tr>
-
-                                <td style="width:15%">
+                                <td style="width: 15%">
                                     <ol start="@elementCompetence.Numero">
                                         <li> @Html.DisplayFor(m => elementCompetence.Description)</li>
                                     </ol>
                                 </td>
-
                                 @{
-                                    bool isPreviousUsingSameConnaissance = false;
+                                    var isPreviousUsingSameConnaissance = false;
                                     if (indexElementCompetence > 0)
                                     {
                                         var previousPlanCadreElement = Model.ListePlanCadreElement[indexElementCompetence - 1];
@@ -130,10 +99,9 @@
                                             isPreviousUsingSameConnaissance = (previousPlanCadreElement.IdPlanCadreElement == Model.ListeElementConnaissance.Find(x => x.IdPlanCadreElement == previousPlanCadreElement.IdPlanCadreElement).IdPlanCadreElement);
                                         }
                                     }
-
-                                    bool isThereConnaissanceFollowing = false;
-                                    int connaissanceRowspan = 1;
-                                    for (int indexPlanCadreElement = indexElementCompetence + 1; indexPlanCadreElement < Model.ListePlanCadreElement.Count; indexPlanCadreElement++)
+                                    var isThereConnaissanceFollowing = false;
+                                    var connaissanceRowspan = 1;
+                                    for (var indexPlanCadreElement = indexElementCompetence + 1; indexPlanCadreElement < Model.ListePlanCadreElement.Count; indexPlanCadreElement++)
                                     {
                                         var followingPlanCadreElement = Model.ListePlanCadreElement[indexPlanCadreElement];
                                         if (followingPlanCadreElement.IdPlanCadreElement == planCadreElement.IdPlanCadreElement)
@@ -145,10 +113,8 @@
                                         {
                                             break;
                                         }
-
                                     }
                                 }
-
                                 @if (!isPreviousUsingSameConnaissance)
                                 {
                                     if (isThereConnaissanceFollowing)
@@ -172,12 +138,10 @@
                                         </td>
                                     }
                                 }
-
                                 @{
                                     var isPreviousUsingSameActivite = false;
                                     if (indexElementCompetence > 0)
                                     {
-
                                         var previousPlanCadreElement = Model.ListePlanCadreElement[indexElementCompetence - 1];
                                         if (Model.ListeActiviteApprentissage.Find(x => x.IdPlanCadreElement == previousPlanCadreElement.IdPlanCadreElement) != null)
                                         {
@@ -185,7 +149,6 @@
                                         }
                                     }
                                 }
-                                
                                 @if (!isPreviousUsingSameActivite)
                                 {
                                     <td class="rich-cell">
@@ -204,18 +167,17 @@
             }
             <table class="plan-cadre-table">
                 <tr>
-                    <th style="width:50%">
+                    <th style="width: 50%">
                         Environnement physique
                     </th>
-                    <th style="width:50%">
+                    <th style="width: 50%">
                         Ressources didactiques suggérées
                     </th>
                 </tr>
             </table>
         </div>
-
         <div class="menu-flottant">
-            <a class="fancy-button blanc" href="@Url.Action("","")"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+            <a class="fancy-button blanc" href="@Url.Action("", "")"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
         </div>
 
     </div>

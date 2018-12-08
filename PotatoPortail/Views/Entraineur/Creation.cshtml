@@ -1,18 +1,13 @@
-﻿@model ApplicationPlanCadre.Models.Entraineur
-
+﻿@model PotatoPortail.Models.eSports.Entraineur
 @{
     ViewBag.Titre = "Création d'un entraîneur";
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Entraineur">
 }
-
 <div class="container">
     <div class="form-box">
-
         <header class="light-header">
             <h1>Création d'un entraîneur</h1>
         </header>
-
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -21,15 +16,15 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.prenomEntraineur)
-                        @Html.EditorFor(model => model.prenomEntraineur, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.prenomEntraineur, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.PrenomEntraineur)
+                        @Html.EditorFor(model => model.PrenomEntraineur, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PrenomEntraineur, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.nomEntraineur)
-                        @Html.EditorFor(model => model.nomEntraineur, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.nomEntraineur, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.NomEntraineur)
+                        @Html.EditorFor(model => model.NomEntraineur, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NomEntraineur, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -37,15 +32,15 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.pseudoEntraineur)
-                        @Html.EditorFor(model => model.pseudoEntraineur, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.pseudoEntraineur, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.PseudoEntraineur)
+                        @Html.EditorFor(model => model.PseudoEntraineur, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PseudoEntraineur, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.numTel)
-                        @Html.EditorFor(model => model.numTel, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.numTel, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.NumeroTelephone)
+                        @Html.EditorFor(model => model.NumeroTelephone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumeroTelephone, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -53,15 +48,12 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        @Html.LabelFor(model => model.adresseCourriel)
-                        @Html.EditorFor(model => model.adresseCourriel, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.adresseCourriel, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.AdresseCourriel)
+                        @Html.EditorFor(model => model.AdresseCourriel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AdresseCourriel, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-
-
-
             <div class="menu-flottant">
                 <a class="fancy-button blanc" href="@Url.Action("Index","Entraineur")">
                     <span class="glyphicon glyphicon-triangle-left"></span>
@@ -70,7 +62,6 @@
                 <input type="submit" value="Ajouter cet entraîneur" class="fancy-button blanc" />
             </div>
         }
-
     </div>
 </div>
 @section Scripts {

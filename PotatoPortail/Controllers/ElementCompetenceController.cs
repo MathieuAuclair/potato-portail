@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Controllers;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
@@ -135,14 +134,11 @@ namespace PotatoPortail.Controllers
                 this.AddToastMessage("Confirmation de la supression", "L'élément de compétence, n'a pas pus être supprimé.", ToastType.Error);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ElementCompetence elementCompetence = _db.ElementCompetence.Find(idElement);
-            if (elementCompetence == null)
-            {
-                this.AddToastMessage("Confirmation de la supression", "L'élément de compétence, n'a pas pus être supprimé.", ToastType.Error);
-                return HttpNotFound();
-            }
-           
-            return View(elementCompetence);
+            var elementCompetence = _db.ElementCompetence.Find(idElement);
+            if (elementCompetence != null) return View(elementCompetence);
+            this.AddToastMessage("Confirmation de la supression", "L'élément de compétence, n'a pas pus être supprimé.", ToastType.Error);
+            return HttpNotFound();
+
         }
 
         [HttpPost, ActionName("Supression")]

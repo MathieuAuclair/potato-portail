@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.eSports.Jeu>
+﻿@model IEnumerable<PotatoPortail.Models.eSports.Jeu>
 
 @{
     ViewBag.Titre = "Jeu";
@@ -19,18 +19,17 @@
 
     if (Model.Any())
     {
-
        <table class="cool-table">
 
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nomJeu)
+                @Html.DisplayNameFor(model => model.NomJeu)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.abreviation)
+                @Html.DisplayNameFor(model => model.Abreviation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatutId)
+                @Html.DisplayNameFor(model => model.IdStatut)
             </th>
             <th class="action-cell-header">
                 <b>Détails</b>
@@ -42,34 +41,31 @@
 
         @foreach (var jeu in Model)
         {
-            <tr onclick="window.location = '@Url.Action("Modifier", new { id = jeu.id, nomJeu = jeu.nomJeu })'">
+            <tr onclick="window.location = '@Url.Action("Modifier", new { id = jeu.Id, nomJeu = jeu.NomJeu })'">
 
                 <td>
-                    @Html.DisplayFor(modelItem => jeu.nomJeu)
+                    @Html.DisplayFor(modelItem => jeu.NomJeu)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => jeu.abreviation)
+                    @Html.DisplayFor(modelItem => jeu.Abreviation)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => jeu.Statut.nomStatut)
+                    @Html.DisplayFor(modelItem => jeu.Statut.NomStatut)
                 </td>
                 <td class="action-cell">
-                    <a href='@Url.Action("Details", new { id = jeu.id, nomJeu = jeu.nomJeu })'>
+                    <a href='@Url.Action("Details", new { id = jeu.Id, nomJeu = jeu.NomJeu })'>
                         <span class="glyphicon glyphicon-info-sign"></span>
                     </a>
                 </td>
                 <td class="action-cell">
-                    @if (jeu.Statut.nomStatut == "Inactif")
+                    @if (jeu.Statut.NomStatut == "Inactif")
                     {
-                        <a href='@Url.Action("Supprimer", new { id = jeu.id, nomJeu = jeu.nomJeu })'>
+                        <a href='@Url.Action("Supprimer", new { id = jeu.Id, nomJeu = jeu.NomJeu })'>
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     }
                 </td>
                 </tr>
-                
-            
-
         }
            </table>
         }
@@ -77,8 +73,6 @@
             {
                 <h3>Aucun jeu n'est actuellement enregistré dans le système.</h3>
             }
-
-
         }
         else
         {
@@ -86,21 +80,19 @@
             <header class="light-header">
                 <h1>Liste des Jeu</h1>
             </header>
-
-
             if (Model.Any())
             {
 
                 <table class="cool-table">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.nomJeu)
+                            @Html.DisplayNameFor(model => model.NomJeu)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.abreviation)
+                            @Html.DisplayNameFor(model => model.Abreviation)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StatutId)
+                            @Html.DisplayNameFor(model => model.IdStatut)
                         </th>
                         <th class="action-cell-header">
                             <b>Détails</b>
@@ -111,33 +103,28 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.nomJeu)
+                                @Html.DisplayFor(modelItem => item.NomJeu)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.abreviation)
+                                @Html.DisplayFor(modelItem => item.Abreviation)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Statut.nomStatut)
+                                @Html.DisplayFor(modelItem => item.Statut.NomStatut)
                             </td>
                             <td class="action-cell">
-                                <a href='@Url.Action("Details", new { id = item.id, nomJeu = item.nomJeu })'>
+                                <a href='@Url.Action("Details", new { id = item.Id, nomJeu = item.NomJeu })'>
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 </a>
                             </td>
                         </tr>
                     }
-
                 </table>
-
             }
             else
             {
                 <h3>Aucun jeu n'est actuellement enregistré dans le système.</h3>
             }
-
         }
-
-
         <div class="menu-flottant">
             <a class="fancy-button blanc" href="/Accueil/ESport">
                 <span class="glyphicon glyphicon-triangle-left"></span>
@@ -151,6 +138,5 @@
                 </a>
             }
         </div>
-
     </div>
 </div>

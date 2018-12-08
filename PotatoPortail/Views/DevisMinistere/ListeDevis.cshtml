@@ -1,70 +1,70 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.DevisMinistere>
+﻿@model IEnumerable<PotatoPortail.Models.DevisMinistere>
 
 <div class="tree-view">
     <div class="tree-view-header">
         Devis ministériels
     </div>
-    @foreach (var devisMinistere in Model.OrderBy(m => m.discipline))
+    @foreach (var devisMinistere in Model.OrderBy(m => m.Discipline))
     {
-        string p_id = "p" + devisMinistere.idDevis.ToString();
-        string p_element = p_id + "element";
-        string p_target = "#" + p_id;
+        string pId = "p" + devisMinistere.IdDevis.ToString();
+        string pElement = pId + "element";
+        string pTarget = "#" + pId;
 
-        <div id=@p_element class="tree-view-item">
+        <div id=@pElement class="tree-view-item">
 
             @if (devisMinistere.EnonceCompetence.Count > 0)
             {
-                <div class="collapse-button" data-toggle="collapse" data-target=@p_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+                <div class="collapse-button" data-toggle="collapse" data-target=@pTarget><span class="glyphicon glyphicon-chevron-right"></span></div>
             }
             else
             {
                 <div class="no-button"></div>
             }
 
-            <a href='@Url.Action("Info", "DevisMinistere", new { idDevis = devisMinistere.idDevis })'>
-                @Html.DisplayFor(m => devisMinistere.nom)
+            <a href='@Url.Action("Info", "DevisMinistere", new { idDevis = devisMinistere.IdDevis })'>
+                @Html.DisplayFor(m => devisMinistere.Nom)
             </a>
 
         </div>
-        <div id=@p_id class="collapse">
+        <div id=@pId class="collapse">
             <div class="tree-view-item-container">
 
                 <div class="tree-view-header">Énoncés de compétence</div>
 
-                @foreach (var enonceCompetence in devisMinistere.EnonceCompetence.OrderBy(m => m.codeCompetence))
+                @foreach (var enonceCompetence in devisMinistere.EnonceCompetence.OrderBy(m => m.CodeCompetence))
                 {
-                    string enc_id = "enc" + enonceCompetence.idCompetence.ToString();
-                    string enc_element = enc_id + "element";
-                    string enc_target = "#" + enc_id;
-                    <div id=@enc_element class="tree-view-item">
+                    string encId = "enc" + enonceCompetence.IdCompetence.ToString();
+                    string encElement = encId + "element";
+                    string encTarget = "#" + encId;
+                    <div id=@encElement class="tree-view-item">
 
                         @if (enonceCompetence.ElementCompetence.Count > 0)
                         {
-                            <div class="collapse-button" data-toggle="collapse" data-target=@enc_target><span class="glyphicon glyphicon-chevron-right"></span></div>
+                            <div class="collapse-button" data-toggle="collapse" data-target=@encTarget><span class="glyphicon glyphicon-chevron-right"></span></div>
                         }
                         else
                         {
                             <div class="no-button"></div>
                         }
 
-                        <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCompetence.idCompetence })'>
-                            @Html.DisplayFor(m => enonceCompetence.nom)
+                        <a href='@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCompetence.IdCompetence })'>
+                            @Html.DisplayFor(m => enonceCompetence.Description)
                         </a>
 
                     </div>
-                    <div id=@enc_id class="collapse">
+                    <div id=@encId class="collapse">
                         <div class="tree-view-item-container">
                             <div class="tree-view-header">Éléments de compétence</div>
-                            @foreach (var elementCompetence in enonceCompetence.ElementCompetence.OrderBy(m => m.numero))
+                            @foreach (var elementCompetence in enonceCompetence.ElementCompetence.OrderBy(m => m.Numero))
                             {
-                                string el_item = "el" + elementCompetence.idElement.ToString() + "element";
+                                string el_item = "el" + elementCompetence.IdElement.ToString() + "element";
 
                                 <div id=@el_item class="tree-view-item">
 
                                     <div class="no-button"></div>
 
-                                    <a href='@Url.Action("Info", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
-                                        @Html.DisplayFor(m => elementCompetence.description)
+                                    <a href='@Url.Action("Info", "ElementCompetence", new { idElement = elementCompetence.IdElement })'>
+                                        @Html.DisplayFor(m => elementCompetence.Description)
                                     </a>
 
                                 </div>

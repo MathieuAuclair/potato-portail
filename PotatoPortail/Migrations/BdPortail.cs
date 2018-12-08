@@ -1,8 +1,8 @@
 using System.Data.Entity;
-using ApplicationPlanCadre.Models.Reunions;
 using PotatoPortail.Models;
 using PotatoPortail.Models.eSports;
 using PotatoPortail.Models.Plan_Cours;
+using PotatoPortail.Models.Reunions;
 
 namespace PotatoPortail.Migrations
 {
@@ -393,7 +393,7 @@ namespace PotatoPortail.Migrations
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<PlanCadre>()
-                .HasMany(e => e.RessourceDIdactique)
+                .HasMany(e => e.RessourceDidactique)
                 .WithRequired(e => e.PlanCadre)
                 .WillCascadeOnDelete(false);
 
@@ -481,7 +481,7 @@ namespace PotatoPortail.Migrations
                 .IsUnicode(false);
 
             modelBuilder.Entity<RessourceDIdactique>()
-                .HasMany(e => e.SousRessourceDIdactique)
+                .HasMany(e => e.SousRessourceDidactique)
                 .WithRequired(e => e.RessourceDIdactique)
                 .WillCascadeOnDelete(false);
 

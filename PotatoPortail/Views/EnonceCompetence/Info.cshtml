@@ -1,101 +1,85 @@
-﻿@model ApplicationPlanCadre.Models.EnonceCompetence
-
+﻿@model PotatoPortail.Models.EnonceCompetence
 @{
-    ViewBag.Titre = Model.nom;
+    ViewBag.Titre = Model.Description;
     int Cpt = 0;
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="EnonceCompetence">
 }
-
 @Html.Action("ListeDevis", "Devisministere")
-
 <div class="super-view">
-
     <header class="fat-header">
-
         <h3>Énoncé de compétence</h3>
-
         <h1>@ViewBag.Titre</h1>
-
         <script src="~/Scripts/jquery.js"></script>
         <script src="~/Scripts/jquery-ui.min.js"></script>
         <script src="~/Scripts/jquery-ui.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
-
+        <script src="~/Scripts/bootstrap.min.js">
+        </script>
     </header>
-
     @if (Model.ContexteRealisation.Count > 0)
     {
         <h2>Contextes de réalisations</h2>
         <ul>
-            @foreach (var contexteRealisation in Model.ContexteRealisation.OrderBy(m => m.numero))
+            @foreach (var contexteRealisation in Model.ContexteRealisation.OrderBy(m => m.Numero))
             {
-                <li>@Html.DisplayFor(m => contexteRealisation.description)</li>
+                <li>@Html.DisplayFor(m => contexteRealisation.Description)</li>
             }
         </ul>
-
-        <hr />
+        <hr/>
     }
     <div id="listeElementComp">
         @if (Model.ElementCompetence.Count > 0)
         {
             <h2>Éléments de compétence</h2>
-
-            foreach (var elementCompetence in Model.ElementCompetence.OrderBy(ec => ec.numero))
+            foreach (var elementCompetence in Model.ElementCompetence.OrderBy(ec => ec.Numero))
             {
                 <div>
-                    <a id="@elementCompetence.idElement"
+                    <a id="@elementCompetence.IdElement"
                        class="info-child clearfix vertical-align"
-                       href='@Url.Action("Info", "ElementCompetence", new { idElement = elementCompetence.idElement })'>
-
-                        <p class="droite">@Html.DisplayFor(m => elementCompetence.description)</p>
-
-                        <p class="gauche">@Html.DisplayFor(m => elementCompetence.numero)</p>
+                       href='@Url.Action("Info", "ElementCompetence", new {idElement = elementCompetence.IdElement})'>
+                        <p class="droite">@Html.DisplayFor(m => elementCompetence.Description)</p>
+                        <p class="gauche">@Html.DisplayFor(m => elementCompetence.Numero)</p>
                     </a>
-                    <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "ElementCompetence", new { idElement = elementCompetence.idElement })'><span class="glyphicon glyphicon-trash"></span></a>
+                    <a class="fancy-button rouge vertical-align margin-left" href='@Url.Action("Supression", "ElementCompetence", new {idElement = elementCompetence.IdElement})'>
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
                 </div>
             }
-            <hr class="end-div" />
+            <hr class="end-div"/>
         }
     </div>
     <div class="menu-flottant">
-
-        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Info", "DevisMinistere", new { idDevis = Model.idDevis })'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Modifier", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
-        <a class="fancy-button blanc" onclick="location.href='@Url.Action("Creation", "ElementCompetence", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-plus"></span> Ajouter un élément</a>
-        <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Supression", new { idCompetence = Model.idCompetence })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'énoncé</a>
+        <a class="fancy-button blanc" onclick="location.href = '@Url.Action("Info", "DevisMinistere", new {idDevis = Model.IdDevis})'"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
+        <a class="fancy-button blanc" onclick="location.href = '@Url.Action("Modifier", new {idCompetence = Model.IdCompetence})'"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+        <a class="fancy-button blanc" onclick="location.href = '@Url.Action("Creation", "ElementCompetence", new {idCompetence = Model.IdCompetence})'"><span class="glyphicon glyphicon-plus"></span> Ajouter un élément</a>
+        <a class="fancy-button rouge blanc" onclick="location.href = '@Url.Action("Supression", new {idCompetence = Model.IdCompetence})'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'énoncé</a>
     </div>
 </div>
-
 <script>
-             $(("#enc" + @Model.idCompetence + "element")).addClass('active');
-            $(("#p" + @Model.DevisMinistere.idDevis)).collapse('show');
-            $("#listeElementComp").sortable({
-                update: function (e,div) {
-                    // gets the new and old index then removes the temporary attribute
-                    var ordre = 1;
-                    var listeElement = [];
+    $(("#enc" + @Model.IdCompetence + "element")).addClass('active');
+    $(("#p" + @Model.DevisMinistere.IdDevis)).collapse('show');
+    $("#listeElementComp").sortable({
+        update: function(e, div) {
+            var ordre = 1;
+            var listeElement = [];
 
-                    $("#listeElementComp div").each(function () {
-                        var idelement = $(this)[0].children[0].id;
-                        var objModel = { idelement: idelement, numero: ordre };
-                        $(this)[0].children[0].children[1].innerHTML = ordre;
-                        listeElement.push(objModel);
-                        ordre++;
-                    });
-
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        url: '@Url.Action("MettreAjoursOrdre", "EnonceCompetence")', //This is my url put your url here and pass model as data it is an array of my items
-                        data: JSON.stringify({ listeElement: listeElement }),
-                        success: function (data) {
-                        },
-                        error: function (resultat, statut,erreur) {
-                            alert(erreur);
-                        }
-                    });
+            $("#listeElementComp div").each(function() {
+                var idelement = $(this)[0].children[0].id;
+                var objModel = { idelement: idelement, numero: ordre };
+                $(this)[0].children[0].children[1].innerHTML = ordre;
+                listeElement.push(objModel);
+                ordre++;
+            });
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("MettreAjoursOrdre", "EnonceCompetence")',
+                data: JSON.stringify({ listeElement: listeElement }),
+                success: function(data) {
+                },
+                error: function(resultat, statut, erreur) {
+                    alert(erreur);
                 }
             });
-
-
+        }
+    });
 </script>

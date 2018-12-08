@@ -1,37 +1,30 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Item
-
+﻿@model PotatoPortail.Models.Item
 @{
     ViewBag.Titre = "Modification d'item";
 }
-
 <div class="container">
-
     <div class="form-box">
-
-
 <header class="light-header">
-    <h3>Modification de l'item «@Model.nomItem» pour «@Model.Caracteristique.nomCaracteristique» (@Model.Caracteristique.Jeu.nomJeu)</h3>
+    <h3>Modification de l'item «@Model.NomItem» pour «@Model.Caracteristique.NomCaracteristique» (@Model.Caracteristique.Jeu.NomJeu)</h3>
 </header>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.Id)
         
 
         <div class="form-group">
             <div class="row">
                 <div class="col-md-6">
                     @Html.Label("Nouveau nom")
-                    @Html.TextBoxFor(model => model.nomItem, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.nomItem, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.NomItem, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NomItem, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-10">
-                    @Html.HiddenFor(model => model.CaracteristiqueId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.HiddenFor(model => model.CaracteristiqueId, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CaracteristiqueId, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IdCaracteristique, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.HiddenFor(model => model.IdCaracteristique, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdCaracteristique, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -42,7 +35,7 @@
                 <span class="glyphicon glyphicon-triangle-left"></span>
                 Annuler
             </a>
-            <input type="submit" value="Renommer «@Model.nomItem»" class="fancy-button blanc"/>
+            <input type="submit" value="Renommer «@Model.NomItem»" class="fancy-button blanc"/>
         </div>
 }
 

@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Caracteristique
+﻿@model PotatoPortail.Models.eSports.Caracteristique
 
 @{
     ViewBag.Titre = "Ajout de caractéristique - " + ViewBag.nomJeu;
@@ -23,14 +23,14 @@
     <div class="row">
         
         <div class="col-md-6">
-            @Html.LabelFor(model => model.nomCaracteristique)
-            @Html.TextBoxFor(model => model.nomCaracteristique, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.nomCaracteristique, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.NomCaracteristique)
+            @Html.TextBoxFor(model => model.NomCaracteristique, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NomCaracteristique, "", new { @class = "text-danger" })
         </div>
         <div class="col-md-10">
-            @Html.HiddenFor(model => model.JeuId, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.HiddenFor(model => model.JeuId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.JeuId, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IdJeu, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.HiddenFor(model => model.IdJeu, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IdJeu, "", new { @class = "text-danger" })
         </div>
 
     </div>

@@ -1,12 +1,12 @@
-﻿@model IEnumerable<ApplicationPlanCadre.Models.CriterePerformance>
+﻿@model IEnumerable<PotatoPortail.Models.CriterePerformance>
 
 <table class="cool-table">
     <tr>
         <th>
-            @Html.DisplayNameFor(m => m.numero)
+            @Html.DisplayNameFor(m => m.Numero)
         </th>
         <th>
-            @Html.DisplayNameFor(m => m.description)
+            @Html.DisplayNameFor(m => m.Description)
         </th>
         <th class="action-cell-header">
             <b>Modifier</b>
@@ -21,29 +21,29 @@
 
     @foreach (var item in Model)
     {
-        string dblclickEvent = Url.Action("Modifier", new { idCritere = item.idCritere });
+        string dblclickEvent = Url.Action("Modifier", new { idCritere = item.IdCritere });
         <tr ondblclick="location.href='@dblclickEvent'">
             <td>
-                @Html.DisplayFor(m => item.numero)
+                @Html.DisplayFor(m => item.Numero)
             </td>
             <td>
-                @Html.DisplayFor(m => item.description)
+                @Html.DisplayFor(m => item.Description)
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("Modifier", new { idCritere = item.idCritere })'>
+                <a href='@Url.Action("Modifier", new { idCritere = item.IdCritere })'>
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("Supression", new { idCritere = item.idCritere })'>
+                <a href='@Url.Action("Supression", new { idCritere = item.IdCritere })'>
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>
             <td class="action-cell">
-                <a href='@Url.Action("DeplacementHaut", new { idCritere = item.idCritere })'>
+                <a href='@Url.Action("DeplacementHaut", new { idCritere = item.IdCritere })'>
                     <span class="glyphicon glyphicon glyphicon-arrow-up"></span>
                 </a>
-                <a href='@Url.Action("MouvementBas", new { idCritere = item.idCritere })'>
+                <a href='@Url.Action("MouvementBas", new { idCritere = item.IdCritere })'>
                     <span class="glyphicon glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>

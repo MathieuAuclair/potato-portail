@@ -1,48 +1,35 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Item
+﻿@model PotatoPortail.Models.Item
 
 @{
-    ViewBag.Title = "Suppression - " + Model.nomItem;
+    ViewBag.Title = "Suppression - " + Model.NomItem;
 }
 
 <div class="container">
-
     <div class="box">
-
-
-<header class="light-header">
-    <h1>Suppression d'item relié à «@ViewBag.nomJeu»</h1>
-</header>
-
-<div>
-
-    <div class="element">
-        @Html.LabelFor(model => model.Caracteristique.nomCaracteristique)
-
-        @Html.DisplayFor(model => model.Caracteristique.nomCaracteristique)
-
-    </div>
-
-    <div class="element">
-        @Html.LabelFor(model => model.nomItem)
-
-        @Html.DisplayFor(model => model.nomItem)
-
-    </div>
-
-</div>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="menu-flottant">
-            <a class="fancy-button blanc" onclick="window.history.back()">
-                <span class="glyphicon glyphicon-triangle-left"></span>
-                Annuler
-            </a>
-            <input type="submit" value="Confirmer la suppression" class="fancy-button blanc"/>
+        <header class="light-header">
+            <h1>Suppression d'item relié à «@ViewBag.nomJeu»</h1>
+        </header>
+        <div>
+            <div class="element">
+                @Html.LabelFor(model => model.Caracteristique.NomCaracteristique)
+                @Html.DisplayFor(model => model.Caracteristique.NomCaracteristique)
+            </div>
+            <div class="element">
+                @Html.LabelFor(model => model.NomItem)
+                @Html.DisplayFor(model => model.NomItem)
+            </div>
         </div>
-    }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        </div>
-
+            <div class="menu-flottant">
+                <a class="fancy-button blanc" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                    Annuler
+                </a>
+                <input type="submit" value="Confirmer la suppression" class="fancy-button blanc"/>
+            </div>
+        }
+    </div>
 </div>

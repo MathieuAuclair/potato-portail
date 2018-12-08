@@ -2,32 +2,26 @@
     ViewBag.Titre = "Pedagogie";
 }
 
-
 <div id="accueil">
     <h1>Pédagogie</h1>
     <div class="icon-container">
-
         <a class="icon" href='@Url.Action("Index")'>
             <span class="glyphicon glyphicon-share-alt flip"></span>
             <p>Retour</p>
         </a>
-
         <a class="icon" href='@Url.Action("Index", "DevisMinistere")'>
             <span class="glyphicon glyphicon-duplicate"></span>
             <p>Devis ministériels</p>
         </a>
-
         <a class="icon" href='@Url.Action("Index", "Programme")'>
             <span class="glyphicon glyphicon-blackboard"></span>
             <p>Plans cadre</p>
             <p>(Bêta)</p>
         </a>
-
         <a class="icon" href='@Url.Action("Index", "PlanCours")'>
             <span class="glyphicon glyphicon-book"></span>
             <p>Plans de cours</p>
         </a>
-
         <a class="icon" href='@Url.Action("Index","GrilleCours")'>
             <span class="mdi mdi-view-module"></span>
             <p>Grilles de cours</p>

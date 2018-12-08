@@ -1,11 +1,8 @@
-namespace ApplicationPlanCadre.Models.Reunions
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace PotatoPortail.Models.Reunions
+{
     [Table("ModeleOrdreDuJour")]
     public partial class ModeleOrdreDuJour
     {

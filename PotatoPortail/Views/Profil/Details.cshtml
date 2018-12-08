@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.Models.eSports.Profil
+﻿@model PotatoPortail.Models.eSports.Profil
 
 @{
     ViewBag.Titre = "Détails de l'inscription";
@@ -6,81 +6,60 @@
 
 <div class="container">
     <div class="box">
-
 <header class="light-header">
-
-@if (Model.jeuSecondaire != null)
+@if (Model.JeuSecondaire != null)
 {
-    <h3>Informations de l'inscription de @Model.MembreESports.nomComplet pour «@Model.Jeu.nomJeu» et «@Model.jeuSecondaire.nomJeu»</h3>
+    <h3>Informations de l'inscription de @Model.MembreESports.nomComplet pour «@Model.Jeu.NomJeu» et «@Model.JeuSecondaire.NomJeu»</h3>
 }
 else
 {
-    <h3>Informations de l'inscription de @Model.MembreESports.nomComplet pour «@Model.Jeu.nomJeu»</h3>
+    <h3>Informations de l'inscription de @Model.MembreESports.nomComplet pour «@Model.Jeu.NomJeu»</h3>
 }
-
 </header>
-
 <div>
-
     <div class="element">
-        @Html.LabelFor(model => model.pseudo)
-
-        @Html.DisplayFor(model => model.pseudo)
-
+        @Html.LabelFor(model => model.Pseudo)
+        @Html.DisplayFor(model => model.Pseudo)
     </div>
-
     <div class="element">
-
         @Html.Label("Informations supplémentaires")
-
-        @if (Model.note != null)
+        @if (Model.Note != null)
         {
-            @Html.DisplayFor(model => model.note)
+            @Html.DisplayFor(model => model.Note)
         }
         else
         {
             @:Aucune information supplémentaire n'a été entrée par @Model.MembreESports.nomComplet
         }
-
     </div>
-
     <div class="element">
+       @Html.LabelFor(model => model.Courriel)
 
-       @Html.LabelFor(model => model.courriel)
-
-       @Html.DisplayFor(model => model.courriel)
-
+       @Html.DisplayFor(model => model.Courriel)
     </div>
-
-
 </div>
-
-
-
 <div class="menu-flottant">
-
     <a class="fancy-button blanc" href='@Url.Action("Index", "Profil")'>
         <span class="glyphicon glyphicon-triangle-left"></span>
         Retour
     </a>
-
     @if (User.IsInRole("Admin eSports"))
     {
-        if (Model.jeuSecondaire != null)
+        if (Model.JeuSecondaire != null)
         {
-            <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new { id = Model.id })'>
+            <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new { id = Model.Id })'>
                 <span class="glyphicon glyphicon-check"></span>
-                Accepter pour @Model.Jeu.nomJeu
+                Accepter pour @Model.Jeu.NomJeu
             </a>
 
-            <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new { id = Model.id, JeuId = Model.JeuSecondaireId })'>
+            <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new { id = Model.Id, JeuId = Model.IdJeuSecondaire })'>
                 <span class="glyphicon glyphicon-check"></span>
-                Accepter pour @Model.jeuSecondaire.nomJeu
+                Accepter pour @Model.JeuSecondaire.NomJeu
             </a>
         }
         else
         {
-            <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new { id = Model.id })'>
+            <a class="fancy-button blanc" href='@Url.Action("Valider", "Profil", new { id = Model.Id })'>
                 <span class="glyphicon glyphicon-check"></span>
                 Accepter
             </a>
@@ -89,14 +68,14 @@ else
 
     @if (User.IsInRole("Admin eSports"))
     {
-        <a class="fancy-button blanc" href='@Url.Action("Supprimer", "Profil", new { id = Model.id })'>
+        <a class="fancy-button blanc" href='@Url.Action("Supprimer", "Profil", new { id = Model.Id })'>
             <span class="glyphicon glyphicon-remove"></span>
             Refuser
         </a>
     }
     else
     {
-        <a class="fancy-button blanc" href='@Url.Action("Supprimer", "Profil", new { id = Model.id })'>
+        <a class="fancy-button blanc" href='@Url.Action("Supprimer", "Profil", new { id = Model.Id })'>
             <span class="glyphicon glyphicon-remove"></span>
             Retirer mon inscription
         </a>

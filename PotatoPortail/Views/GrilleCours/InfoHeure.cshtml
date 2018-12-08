@@ -1,12 +1,9 @@
-﻿@model ApplicationPlanCadre.Models.GrilleCours
+﻿@model PotatoPortail.Models.GrilleCours
 @{
-    ViewBag.Titre = "Grille de cours : " + Model.nom;
+    ViewBag.Titre = "Grille de cours : " + Model.Nom;
 
-    //En attendant de pouvoir récupérer cette liste via une requête ou dans la table. 
     string[] tabSession = { "I", "II", "IIII", "IV", "V", "VI" };
-
-    List<String> listeConpetences = new List<string>();
-
+    var listeConpetences = new List<string>();
     var listeCompetences = ViewBag.List;
 }
 
@@ -25,18 +22,16 @@
         <hr />
         <div class="select-grille">
             <div class="row">
-                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("Info", "grilleCours", new { id = Model.idGrille })'"><h3>Structure</h3></div>
+                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("Info", "grilleCours", new { id = Model.IdGrille })'"><h3>Structure</h3></div>
                 <div class="col-sm-4" id="selected-grille"><h3>Heure</h3></div>
-                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("InfoPrealable", "grilleCours", new { id = Model.idGrille })'"><h3>Préalable</h3></div>
+                <div class="col-sm-4" id="hover-grille" onclick="location.href='@Url.Action("InfoPrealable", "grilleCours", new { id = Model.IdGrille })'"><h3>Préalable</h3></div>
             </div>
         </div>
         <hr class="end-div"/>
 
         <div class="menu-flottant">
             <a class="fancy-button blanc" href='@Url.Action("Index","GrilleCours")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-            @*<div class="fancy-button edit" onclick="location.href='@Url.RouteUrl("Modifier-grilleCours",new {id=Model.Id})'"><span class="glyphicon glyphicon-pencil"></span> Modifier</div>*@
-            @*<div class="fancy-button blanc" onclick="location.href='@Url.Action("Modifier", "grilleCours", new { id = Model.idGrille })'"><span class="glyphicon glyphicon-pencil"></span> Modifier</div>*@
-            <div class="fancy-button blanc rouge" onclick="location.href='@Url.Action("Supression", "grilleCours", new { id = Model.idGrille })'"><span class="glyphicon glyphicon-trash"></span> Supprimer</div>
+            <div class="fancy-button blanc rouge" onclick="location.href='@Url.Action("Supression", "grilleCours", new { id = Model.IdGrille })'"><span class="glyphicon glyphicon-trash"></span> Supprimer</div>
         </div>
         </div>
 

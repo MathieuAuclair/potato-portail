@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
-namespace ApplicationPlanCadre.Helpers
+namespace PotatoPortail.Helpers
 {
     public class PasswordGenerator
     {

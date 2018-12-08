@@ -1,6 +1,6 @@
-﻿@using ApplicationPlanCadre.Toast
+﻿@using PotatoPortail.Toast
 @if (TempData.ContainsKey("Toastr"))
 {
-    Toastr toastr = TempData["Toastr"] as Toastr;
+    var toastr = TempData["Toastr"] as Toastr;
     @ToastrBuilder.AfficherToasts(toastr);
 }

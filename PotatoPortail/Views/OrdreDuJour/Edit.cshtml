@@ -1,4 +1,4 @@
-﻿@model ApplicationPlanCadre.ViewModels.OrdresDuJourVM.OrdreDuJourViewModel
+﻿@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel
 
 @{
     ViewBag.Titre = "Modification de l'ordre du jour";
@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => Model.ordreDuJour.IdOdJ)
+    @Html.HiddenFor(model => Model.OrdreDuJour.IdOdJ)
 
 
     <div class="container">
@@ -20,38 +20,38 @@
 
                 <h1>@ViewBag.Titre</h1>
 
-                <h3>@Html.DisplayFor(m => m.ordreDuJour.TitreOdJ)</h3>
+                <h3>@Html.DisplayFor(m => m.OrdreDuJour.TitreOdJ)</h3>
 
             </header>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.ordreDuJour.TitreOdJ)
-                @Html.TextBoxFor(m => m.ordreDuJour.TitreOdJ, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.TitreOdJ, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.OrdreDuJour.TitreOdJ)
+                @Html.TextBoxFor(m => m.OrdreDuJour.TitreOdJ, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.TitreOdJ, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.ordreDuJour.DateOdJ)
-                @Html.EditorFor(m => m.ordreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control small" } })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.DateOdJ, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.OrdreDuJour.DateOdJ)
+                @Html.EditorFor(m => m.OrdreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control small" } })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.DateOdJ, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.ordreDuJour.HeureDebutReunion)
-                @Html.TextBoxFor(m => m.ordreDuJour.HeureDebutReunion, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.HeureDebutReunion, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.OrdreDuJour.HeureDebutReunion)
+                @Html.TextBoxFor(m => m.OrdreDuJour.HeureDebutReunion, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.HeureDebutReunion, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.ordreDuJour.HeureFinReunion)
-                @Html.TextBoxFor(m => m.ordreDuJour.HeureFinReunion, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.HeureFinReunion, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.OrdreDuJour.HeureFinReunion)
+                @Html.TextBoxFor(m => m.OrdreDuJour.HeureFinReunion, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.HeureFinReunion, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.ordreDuJour.LieuReunionODJ)
-                @Html.TextBoxFor(m => m.ordreDuJour.LieuReunionODJ, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.OrdreDuJour.LieuReunionODJ)
+                @Html.TextBoxFor(m => m.OrdreDuJour.LieuReunionODJ, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.OrdreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
             </div>
 
             @*<div class="form-group">
@@ -61,17 +61,17 @@
                 </div>*@
 
             <div class="form-group">
-                @Html.LabelFor(m => m.sujetPointPrincipal[0].SujetPoint)
-                @for (var x = 0; x < Model.sujetPointPrincipal.Count; x++)
+                @Html.LabelFor(m => m.SujetPointPrincipal[0].SujetPoint)
+                @for (var x = 0; x < Model.SujetPointPrincipal.Count; x++)
                 {
-                    @Html.EditorFor(m => m.sujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(m => m.sujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.SujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.SujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
                     <ul id="listSP0">
-                        @if(Model.listeSousPointSujet.Count != 0)
+                        @if(Model.ListeSousPointSujet.Count != 0)
                         {
-                            foreach (var item in Model.listeSousPointSujet)
+                            foreach (var item in Model.ListeSousPointSujet)
                             {
-                                if(item.IdSujetPointPrincipal == Model.sujetPointPrincipal[x].IdPointPrincipal)
+                                if(item.IdSujetPointPrincipal == Model.SujetPointPrincipal[x].IdPointPrincipal)
                                 {
                                     <li>@Html.EditorFor(m => item.SujetSousPoint, new { htmlAttributes = new { @class = "form-control" } })</li>
                                 }

@@ -1,26 +1,21 @@
-﻿@model ApplicationPlanCadre.Models.GrilleCours
-
+﻿@model PotatoPortail.Models.GrilleCours
 @{
     ViewBag.Titre = "Details";
 }
-
 <h2>Details</h2>
-
 <div>
     <h4>GrilleCours</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nom)
+            @Html.DisplayNameFor(model => model.Nom)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.nom)
+            @Html.DisplayFor(model => model.Nom)
         </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Modifier", "Modifier", new { id = Model.idGrille }) |
+    @Html.ActionLink("Modifier", "Modifier", new { id = Model.IdGrille }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
