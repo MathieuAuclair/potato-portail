@@ -246,6 +246,7 @@
       <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
     <Compile Include="Models\ActiviteApprentissage.cs" />
     <Compile Include="Models\ApplicationStage.cs" />
