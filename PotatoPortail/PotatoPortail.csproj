@@ -245,6 +245,14 @@
     <Compile Include="Migrations\201812090148176_InitContext.Designer.cs">
       <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812091959567_IncreaseSizeTexteContenu.cs" />
+    <Compile Include="Migrations\201812091959567_IncreaseSizeTexteContenu.Designer.cs">
+      <DependentUpon>201812091959567_IncreaseSizeTexteContenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812092013195_RemoveIndentityIdPlanCoursDepart.cs" />
+    <Compile Include="Migrations\201812092013195_RemoveIndentityIdPlanCoursDepart.Designer.cs">
+      <DependentUpon>201812092013195_RemoveIndentityIdPlanCoursDepart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201812092028597_modifs_models_eSports.cs" />
     <Compile Include="Migrations\201812092028597_modifs_models_eSports.Designer.cs">
       <DependentUpon>201812092028597_modifs_models_eSports.cs</DependentUpon>
@@ -384,9 +392,6 @@
     <Content Include="Content\material-icons.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\structure.css" />
-    <Content Include="Content\Styles\edition.css" />
-    <Content Include="Content\Styles\flat-props.css" />
-    <Content Include="Content\Styles\navigation.css" />
     <Content Include="Content\superview.css" />
     <Content Include="Content\table.css" />
     <Content Include="Content\toastr.css" />
@@ -399,7 +404,6 @@
     <Content Include="fonts\MaterialIcons-Regular.woff" />
     <Content Include="fonts\MaterialIcons-Regular.woff2" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -663,6 +667,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812090148176_InitContext.resx">
       <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812091959567_IncreaseSizeTexteContenu.resx">
+      <DependentUpon>201812091959567_IncreaseSizeTexteContenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812092013195_RemoveIndentityIdPlanCoursDepart.resx">
+      <DependentUpon>201812092013195_RemoveIndentityIdPlanCoursDepart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812092028597_modifs_models_eSports.resx">
       <DependentUpon>201812092028597_modifs_models_eSports.cs</DependentUpon>
