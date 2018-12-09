@@ -17,7 +17,7 @@ namespace PotatoPortail.Models.Plan_Cours
         public int IdContenuSection { get; set; }
 
         [Required]
-        [StringLength(1000)]
+        [StringLength(3000)]
         public string TexteContenu { get; set; }
 
         public int IdNomSection { get; set; }

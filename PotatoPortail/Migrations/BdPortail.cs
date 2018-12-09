@@ -245,7 +245,7 @@ namespace PotatoPortail.Migrations
 
             modelBuilder.Entity<Entraineur>()
                 .HasMany(e => e.Equipe)
-                .WithMany(e => e.Entraineurs)
+                .WithMany(e => e.Entraineur)
                 .Map(m => m.ToTable("EntraineurEquipe").MapLeftKey("IdEntraineur").MapRightKey("IdEquipe"));
 
             modelBuilder.Entity<Entreprise>()
@@ -263,7 +263,7 @@ namespace PotatoPortail.Migrations
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Equipe>()
-                .HasMany(e => e.Joueurs)
+                .HasMany(e => e.Joueur)
                 .WithMany(e => e.Equipe)
                 .Map(m => m.ToTable("EquipeJoueurs").MapLeftKey("IdEquipe").MapRightKey("IdJoueur"));
 
@@ -303,7 +303,7 @@ namespace PotatoPortail.Migrations
 
             modelBuilder.Entity<Joueur>()
                 .HasMany(e => e.HistoriquesRang)
-                .WithRequired(e => e.Joueurs)
+                .WithRequired(e => e.Joueur)
                 .HasForeignKey(e => e.IdJoueur);
 
             modelBuilder.Entity<Location>()
@@ -450,12 +450,10 @@ namespace PotatoPortail.Migrations
                 .WithOptional(e => e.Preference)
                 .HasForeignKey(e => e.Preference_IdPreference);
 
-            
             modelBuilder.Entity<Profil>()
-                .HasMany(e => e.Joueur)
-                .WithRequired(e => e.Profil)
-                .HasForeignKey(e => e.IdProfil)
-                .WillCascadeOnDelete(false);
+                .HasOptional(p => p.Joueur)
+                .WithRequired(j => j.Profil)
+                .Map(c => c.MapKey("IdProfil"));
 
             modelBuilder.Entity<Programme>()
                 .Property(e => e.Nom)
@@ -473,7 +471,7 @@ namespace PotatoPortail.Migrations
 
             modelBuilder.Entity<Rang>()
                 .HasMany(e => e.HistoriqueRang)
-                .WithRequired(e => e.Rangs)
+                .WithRequired(e => e.Rang)
                 .HasForeignKey(e => e.IdRang);
 
             modelBuilder.Entity<RessourceDIdactique>()
