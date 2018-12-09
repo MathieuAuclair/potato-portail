@@ -43,7 +43,7 @@ namespace PotatoPortail.Models.eSports
                                         join p in _db.Profil on e.IdJeu equals p.IdJeu
                                         join membreESports in _db.MembreESports on p.IdMembreESports equals membreESports.Id
                                         join joueur in _db.Joueur on membreESports.Id equals joueur.IdMembreESports
-                                        where e.EstMonoJoueur && (e.NomEquipe == MembreESports.nomComplet + "_" + e.Jeu.Abreviation + "_" + joueur.Profil.IdMembreESports) && (e.Jeu.NomJeu == p.Jeu.NomJeu) && (joueur.Id == Id)
+                                        where e.EstMonoJoueur && (e.NomEquipe == MembreESports.NomComplet + "_" + e.Jeu.Abreviation + "_" + joueur.Profil.IdMembreESports) && (e.Jeu.NomJeu == p.Jeu.NomJeu) && (joueur.Id == Id)
                                         select e;
 
                 int idJeuJoueur = Profil.IdJeu;
