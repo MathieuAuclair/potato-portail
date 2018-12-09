@@ -7,13 +7,13 @@ namespace PotatoPortail.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitContext : IMigrationMetadata
+    public sealed partial class initContextBd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitContext));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initContextBd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812090148176_InitContext"; }
+            get { return "201812092217008_initContextBd"; }
         }
         
         string IMigrationMetadata.Source
