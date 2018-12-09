@@ -355,7 +355,7 @@
     <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\EntrepriseSelect.cs" />
     <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\LocationSelect.cs" />
     <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\PosteSelect.cs" />
-    <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\StatusSelect.cs" />
+    <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\StatutSelect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\ToastrBuilder.cshtml" />
@@ -638,7 +638,7 @@
     <Content Include="Views\SystemeStage\Stage\EditionComponent\EntrepriseSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\LocationSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\PosteSelect.cshtml" />
-    <Content Include="Views\SystemeStage\Stage\EditionComponent\StatusSelect.cshtml" />
+    <Content Include="Views\SystemeStage\Stage\EditionComponent\StatutSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\Index.cshtml" />
     <Content Include="Views\SystemeStage\Statut\Index.cshtml" />
     <Content Include="Views\Web.config" />
