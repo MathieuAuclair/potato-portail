@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PotatoPortail.Models;
+using PotatoPortail.Models.Plan_Cours;
 
 namespace PotatoPortail.ViewModels
 {
@@ -8,7 +9,7 @@ namespace PotatoPortail.ViewModels
         public virtual List<ContenuSection> ContenuSection { get; set; }
         public virtual List<NomSection> NomSection { get; set; }
 
-        public virtual List<Models.PlanCours> PlanCours { get; set; }
+        public virtual List<Models.Plan_Cours.PlanCours> PlanCours { get; set; }
         public virtual List<Models.PlanCadre> PlanCadre {  get; set; }
 
         public virtual List<List<NomSection>> NomSections { get; set; }

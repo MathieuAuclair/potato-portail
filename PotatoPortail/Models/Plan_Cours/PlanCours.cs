@@ -1,11 +1,10 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace PotatoPortail.Models.Plan_Cours
+{
     public partial class PlanCours
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -17,17 +16,17 @@ namespace PotatoPortail.Models
         }
 
         [Key]
-        public int idPlanCours { get; set; }
+        public int IdPlanCours { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime dateCreation { get; set; }
+        public DateTime DateCreation { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? dateValidation { get; set; }
+        public DateTime? DateValidation { get; set; }
 
         public bool StatutPlanCours { get; set; }
 
-        public int idCours { get; set; }
+        public int IdCours { get; set; }
 
         public virtual Cours Cours { get; set; }
 

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Models.Plan_Cours;
 using PotatoPortail.ViewModels.PlanCours;
 
 namespace PotatoPortail.Controllers.PlanCours
@@ -49,11 +50,11 @@ namespace PotatoPortail.Controllers.PlanCours
         [HttpPost]
         [ValidateAntiForgeryToken]
         //Ajouter plan cours 
-        public ActionResult Create([Bind(Include = "idPlanCours,dateCreation,statusPlanCours,idPlanCadre")] Models.PlanCours planCours)
+        public ActionResult Create([Bind(Include = "idPlanCours,dateCreation,statusPlanCours,idPlanCadre")] Models.Plan_Cours.PlanCours planCours)
         {
             if (ModelState.IsValid)
             {
-                planCours.Cours = _db.Cours.Find(planCours.idCours);
+                planCours.Cours = _db.Cours.Find(planCours.IdCours);
                 _db.PlanCours.Add(planCours);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -69,7 +70,7 @@ namespace PotatoPortail.Controllers.PlanCours
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.PlanCours planCours = _db.PlanCours.Find(id);
+            Models.Plan_Cours.PlanCours planCours = _db.PlanCours.Find(id);
             if (planCours == null)
             {
                 return HttpNotFound();
@@ -79,7 +80,7 @@ namespace PotatoPortail.Controllers.PlanCours
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PlanCoursID,dateCreation,statusPlanCours")] Models.PlanCours planCours)
+        public ActionResult Edit([Bind(Include = "PlanCoursID,dateCreation,statusPlanCours")] Models.Plan_Cours.PlanCours planCours)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +97,7 @@ namespace PotatoPortail.Controllers.PlanCours
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.PlanCours planCours = _db.PlanCours.Find(id);
+            Models.Plan_Cours.PlanCours planCours = _db.PlanCours.Find(id);
             if (planCours == null)
             {
                 return HttpNotFound();
@@ -129,16 +130,16 @@ namespace PotatoPortail.Controllers.PlanCours
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.PlanCours planCours = _db.PlanCours.Find(id);
+            Models.Plan_Cours.PlanCours planCours = _db.PlanCours.Find(id);
             if (planCours == null)
             {
                 return HttpNotFound();
             }
             var queryContenuSection = from contenu in _db.ContenuSection
-                                      join texteSection in _db.TexteSection on contenu.idContenuSection equals texteSection.idContenuSection
-                                      join cours in _db.PlanCours on texteSection.idPlanCours equals cours.idPlanCours
-                                      where cours.idPlanCours == id
-                                      select contenu.texteContenu;
+                                      join texteSection in _db.TexteSection on contenu.IdContenuSection equals texteSection.IdContenuSection
+                                      join cours in _db.PlanCours on texteSection.IdPlanCours equals cours.IdPlanCours
+                                      where cours.IdPlanCours == id
+                                      select contenu.TexteContenu;
 
             return new JsonResult { Data = queryContenuSection, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
@@ -149,17 +150,17 @@ namespace PotatoPortail.Controllers.PlanCours
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.PlanCours planCours = _db.PlanCours.Find(id);
+            Models.Plan_Cours.PlanCours planCours = _db.PlanCours.Find(id);
             if (planCours == null)
             {
                 return HttpNotFound();
             }
             var queryContenuSection = from contenu in _db.NomSection
-                                      join contenuSection in _db.ContenuSection on contenu.idNomSection equals contenuSection.idContenuSection
-                                      join texteSection in _db.TexteSection on contenuSection.idContenuSection equals texteSection.idContenuSection
-                                      join cours in _db.PlanCours on texteSection.idPlanCours equals cours.idPlanCours
-                                      where cours.idPlanCours == id
-                                      select contenu.titreSection;
+                                      join contenuSection in _db.ContenuSection on contenu.IdNomSection equals contenuSection.IdContenuSection
+                                      join texteSection in _db.TexteSection on contenuSection.IdContenuSection equals texteSection.IdContenuSection
+                                      join cours in _db.PlanCours on texteSection.IdPlanCours equals cours.IdPlanCours
+                                      where cours.IdPlanCours == id
+                                      select contenu.TitreSection;
 
             return new JsonResult { Data = queryContenuSection, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

@@ -13,14 +13,12 @@ namespace PotatoPortail.Models.Reunions
         public int IdModele { get; set; }
 
         [Required]
-        [StringLength(1)]
+        [StringLength(3)]
         public string Role { get; set; }
 
         public int NumeroProgramme { get; set; }
 
         public string PointPrincipal { get; set; }
-
-        //      [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        // public virtual ICollection<OrdreDuJour> OrdreDuJour { get; set; }
+        
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PotatoPortail.Helpers;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Models.Plan_Cours;
 using PotatoPortail.ViewModels.ProjetPrincipal;
 
 namespace PotatoPortail.Controllers
@@ -141,14 +142,14 @@ namespace PotatoPortail.Controllers
             var sectionListe = new List<RechercheSection>();
 
             var section = from tableSection in _db.NomSection
-                          where tableSection.titreSection.Contains(stringRechercher)
+                          where tableSection.TitreSection.Contains(stringRechercher)
                           select tableSection;
             foreach (NomSection tableSection in section)
             {
                 sectionListe.Add(new RechercheSection
                 {
-                    IdNomSection = tableSection.idNomSection,
-                    TitreSection = tableSection.titreSection.SurlignerMotsClee(stringRechercher, "yellow", false)
+                    IdNomSection = tableSection.IdNomSection,
+                    TitreSection = tableSection.TitreSection.SurlignerMotsClee(stringRechercher, "yellow", false)
                 });
             }
 

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Models.Plan_Cours;
 using PotatoPortail.ViewModels.PlanCours;
 
 namespace PotatoPortail.Controllers.PlanCours
@@ -32,7 +33,7 @@ namespace PotatoPortail.Controllers.PlanCours
                 return RedirectToAction("Index");
 
 
-            Models.PlanCours planCours = _db.PlanCours.Find(idPlancours);
+            Models.Plan_Cours.PlanCours planCours = _db.PlanCours.Find(idPlancours);
             if (planCours == null)
             {
                 return HttpNotFound();
@@ -40,16 +41,16 @@ namespace PotatoPortail.Controllers.PlanCours
             _servicesAdaptesViewModel.IdPlanCours = (int)idPlancours;
             _servicesAdaptesViewModel.PlanCours = planCours;
             var listeSection = from texteSection in _db.NomSection
-                               join contenuSection in _db.ContenuSection on texteSection.idNomSection equals contenuSection.idNomSection
-                               where contenuSection.modifiable
+                               join contenuSection in _db.ContenuSection on texteSection.IdNomSection equals contenuSection.IdNomSection
+                               where contenuSection.Modifiable
                                select texteSection;
             var listeNom = new List<SelectListItem>();
             foreach (var nom in listeSection)
             {
                 listeNom.Add(new SelectListItem
                 {
-                    Text = nom.titreSection,
-                    Value = nom.idNomSection.ToString()
+                    Text = nom.TitreSection,
+                    Value = nom.IdNomSection.ToString()
                 });
             }
             
@@ -78,19 +79,19 @@ namespace PotatoPortail.Controllers.PlanCours
                 var nomSection = Convert.ToInt32(Request.Form["titreSection"]);
                 var idPlanCours = Convert.ToInt32(Request.Form["idPlanCours"]);
 
-                planCoursDepart.discipline = _db.Departement.Find(discipline)?.Discipline;
-                var idNomSection = _db.NomSection.Find(nomSection)?.idNomSection;
-                var planCours = _db.PlanCours.Find(idPlanCours)?.idPlanCours;
+                planCoursDepart.Discipline = _db.Departement.Find(discipline)?.Discipline;
+                var idNomSection = _db.NomSection.Find(nomSection)?.IdNomSection;
+                var planCours = _db.PlanCours.Find(idPlanCours)?.IdPlanCours;
 
                 if (planCours == null || idNomSection == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                planCoursDepart.idNomSection = (int) idNomSection;
-                planCoursDepart.idPlanCours = (int) planCours;
+                planCoursDepart.IdNomSection = (int) idNomSection;
+                planCoursDepart.IdPlanCours = (int) planCours;
 
-                planCoursDepart.texteContenu = texte;
+                planCoursDepart.TexteContenu = texte;
                 _db.PlanCoursDepart.Add(planCoursDepart);
                 _db.SaveChanges();
                 return RedirectToAction("Index","Apercu");

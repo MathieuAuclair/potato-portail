@@ -17,6 +17,7 @@ namespace PotatoPortail.Models
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdDevis { get; set; }
 
         [Required]

@@ -20,9 +20,9 @@
                         <div class="collapse-button" data-toggle="collapse" data-target="#@i" style="max-height: 30px;">
                             <span style="display: block;" class="glyphicon glyphicon-chevron-right"></span>
                         </div>
-                        <a class="col-md-4" href="@Url.Action("Index", "Apercu", new {id = item.idPlanCours})">
+                        <a class="col-md-4" href="@Url.Action("Index", "Apercu", new {id = item.IdPlanCours})">
                             <div id="historique">
-                                @Html.DisplayFor(modelItem => item.dateCreation)
+                                @Html.DisplayFor(modelItem => item.DateCreation)
                             </div>
                             <div>
                                 @Html.DisplayFor(modelItem => item.Cours.PlanCadre.TitreCours)
@@ -30,7 +30,7 @@
                         </a>
                         @if (User.IsInRole("RCD") || User.IsInRole("Enseignant"))
                         {
-                            <a class="fancy-button col-md-5 col-md-offset-2" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px; margin-top: auto; margin-bottom: auto;" href="@Url.Action("Create", "Section", new {idPlancours = item.idPlanCours})"><span class="glyphicon glyphicon-plus"></span> Section</a>
+                            <a class="fancy-button col-md-5 col-md-offset-2" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px; margin-top: auto; margin-bottom: auto;" href="@Url.Action("Create", "Section", new {idPlancours = item.IdPlanCours})"><span class="glyphicon glyphicon-plus"></span> Section</a>
                         }
                     </div>
                     <div id="@i" class="collapse">
@@ -38,11 +38,11 @@
                         {
                             <div class="tree-view-item">
                                 @{
-                                    var nomSection = Model.NomSection.First(x => x.idNomSection == texteSection.idNomSection);
+                                    var nomSection = Model.NomSection.First(x => x.IdNomSection == texteSection.IdNomSection);
                                     if (nomSection != null)
                                     {
                                         <div class="col-md-11 col-md-offset-1">
-                                            @Html.DisplayFor(modelItem => nomSection.titreSection)
+                                            @Html.DisplayFor(modelItem => nomSection.TitreSection)
                                         </div>
                                     }
                                 }

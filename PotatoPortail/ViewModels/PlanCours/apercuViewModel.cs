@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PotatoPortail.Models;
+using PotatoPortail.Models.Plan_Cours;
 
 namespace PotatoPortail.ViewModels.PlanCours
 {
@@ -10,7 +11,7 @@ namespace PotatoPortail.ViewModels.PlanCours
         public virtual IEnumerable<ContenuSection> ContenuSection { get; set; }
         public int Id { get; set; }
         public string TexteContenu { get; set; }
-        public Models.PlanCours PlanCours { get; set; }
+        public Models.Plan_Cours.PlanCours PlanCours { get; set; }
         public int IdPlanCours { get; set; }
         public string CourrielProf { get; set; }
         public string NomProf { get; set; } 

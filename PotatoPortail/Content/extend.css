@@ -67,7 +67,7 @@ input, button {
 
 .form-control {
     margin-top: 5px;
-    display: block;
+    display: inline;
     box-sizing: border-box;
     padding: 7px;
     width: 75%;
@@ -91,6 +91,14 @@ input, button {
 
 .form-control.small {
     width: 25%;
+}
+
+.form-control.medium {
+    width: 50%;
+}
+
+.form-control.inline{
+    display: inline-block;
 }
 
 .recherche-control {

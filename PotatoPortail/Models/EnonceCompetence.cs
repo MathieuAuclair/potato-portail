@@ -1,10 +1,8 @@
 namespace PotatoPortail.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("EnonceCompetence")]
     public partial class EnonceCompetence
@@ -31,8 +29,6 @@ namespace PotatoPortail.Models
         public bool Obligatoire { get; set; }
 
         public bool Actif { get; set; }
-
-        public bool Specifique { get; set; }
 
         public int IdDevis { get; set; }
 

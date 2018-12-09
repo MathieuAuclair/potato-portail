@@ -1,28 +1,25 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace PotatoPortail.Models.Plan_Cours
+{
     [Table("PlanCoursUtilisateur")]
     public partial class PlanCoursUtilisateur
     {
         [Key]
         [Column(Order = 0)]
-        public string idPlanCoursUtilisateur { get; set; }
+        public string IdPlanCoursUtilisateur { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idPlanCours { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int IdPlanCours { get; set; }
 
         [StringLength(5)]
-        public string bureauProf { get; set; }
+        public string BureauProf { get; set; }
 
         [StringLength(4)]
-        public string poste { get; set; }
+        public string Poste { get; set; }
 
         public virtual AspNetUsers AspNetUsers { get; set; }
 
