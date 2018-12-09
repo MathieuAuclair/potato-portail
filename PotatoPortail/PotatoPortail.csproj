@@ -241,6 +241,10 @@
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
     <Compile Include="Interfaces\IApercu.cs" />
+    <Compile Include="Migrations\201812090148176_InitContext.cs" />
+    <Compile Include="Migrations\201812090148176_InitContext.Designer.cs">
+      <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
     <Compile Include="Models\ActiviteApprentissage.cs" />
@@ -249,7 +253,7 @@
     <Compile Include="Models\AspNetUserClaims.cs" />
     <Compile Include="Models\AspNetUserLogins.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
-    <Compile Include="Migrations\BDPortail.cs" />
+    <Compile Include="Migrations\BdPortail.cs" />
     <Compile Include="Models\eSports\Caracteristique.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -650,7 +654,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Reunions\" />
-    <Folder Include="Models\SystemeStage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812090148176_InitContext.resx">
+      <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,5 @@
-@model IEnumerable<PotatoPortail.Models.SystemeStage.Stage>
+@model IEnumerable<PotatoPortail.Models.Stage>
 @using PotatoPortail.Models
-@using PotatoPortail.Models.SystemeStage
 @using PotatoPortail.Views.Shared.Widget.Model
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -43,7 +42,7 @@
                     @Html.DisplayFor(model => item.Contact.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Status.StatusStage)
+                    @Html.DisplayFor(model => item.StatutStage)
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.Description)

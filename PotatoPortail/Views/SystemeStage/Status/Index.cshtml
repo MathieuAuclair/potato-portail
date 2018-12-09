@@ -1,4 +1,4 @@
-@model IEnumerable<PotatoPortail.Models.Status>
+@model IEnumerable<PotatoPortail.Models.StatutStage>
 @using PotatoPortail.Models
 @using PotatoPortail.Views.Shared.Widget.Model
 @{
@@ -7,8 +7,6 @@
 }
 
 <h1>Statuts</h1>
-
-@* ReSharper disable once UnknownCssClass *@
 <div class="container page-content">
     <div style="margin-bottom: 20px;">
         <form action="/Status/Creation" method="post">
@@ -22,20 +20,20 @@
             <th></th>
         </tr>
 
-        @foreach (var item in (List<Status>) Model)
+        @foreach (var item in (List<StatutStage>) Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(model => item.StatusStage)
+                    @Html.DisplayFor(model => item.NomStatutStage)
                 </td>
                 <td>
                     <form action="/Status/Edition" method="post">
                         <div>
                             <button>
-                                <input type="hidden" name="IdStatus" value="@Html.DisplayFor(model => item.IdStatus)" />
+                                <input type="hidden" name="IdStatus" value="@Html.DisplayFor(model => item.IdStatutStage)" />
                                 <img src="~/Content/Icons/baseline-border_color-24px.svg" />
                             </button>
-                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Status", new { id = item.IdStatus })'" />
+                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Status", new { id = item.IdStatutStage })'" />
                         </div>
                     </form>
                 </td>

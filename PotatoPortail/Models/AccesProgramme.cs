@@ -8,6 +8,7 @@ namespace PotatoPortail.Models
     {
         [Key]
         [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAcces { get; set; }
 
         [Key]

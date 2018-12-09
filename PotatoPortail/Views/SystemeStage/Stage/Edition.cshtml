@@ -1,11 +1,10 @@
-﻿@model PotatoPortail.Models.SystemeStage.Stage
+﻿@model PotatoPortail.Models.Stage
 @using System.Globalization
 @using PotatoPortail.Views.Shared.Widget.Model
 @using PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <form action="/Stage/Edition" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idStage" value="@Model.IdStage"/>

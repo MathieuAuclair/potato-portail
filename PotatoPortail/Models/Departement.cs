@@ -1,3 +1,5 @@
+using PotatoPortail.Models.Plan_Cours;
+
 namespace PotatoPortail.Models
 {
     using System;

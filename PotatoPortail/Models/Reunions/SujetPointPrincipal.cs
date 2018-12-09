@@ -18,7 +18,7 @@ namespace PotatoPortail.Models.Reunions
         public int IdPointPrincipal { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         [DisplayName("Sujet principal")]
         public string SujetPoint { get; set; }
 

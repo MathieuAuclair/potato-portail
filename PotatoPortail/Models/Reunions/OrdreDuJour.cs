@@ -28,14 +28,14 @@ namespace PotatoPortail.Models.Reunions
         public DateTime DateOdJ { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string HeureDebutReunion { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string HeureFinReunion { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string LieuReunionODJ { get; set; }
 
         public int IdModeleOrdreDuJour { get; set; }

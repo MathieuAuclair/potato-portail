@@ -103,7 +103,7 @@ namespace PotatoPortail.Migrations
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.PlanCoursUtilisateur)
                 .WithRequired(e => e.AspNetUsers)
-                .HasForeignKey(e => e.idPlanCoursUtilisateur)
+                .HasForeignKey(e => e.IdPlanCoursUtilisateur)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Caracteristique>()
@@ -330,11 +330,11 @@ namespace PotatoPortail.Migrations
                 .IsUnicode(false);
             
             modelBuilder.Entity<NomSection>()
-                .Property(e => e.titreSection)
+                .Property(e => e.TitreSection)
                 .IsUnicode(false);
 
             modelBuilder.Entity<NomSection>()
-                .Property(e => e.obligatoire)
+                .Property(e => e.Obligatoire)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -428,11 +428,11 @@ namespace PotatoPortail.Migrations
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<PlanCoursUtilisateur>()
-                .Property(e => e.bureauProf)
+                .Property(e => e.BureauProf)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PlanCoursUtilisateur>()
-                .Property(e => e.poste)
+                .Property(e => e.Poste)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Poste>()
@@ -558,7 +558,7 @@ namespace PotatoPortail.Migrations
                 .IsUnicode(false);
 
             modelBuilder.Entity<PlanCoursDepart>()
-                .Property(e => e.discipline)
+                .Property(e => e.Discipline)
                 .IsFixedLength()
                 .IsUnicode(false);
         }

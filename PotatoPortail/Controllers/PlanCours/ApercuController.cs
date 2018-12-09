@@ -29,7 +29,7 @@ namespace PotatoPortail.Controllers.PlanCours
             var requete = from acces in _db.AccesProgramme
                           where acces.UserMail == courrielConnexion
                           select acces.Discipline;
-            var listePlanCours = new List<Models.PlanCours>();
+            var listePlanCours = new List<Models.Plan_Cours.PlanCours>();
             foreach (var planCoursId in GetPlanCours())
             {
                 listePlanCours.Add(_db.PlanCours.Find(planCoursId));
@@ -37,10 +37,10 @@ namespace PotatoPortail.Controllers.PlanCours
             foreach (var planCours in listePlanCours)
             {
                 var nomSection = from nomS in _db.NomSection
-                                 join cs in _db.ContenuSection on nomS.idNomSection equals cs.idNomSection
-                                 join ts in _db.TexteSection on cs.idContenuSection equals ts.idContenuSection
-                                 join pco in _db.PlanCours on ts.idPlanCours equals pco.idPlanCours
-                                 where pco.idPlanCours == planCours.idPlanCours
+                                 join cs in _db.ContenuSection on nomS.IdNomSection equals cs.IdNomSection
+                                 join ts in _db.TexteSection on cs.IdContenuSection equals ts.IdContenuSection
+                                 join pco in _db.PlanCours on ts.IdPlanCours equals pco.IdPlanCours
+                                 where pco.IdPlanCours == planCours.IdPlanCours
                                  select nomS;
 
                 viewModel.MainPageViewModel.NomSections = new List<List<NomSection>>
@@ -54,9 +54,9 @@ namespace PotatoPortail.Controllers.PlanCours
                 id = 1;
             }
             var idPlanCadre = from planCours in _db.PlanCours
-                              join cours in _db.Cours on planCours.idCours equals cours.IdCours
+                              join cours in _db.Cours on planCours.IdCours equals cours.IdCours
                               join planCadre in _db.PlanCadre on cours.IdPlanCadre equals planCadre.IdPlanCadre
-                              where planCours.idPlanCours == id
+                              where planCours.IdPlanCours == id
                               select planCadre.IdPlanCadre;
 
             viewModel.MainPageViewModel.PlanCours = listePlanCours;
@@ -120,29 +120,29 @@ namespace PotatoPortail.Controllers.PlanCours
                             where cours.IdPlanCadre == ApercuViewModel.IdPlanCadre
                             select cours;
                 int CoursId = Cours.First().IdCours;
-                Models.PlanCours PC = new Models.PlanCours()
+                Models.Plan_Cours.PlanCours PC = new Models.Plan_Cours.PlanCours()
                 {
-                    dateCreation = DateTime.Today,
-                    dateValidation = null,
-                    idCours = CoursId,
+                    DateCreation = DateTime.Today,
+                    DateValidation = null,
+                    IdCours = CoursId,
                     StatutPlanCours = false,
                 };
                 _db.PlanCours.Add(PC);
                 _db.SaveChanges();
-                var idPlanCours = PC.idPlanCours;
+                var idPlanCours = PC.IdPlanCours;
                 var PCU = new PlanCoursUtilisateur()
                 {
-                    idPlanCoursUtilisateur = UserId,
-                    idPlanCours = idPlanCours,
-                    bureauProf = ApercuViewModel.BureauProf,
-                    poste = ApercuViewModel.NoPoste,
+                    IdPlanCoursUtilisateur = UserId,
+                    IdPlanCours = idPlanCours,
+                    BureauProf = ApercuViewModel.BureauProf,
+                    Poste = ApercuViewModel.NoPoste,
                 };
                 _db.PlanCoursUtilisateur.Add(PCU);
                 _db.SaveChanges();
                 _apercu = GetUser(idPlanCours);
                 for (var i = 1; i < 15; i++)
                 {
-                    var texteSectionDefault = new TexteSection {idPlanCours = idPlanCours, idContenuSection = i};
+                    var texteSectionDefault = new TexteSection {IdPlanCours = idPlanCours, IdContenuSection = i};
                     _db.TexteSection.Add(texteSectionDefault);
                     _db.SaveChanges();
                 }
@@ -169,36 +169,36 @@ namespace PotatoPortail.Controllers.PlanCours
         public List<int> RetourneSection(string discipline, int id )
         {
             var section = from nomSection in _db.NomSection
-                          join contenuSection in _db.ContenuSection on nomSection.idNomSection equals contenuSection.idNomSection
-                          join texteSection in _db.TexteSection on contenuSection.idContenuSection equals texteSection.idContenuSection
-                          join planCours in _db.PlanCours on texteSection.idPlanCours equals planCours.idPlanCours
-                          where planCours.idPlanCours == id
-                          select nomSection.idNomSection;
+                          join contenuSection in _db.ContenuSection on nomSection.IdNomSection equals contenuSection.IdNomSection
+                          join texteSection in _db.TexteSection on contenuSection.IdContenuSection equals texteSection.IdContenuSection
+                          join planCours in _db.PlanCours on texteSection.IdPlanCours equals planCours.IdPlanCours
+                          where planCours.IdPlanCours == id
+                          select nomSection.IdNomSection;
             return section.ToList();
         }
         public string CreationSectionDepart(int id, int idSection, string discipline)
         {
             var texteSection = from texte in _db.PlanCoursDepart
-                                      where texte.discipline == discipline && texte.idNomSection == idSection
-                                      select texte.texteContenu;
+                                      where texte.Discipline == discipline && texte.IdNomSection == idSection
+                                      select texte.TexteContenu;
 
             return texteSection.First();
         }
         public string CreationSectionDefaut(int id, int idSection, string discipline)
         {
             var texteSection = from texte in _db.ContenuSection
-                               join nomSection in _db.NomSection on texte.idNomSection equals nomSection.idNomSection
-                               where texte.idNomSection == idSection
-                               select texte.texteContenu;
+                               join nomSection in _db.NomSection on texte.IdNomSection equals nomSection.IdNomSection
+                               where texte.IdNomSection == idSection
+                               select texte.TexteContenu;
 
             return texteSection.First();
         }
         public string CreationTitreSection(int id, int idSection)
         {
             var texteSection = from nomSection in _db.NomSection
-                               join contenuSection in _db.ContenuSection on nomSection.idNomSection equals contenuSection.idNomSection
-                               where nomSection.idNomSection == idSection
-                               select nomSection.titreSection;
+                               join contenuSection in _db.ContenuSection on nomSection.IdNomSection equals contenuSection.IdNomSection
+                               where nomSection.IdNomSection == idSection
+                               select nomSection.TitreSection;
             return texteSection.First();
         }
 
@@ -219,7 +219,7 @@ namespace PotatoPortail.Controllers.PlanCours
                 throw new NullReferenceException();
             }
 
-            var cours = _db.Cours.Find(planCours.idCours);
+            var cours = _db.Cours.Find(planCours.IdCours);
 
             if (cours == null)
             {
@@ -311,9 +311,9 @@ namespace PotatoPortail.Controllers.PlanCours
         {
             var userId = User.Identity.GetUserId();
             var planCours = from pcours in _db.PlanCours
-                            join pcu in _db.PlanCoursUtilisateur on pcours.idPlanCours equals pcu.idPlanCours
-                            where pcu.idPlanCoursUtilisateur == userId
-                            select pcours.idPlanCours;
+                            join pcu in _db.PlanCoursUtilisateur on pcours.IdPlanCours equals pcu.IdPlanCours
+                            where pcu.IdPlanCoursUtilisateur == userId
+                            select pcours.IdPlanCours;
             return planCours;
 
         }
@@ -322,15 +322,15 @@ namespace PotatoPortail.Controllers.PlanCours
         {
             var apercu = new ApercuPlanCours();
             var query = from user in _db.PlanCoursUtilisateur
-                        where user.idPlanCours == id
+                        where user.IdPlanCours == id
                         select user;
 
             var planCoursUser = query.First();
             var utilisateur = HttpContext.GetOwinContext()
             .GetUserManager<ApplicationUserManager>()
-            .FindById(planCoursUser.idPlanCoursUtilisateur);
-            var bureauProf = planCoursUser.bureauProf;
-            var noPoste = planCoursUser.poste;
+            .FindById(planCoursUser.IdPlanCoursUtilisateur);
+            var bureauProf = planCoursUser.BureauProf;
+            var noPoste = planCoursUser.Poste;
             var courrielProf = utilisateur.Email;
             var nomProf = utilisateur.nom;
             var prenomProf = utilisateur.prenom;

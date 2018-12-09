@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace PotatoPortail.Models.Plan_Cours
 {
@@ -11,10 +7,10 @@ namespace PotatoPortail.Models.Plan_Cours
     {
         [Key]
         [Column(Order = 1)]
-        public int idPlanCours { get; set; }
+        public int IdPlanCours { get; set; }
         [Key]
         [Column(Order = 2)]
-        public int idContenuSection { get; set; }
+        public int IdContenuSection { get; set; }
 
         public PlanCours PlanCours { get; set; }
 

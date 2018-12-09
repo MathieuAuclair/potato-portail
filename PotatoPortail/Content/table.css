@@ -9,14 +9,17 @@ table.cool-table th, table.cool-table td {
 
 table.cool-table th {
     background-color: #333333;
-    border-bottom: 2px solid #000;
+    border-bottom: 3px solid #fff;
 }
 
 table.cool-table td {
-    color: #dddddd;
-    background-color: #5C5C5C;
-    border-top: 1px solid #707070;
+    color: #fff;
+    background-color: #0078d7;
+    border-style: solid;
+    border-width: 3px 0.5px;
+    border-color: #ddd;
     transition: 0.1s;
+    cursor: pointer;
 }
 
 table.cool-table tr:first-child td {
@@ -24,7 +27,7 @@ table.cool-table tr:first-child td {
 }
 
 table.cool-table tr:hover td {
-    background-color: #4C4C4C;
+    background-color: #23527c;
 }
 
 table.cool-table a {

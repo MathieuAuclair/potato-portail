@@ -1,11 +1,9 @@
-namespace PotatoPortail.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace PotatoPortail.Models.Plan_Cours
+{
     [Table("ContenuSection")]
     public partial class ContenuSection
     {
@@ -16,15 +14,15 @@ namespace PotatoPortail.Models
         }
 
         [Key]
-        public int idContenuSection { get; set; }
+        public int IdContenuSection { get; set; }
 
         [Required]
         [StringLength(1000)]
-        public string texteContenu { get; set; }
+        public string TexteContenu { get; set; }
 
-        public int idNomSection { get; set; }
+        public int IdNomSection { get; set; }
 
-        public bool modifiable { get; set; }
+        public bool Modifiable { get; set; }
 
         public virtual NomSection NomSection { get; set; }
 
