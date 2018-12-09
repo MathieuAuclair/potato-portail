@@ -245,6 +245,14 @@
     <Compile Include="Migrations\201812090148176_InitContext.Designer.cs">
       <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812091959567_IncreaseSizeTexteContenu.cs" />
+    <Compile Include="Migrations\201812091959567_IncreaseSizeTexteContenu.Designer.cs">
+      <DependentUpon>201812091959567_IncreaseSizeTexteContenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812092013195_RemoveIndentityIdPlanCoursDepart.cs" />
+    <Compile Include="Migrations\201812092013195_RemoveIndentityIdPlanCoursDepart.Designer.cs">
+      <DependentUpon>201812092013195_RemoveIndentityIdPlanCoursDepart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
@@ -659,6 +667,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812090148176_InitContext.resx">
       <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812091959567_IncreaseSizeTexteContenu.resx">
+      <DependentUpon>201812091959567_IncreaseSizeTexteContenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812092013195_RemoveIndentityIdPlanCoursDepart.resx">
+      <DependentUpon>201812092013195_RemoveIndentityIdPlanCoursDepart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

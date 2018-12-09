@@ -27,7 +27,7 @@ namespace PotatoPortail.Models.Plan_Cours
         public int IdNomSection { get; set; }
 
         [Column(Order = 4)]
-        [StringLength(1000)]
+        [StringLength(3000)]
         public string TexteContenu { get; set; }
 
         [Column(Order = 5)]

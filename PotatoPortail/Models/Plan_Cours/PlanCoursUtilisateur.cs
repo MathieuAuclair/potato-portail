@@ -12,7 +12,6 @@ namespace PotatoPortail.Models.Plan_Cours
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPlanCours { get; set; }
 
         [StringLength(5)]
