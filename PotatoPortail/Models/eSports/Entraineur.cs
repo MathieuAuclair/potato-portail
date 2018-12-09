@@ -10,7 +10,7 @@ namespace PotatoPortail.Models.eSports
             Equipe = new HashSet<Equipe>();
         }
 
-        public string NomComplet => PrenomEntraineur + NomEntraineur;
+        public string NomComplet => PrenomEntraineur + " " + NomEntraineur;
 
         public int Id { get; set; }
 
@@ -24,6 +24,7 @@ namespace PotatoPortail.Models.eSports
 
         [Required]
         [Display(Name = "Pseudo")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Votre pseudonyme doit comprendre au minimum 2 caractères et 25 au maximum.")]
         public string PseudoEntraineur { get; set; }
 
         [Required]

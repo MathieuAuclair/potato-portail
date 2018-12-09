@@ -244,9 +244,9 @@
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
     <Compile Include="Interfaces\IApercu.cs" />
-    <Compile Include="Migrations\201812090148176_InitContext.cs" />
-    <Compile Include="Migrations\201812090148176_InitContext.Designer.cs">
-      <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
+    <Compile Include="Migrations\201812092217008_initContextBd.cs" />
+    <Compile Include="Migrations\201812092217008_initContextBd.Designer.cs">
+      <DependentUpon>201812092217008_initContextBd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
@@ -657,8 +657,8 @@
     <Folder Include="Controllers\Reunions\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812090148176_InitContext.resx">
-      <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812092217008_initContextBd.resx">
+      <DependentUpon>201812092217008_initContextBd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

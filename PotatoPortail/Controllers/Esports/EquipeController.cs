@@ -197,7 +197,7 @@ namespace PotatoPortail.Controllers.eSports
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var equipePourModification = _db.Equipe
-                .Include(queryEquipe => queryEquipe.Entraineurs)
+                .Include(queryEquipe => queryEquipe.Entraineur)
                 .Single(queryEquipe => queryEquipe.Id == id);
 
             if (EstCeQueNomEquipeEstUnique(equipePourModification))
@@ -269,11 +269,11 @@ namespace PotatoPortail.Controllers.eSports
         {
             if (entraineursSelectionne == null)
             {
-                equipePourModification.Entraineurs = new List<Entraineur>();
+                equipePourModification.Entraineur = new List<Entraineur>();
                 return;
             }
             var entraineurSelectionneHashSet = new HashSet<string>(entraineursSelectionne);
-            var equipeEntraineurs = new HashSet<string>(equipePourModification.Entraineurs.Select(e => e.PseudoEntraineur));
+            var equipeEntraineurs = new HashSet<string>(equipePourModification.Entraineur.Select(e => e.PseudoEntraineur));
 
             foreach (Entraineur entraineur in _db.Entraineur)
             {
@@ -281,14 +281,14 @@ namespace PotatoPortail.Controllers.eSports
                 {
                     if (!equipeEntraineurs.Contains(entraineur.PseudoEntraineur))
                     {
-                        equipePourModification.Entraineurs.Add(entraineur);
+                        equipePourModification.Entraineur.Add(entraineur);
                     }
                 }
                 else
                 {
                     if (equipeEntraineurs.Contains(entraineur.PseudoEntraineur))
                     {
-                        equipePourModification.Entraineurs.Remove(entraineur);
+                        equipePourModification.Entraineur.Remove(entraineur);
                     }
                 }
             }
@@ -297,12 +297,12 @@ namespace PotatoPortail.Controllers.eSports
         {
             if (joueursSelectionnes == null)
             {
-                equipeAModifier.Joueurs = new List<Joueur>();
-                equipeAModifier.Joueurs.Clear();
+                equipeAModifier.Joueur = new List<Joueur>();
+                equipeAModifier.Joueur.Clear();
                 return;
             }
             var joueursSelectionnesHashSet = new HashSet<string>(joueursSelectionnes);
-            var equipeJoueurs = new HashSet<string>(equipeAModifier.Joueurs.Select(j => j.PseudoJoueur));
+            var equipeJoueurs = new HashSet<string>(equipeAModifier.Joueur.Select(j => j.PseudoJoueur));
 
             foreach (Joueur joueur in _db.Joueur)
             {
@@ -310,14 +310,14 @@ namespace PotatoPortail.Controllers.eSports
                 {
                     if (!equipeJoueurs.Contains(joueur.PseudoJoueur))
                     {
-                        equipeAModifier.Joueurs.Add(joueur);
+                        equipeAModifier.Joueur.Add(joueur);
                     }
                 }
                 else
                 {
                     if (equipeJoueurs.Contains(joueur.PseudoJoueur))
                     {
-                        equipeAModifier.Joueurs.Remove(joueur);
+                        equipeAModifier.Joueur.Remove(joueur);
                     }
                 }
             }
@@ -402,11 +402,11 @@ namespace PotatoPortail.Controllers.eSports
             equipeAModifierViewModel.Entraineurs = new List<Entraineur>();
             equipeAModifierViewModel.Joueurs = new List<Joueur>();
 
-            foreach (var entraineur in equipeAModifier.Entraineurs)
+            foreach (var entraineur in equipeAModifier.Entraineur)
             {
                 equipeAModifierViewModel.Entraineurs.Add(entraineur);
             }
-            foreach (var joueur in equipeAModifier.Joueurs)
+            foreach (var joueur in equipeAModifier.Joueur)
             {
                 equipeAModifierViewModel.Joueurs.Add(joueur);
             }

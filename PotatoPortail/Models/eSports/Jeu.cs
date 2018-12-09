@@ -11,8 +11,6 @@ namespace PotatoPortail.Models.eSports
             Equipe = new HashSet<Equipe>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

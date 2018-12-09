@@ -1,7 +1,4 @@
-﻿@using ApplicationPlanCadre.Models
-@using System.Dynamic;
-@using ApplicationPlanCadre.Models.eSports
-@model  dynamic
+﻿@using PotatoPortail.ViewModels.ProjetPrincipal
 
 @{
     ViewBag.Titre = "Recherche dans les devis";
@@ -25,7 +22,7 @@
                 {
                     if ((Model.EnonceCompetence != null) || (Model.ElementCompetence != null) || (Model.DevisMinistere != null) || (Model.Section != null) || (Model.Cours != null) || (Model.Joueur != null) || (Model.entraineur != null) || (Model.jeu != null) || (Model.Equipe != null))
                     {
-                        if ((Model.EnonceCompetence.Count == 0) && (Model.ElementCompetence.Count == 0) && (Model.DevisMinistere.Count == 0) && (Model.Section.Count == 0) && (Model.Cours.Count == 0) && (Model.joueur.Count == 0) && (Model.entraineur.Count == 0) && (Model.jeu.Count == 0) && (Model.Equipe.Count == 0))
+                        if ((Model.EnonceCompetence.Count == 0) && (Model.ElementCompetence.Count == 0) && (Model.DevisMinistere.Count == 0) && (Model.Section.Count == 0) && (Model.Cours.Count == 0) && (Model.Joueur.Count == 0) && (Model.Entraineur.Count == 0) && (Model.Jeu.Count == 0) && (Model.Equipe.Count == 0))
                         {
                             <p style="color:red;">Aucune information n'a été trouvée</p>
                         }
@@ -41,9 +38,9 @@
                                         <hr />
                                         foreach (RechecheEnonceCompetence enonceCmpt in Model.EnonceCompetence)
                                         {
-                                            <a class="info-child clearfix" href="@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCmpt.idCompetence })">
-                                                <p><span class="ligne">Code compétence : </span>@Html.Raw(enonceCmpt.codeCompetence)</p>
-                                                <p><span class="ligne">Description : </span>@Html.Raw(enonceCmpt.description)</p>
+                                            <a class="info-child clearfix" href="@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCmpt.IdCompetence })">
+                                                <p><span class="ligne">Code compétence : </span>@Html.Raw(enonceCmpt.CodeCompetence)</p>
+                                                <p><span class="ligne">Description : </span>@Html.Raw(enonceCmpt.Description)</p>
                                             </a>
                                         }
                                     }
@@ -60,8 +57,8 @@
                                          <hr />
                                         foreach (RechecheElementCompetence elementCompt in Model.ElementCompetence)
                                         {
-                                             <a class="info-child clearfix" href="@Url.Action("Info", "ElementCompetence", new { idElement = elementCompt.idElement })">
-                                                 <p><span class="ligne">Description : </span>@Html.Raw(elementCompt.description)</p>
+                                             <a class="info-child clearfix" href="@Url.Action("Info", "ElementCompetence", new { idElement = elementCompt.IdElement })">
+                                                 <p><span class="ligne">Description : </span>@Html.Raw(elementCompt.Description)</p>
                                              </a>
                                         }
 
@@ -76,47 +73,47 @@
                                     <hr/>
                                     foreach (RechercheDevisMinistere devis in Model.DevisMinistere)
                                     {
-                                        <a class="info-child clearfix" href="@Url.Action("Info", "DevisMinistere", new { idDevis = devis.idDevis })">
+                                        <a class="info-child clearfix" href="@Url.Action("Info", "DevisMinistere", new { idDevis = devis.IdDevis })">
                                             <p>
-                                                <span class="ligne">Année : </span>@Html.Raw(devis.annee)
+                                                <span class="ligne">Année : </span>@Html.Raw(devis.Annee)
                                             </p>
                                             <p>
-                                                <span class="ligne">Code de spécialisation : </span>@Html.Raw(devis.codeSpecialisation)
+                                                <span class="ligne">Code de spécialisation : </span>@Html.Raw(devis.CodeSpecialisation)
                                             </p>
                                             <p>
-                                                <span class="ligne">Spécialisation : </span>@Html.Raw(devis.specialisation)
+                                                <span class="ligne">Spécialisation : </span>@Html.Raw(devis.Specialisation)
                                             </p>
                                             <p>
-                                                <span class="ligne">Condition : </span>@Html.Raw(devis.condition)
+                                                <span class="ligne">Condition : </span>@Html.Raw(devis.Condition)
                                             </p>
                                             <p>
-                                                <span class="ligne">Sanction : </span>@Html.Raw(devis.sanction)
+                                                <span class="ligne">Sanction : </span>@Html.Raw(devis.Sanction)
                                             </p>
                                             <p>
-                                                <span class="ligne">Code de programme : </span>@Html.Raw(devis.discipline)
+                                                <span class="ligne">Code de programme : </span>@Html.Raw(devis.Discipline)
                                             </p>
                                         </a>
                                     }
                                 }
                             }
 
-                            if (((IDictionary<string, object>)Model).ContainsKey("joueur") && ((ViewBag.modelActuel == "joueur") || (ViewBag.modelActuel == "")))
+                            if (((IDictionary<string, object>)Model).ContainsKey("Joueur") && ((ViewBag.modelActuel == "Joueur") || (ViewBag.modelActuel == "")))
                             {
-                                if (Model.joueur != null)
+                                if (Model.Joueur != null)
                                 {
-                                    if (Model.joueur.Count != 0)
+                                    if (Model.Joueur.Count != 0)
                                     {
                                         <h2>Joueur eSport</h2>
                                         <hr/>
-                                        foreach (RechercheJoueur Jou in Model.joueur)
+                                        foreach (RechercheJoueur joueur in Model.Joueur)
                                         {
-                                            <a class="info-child clearfix" href="@Url.Action("Details", "Joueur", new { idJoueur = Jou.idJoueur })">
+                                            <a class="info-child clearfix" href="@Url.Action("Details", "Joueur", new { idJoueur = joueur.IdJoueur })">
                                                 <p>
-                                                    <span class="ligne">Pseudo du joueur :</span>@Html.Raw(Jou.pseudoJoueur)
+                                                    <span class="ligne">Pseudo du joueur :</span>@Html.Raw(joueur.PseudoJoueur)
                                                     <br />
-                                                    <span class="ligne">Nom du joueur :</span>@Html.Raw(Jou.NomJoueur)
+                                                    <span class="ligne">Nom du joueur :</span>@Html.Raw(joueur.NomJoueur)
                                                     <br />
-                                                    <span class="ligne">Courriel du joueur :</span>@Html.Raw(Jou.CourrielJoueur)
+                                                    <span class="ligne">Courriel du joueur :</span>@Html.Raw(joueur.CourrielJoueur)
                                         
                                                 </p>
                                     
@@ -134,11 +131,11 @@
                                     {
                                         <h2>Equipe eSport</h2>
                                         <hr/>
-                                        foreach (RechercheEquipe Equipe in Model.Equipe)
+                                        foreach (RechercheEquipe equipe in Model.Equipe)
                                         {
-                                            <a class="info-child clearfix" href="@Url.Action("Index", "Equipe", new { idEquipe = Equipe.idEquipe })">
+                                            <a class="info-child clearfix" href="@Url.Action("Index", "Equipe", new { idEquipe = equipe.IdEquipe })">
                                                 <p>
-                                                    <span class="ligne">Nom des équipes : </span>@Html.Raw(Equipe.NomEquipe)
+                                                    <span class="ligne">Nom des équipes : </span>@Html.Raw(equipe.NomEquipe)
                                                 </p>
                                             </a>
                                         }
@@ -148,15 +145,15 @@
 
                             if (((IDictionary<string, object>)Model).ContainsKey("Jeu") && ((ViewBag.modelActuel == "Jeu") || (ViewBag.modelActuel == "")))
                             {
-                                if (Model.jeu != null)
+                                if (Model.Jeu != null)
                                 {
-                                    if (Model.jeu.Count != 0)
+                                    if (Model.Jeu.Count != 0)
                                     {
                                         <h2>Jeu de eSport</h2>
                                         <hr/>
-                                        foreach (RechercheJeu jeu in Model.jeu)
+                                        foreach (RechercheJeu jeu in Model.Jeu)
                                         {
-                                            <a class="info-child clearfix" href="@Url.Action("Index", "Jeu", new { idJeu = jeu.idJeu })">
+                                            <a class="info-child clearfix" href="@Url.Action("Index", "Jeu", new { idJeu = jeu.IdJeu })">
                                                 <p>
                                                     <span class="ligne">Nom des Jeu : </span>@Html.Raw(jeu.NomJeu)
                                                     <br/>
@@ -170,23 +167,23 @@
 
                             if (((IDictionary<string, object>)Model).ContainsKey("Entraineur") && ((ViewBag.modelActuel == "Entraineur") || (ViewBag.modelActuel == "")))
                             {
-                                if (Model.entraineur != null)
+                                if (Model.Entraineur != null)
                                 {
-                                    if (Model.entraineur.Count != 0)
+                                    if (Model.Entraineur.Count != 0)
                                     {
                                         <h2>Entraineur eSport</h2>
                                         <hr/>
-                                        foreach (RechercheEntraineur Ent in Model.entraineur)
+                                        foreach (RechercheEntraineur entraineur in Model.Entraineur)
                                         {
-                                            <a class="info-child clearfix" href="@Url.Action("Index", "Entraineur", new { idEntraineur = Ent.idEntraineur })">
+                                            <a class="info-child clearfix" href="@Url.Action("Index", "Entraineur", new { idEntraineur = entraineur.IdEntraineur })">
                                                 <p>
-                                                    <span class="ligne">Pseudo de l'entraineur : </span>@Html.Raw(Ent.PseudoEntraineur)
+                                                    <span class="ligne">Pseudo de l'entraineur : </span>@Html.Raw(entraineur.PseudoEntraineur)
                                                     <br />
-                                                    <span class="ligne">Nom de l'entraineur : </span>@Html.Raw(Ent.NomEntraineur)
+                                                    <span class="ligne">Nom de l'entraineur : </span>@Html.Raw(entraineur.NomEntraineur)
                                                     <br />
-                                                    <span class="ligne">Téléphone de l'entraineur : </span>@Html.Raw(Ent.TelephoneEntraineur)
+                                                    <span class="ligne">Téléphone de l'entraineur : </span>@Html.Raw(entraineur.TelephoneEntraineur)
                                                     <br />
-                                                    <span class="ligne">Courriel de l'entraineur : </span>@Html.Raw(Ent.CourrielEntraineur)
+                                                    <span class="ligne">Courriel de l'entraineur : </span>@Html.Raw(entraineur.CourrielEntraineur)
                                                 </p>
                                             </a>
                                         }
@@ -205,7 +202,7 @@
                                         foreach (RechercheOrdreDuJour odj in Model.OrdreDuJour)
                                         {
                                             <a class="info-child clearfix" href="@Url.Action("Details", "OrdreDuJour", new { id = odj.IdOrdreDuJour })">
-                                                <p><span class="ligne">Titre : </span>@Html.Raw(odj.titre)</p>
+                                                <p><span class="ligne">Titre : </span>@Html.Raw(odj.Titre)</p>
                                             </a>
                                         }
                                     }
@@ -220,10 +217,10 @@
                                     {
                                         <h2>Cours</h2>
                                         <hr/>
-                                        foreach (RechercheCours PlanCad in Model.Cours)
+                                        foreach (RechercheCours planCadre in Model.Cours)
                                         {
-                                          <a class="info-child clearfix" href="@Url.Action("Info", "PlanCadre", new { numeroCours = PlanCad.numeroCours })">
-                                                  <p><span class="ligne">Titre du cours : </span>@Html.Raw(PlanCad.titreCours)</p>
+                                          <a class="info-child clearfix" href="@Url.Action("Info", "PlanCadre", new { numeroCours = planCadre.NumeroCours })">
+                                                  <p><span class="ligne">Titre du cours : </span>@Html.Raw(planCadre.TitreCours)</p>
                                           </a>
                                         }
                                     }
@@ -238,10 +235,10 @@
                                     {
                                         <h2>Section</h2>
                                         <hr/>
-                                        foreach (RechercheSection Sect in Model.Section)
+                                        foreach (RechercheSection section in Model.Section)
                                         {
-                                        <a class="info-child clearfix" href="@Url.Action("Details", "PlanCours", new { idNomSection = Sect.idNomSection })">
-                                            <p><span class="ligne">Nom de section : </span>@Html.Raw(Sect.titreSection)</p>
+                                        <a class="info-child clearfix" href="@Url.Action("Details", "PlanCours", new { idNomSection = section.IdNomSection })">
+                                            <p><span class="ligne">Nom de section : </span>@Html.Raw(section.TitreSection)</p>
                                         </a>
                                         }
                                     }
@@ -256,12 +253,11 @@
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-    <script type="text/javascript">
-        function rechercheView() {
-            var stringModel = "";
-        var stringRech = document.getElementById("strRechercheForm").value;
-        stringModel = "@ViewBag.modelActuel";
-        window.location.href = "@Url.Action("Recherche", "Recherche")?stringRechercher=" + stringRech + "&tableRecherche=" + stringModel;
+<script type="text/javascript">
+
+    function rechercheView() {
+        var stringRecherche = document.getElementById("strRechercheForm").value;
+        window.location.href = "@Url.Action("Recherche", "Recherche")?stringRechercher=" + stringRecherche + "&tableRecherche=" + "@ViewBag.modelActuel";
     }
 
     var input = document.getElementById("strRechercheForm");
@@ -270,6 +266,7 @@
             document.getElementById("rechercheView").click();
         }
     });
-    </script>
+
+</script>
 
 </body>
