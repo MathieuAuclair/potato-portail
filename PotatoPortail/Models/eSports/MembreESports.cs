@@ -13,9 +13,6 @@ namespace PotatoPortail.Models
 
         }
 
-        public string NomComplet => Prenom + Nom;
-
-        [Display(Name = "ID Étudiant")]
         public string Id { get; set; }
 
         [Display(Name = "Nom")]
@@ -28,7 +25,7 @@ namespace PotatoPortail.Models
 
         public virtual ICollection<Profil> Profil { get; set; }
 
-        public string nomComplet
+        public string NomComplet
         {
             get
             {

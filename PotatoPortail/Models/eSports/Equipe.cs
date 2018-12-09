@@ -8,12 +8,10 @@ namespace PotatoPortail.Models.eSports
     {
         public Equipe()
         {
-            Entraineurs = new HashSet<Entraineur>();
-            Joueurs = new HashSet<Joueur>();
+            Entraineur = new HashSet<Entraineur>();
+            Joueur = new HashSet<Joueur>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -28,10 +26,8 @@ namespace PotatoPortail.Models.eSports
 
         public virtual Jeu Jeu { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entraineur> Entraineurs { get; set; }
+        public virtual ICollection<Entraineur> Entraineur { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joueur> Joueurs { get; set; }
+        public virtual ICollection<Joueur> Joueur { get; set; }
     }
 }
