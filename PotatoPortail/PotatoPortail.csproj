@@ -380,9 +380,6 @@
     <Content Include="Content\material-icons.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\structure.css" />
-    <Content Include="Content\Styles\edition.css" />
-    <Content Include="Content\Styles\flat-props.css" />
-    <Content Include="Content\Styles\navigation.css" />
     <Content Include="Content\superview.css" />
     <Content Include="Content\table.css" />
     <Content Include="Content\toastr.css" />
@@ -395,7 +392,6 @@
     <Content Include="fonts\MaterialIcons-Regular.woff" />
     <Content Include="fonts\MaterialIcons-Regular.woff2" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
