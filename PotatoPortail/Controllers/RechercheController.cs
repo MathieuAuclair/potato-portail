@@ -31,10 +31,10 @@ namespace PotatoPortail.Controllers
                 model.DevisMinistere = GetDevis(stringRechercher);
                 model.Section = GetSections(stringRechercher);
                 model.Cours = GetCours(stringRechercher);
-                model.joueur = GetJoueur(stringRechercher);
+                model.Joueur = GetJoueur(stringRechercher);
                 model.Equipe = GetEquipe(stringRechercher);
-                model.jeu = GetJeu(stringRechercher);
-                model.entraineur = GetEntraineur(stringRechercher);
+                model.Jeu = GetJeu(stringRechercher);
+                model.Entraineur = GetEntraineur(stringRechercher);
                 model.OrdreDuJour = GetOrdreDuJour(stringRechercher);
             }
             else
@@ -44,10 +44,10 @@ namespace PotatoPortail.Controllers
                 model.DevisMinistere = null;
                 model.Section = null;
                 model.Cours = null;
-                model.joueur = null;
+                model.Joueur = null;
                 model.Equipe = null;
-                model.jeu = null;
-                model.entraineur = null;
+                model.Jeu = null;
+                model.Entraineur = null;
                 model.OrdreDuJour = null;
             }
 
@@ -108,25 +108,37 @@ namespace PotatoPortail.Controllers
 
         private List<RechecheElementCompetence> GetElemCompetence(string stringRechercher)
         {
-            var enonce = from tableElementCompetence in _db.ElementCompetence
+            List<RechecheElementCompetence> elementListe = new List<RechecheElementCompetence>();
+
+            var element = from tableElementCompetence in _db.ElementCompetence
                 where tableElementCompetence.Description.Contains(stringRechercher)
                 orderby tableElementCompetence.Numero
                 select tableElementCompetence;
 
-            return enonce.Select(tableElementCompetence => new RechecheElementCompetence {IdElement = tableElementCompetence.IdElement, IdCompetence = tableElementCompetence.IdCompetence, Description = tableElementCompetence.Description.SurlignerMotsClee(stringRechercher, "yellow", false),}).ToList();
+            foreach (ElementCompetence tableElementCompetence in element)
+            {
+                elementListe.Add(new RechecheElementCompetence
+                {
+                    IdElement = tableElementCompetence.IdElement,
+                    IdCompetence = tableElementCompetence.IdCompetence,
+                    Description = tableElementCompetence.Description.SurlignerMotsClee(stringRechercher, "yellow", false),
+                });
+            }
+
+            return elementListe;
         }
 
         private List<RechecheProgramme> GetProgram(string stringRechercher)
         {
-            var programme = new List<RechecheProgramme>();
+            var listeProgramme = new List<RechecheProgramme>();
 
-            var requete = from tableProgramme in _db.Programme
+            var programme = from tableProgramme in _db.Programme
                 where tableProgramme.Annee.Contains(stringRechercher) || tableProgramme.Nom.Contains(stringRechercher)
                 select tableProgramme;
 
-            foreach (var tableProgramme in requete)
+            foreach (Programme tableProgramme in programme)
             {
-                programme.Add(new RechecheProgramme
+                listeProgramme.Add(new RechecheProgramme
                 {
                     IdProgramme = Convert.ToInt32(tableProgramme.IdProgramme),
                     Annee = tableProgramme.Annee.SurlignerMotsClee(stringRechercher, "yellow", false),
@@ -134,7 +146,7 @@ namespace PotatoPortail.Controllers
                     IdDevis = tableProgramme.IdDevis
                 });
             }
-            return programme;
+            return listeProgramme;
         }
 
         private List<RechercheSection> GetSections(string stringRechercher)
@@ -163,7 +175,7 @@ namespace PotatoPortail.Controllers
             var cours = from tablePlanCadre in _db.PlanCadre
                         where tablePlanCadre.TitreCours.Contains(stringRechercher)
                         select tablePlanCadre;
-            foreach (var tablePlanCadre in cours)
+            foreach (PlanCadre tablePlanCadre in cours)
             {
                 coursListe.Add(new RechercheCours
                 {
@@ -187,7 +199,7 @@ namespace PotatoPortail.Controllers
                 {
                     idJoueur = tableJoueur.IdMembreESports,
                     NomJoueur = tableMembre.Prenom + " " + tableMembre.Nom,
-                    PseudoJoueur = tableJoueur.PseudoJoueur,
+                    tableJoueur.PseudoJoueur,
                     CourrielJoueur = tableJoueur.Profil.Courriel
                 } ;
             foreach ( var tableJoueur in lesJoueur)
@@ -228,11 +240,11 @@ namespace PotatoPortail.Controllers
         {
             List<RechercheJeu> jeuListe = new List<RechercheJeu>();
 
-            var Jeu = from tableJeu in _db.Jeu
+            var jeu = from tableJeu in _db.Jeu
                 where tableJeu.NomJeu.Contains(stringRechercher)
                 select tableJeu;
 
-            foreach (var tableJeu in Jeu)
+            foreach (var tableJeu in jeu)
             {
                 jeuListe.Add(new RechercheJeu
                 {
