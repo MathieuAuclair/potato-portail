@@ -599,7 +599,6 @@
     <Content Include="Views\OrdreDuJour\Index.cshtml" />
     <Content Include="Views\OrdreDuJour\Info.cshtml" />
     <Content Include="Views\OrdreDuJour\ListeOrdreDuJour.cshtml" />
-    <Content Include="Views\OrdreDuJour\_DropDownList.cshtml" />
     <Content Include="Views\OrdreDuJour\_TreeView.cshtml" />
     <Content Include="Views\PlanCadre\Info.cshtml" />
     <Content Include="Views\Profil\Details.cshtml" />
@@ -655,6 +654,7 @@
     <Content Include="Views\SystemeStage\Status\Index.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\OrdreDuJour\ModifierModeleOrdreDuJour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

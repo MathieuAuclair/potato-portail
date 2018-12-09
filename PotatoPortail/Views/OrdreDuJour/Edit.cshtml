@@ -1,27 +1,19 @@
 ﻿@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel
-
 @{
     ViewBag.Titre = "Modification de l'ordre du jour";
 }
-
 <script src="~/Scripts/ajoutDynamique.js" type="text/javascript"></script>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => Model.OrdreDuJour.IdOdJ)
 
-
     <div class="container">
         <div class="form-box">
-
             <header class="light-header">
-
                 <h1>@ViewBag.Titre</h1>
-
                 <h3>@Html.DisplayFor(m => m.OrdreDuJour.TitreOdJ)</h3>
-
             </header>
 
             <div class="form-group">
@@ -54,32 +46,26 @@
                 @Html.ValidationMessageFor(m => m.OrdreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
             </div>
 
-            @*<div class="form-group">
-                    @Html.LabelFor(m => m.ordreDuJour.LieuReunionODJ)
-                    @Html.DropDownListFor(m => m.ordreDuJour.LieuReunionODJ, new SelectList(Model.listLieux, "Text", "Value"), htmlAttributes: new { @class = "form-control", id = "Country" })
-                    @Html.ValidationMessageFor(m => m.ordreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
-                </div>*@
-
             <div class="form-group">
-                @Html.LabelFor(m => m.SujetPointPrincipal[0].SujetPoint)
+                @Html.LabelFor(m => m.sujetPointPrincipal[0].SujetPoint)
                 @for (var x = 0; x < Model.SujetPointPrincipal.Count; x++)
                 {
-                    @Html.EditorFor(m => m.SujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(m => m.SujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.sujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.sujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
                     <ul id="listSP0">
                         @if(Model.ListeSousPointSujet.Count != 0)
                         {
-                            foreach (var item in Model.ListeSousPointSujet)
+                            for(int souspoint = 0; souspoint < Model.ListeSousPointSujet.Count; souspoint++)
                             {
-                                if(item.IdSujetPointPrincipal == Model.SujetPointPrincipal[x].IdPointPrincipal)
+                                if(Model.ListeSousPointSujet[souspoint].IdSujetPointPrincipal == Model.SujetPointPrincipal[x].IdPointPrincipal)
                                 {
-                                    <li>@Html.EditorFor(m => item.SujetSousPoint, new { htmlAttributes = new { @class = "form-control" } })</li>
+                                    <li><input type="text" name="listeSousPoint" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].SujetSousPoint><input type="hidden" name="listeIdSousPointCache" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].IdSousPoint></li>
                                 }
                             }
                         }
-                        <a class="fancy-button" id="btnPlus1" onclick="addSPoint(this.id,x)"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a class="fancy-button" id="btnPlus_@x" onclick="ajoutSPoint(this.id,@x)"><span class="glyphicon glyphicon-plus"></span></a>
                     </ul>
-                }
+                 }
             </div>
 
             <hr />

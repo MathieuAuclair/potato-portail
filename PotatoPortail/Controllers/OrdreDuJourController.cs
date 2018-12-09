@@ -25,7 +25,7 @@ namespace PotatoPortail.Controllers
             var ordre = GetDixOrdreDuJour(); 
             return View(ordre);
         }
-        
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,34 +33,38 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var ordreDuJour = _db.OrdreDuJour.Find(id);
-            var listeSousPoint = new List<SousPointSujet>();
-            if (ordreDuJour == null)
+            OrdreDuJour OrdreDuJour = _db.OrdreDuJour.Find(id);
+            List<SujetPointPrincipal> sujetPointPrincipal = new List<SujetPointPrincipal>();
+            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
+            if (OrdreDuJour == null)
             {
                 return HttpNotFound();
             }
 
-            var sujetPointPrincipal = _db.SujetPointPrincipal.Where(item => item.IdOrdreDuJour == id).ToList();
-
-            foreach(var item in sujetPointPrincipal)
+            foreach (var item in _db.SujetPointPrincipal)
             {
-                var listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
-                if (listeSousPointQuery == null) continue;
-                foreach (var sp in listeSousPointQuery)
+                if (item.IdOrdreDuJour == id)
+                    sujetPointPrincipal.Add(item);
+            }
+            foreach (var item in sujetPointPrincipal)
+            {
+                List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
+                if (listeSousPointQuery != null)
                 {
-                    listeSousPoint.Add(sp);
+                    foreach (var sp in listeSousPointQuery)
+                    {
+                        listeSousPoint.Add(sp);
+                    }
                 }
             }
 
-            var ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel
-            {
-                OrdreDuJour = ordreDuJour,
-                SujetPointPrincipal = sujetPointPrincipal,
-                ListeSousPointSujet = listeSousPoint
-            };
+            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel();
+            ordreDuJourViewModelCreerOdj.OrdreDuJour = OrdreDuJour;
+            ordreDuJourViewModelCreerOdj.SujetPointPrincipal = sujetPointPrincipal;
+            ordreDuJourViewModelCreerOdj.ListeSousPointSujet = listeSousPoint;
             return View(ordreDuJourViewModelCreerOdj);
         }
-        
+
         public ActionResult _TreeView()
         {
             return View();
@@ -132,10 +136,8 @@ namespace PotatoPortail.Controllers
         private void PopulateSousPointDansOrdreDuJour(OrdreDuJourViewModel httpBundle, OrdreDuJour ordreDuJour)
         {
             var indexDuSujetSousPoint = 0;
-
             foreach (int positionDuSujetPointPrincipal in httpBundle.ListeIdSousPointCache)
             {
-
                 var sujetPointPrincipal = ordreDuJour.SujetPointPrincipal.ElementAt(positionDuSujetPointPrincipal);
                 var sujetSousPoint = httpBundle.ListeSousPoint[indexDuSujetSousPoint];
                 indexDuSujetSousPoint++;
@@ -160,26 +162,35 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var ordreDuJour = _db.OrdreDuJour.Find(id);
-            var listeSousPoint = new List<SousPointSujet>();
-            if (ordreDuJour == null)
+            OrdreDuJour OrdreDuJour = _db.OrdreDuJour.Find(id);
+            List<SujetPointPrincipal> sujetPointPrincipal = new List<SujetPointPrincipal>();
+            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
+            if (OrdreDuJour == null)
             {
                 return HttpNotFound();
             }
 
-            var sujetPointPrincipal = _db.SujetPointPrincipal.Where(item => item.IdOrdreDuJour == id).ToList();
-
-            foreach(var item in sujetPointPrincipal)
+            foreach (var item in _db.SujetPointPrincipal)
             {
-                listeSousPoint.AddRange(_db.SousPointSujet.Where(souspoint => item.IdPointPrincipal == souspoint.IdSujetPointPrincipal));
+                if (item.IdOrdreDuJour == id)
+                    sujetPointPrincipal.Add(item);
             }
 
-            var ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel
+            foreach (var item in sujetPointPrincipal)
             {
-                OrdreDuJour = ordreDuJour,
-                SujetPointPrincipal = sujetPointPrincipal,
-                ListeSousPointSujet = listeSousPoint
-            };
+                foreach (var souspoint in _db.SousPointSujet)
+                {
+                    if (item.IdPointPrincipal == souspoint.IdSujetPointPrincipal)
+                    {
+                        listeSousPoint.Add(souspoint);
+                    }
+                }
+            }
+
+            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel();
+            ordreDuJourViewModelCreerOdj.OrdreDuJour = OrdreDuJour;
+            ordreDuJourViewModelCreerOdj.SujetPointPrincipal = sujetPointPrincipal;
+            ordreDuJourViewModelCreerOdj.ListeSousPointSujet = listeSousPoint;
             return View(ordreDuJourViewModelCreerOdj);
         }
 
@@ -187,30 +198,74 @@ namespace PotatoPortail.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
         {
-            if (!ModelState.IsValid) return View(ordreDuJourViewModelCreerOdj);
-            var cpt = 0;
-            _db.Entry(ordreDuJourViewModelCreerOdj.OrdreDuJour).State = EntityState.Modified;
-            ordreDuJourViewModelCreerOdj.OrdreDuJour.IdModeleOrdreDuJour = _db.ModeleOrdreDuJour.First().IdModele;
-
-            if (ordreDuJourViewModelCreerOdj.SujetPointPrincipal != null)
+            if (ModelState.IsValid)
             {
-                foreach (var item in _db.SujetPointPrincipal)
+                int cpt = 0;
+                _db.Entry(ordreDuJourViewModelCreerOdj.OrdreDuJour).State = EntityState.Modified;
+                ordreDuJourViewModelCreerOdj.OrdreDuJour.IdModeleOrdreDuJour = _db.ModeleOrdreDuJour.First().IdModele;
+
+                if (ordreDuJourViewModelCreerOdj.SujetPointPrincipal != null)
                 {
-                    if (item.IdOrdreDuJour != ordreDuJourViewModelCreerOdj.OrdreDuJour.IdOdJ) continue;
-                    var updatedItem = item;
-                    updatedItem.SujetPoint = ordreDuJourViewModelCreerOdj.SujetPointPrincipal[cpt].SujetPoint;
-                    _db.Entry(updatedItem).State = EntityState.Modified;
-                    cpt++;
+                    foreach (var item in _db.SujetPointPrincipal)
+                    {
+                        if (item.IdOrdreDuJour == ordreDuJourViewModelCreerOdj.OrdreDuJour.IdOdJ)
+                        {
+                            var updatedItem = item;
+                            updatedItem.SujetPoint = ordreDuJourViewModelCreerOdj.SujetPointPrincipal[cpt].SujetPoint;
+                            _db.Entry(updatedItem).State = EntityState.Modified;
+                            cpt++;
+                        }
+                    }
+                    int position = 0;
+                    foreach (var itemSP in ordreDuJourViewModelCreerOdj.ListeIdSousPointCache)
+                    {
+                        if (itemSP > ordreDuJourViewModelCreerOdj.ListeSousPoint.Count)
+                        {
+                            SousPointSujet souspoint = (from SousPointSujet in _db.SousPointSujet
+                                                        where SousPointSujet.IdSousPoint == itemSP
+                                                        select SousPointSujet).First();
+                            if (souspoint != null)
+                            {
+                                souspoint.SujetSousPoint = ordreDuJourViewModelCreerOdj.ListeSousPoint[position];
+                                _db.Entry(souspoint).State = EntityState.Modified;
+                            }
+                            else
+                            {
+                                return HttpNotFound();
+                            }
+                        }
+                        else
+                        {
+                            bool EmpecheDoublons = true;
+                            List<SujetPointPrincipal> listeSujetPointPrincipalQuery = GetPointPrincipal();
+                            List<SujetPointPrincipal> listeSujetPointPrincipal = new List<SujetPointPrincipal>();
+                            foreach (var item in listeSujetPointPrincipalQuery)
+                            {
+                                if (ordreDuJourViewModelCreerOdj.OrdreDuJour.IdOdJ == item.IdOrdreDuJour)
+                                {
+                                    listeSujetPointPrincipal.Add(item);
+                                }
+                            }
+                            foreach (var item in listeSujetPointPrincipal)
+                            {
+                                if (EmpecheDoublons)
+                                {
+                                    InsertSujetSousPoint(ordreDuJourViewModelCreerOdj.ListeSousPoint[position], listeSujetPointPrincipal[ordreDuJourViewModelCreerOdj.ListeIdSousPointCache[position]].IdPointPrincipal);
+                                    EmpecheDoublons = false;
+                                }
+                            }
+                        }
+                        position++;
+                    }
                 }
+                _db.SaveChanges();
+                this.AddToastMessage("Modification d'un ordre du jour", "La modification a été effectuée",
+                    Toast.ToastType.Success);
+                return RedirectToAction("Index");
             }
-
-            _db.SaveChanges();
-            this.AddToastMessage("Modification d'un ordre du jour", "La modification a été effectuée",
-                ToastType.Success);
-            return RedirectToAction("Index");
-
+            return View(ordreDuJourViewModelCreerOdj);
         }
-        
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -218,21 +273,25 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var ordreDuJour = _db.OrdreDuJour.Find(id);
-            if (ordreDuJour == null)
+            OrdreDuJour OrdreDuJour = _db.OrdreDuJour.Find(id);
+            List<SujetPointPrincipal> sujetPointPrincipal = new List<SujetPointPrincipal>();
+            if (OrdreDuJour == null)
             {
                 return HttpNotFound();
             }
 
-            var sujetPointPrincipal = _db.SujetPointPrincipal.Where(item => item.IdOrdreDuJour == id).ToList();
-
-            var ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel
+            foreach (var item in _db.SujetPointPrincipal)
             {
-                OrdreDuJour = ordreDuJour, SujetPointPrincipal = sujetPointPrincipal
-            };
+                if (item.IdOrdreDuJour == id)
+                    sujetPointPrincipal.Add(item);
+            }
+
+            OrdreDuJourViewModel ordreDuJourViewModelCreerOdj = new OrdreDuJourViewModel();
+            ordreDuJourViewModelCreerOdj.OrdreDuJour = OrdreDuJour;
+            ordreDuJourViewModelCreerOdj.SujetPointPrincipal = sujetPointPrincipal;
             return View(ordreDuJourViewModelCreerOdj);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -271,7 +330,6 @@ namespace PotatoPortail.Controllers
                 listeString.AddRange(item.SujetPointPrincipal.Select(spp => spp.SujetPoint));
                 modeleViewModel.listPP = listeString;
             }
-
             return View(modeleViewModel);
         }
 
@@ -389,6 +447,21 @@ namespace PotatoPortail.Controllers
                     select odj).Take(10);
         }
 
+        private List<SujetPointPrincipal> GetPointPrincipal()
+        {
+            List<SujetPointPrincipal> listeSujetPointPrincipal = new List<SujetPointPrincipal>();
+            var listeSujetPointPrincipalQuery = from SujetPointPrincipal in _db.SujetPointPrincipal
+                                                select SujetPointPrincipal;
+            if (listeSujetPointPrincipalQuery.Count() != 0)
+            {
+                foreach (var item in listeSujetPointPrincipalQuery)
+                {
+                    listeSujetPointPrincipal.Add(item);
+                }
+            }
+            return listeSujetPointPrincipal;
+        }
+
         private List<SujetPointPrincipal> GetPointPrincipal(int id)
         {
             var listeSujetPointPrincipal = new List<SujetPointPrincipal>();
@@ -458,14 +531,10 @@ namespace PotatoPortail.Controllers
             return false;
         }
 
-        
-
         public ActionResult ListeOrdreDuJour()
         {
             return PartialView(GetOrdreDuJour());
-        }
-
-        
+        }    
 
         [HttpPost]
         public void MettreAjourOrdre(List<SujetPointPrincipal> listeElement)
@@ -478,7 +547,6 @@ namespace PotatoPortail.Controllers
                     element.IdPointPrincipal = item.IdPointPrincipal;
                 }
             }
-
             _db.SaveChanges();
         } //debut dragdrop
     }
