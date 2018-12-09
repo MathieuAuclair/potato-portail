@@ -21,8 +21,8 @@ namespace PotatoPortail.Models.eSports
 
         public DateTime Date { get; set; }
 
-        public virtual Joueur Joueurs { get; set; }
+        public virtual Joueur Joueur { get; set; }
 
-        public virtual Rang Rangs { get; set; }
+        public virtual Rang Rang { get; set; }
     }
 }

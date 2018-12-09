@@ -19,17 +19,10 @@ namespace PotatoPortail.Models.eSports
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Pseudo")]
         public string PseudoJoueur { get; set; }
 
-        public int IdEtudiant { get; set; }
-
-        public int IdProfil { get; set; }
-
-        [Required]
-        [StringLength(128)]
         public string IdMembreESports { get; set; }
-
-        public virtual ICollection<HistoriqueRang> HistoriquesRang { get; set; }
 
         public virtual MembreESports MembreESports { get; set; }
 
@@ -38,6 +31,8 @@ namespace PotatoPortail.Models.eSports
         public virtual ICollection<Equipe> Equipe { get; set; }
 
         public virtual ICollection<Item> Item { get; set; }
+
+        public virtual ICollection<HistoriqueRang> HistoriquesRang { get; set; }
 
         public Equipe EquipeMonojoueur
         {

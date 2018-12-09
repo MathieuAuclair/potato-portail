@@ -29,21 +29,20 @@ namespace PotatoPortail.Models.eSports
 
         public bool EstArchive { get; set; }
 
-        [Required]
-        [StringLength(128)]
         [Display(Name = "Étudiant")]
         public string IdMembreESports { get; set; }
 
         [Display(Name = "Jeu")]
         public int IdJeu { get; set; }
 
+        [Display(Name = "Jeu secondaire (optionnel)")]
         public int? IdJeuSecondaire { get; set; }
 
         public virtual MembreESports MembreESports { get; set; }
 
         public virtual Jeu Jeu { get; set; }
 
-        public virtual ICollection<Joueur> Joueur { get; set; }
+        public virtual Joueur Joueur { get; set; }
 
         public Jeu JeuSecondaire => _db.Jeu.Find(IdJeuSecondaire);
     }

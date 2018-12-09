@@ -7,12 +7,13 @@ namespace PotatoPortail.Models.eSports
     {
         public Caracteristique()
         {
-            Item = new HashSet<Item>();
+
         }
 
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Caractéristique")]
         public string NomCaracteristique { get; set; }
 
         [Display(Name = "Jeu")]
