@@ -455,12 +455,6 @@ namespace PotatoPortail.Migrations
                 .WithRequired(j => j.Profil)
                 .Map(c => c.MapKey("IdProfil"));
 
-            //modelBuilder.Entity<Profil>()
-            //    .HasMany(e => e.Joueur)
-            //    .WithRequired(e => e.Profil)
-            //    .HasForeignKey(e => e.IdProfil)
-            //    .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Programme>()
                 .Property(e => e.Nom)
                 .IsUnicode(false);
