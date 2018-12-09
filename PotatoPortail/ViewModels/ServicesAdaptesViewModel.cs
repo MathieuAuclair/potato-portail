@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-using ApplicationPlanCadre.Models;
+﻿using System.Collections.Generic;
+using PotatoPortail.Models;
+using PotatoPortail.Models.Plan_Cours;
 
-namespace ApplicationPlanCadre.ViewModels
+namespace PotatoPortail.ViewModels
 {
-    public class servicesAdaptesViewModel:ViewModelBase
+    public class ServicesAdaptesViewModel:ViewModelBase
     {
         public virtual IEnumerable<NomSection> NomSections { get; set; }
-        public virtual string titreSection { get; set; }
-        public virtual IEnumerable<ContenuSection> contenuSection { get; set; }
-        public virtual string texteContenu { get; set; }
-        public PlanCours planCours { get; set; }
-        public int idPlanCours { get; set; }
+        public virtual string TitreSection { get; set; }
+        public virtual IEnumerable<ContenuSection> ContenuSection { get; set; }
+        public virtual string TexteContenu { get; set; }
+        public Models.Plan_Cours.PlanCours PlanCours { get; set; }
+        public int IdPlanCours { get; set; }
         public virtual IEnumerable<Departement> Departements { get; set; }
-        public virtual int discipline { get; set; }
-        public virtual string nom { get; set; }
+        public virtual int Discipline { get; set; }
+        public virtual string Nom { get; set; }
     }
 }
