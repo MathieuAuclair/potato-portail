@@ -25,7 +25,7 @@ namespace PotatoPortail.Controllers.eSports
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomEntraineur,prenomEntraineur,pseudoEntraineur,numTel,adresseCourriel")] Entraineur entraineur)
+        public ActionResult Creation([Bind(Include = "id,nomEntraineur,prenomEntraineur,pseudoEntraineur,numeroTelephone,adresseCourriel")] Entraineur entraineur)
         {
             if (!ModelState.IsValid) return View(entraineur);
             _db.Entraineur.Add(entraineur);
@@ -52,7 +52,7 @@ namespace PotatoPortail.Controllers.eSports
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "id,nomEntraineur,prenomEntraineur,pseudoEntraineur,numTel,adresseCourriel")] Entraineur entraineur)
+        public ActionResult Modifier([Bind(Include = "id,nomEntraineur,prenomEntraineur,pseudoEntraineur,numeroTelephone,adresseCourriel")] Entraineur entraineur)
         {
             if (ModelState.IsValid)
             {

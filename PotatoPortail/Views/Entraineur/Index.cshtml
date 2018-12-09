@@ -34,7 +34,7 @@
                     </tr>
                     @foreach (var item in Model)
                     {
-                        <tr onclick="window.location = '@Url.Action("Modifier", "Entraineur", new { id = item.id })'">
+                        <tr onclick="window.location = '@Url.Action("Modifier", "Entraineur", new { id = item.Id })'">
                             <td>
                                 @Html.DisplayFor(modelItem => item.NomComplet)
                             </td>

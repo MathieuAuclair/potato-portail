@@ -74,7 +74,7 @@ namespace PotatoPortail.Controllers.eSports
                              where tableJeu.Statut.NomStatut == "Actif"
                              select tableJeu;
 
-            var lstEtudiants = _db.MembreESports.Select(membreESports => new SelectListItem {Text = membreESports.NomComplet, Value = membreESports.Id}).ToList();
+            var lstEtudiants = _db.MembreESports.Select(membreESports => new SelectListItem {Text = membreESports.Prenom + " " + membreESports.Nom, Value = membreESports.Id}).ToList();
 
             lstJeuSecondaires.Add(new SelectListItem { Text = "----------------------------", Value = 0.ToString() });
 

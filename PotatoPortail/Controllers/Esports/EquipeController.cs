@@ -107,7 +107,7 @@ namespace PotatoPortail.Controllers.eSports
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomEquipe,JeuId,Entraineurs")] CreationEquipeViewModel equipeAAjouter, string[] entraineur, string button)
+        public ActionResult Creation([Bind(Include = "id,nomEquipe,IdJeu,Entraineurs")] CreationEquipeViewModel equipeAAjouter, string[] entraineur, string button)
         {
             PopulerListJeuActifs();
             PopulerEntraineurSelectList();
