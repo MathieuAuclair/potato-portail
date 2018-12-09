@@ -1,4 +1,4 @@
-@model PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models.StatusSelect
+@model SysInternshipManagement.Views.Stage.EditionComponent.Models.StatusSelect
 
 <div class="flat-select">
     <p>Status</p>
@@ -6,7 +6,7 @@
         <optgroup label="Value">
             @foreach (var item in Model.Status)
             {
-                <option value="@Html.DisplayFor(modelItem => item.IdStatutStage)">@Html.DisplayFor(modelItem => item.NomStatutStage)</option>
+                <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatusStage)</option>
             }
         </optgroup>
     </select>

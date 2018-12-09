@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
-using PotatoPortail.Migrations;
-using PotatoPortail.Models;
+using SysInternshipManagement.Migrations;
+using SysInternshipManagement.Models;
 
-namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
+namespace SysInternshipManagement.Views.Stage.EditionComponent.Models
 {
     public class LocationSelect
     {
         public List<Location> Locations { get; set; }
-        private readonly BdPortail _bd = new BdPortail();
+        private DatabaseContext _bd = new DatabaseContext();
         
         public LocationSelect()
         {
-            Locations = _bd.Location.ToList();
+            Locations = _bd.location.ToList();
         }
     }
 }

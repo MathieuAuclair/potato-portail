@@ -1,4 +1,4 @@
-@model IEnumerable<PotatoPortail.Models.StatutStage>
+@model IEnumerable<PotatoPortail.Models.Status>
 @using PotatoPortail.Models
 @using PotatoPortail.Views.Shared.Widget.Model
 @{
@@ -7,37 +7,52 @@
 }
 
 <h1>Statuts</h1>
+
+@* ReSharper disable once UnknownCssClass *@
 <div class="container page-content">
-    <div style="margin-bottom: 20px;">
-        <form action="/Status/Creation" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau statut"))
-        </form>
+
+    <div class="row">
+        <div class="col-md-10">
+            <table class="cool-table">
+                <tr>
+                    <th colspan="6">Statuts</th>
+                    <th colspan="1" class="action-cell-header">Modifier</th>
+                    <th colspan="1" class="action-cell-header">Supprimer</th>
+                </tr>
+
+                @foreach (var item in (List<Status>)Model)
+                {
+                    <tr>
+                        <td colspan="6">
+                            @Html.DisplayFor(model => item.StatusStage)
+                        </td>
+
+                        <td colspan="1" class="action-cell">
+
+                            <a href='@Url.Action("Modifier", "Status", new { id = item.IdStatus })'>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                        <td colspan="1" class="action-cell">
+                            <a href='@Url.Action("Suppression", "Status", new { id = item.IdStatus })'>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Accueil/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
 
-    <table>
-        <tr>
-            <th>Statuts</th>
-            <th></th>
-        </tr>
+        <a class="fancy-button blanc" href="@Url.Action("Creation", "Status")">
+            <span class="glyphicon glyphicon-plus"></span>
+            Ajouter un statut
+        </a>
 
-        @foreach (var item in (List<StatutStage>) Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.NomStatutStage)
-                </td>
-                <td>
-                    <form action="/Status/Edition" method="post">
-                        <div>
-                            <button>
-                                <input type="hidden" name="IdStatus" value="@Html.DisplayFor(model => item.IdStatutStage)" />
-                                <img src="~/Content/Icons/baseline-border_color-24px.svg" />
-                            </button>
-                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Status", new { id = item.IdStatutStage })'" />
-                        </div>
-                    </form>
-                </td>
-            </tr>
-        }
-    </table>
+    </div>
 </div>

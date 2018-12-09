@@ -6,26 +6,26 @@ using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class StageController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+       private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
-        public ActionResult Edition(int? idStage)
+        public ActionResult Modifier(int? IdStage)
         {
-            if (idStage == null)
+            if (IdStage == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var stage = _bd.Stage.Find(idStage);
-            return View("/Views/SystemeStage/Stage/Edition.cshtml", stage);
+            var Stage = _db.StatutStage.Find(IdStage);
+            return View(Stage);
         }
 
         [HttpPost]
-        public ActionResult Edition(
+        public ActionResult Modifier(
             HttpPostedFileBase fichier,
             int? idLocation,
             int? idStatus,
@@ -56,11 +56,11 @@ namespace PotatoPortail.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var stageInstance = _bd.Stage.Find(idStage);
-            var posteInstance = _bd.Poste.Find(idPoste);
-            var contactInstance = _bd.Contact.Find(idContact);
-            var statusInstance = _bd.StatutStage.Find(idStatus);
-            var locationInstance = _bd.Location.Find(idLocation);
+            var stageInstance = _db.Stage.Find(idStage);
+            var posteInstance = _db.Poste.Find(idPoste);
+            var contactInstance = _db.Contact.Find(idContact);
+            var statusInstance = _db.StatutStage.Find(idStatus);
+            var locationInstance = _db.Location.Find(idLocation);
 
             stageInstance.Poste = posteInstance;
             stageInstance.Contact = contactInstance;
@@ -71,7 +71,7 @@ namespace PotatoPortail.Controllers.SystemeStage
             stageInstance.CodePostal = codePostal;
             stageInstance.Salaire = salaire ?? 0.0f;
 
-            _bd.SaveChanges();
+            _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -97,7 +97,7 @@ namespace PotatoPortail.Controllers.SystemeStage
 
         public ActionResult Index()
         {
-            return View("/Views/SystemeStage/Stage/Index.cshtml", _bd.Stage.ToList());
+            return View(_db.Stage.ToList());
         }
 
         [HttpPost]
@@ -115,52 +115,53 @@ namespace PotatoPortail.Controllers.SystemeStage
             Response.TransmitFile(Server.MapPath("~/DescriptionStage/" + nomDeFichier));
             Response.End();
 
-            return RedirectToAction("Index");
+            return View("index");
         }
 
         [HttpPost]
         public ActionResult AjouterStage()
         {
-            var stage = new Stage
+            var Stage = new Stage
             {
-                Location = _bd.Location.First(),
+                Location = _db.Location.First(),
                 NumeroCivique = 0,
                 NomRue = "nom de rue",
                 Ville = "Saguenay",
                 Province = "Québec",
                 Pays = "Canada",
                 CodePostal = "G7X7W2",
-                Poste = _bd.Poste.First(),
-                StatutStage = _bd.StatutStage.First(),
-                Contact = _bd.Contact.First(),
-                Description = "Description du stage",
+                Poste = _db.Poste.First(),
+                StatutStage = _db.StatutStage.First(),
+                Contact = _db.Contact.First(),
+                Description = "Description du Stage",
                 NomDocument = "",
                 Salaire = 0,
+                
             };
+         
+            _db.Stage.Add(Stage);
+            _db.SaveChanges();
 
-            _bd.Stage.Add(stage);
-            _bd.SaveChanges();
-
-            return View("~/Views/Stage/Edition.cshtml", stage);
+            return View("~/Views/Stage/Modifier.cshtml", Stage);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdStage)
         {
-            var stage = _bd.Stage.Find(id);
+            var Stage = _db.Stage.Find(IdStage);
 
-            if (stage == null)
+            if (Stage == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var applicationsPourCeStage = from application in _bd.Application
-                                          where application.Stage.IdStage == id
+            var applicationsPourCeStage = from application in _db.Application
+                                          where application.Stage.IdStage == IdStage
                                           select application;
 
             if (!applicationsPourCeStage.Any())
             {
-                _bd.Stage.Remove(stage);
-                _bd.SaveChanges();
+                _db.Stage.Remove(Stage);
+                _db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Stage");

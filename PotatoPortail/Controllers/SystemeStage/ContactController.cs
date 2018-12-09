@@ -4,30 +4,27 @@ using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class ContactController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/SystemeStage/Contact/Index.cshtml", _bd.Contact.ToList());
-        }
-
-        [HttpPost]
-        public ActionResult Edition(int? idContact)
+            return View(_db.Contact.ToList());
+        }     
+        public ActionResult Modifier(int IdContact)
         {
-
-            var contact = _bd.Contact.Find(idContact);
+            var contact = _db.Contact.Find(IdContact);
 
             if (contact == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View("~/Views/SystemeStage/Contact/Edition.cshtml", contact);
+            return View(contact);
         }
 
         [HttpPost]
@@ -38,58 +35,58 @@ namespace PotatoPortail.Controllers.SystemeStage
             string telephone
         )
         {
-            if (idContact == null)
+           
+            if (idContact==null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
-            var contact = _bd.Contact.Find(idContact);
+           
+            var contact = _db.Contact.Find(idContact);
 
             if (contact == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
             contact.Courriel = courriel;
             contact.Nom = nom;
             contact.Telephone = telephone;
+            
 
-            _bd.SaveChanges();
+            _db.SaveChanges();
 
             return RedirectToAction("Index", "Contact");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var contact = new Contact
             {
                 Courriel = "courriel@cegepjonquiere.ca",
                 Nom = "Nouveau contact",
-                Telephone = "123-456-7890",
-                Entreprise = _bd.Entreprise.First()
+                Telephone = "123-456-7890"
             };
-
-            return View("~/Views/Contact/Edition.cshtml", contact);
+            _db.Contact.Add(contact);
+            _db.SaveChanges();
+            return View("~/Views/Contact/Modifier.cshtml", contact);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdContact)
         {
-            var contact = _bd.Contact.Find(id);
+            var contact = _db.Contact.Find(IdContact);
 
             if (contact == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var stagesAyantCeContact = from stage in _bd.Stage
-                                       where stage.Contact.IdContact == id
+            var stagesAyantCeContact = from stage in _db.Stage
+                                       where stage.Contact.IdContact == IdContact
                                        select stage;
 
             if (!stagesAyantCeContact.Any())
             {
-                _bd.Contact.Remove(contact);
-                _bd.SaveChanges();
+                _db.Contact.Remove(contact);
+                _db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Contact");

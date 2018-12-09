@@ -1,0 +1,11 @@
+@using SysInternshipManagement.Views.Shared.Widget.Model
+@model SysInternshipManagement.Views.Shared.Widget.Model.FlatUiSearchBar
+
+<div class="flat-search-bar">
+    <button class="fancy-button">
+        <img src="~/Content/Icons/baseline-search-24px.svg"/>
+    </button>
+    <div style="width: 80%;">
+        @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Recherche", "15px", "Recherche", "text", null, null))
+    </div>
+</div>

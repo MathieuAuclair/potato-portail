@@ -1,6 +1,7 @@
+using Microsoft.Ajax.Utilities;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Views.SystemeStage.Etudiant.EditionComponent.Models
+namespace PotatoPortail.Views.Etudiant.EditionComponent.Models
 {
     public class PreferenceEditor
     {

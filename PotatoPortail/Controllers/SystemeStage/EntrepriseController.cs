@@ -1,34 +1,35 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
+using PotatoPortail.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class EntrepriseController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/SystemeStage/Entreprise/Index.cshtml", _bd.Entreprise.ToList());
+            return View(_db.Entreprise.ToList());
         }
 
         [HttpPost]
-        public ActionResult Edition()
+        public ActionResult Modifier(int IdEntreprise)
         {
-            var entreprise = _bd.Entreprise.Find(int.Parse(Request.Form["idEntreprise"]));
+          
+            var entreprise = _db.Entreprise.Find(IdEntreprise);
 
             if (entreprise == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/SystemeStage/Entreprise/Edition.cshtml", entreprise);
+            return View(entreprise);
         }
 
         [HttpPost]
@@ -39,8 +40,7 @@ namespace PotatoPortail.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-
-            var entreprise = new Entreprise()
+            var entreprise = new Entreprise
             {
                 IdEntreprise = Convert.ToInt32(Request.Form["id"]),
                 Pays = Request.Form["pays"],
@@ -49,11 +49,11 @@ namespace PotatoPortail.Controllers.SystemeStage
                 Rue = Request.Form["rue"],
                 NumeroCivique = Convert.ToInt32(Request.Form["numeroCivique"]),
                 CodePostal = Request.Form["codePostal"],
-                Nom = Request.Form["nom"],                
-        };
+                Nom = Request.Form["nom"]
+            };
+            _db.Entreprise.AddOrUpdate(entreprise);
+            _db.SaveChanges();
 
-            _bd.Entreprise.AddOrUpdate(entreprise);
-            _bd.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -70,11 +70,7 @@ namespace PotatoPortail.Controllers.SystemeStage
                 NumeroCivique = 0,
             };
 
-            
-            _bd.SaveChanges();
-          
-
-            return View("~/Views/Entreprise/Edition.cshtml", entreprise);
+            return View("~/Views/Entreprise/Modifier.cshtml", entreprise);
         }
 
 
@@ -94,17 +90,17 @@ namespace PotatoPortail.Controllers.SystemeStage
             );
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdEntreprise)
         {
-            var entreprise = _bd.Entreprise.Find(id);
+            var entreprise = _db.Entreprise.Find(IdEntreprise);
 
             if (entreprise == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            _bd.Entreprise.Remove(entreprise);
-            _bd.SaveChanges();
+            _db.Entreprise.Remove(entreprise);
+            _db.SaveChanges();
 
             return RedirectToAction("Index", "Entreprise");
         }

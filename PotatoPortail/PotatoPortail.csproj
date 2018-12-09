@@ -627,30 +627,30 @@
     <Content Include="Views\static\headerPlanCadre.cshtml" />
     <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\SystemeStage\Application\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Contact\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Contact\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Entreprise\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Entreprise\Index.cshtml" />
     <Content Include="Views\SystemeStage\Etudiant\Actions\DossierEtudiant.cshtml" />
-    <Content Include="Views\SystemeStage\Etudiant\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Etudiant\EditionComponent\PreferenceEditor.cshtml" />
     <Content Include="Views\SystemeStage\Etudiant\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Location\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Location\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Poste\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Poste\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Stage\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\ContactSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\EntrepriseSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\LocationSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\PosteSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\StatusSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Statut\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Statut\Index.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Accueil\Stage.cshtml" />
+    <Content Include="Views\SystemeStage\Contact\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Entreprise\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Etudiant\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Location\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Poste\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Stage\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

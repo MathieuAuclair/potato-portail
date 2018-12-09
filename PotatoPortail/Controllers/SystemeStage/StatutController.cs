@@ -4,87 +4,88 @@ using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class StatutController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/SystemeStage/Statut/Index.cshtml", _bd.StatutStage.ToList());
+            return View(_db.StatutStage.ToList());
         }
 
         [HttpPost]
-        public ActionResult Edition(int? idStatus)
+        public ActionResult Modifier(int? IdStatuts)
         {
-            if (idStatus == null)
+            if (IdStatuts == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var status = _bd.StatutStage.Find(idStatus);
-
-            if (status == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            return View("~/Views/SystemeStage/Status/Edition.cshtml", status);
-        }
-
-        [HttpPost]
-        public ActionResult EnregistrerLesModifications(
-            int? idStatus,
-            string nom
-        )
-        {
-            if (idStatus == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var status = _bd.StatutStage.Find(idStatus);
-
-            if (status == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            status.NomStatutStage = nom;
-            _bd.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult Creation()
-        {
-            var status = new StatutStage {NomStatutStage = "Nouveau status"};
-
-            _bd.StatutStage.Add(status);
-            _bd.SaveChanges();
-
-            return View("~/Views/SystemeStage/Status/Edition.cshtml", status);
-        }
-
-        public ActionResult Suppression(int? id)
-        {
-            var statut = _bd.StatutStage.Find(id);
+            var statut = _db.StatutStage.Find(IdStatuts);
 
             if (statut == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var stagesAyantCeStatut = from stage in _bd.Stage
-                                      where stage.StatutStage.IdStatutStage == id
+            return View(statut);
+        }
+
+        [HttpPost]
+        public ActionResult EnregistrerLesModifications(
+            int? idStatuts,
+            string nom
+        )
+        {
+            if (idStatuts == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var statut = _db.StatutStage.Find(idStatuts);
+
+            if (statut == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            statut.NomStatutStage = nom;
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Creation()
+        {
+            var statut = new Statut { NomStatut = "Nouveau statuts"};
+    
+            _db.Statut.Add(statut);
+            _db.SaveChanges();
+
+            return View("~/Views/Status/Modifier.cshtml", statut);
+        }
+
+        public ActionResult Suppression(int? IdStatuts)
+        {
+            var statut = _db.Statut.Find(IdStatuts);
+
+            if (statut == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var stagesAyantCeStatut = from stage in _db.Stage
+                                      where stage.StatutStage.IdStatutStage == IdStatuts
                                       select stage;
 
-            if (stagesAyantCeStatut.Any()) return RedirectToAction("Index", "Status");
-            _bd.StatutStage.Remove(statut);
-            _bd.SaveChanges();
+            if (!stagesAyantCeStatut.Any())
+            {
+                _db.Statut.Remove(statut);
+                _db.SaveChanges();
+            }
 
             return RedirectToAction("Index", "Status");
         }

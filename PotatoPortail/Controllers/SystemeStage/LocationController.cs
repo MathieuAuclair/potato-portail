@@ -1,37 +1,38 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class LocationController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/SystemeStage/Location/Index.cshtml", _bd.Location.ToList());
+            return View( _db.Location.ToList());
         }
 
         [HttpPost]
-        public ActionResult Edition(int? idLocation)
+        public ActionResult Modifier(int? IdLocation)
         {
-            if (idLocation == null)
+            if (IdLocation == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var location = _bd.Location.Find(idLocation);
+            var location = _db.Location.Find(IdLocation);
 
             if (location == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/SystemeStage/Location/Edition.cshtml", location);
+            return View(location);
         }
 
         [HttpPost]
@@ -45,7 +46,7 @@ namespace PotatoPortail.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var location = _bd.Location.Find(idLocation);
+            var location = _db.Location.Find(idLocation);
 
             if (location == null)
             {
@@ -53,41 +54,32 @@ namespace PotatoPortail.Controllers.SystemeStage
             }
 
             location.Nom = nom;
-            _bd.SaveChanges();
+            _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var location = new Location {Nom = "Nouvelle location"};
 
-            _bd.Location.Add(location);
-            _bd.SaveChanges();
+            _db.Location.Add(location);
+            _db.SaveChanges();
 
-            return View("~/Views/SystemeStage/Location/Edition.cshtml", location);
+            return View("~/Views/Location/Modifier.cshtml", location);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdLocation)
         {
-            var location = _bd.Location.Find(id);
+            var location = _db.Location.Find(IdLocation);
 
             if (location == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
-            var stagesAyantCeStatut = from stage in _bd.Stage
-                                      where stage.StatutStage.IdStatutStage == id
-                                      select stage;
-
-            if (!stagesAyantCeStatut.Any())
-            {
-                _bd.Location.Remove(location);
-                _bd.SaveChanges();
-            }
-
+            _db.Location.Remove(location);
+            _db.SaveChanges();
+ 
             return RedirectToAction("Index", "Location");
         }
     }

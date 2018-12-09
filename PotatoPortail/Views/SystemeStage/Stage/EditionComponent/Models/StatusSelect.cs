@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
-using PotatoPortail.Migrations;
-using PotatoPortail.Models;
+using SysInternshipManagement.Migrations;
+using SysInternshipManagement.Models;
 
-namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
+namespace SysInternshipManagement.Views.Stage.EditionComponent.Models
 {
     public class StatusSelect
     {
-        public List<StatutStage> Status { get; set; }
-        private readonly BdPortail _bd = new BdPortail();
+        public List<Status> Status { get; set; }
+        private DatabaseContext _bd = new DatabaseContext();
 
         public StatusSelect()
         {
-            Status = _bd.StatutStage.ToList();
+            Status = _bd.status.ToList();
         }
     }
 }

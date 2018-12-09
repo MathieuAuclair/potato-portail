@@ -5,34 +5,34 @@ using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class EtudiantController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/SystemeStage/Etudiant/Index.cshtml", _bd.Etudiant.ToList());
+            return View( _db.Etudiant.ToList());
         }
 
-        [HttpPost]
-        public ActionResult Edition(int? idEtudiant)
+     //   [HttpPost]
+        public ActionResult Modifier(int? IdEtudiant)
         {
-            if (idEtudiant == null)
+            if (IdEtudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var etudiant = _bd.Etudiant.Find(idEtudiant);
+            var etudiant = _db.Etudiant.Find(IdEtudiant);
 
             if (etudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/SystemeStage/Etudiant/Edition.cshtml", etudiant);
+            return View(etudiant);
         }
 
         [HttpPost]
@@ -57,10 +57,10 @@ namespace PotatoPortail.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var etudiant = _bd.Etudiant.Find(idEtudiant);
-            var poste = _bd.Poste.Find(idPoste);
-            var location = _bd.Location.Find(idLocation);
-            var entreprise = _bd.Entreprise.Find(idEntreprise);
+            var etudiant = _db.Etudiant.Find(idEtudiant);
+            var poste = _db.Poste.Find(idPoste);
+            var location = _db.Location.Find(idLocation);
+            var entreprise = _db.Entreprise.Find(idEntreprise);
 
             if (etudiant == null || poste == null || location == null || entreprise == null)
             {
@@ -81,12 +81,11 @@ namespace PotatoPortail.Controllers.SystemeStage
             etudiant.Preference.Location = new List<Location> {location};
             etudiant.Preference.Salaire = salaire;
 
-            _bd.SaveChanges();
+            _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var etudiant = new Etudiant
@@ -105,45 +104,47 @@ namespace PotatoPortail.Controllers.SystemeStage
                 NumeroDa = "1234567",
             };
 
+            _db.Etudiant.Add(etudiant);
+            _db.SaveChanges();
 
-            return View("~/Views/SystemeStage/Etudiant/Edition.cshtml", etudiant);
+            return View("~/Views/Etudiant/Modifier.cshtml", etudiant);
         }
 
         [HttpPost]
-        public ActionResult ConsulterDossierEtudiant(int? idEtudiant)
+        public ActionResult ConsulterDossierEtudiant(int? IdEtudiant)
         {
-            if (idEtudiant == null)
+            if (IdEtudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var etudiant = _bd.Etudiant.Find(idEtudiant);
+            var etudiant = _db.Etudiant.Find(IdEtudiant);
 
             if (etudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/SystemeStage/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
+            return View("~/Views/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
         }
 
-        public ActionResult Suppression(int? id)
+        public ActionResult Suppression(int? IdEtudiant)
         {
-            var etudiant = _bd.Etudiant.Find(id);
+            var etudiant = _db.Etudiant.Find(IdEtudiant);
 
             if (etudiant == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var applicationsParCetEtudiant = from application in _bd.Application
-                                             where application.Etudiant.IdEtudiant == id
+            var applicationsParCetEtudiant = from application in _db.Application
+                                             where application.Etudiant.IdEtudiant == IdEtudiant
                                              select application;
 
             if (!applicationsParCetEtudiant.Any())
             {
-                _bd.Etudiant.Remove(etudiant);
-                _bd.SaveChanges();
+                _db.Etudiant.Remove(etudiant);
+                _db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Etudiant");
