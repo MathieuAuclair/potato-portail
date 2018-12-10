@@ -425,7 +425,7 @@ namespace PotatoPortail.Migrations
                 .Index(t => t.IdDevis);
             
             CreateTable(
-                "dbo.RessourceDIdactique",
+                "dbo.RessourceDidactique",
                 c => new
                     {
                         IdRessource = c.Int(nullable: false, identity: true),
@@ -437,7 +437,7 @@ namespace PotatoPortail.Migrations
                 .Index(t => t.IdPlanCadre);
             
             CreateTable(
-                "dbo.SousRessourceDIdactique",
+                "dbo.SousRessourceDidactique",
                 c => new
                     {
                         IdSousRessource = c.Int(nullable: false, identity: true),
@@ -445,7 +445,7 @@ namespace PotatoPortail.Migrations
                         IdRessource = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.IdSousRessource)
-                .ForeignKey("dbo.RessourceDIdactique", t => t.IdRessource)
+                .ForeignKey("dbo.RessourceDidactique", t => t.IdRessource)
                 .Index(t => t.IdRessource);
             
             CreateTable(
@@ -936,8 +936,8 @@ namespace PotatoPortail.Migrations
             DropForeignKey("dbo.PlanCadreElement", "IdElement", "dbo.ElementCompetence");
             DropForeignKey("dbo.PlanCadreElement", "IdPlanCadreCompetence", "dbo.PlanCadreCompetence");
             DropForeignKey("dbo.PlanCadre", "IdType", "dbo.TypePlanCadre");
-            DropForeignKey("dbo.RessourceDIdactique", "IdPlanCadre", "dbo.PlanCadre");
-            DropForeignKey("dbo.SousRessourceDIdactique", "IdRessource", "dbo.RessourceDIdactique");
+            DropForeignKey("dbo.RessourceDidactique", "IdPlanCadre", "dbo.PlanCadre");
+            DropForeignKey("dbo.SousRessourceDidactique", "IdRessource", "dbo.RessourceDidactique");
             DropForeignKey("dbo.PlanCadre", "IdProgramme", "dbo.Programme");
             DropForeignKey("dbo.PlanCadrePrealable", "IdPlanCadre", "dbo.PlanCadre");
             DropForeignKey("dbo.PlanCadrePrealable", "IdStatut", "dbo.StatutPrealable");
@@ -1002,8 +1002,8 @@ namespace PotatoPortail.Migrations
             DropIndex("dbo.Etudiant", new[] { "Preference_IdPreference" });
             DropIndex("dbo.Application", new[] { "Stage_IdStage" });
             DropIndex("dbo.Application", new[] { "Etudiant_IdEtudiant" });
-            DropIndex("dbo.SousRessourceDIdactique", new[] { "IdRessource" });
-            DropIndex("dbo.RessourceDIdactique", new[] { "IdPlanCadre" });
+            DropIndex("dbo.SousRessourceDidactique", new[] { "IdRessource" });
+            DropIndex("dbo.RessourceDidactique", new[] { "IdPlanCadre" });
             DropIndex("dbo.Programme", new[] { "IdDevis" });
             DropIndex("dbo.PlanCadrePrealable", new[] { "IdStatut" });
             DropIndex("dbo.PlanCadrePrealable", new[] { "IdPlanCadre" });
@@ -1070,8 +1070,8 @@ namespace PotatoPortail.Migrations
             DropTable("dbo.Etudiant");
             DropTable("dbo.Application");
             DropTable("dbo.TypePlanCadre");
-            DropTable("dbo.SousRessourceDIdactique");
-            DropTable("dbo.RessourceDIdactique");
+            DropTable("dbo.SousRessourceDidactique");
+            DropTable("dbo.RessourceDidactique");
             DropTable("dbo.Programme");
             DropTable("dbo.StatutPrealable");
             DropTable("dbo.PlanCadrePrealable");

@@ -8,11 +8,11 @@
         <header class="light-header">
             <h1>Suppression de l'équipe «@ViewBag.nomEquipe» (@ViewBag.nomJeu)</h1>
         </header>
-        @if (Model.Joueurs.Count > 0 && Model.Joueurs != null)
+        @if (Model.Joueur.Count > 0 && Model.Joueur != null)
         {
-            <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueurs.Count joueurs.</h3>
+            <h3>«@ViewBag.nomEquipe» est composée de @Model.Joueur.Count joueurs.</h3>
 
-            foreach (var joueur in Model.Joueurs)
+            foreach (var joueur in Model.Joueur)
             {
                 <h4>@joueur.PseudoJoueur</h4>
             }
