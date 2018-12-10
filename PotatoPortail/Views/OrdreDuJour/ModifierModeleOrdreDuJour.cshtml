@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "ModifierModeleOrdreDuJour";
 }
-<script src="~/Scripts/modifModeleDynamique.js" type="text/javascript"></script>
+<script type="text/javascript" src="~/Scripts/modifModeleDynamique.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -15,6 +15,7 @@
             <h1>Modification du modèle de l'ordre du jour</h1>
         </header>
 
+        <h4 style="">@ViewBag.role - @ViewBag.programme</h4>
         <h3>@Html.Label("Points principaux")</h3>
         @if (Model.listPP != null)
         {
@@ -26,7 +27,7 @@
                     <div class="form-group">
                         <input id="ajoutPP" type="button" onclick="ajoutPPrincipal(this.id)" value="Ajout d'un sujet" class="fancy-button" />
                     </div>
-                    <div id="PointPrincipal1">
+                    <div id="PointPrincipal_@cpt">
                         <input type="text" name="listPP" class="form-control inline" value="@item">
                         <a class="fancy-button rouge vertical-align margin-left" id="btnMoins_@cpt" onclick="enleverPPrincipal(this.id,@cpt)">
                             <span class="glyphicon glyphicon-trash"></span>
@@ -35,7 +36,7 @@
                 }
                 else
                 {
-                    <div id="PointPrincipal1">
+                    <div id="PointPrincipal_@cpt">
                         <input type="text" name="listPP" class="form-control inline" value="@item">
                         <a class="fancy-button rouge vertical-align margin-left" id="btnMoins_@cpt" onclick="enleverPPrincipal(this.id,@cpt)">
                             <span class="glyphicon glyphicon-trash"></span>

@@ -19,10 +19,10 @@ namespace PotatoPortail.Controllers
     public class OrdreDuJourController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
-        
+
         public ActionResult Index()
         {
-            var ordre = GetDixOrdreDuJour(); 
+            var ordre = GetDixOrdreDuJour();
             return View(ordre);
         }
 
@@ -74,15 +74,15 @@ namespace PotatoPortail.Controllers
         {
             var repo = new CreateRepository();
             var viewmodel = repo.CreateLieu();
-            
+
             var programme = GetProgramme();
             var numProg = Convert.ToInt32(programme.First().Discipline);
-            
+
             var listeOrdreDuJour = GetOrdreDuJourSelonModele(numProg);
 
             viewmodel.OrdreDuJour = listeOrdreDuJour.Last();
 
-            return View(viewmodel); 
+            return View(viewmodel);
         }
 
         [HttpPost]
@@ -129,8 +129,8 @@ namespace PotatoPortail.Controllers
             {
                 throw new NullReferenceException("L'enregistrement de l'ordre du jour ne se fait pas correctement!");
             }
-            if(httpBundle.ListeIdSousPointCache != null)
-            PopulateSousPointDansOrdreDuJour(httpBundle, updatedOrdreDuJour);
+            if (httpBundle.ListeIdSousPointCache != null)
+                PopulateSousPointDansOrdreDuJour(httpBundle, updatedOrdreDuJour);
         }
 
         private void PopulateSousPointDansOrdreDuJour(OrdreDuJourViewModel httpBundle, OrdreDuJour ordreDuJour)
@@ -154,7 +154,7 @@ namespace PotatoPortail.Controllers
                 new SqlParameter("IdSujetPointPrincipal", idDuPointPrincipal)
             );
         }
-        
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -322,6 +322,8 @@ namespace PotatoPortail.Controllers
             var programme = GetProgramme();
             var numProg = Convert.ToInt32(programme.First().Discipline);
             var listeOrdreDuJour = GetOrdreDuJourSelonModele(numProg);
+            ViewBag.role = User.IsInRole("RCD") ? "RCD" : "RCP";
+            ViewBag.programme = GetProgramme().First().Discipline;
 
             if (listeOrdreDuJour == null) return View();
             var modeleViewModel = new ModificationModeleViewModel();
@@ -343,7 +345,7 @@ namespace PotatoPortail.Controllers
             if (!ModelState.IsValid) return View(modifModeleVm);
             var role = User.IsInRole("RCD") ? "D" : "P";
             var programme = GetProgramme();
-            
+
             var numProgramme = Convert.ToInt32(programme.First().Discipline);
 
             var modele = new ModeleOrdreDuJour
@@ -442,7 +444,7 @@ namespace PotatoPortail.Controllers
                    select odj;
         }
 
-        private IQueryable<OrdreDuJour> GetDixOrdreDuJour() 
+        private IQueryable<OrdreDuJour> GetDixOrdreDuJour()
         {
             return (from odj in _db.OrdreDuJour
                     orderby odj.IdOdJ descending
@@ -468,8 +470,8 @@ namespace PotatoPortail.Controllers
         {
             var listeSujetPointPrincipal = new List<SujetPointPrincipal>();
             var listeSujetPointPrincipalQuery = from sujetPointPrincipal in _db.SujetPointPrincipal
-                                      where sujetPointPrincipal.IdPointPrincipal == id
-                                      select sujetPointPrincipal;
+                                                where sujetPointPrincipal.IdPointPrincipal == id
+                                                select sujetPointPrincipal;
             if (!listeSujetPointPrincipalQuery.Any()) return listeSujetPointPrincipal;
             foreach (var item in listeSujetPointPrincipalQuery)
             {
@@ -482,8 +484,8 @@ namespace PotatoPortail.Controllers
         {
             var listeSousPoint = new List<SousPointSujet>();
             var listeSousPointQuery = from sousPointSujet in _db.SousPointSujet
-                                    where sousPointSujet.IdSujetPointPrincipal == id
-                                    select sousPointSujet;
+                                      where sousPointSujet.IdSujetPointPrincipal == id
+                                      select sousPointSujet;
             if (!listeSousPointQuery.Any()) return listeSousPoint;
             foreach (var item in listeSousPointQuery)
             {
@@ -496,8 +498,8 @@ namespace PotatoPortail.Controllers
         {
             var username = User.Identity.GetUserName();
             var programme = from accesProgramme in _db.AccesProgramme
-                                                   where accesProgramme.UserMail == username
-                                                   select accesProgramme;
+                            where accesProgramme.UserMail == username
+                            select accesProgramme;
             return programme;
         }
 
@@ -507,11 +509,14 @@ namespace PotatoPortail.Controllers
                                                         where modeleOrdreDuJour.NumeroProgramme == numProg
                                                         orderby modeleOrdreDuJour.IdModele descending
                                                         select modeleOrdreDuJour;
+
+            var listeOrdreDuJour = new List<OrdreDuJour>();
+            if (!listeModele.Any()) return listeOrdreDuJour;
             var numId = listeModele.First().IdModele;
             var listeOrdreDuJourQuery = from ordreDuJour in _db.OrdreDuJour
                                                        where ordreDuJour.IdModeleOrdreDuJour == numId
                                                        select ordreDuJour;
-            var listeOrdreDuJour = new List<OrdreDuJour>();
+            
             foreach(var item in listeOrdreDuJourQuery)
             {
                 listeOrdreDuJour.Add(item);
