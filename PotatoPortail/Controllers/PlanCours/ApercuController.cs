@@ -51,7 +51,13 @@ namespace PotatoPortail.Controllers.PlanCours
 
             if (id == null)
             {
-                id = 1;
+                var userId = User.Identity.GetUserId();
+                var idPlanCours = from planCours in _db.PlanCours
+                    join planCoursUtilisateur in _db.PlanCoursUtilisateur on planCours.IdPlanCours equals
+                        planCoursUtilisateur.IdPlanCours
+                    where planCoursUtilisateur.IdPlanCoursUtilisateur == userId
+                    select planCours.IdPlanCours;
+               id = idPlanCours.First();
             }
             var idPlanCadre = from planCours in _db.PlanCours
                               join cours in _db.Cours on planCours.IdCours equals cours.IdCours
@@ -106,7 +112,7 @@ namespace PotatoPortail.Controllers.PlanCours
         public ActionResult Create()
         {
             ApercuViewModel viewModel = new ApercuViewModel();
-            ViewBag.PlanCadre = db.PlanCadre.ToList();
+            ViewBag.PlanCadre = _db.PlanCadre.ToList();
             return View(viewModel);
         }
 
