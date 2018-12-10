@@ -105,11 +105,8 @@ namespace PotatoPortail.Controllers.PlanCours
         }
         public ActionResult Create()
         {
-            List <PlanCoursDepart> pcd = new List<PlanCoursDepart>();
-            viewModel = new ApercuViewModel();
-            var liste = _db.Cours.ToList();
-
-            viewModel.PlanCadre = _db.PlanCadre.ToList();
+            ApercuViewModel viewModel = new ApercuViewModel();
+            ViewBag.PlanCadre = db.PlanCadre.ToList();
             return View(viewModel);
         }
 
