@@ -57,7 +57,11 @@ namespace PotatoPortail.Controllers.PlanCours
                         planCoursUtilisateur.IdPlanCours
                     where planCoursUtilisateur.IdPlanCoursUtilisateur == userId
                     select planCours.IdPlanCours;
-               id = idPlanCours.First();
+                if (idPlanCours != null)
+                {
+                    id = idPlanCours.First();
+                }
+               
             }
             var idPlanCadre = from planCours in _db.PlanCours
                               join cours in _db.Cours on planCours.IdCours equals cours.IdCours
