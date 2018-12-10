@@ -47,11 +47,11 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.sujetPointPrincipal[0].SujetPoint)
+                @Html.LabelFor(m => m.SujetPointPrincipal[0].SujetPoint)
                 @for (var x = 0; x < Model.SujetPointPrincipal.Count; x++)
                 {
-                    @Html.EditorFor(m => m.sujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(m => m.sujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.SujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.SujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
                     <ul id="listSP0">
                         @if(Model.ListeSousPointSujet.Count != 0)
                         {

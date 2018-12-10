@@ -299,15 +299,17 @@ namespace PotatoPortail.Controllers
             OrdreDuJour ordredujour = _db.OrdreDuJour.Find(id);
             foreach (var item in _db.SujetPointPrincipal)
             {
-                if (item.IdOrdreDuJour != id) continue;
-                foreach (var souspoint in _db.SousPointSujet)
+                if (item.IdOrdreDuJour == id)
                 {
-                    if (souspoint.IdSujetPointPrincipal == item.IdOrdreDuJour)
-                        _db.SousPointSujet.Remove(souspoint);
+                    foreach (var souspoint in _db.SousPointSujet)
+                    {
+                        if (souspoint.IdSujetPointPrincipal == item.IdOrdreDuJour)
+                            _db.SousPointSujet.Remove(souspoint);
+                    }
+                    _db.SujetPointPrincipal.Remove(item);
                 }
-                _db.SujetPointPrincipal.Remove(item);
             }
-            _db.OrdreDuJour.Remove(ordredujour ?? throw new InvalidOperationException());
+            _db.OrdreDuJour.Remove(ordredujour);
             _db.SaveChanges();
             this.AddToastMessage("Suppression d'un ordre du jour", "La suppression a été effectuée",
                 ToastType.Success);

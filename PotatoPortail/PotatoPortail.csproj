@@ -241,15 +241,9 @@
     <Compile Include="Helpers\PasswordGenerator.cs" />
     <Compile Include="Helpers\RCPAuthorize.cs" />
     <Compile Include="Interfaces\IApercu.cs" />
-<<<<<<< HEAD
-    <Compile Include="Migrations\201812090148176_InitContext.cs" />
-    <Compile Include="Migrations\201812090148176_InitContext.Designer.cs">
-      <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
-=======
-    <Compile Include="Migrations\201812092217008_initContextBd.cs" />
-    <Compile Include="Migrations\201812092217008_initContextBd.Designer.cs">
-      <DependentUpon>201812092217008_initContextBd.cs</DependentUpon>
->>>>>>> master
+    <Compile Include="Migrations\201812100038156_InitContext.cs" />
+    <Compile Include="Migrations\201812100038156_InitContext.Designer.cs">
+      <DependentUpon>201812100038156_InitContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
@@ -405,6 +399,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="scripts\ajoutDynamique.js" />
     <Content Include="scripts\bootstrap-wysiwyg.js" />
     <Content Include="scripts\bootstrap.bundle.js" />
     <Content Include="scripts\bootstrap.bundle.js.map" />
@@ -457,6 +452,7 @@
     <Content Include="scripts\mark.js" />
     <Content Include="scripts\mark.min.js" />
     <Content Include="scripts\modernizr-2.8.3.js" />
+    <Content Include="scripts\modifModeleDynamique.js" />
     <Content Include="scripts\OrdreDuJour.js" />
     <Content Include="scripts\perfect-scrollbar.js" />
     <Content Include="scripts\popper-utils.js" />
@@ -659,13 +655,8 @@
     <Folder Include="Controllers\Reunions\" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\201812090148176_InitContext.resx">
-      <DependentUpon>201812090148176_InitContext.cs</DependentUpon>
-=======
-    <EmbeddedResource Include="Migrations\201812092217008_initContextBd.resx">
-      <DependentUpon>201812092217008_initContextBd.cs</DependentUpon>
->>>>>>> master
+    <EmbeddedResource Include="Migrations\201812100038156_InitContext.resx">
+      <DependentUpon>201812100038156_InitContext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

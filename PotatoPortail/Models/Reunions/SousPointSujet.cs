@@ -13,7 +13,7 @@ namespace PotatoPortail.Models.Reunions
         [StringLength(100)]
         public string SujetSousPoint { get; set; }
 
-        public int IdSujetPointPrincipal { get; set; }
+        public int? IdSujetPointPrincipal { get; set; }
 
         public virtual SujetPointPrincipal SujetPointPrincipal { get; set; }
     }
