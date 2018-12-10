@@ -2,6 +2,8 @@
 
 Hi new contributor! Make sure to read this readme to facilitate your integration to the project
 
+![project meme](logo.png)
+
 ## VCS Standard
 
 As we use git, we make commit. For the good of everyone, master branch is blocked. To proceed to update master, create a [pull request](https://yangsu.github.io/pull-request-tutorial/). 
