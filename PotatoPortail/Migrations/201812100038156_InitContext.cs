@@ -3,7 +3,7 @@ namespace PotatoPortail.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initContextBd : DbMigration
+    public partial class InitContext : DbMigration
     {
         public override void Up()
         {
@@ -783,7 +783,7 @@ namespace PotatoPortail.Migrations
                         IdPointPrincipal = c.Int(nullable: false, identity: true),
                         SujetPoint = c.String(nullable: false, maxLength: 100, unicode: false),
                         PositionPP = c.Int(),
-                        IdOrdreDuJour = c.Int(nullable: false),
+                        IdOrdreDuJour = c.Int(nullable: true),
                     })
                 .PrimaryKey(t => t.IdPointPrincipal)
                 .ForeignKey("dbo.OrdreDuJour", t => t.IdOrdreDuJour)
@@ -795,7 +795,7 @@ namespace PotatoPortail.Migrations
                     {
                         IdSousPoint = c.Int(nullable: false, identity: true),
                         SujetSousPoint = c.String(nullable: false, maxLength: 100, unicode: false),
-                        IdSujetPointPrincipal = c.Int(nullable: false),
+                        IdSujetPointPrincipal = c.Int(nullable: true),
                     })
                 .PrimaryKey(t => t.IdSousPoint)
                 .ForeignKey("dbo.SujetPointPrincipal", t => t.IdSujetPointPrincipal)
