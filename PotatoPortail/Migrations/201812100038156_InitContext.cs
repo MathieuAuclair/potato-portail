@@ -244,7 +244,7 @@ namespace PotatoPortail.Migrations
                 c => new
                     {
                         IdContenuSection = c.Int(nullable: false, identity: true),
-                        TexteContenu = c.String(nullable: false, maxLength: 1000),
+                        TexteContenu = c.String(nullable: false, maxLength: 3000),
                         IdNomSection = c.Int(nullable: false),
                         Modifiable = c.Boolean(nullable: false),
                     })
@@ -270,7 +270,7 @@ namespace PotatoPortail.Migrations
                         Discipline = c.String(nullable: false, maxLength: 3, fixedLength: true, unicode: false),
                         IdPlanCours = c.Int(nullable: false),
                         IdNomSection = c.Int(nullable: false),
-                        TexteContenu = c.String(maxLength: 1000),
+                        TexteContenu = c.String(maxLength: 3000),
                         Actif = c.Boolean(),
                     })
                 .PrimaryKey(t => new { t.IdPlanCoursDepart, t.IdPlanCours, t.IdNomSection })
@@ -286,7 +286,7 @@ namespace PotatoPortail.Migrations
                 c => new
                     {
                         IdPlanCoursUtilisateur = c.String(nullable: false, maxLength: 128),
-                        IdPlanCours = c.Int(nullable: false, identity: true),
+                        IdPlanCours = c.Int(nullable: false),
                         BureauProf = c.String(maxLength: 5, unicode: false),
                         Poste = c.String(maxLength: 4, unicode: false),
                     })
@@ -626,15 +626,14 @@ namespace PotatoPortail.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         PseudoJoueur = c.String(nullable: false),
-                        IdEtudiant = c.Int(nullable: false),
-                        IdProfil = c.Int(nullable: false),
                         IdMembreESports = c.String(nullable: false, maxLength: 128),
+                        IdProfil = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Profils", t => t.IdProfil)
                 .ForeignKey("dbo.MembreESports", t => t.IdMembreESports, cascadeDelete: true)
-                .Index(t => t.IdProfil)
-                .Index(t => t.IdMembreESports);
+                .Index(t => t.IdMembreESports)
+                .Index(t => t.IdProfil);
             
             CreateTable(
                 "dbo.Equipes",
@@ -656,7 +655,7 @@ namespace PotatoPortail.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         NomEntraineur = c.String(nullable: false),
                         PrenomEntraineur = c.String(nullable: false),
-                        PseudoEntraineur = c.String(nullable: false),
+                        PseudoEntraineur = c.String(nullable: false, maxLength: 25),
                         NumeroTelephone = c.String(nullable: false),
                         AdresseCourriel = c.String(nullable: false),
                     })
@@ -784,7 +783,7 @@ namespace PotatoPortail.Migrations
                         IdPointPrincipal = c.Int(nullable: false, identity: true),
                         SujetPoint = c.String(nullable: false, maxLength: 100, unicode: false),
                         PositionPP = c.Int(),
-                        IdOrdreDuJour = c.Int(nullable: false),
+                        IdOrdreDuJour = c.Int(nullable: true),
                     })
                 .PrimaryKey(t => t.IdPointPrincipal)
                 .ForeignKey("dbo.OrdreDuJour", t => t.IdOrdreDuJour)
@@ -796,7 +795,7 @@ namespace PotatoPortail.Migrations
                     {
                         IdSousPoint = c.Int(nullable: false, identity: true),
                         SujetSousPoint = c.String(nullable: false, maxLength: 100, unicode: false),
-                        IdSujetPointPrincipal = c.Int(nullable: false),
+                        IdSujetPointPrincipal = c.Int(nullable: true),
                     })
                 .PrimaryKey(t => t.IdSousPoint)
                 .ForeignKey("dbo.SujetPointPrincipal", t => t.IdSujetPointPrincipal)
@@ -988,8 +987,8 @@ namespace PotatoPortail.Migrations
             DropIndex("dbo.Profils", new[] { "IdMembreESports" });
             DropIndex("dbo.Jeus", new[] { "IdStatut" });
             DropIndex("dbo.Equipes", new[] { "IdJeu" });
-            DropIndex("dbo.Joueurs", new[] { "IdMembreESports" });
             DropIndex("dbo.Joueurs", new[] { "IdProfil" });
+            DropIndex("dbo.Joueurs", new[] { "IdMembreESports" });
             DropIndex("dbo.Items", new[] { "IdCaracteristique" });
             DropIndex("dbo.Caracteristiques", new[] { "IdJeu" });
             DropIndex("dbo.Poste", new[] { "Preference_IdPreference1" });

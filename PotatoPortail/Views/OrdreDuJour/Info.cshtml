@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<PotatoPortail.Models.Reunions.OrdreDuJour>
 
-
 @Html.Action("ListeOrdreDuJour")
 
 <div class="super-view">
-
     <header class="light-header">
         <h1>Ordre du jour - @ViewBag.AnneeODJ</h1>
     </header>
@@ -26,6 +24,5 @@
     <div class="menu-flottant">
         <a class="fancy-button blanc" href='@Url.Action("Index", "OrdreDuJour")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
         <a class="fancy-button blanc" href='@Url.Action("Create", "OrdreDuJour")'><span class="glyphicon glyphicon-plus"></span> Créer un ordre du jour</a>
-
     </div>
 </div>

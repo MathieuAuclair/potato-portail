@@ -94,11 +94,12 @@
 
     <script>
         function rechercheLayout() {
+            var stringRecherche = document.getElementById("strRechercheLayout").value;
             var stringModel = "";
-            var stringRech = document.getElementById("strRechercheLayout").value;
+
             if (document.getElementById("tableRecherche") !== null)
                 stringModel = document.getElementById("tableRecherche").value;
-            window.location.href = "@Url.Action("Recherche", "Recherche")?stringRechercher=" + stringRech + "&tableRecherche=" + stringModel;
+            window.location.href = "@Url.Action("Recherche", "Recherche")?stringRechercher=" + stringRecherche + "&tableRecherche=" + stringModel;
         }
 
         var input = document.getElementById("strRechercheLayout");

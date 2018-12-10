@@ -56,52 +56,12 @@
                     </div>
                     cpt++;
                 }
-
-                @*<div class="form-group">
-                    @Html.EditorFor(model => Model.sujetPointPrincipal[0].SujetPoint, new { htmlAttributes = new { @class = "form-control", @Value = "Présentation et acceptation de l'ordre du jour" } })
-                    @Html.ValidationMessageFor(model => Model.sujetPointPrincipal[0].SujetPoint, "", new { @class = "text-danger" })
-                    <ul id="listSP0">
-                        <a class="fancy-button" id="btnPlus1" onclick="ajoutSPoint(this.id,0)"><span class="glyphicon glyphicon-plus"></span></a>
-                    </ul>
-                </div>
-
-                <div class="form-group">
-                    @Html.EditorFor(model => Model.sujetPointPrincipal[1].SujetPoint, new { htmlAttributes = new { @class = "form-control", @Value = "Approbation des procès-verbaux" } })
-                    @Html.ValidationMessageFor(model => Model.sujetPointPrincipal[1].SujetPoint, "", new { @class = "text-danger" })
-                    <ul id="listSP0">
-                        <a class="fancy-button" id="btnPlus2" onclick="ajoutSPoint(this.id,1)"><span class="glyphicon glyphicon-plus"></span></a>
-                    </ul>
-                </div>
-
-                <div class="form-group">
-                    @Html.EditorFor(model => Model.sujetPointPrincipal[2].SujetPoint, new { htmlAttributes = new { @class = "form-control", @Value = "Information" } })
-                    @Html.ValidationMessageFor(model => Model.sujetPointPrincipal[2].SujetPoint, "", new { @class = "text-danger" })
-                    <ul id="listSP0">
-                        <a class="fancy-button" id="btnPlus3" onclick="ajoutSPoint(this.id,2)"><span class="glyphicon glyphicon-plus"></span></a>
-                    </ul>
-                </div>
-
-                <div class="form-group">
-                    @Html.EditorFor(model => Model.sujetPointPrincipal[3].SujetPoint, new { htmlAttributes = new { @class = "form-control", @Value = "Varia" } })
-                    @Html.ValidationMessageFor(model => Model.sujetPointPrincipal[3].SujetPoint, "", new { @class = "text-danger" })
-                    <ul id="listSP0">
-                        <a class="fancy-button" id="btnPlus4" onclick="ajoutSPoint(this.id,3)"><span class="glyphicon glyphicon-plus"></span></a>
-                    </ul>
-                </div>*@
-            </div>
-            @*<div class="form-group">
-                @Html.LabelFor(m => m.ordreDuJour.IdModeleOrdreDuJour)
-                @Html.TextBoxFor(m => m.ordreDuJour.IdModeleOrdreDuJour, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.ordreDuJour.IdModeleOrdreDuJour, "", new { @class = "text-danger" })
-            </div>*@
-
-
             <hr />
             <input type="submit" value="Créer" class="fancy-button" />
             <div class="fancy-button rouge" onclick="location.href='@Url.Action("Index", "OrdreDuJour")'">Annuler</div>
-
         </div>
     </div>
+</div>
 }
 @*Console Admin*@
 
