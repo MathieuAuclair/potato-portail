@@ -1,0 +1,32 @@
+@using PotatoPortail.Views.Shared.Widget.Model
+@model PotatoPortail.Models.Contact
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Contact</h1>
+    <form action="EnregistrerLesModifications" method="post">
+        <input name="idContact" type="hidden" value="@Html.DisplayFor(model => Model.IdContact)"/>
+        @* ReSharper disable once UnknownCssClass *@
+        <div class="form-content">
+            <div class="form-group">
+                @Html.Label("Nom")
+                @Html.TextBoxFor(m => m.Nom, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.Nom, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Courriel")
+                @Html.TextBoxFor(m => m.Courriel, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.Courriel, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Téléphone")
+                @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
+            </div>
+            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </div>
+    </form>
+</div>

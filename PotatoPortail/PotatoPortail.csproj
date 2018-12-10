@@ -55,6 +55,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=7.1.3000.2254, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReSharper.Annotations.7.1.3.130415\lib\net\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -229,7 +232,7 @@
     <Compile Include="Controllers\SystemeStage\LocationController.cs" />
     <Compile Include="Controllers\SystemeStage\PosteController.cs" />
     <Compile Include="Controllers\SystemeStage\StageController.cs" />
-    <Compile Include="Controllers\SystemeStage\StatusController.cs" />
+    <Compile Include="Controllers\SystemeStage\StatutController.cs" />
     <Compile Include="Data\CreateRepository.cs" />
     <Compile Include="Data\LieuRepository.cs" />
     <Compile Include="Global.asax.cs">
@@ -352,7 +355,7 @@
     <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\EntrepriseSelect.cs" />
     <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\LocationSelect.cs" />
     <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\PosteSelect.cs" />
-    <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\StatusSelect.cs" />
+    <Compile Include="Views\SystemeStage\Stage\EditionComponent\Models\StatutSelect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\ToastrBuilder.cshtml" />
@@ -500,7 +503,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Accueil\ConsoleAdmin.cshtml" />
     <Content Include="Views\Accueil\ESport.cshtml" />
-    <Content Include="Views\Accueil\index.cshtml" />
+    <Content Include="Views\Accueil\Index.cshtml" />
     <Content Include="Views\Accueil\Pedagogie.cshtml" />
     <Content Include="Views\Accueil\Reunions.cshtml" />
     <Content Include="Views\Apercu\Create.cshtml" />
@@ -606,7 +609,7 @@
     <Content Include="Views\Rapport\Index.cshtml" />
     <Content Include="Views\Rapport\RapportPlanCadre.cshtml" />
     <Content Include="Views\Rapport\RapportProgramme.cshtml" />
-    <Content Include="Views\recherche\Recherche.cshtml" />
+    <Content Include="Views\Recherche\Recherche.cshtml" />
     <Content Include="Views\Section\Create.cshtml" />
     <Content Include="Views\Shared\Erreur.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -623,31 +626,32 @@
     <Content Include="Views\Shared\_Toastr.cshtml" />
     <Content Include="Views\Shared\_ViewStart.cshtml" />
     <Content Include="Views\static\headerPlanCadre.cshtml" />
-    <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\SystemeStage\Application\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Contact\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Contact\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Entreprise\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Entreprise\Index.cshtml" />
     <Content Include="Views\SystemeStage\Etudiant\Actions\DossierEtudiant.cshtml" />
-    <Content Include="Views\SystemeStage\Etudiant\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Etudiant\EditionComponent\PreferenceEditor.cshtml" />
     <Content Include="Views\SystemeStage\Etudiant\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Location\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Location\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Poste\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Poste\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Stage\Edition.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\ContactSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\EntrepriseSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\LocationSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\EditionComponent\PosteSelect.cshtml" />
-    <Content Include="Views\SystemeStage\Stage\EditionComponent\StatusSelect.cshtml" />
+    <Content Include="Views\SystemeStage\Stage\EditionComponent\StatutSelect.cshtml" />
     <Content Include="Views\SystemeStage\Stage\Index.cshtml" />
-    <Content Include="Views\SystemeStage\Status\Edition.cshtml" />
-    <Content Include="Views\SystemeStage\Status\Index.cshtml" />
+    <Content Include="Views\SystemeStage\Statut\Index.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Accueil\Stage.cshtml" />
+    <Content Include="Views\SystemeStage\Contact\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Entreprise\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Etudiant\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Location\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Poste\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Stage\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\OrdreDuJour\ModifierModeleOrdreDuJour.cshtml" />
   </ItemGroup>
   <ItemGroup>

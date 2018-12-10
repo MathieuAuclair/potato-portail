@@ -1,0 +1,32 @@
+﻿@model SysInternshipManagement.Models.Application
+
+@{
+    ViewBag.Title = "Suppression";
+}
+
+<h2>Suppression</h2>
+
+<h3>Ètes-vous sure de vouloir supprimer ceci.</h3>
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Timestamp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
