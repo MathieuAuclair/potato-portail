@@ -15,7 +15,7 @@ namespace PotatoPortail.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_db.Entreprise.ToList());
+            return View("~/Views/SystemeStage/Entreprise/Index.cshtml", _db.Entreprise.ToList());
         }
 
         [HttpPost]
@@ -29,7 +29,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View(entreprise);
+            return View("~/Views/SystemeStage/Entreprise/Modifier.cshtml", entreprise);
         }
 
         [HttpPost]
@@ -68,9 +68,9 @@ namespace PotatoPortail.Controllers
                 Rue = "Rue",
                 CodePostal = "G7X7W2",
                 NumeroCivique = 0,
-            };
+            }; 
 
-            return View("~/Views/Entreprise/Modifier.cshtml", entreprise);
+            return View("~/Views/SystemeStage/Entreprise/Modifier.cshtml", entreprise);
         }
 
 

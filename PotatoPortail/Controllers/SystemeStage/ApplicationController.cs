@@ -15,7 +15,7 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Index()
         {
-            return View(_db.Application.ToList());
+            return View("~/Views/SystemeStage/Application/Index.cshtml",_db.Application.ToList());
         }
 
         public ActionResult Creation()
@@ -74,7 +74,7 @@ namespace PotatoPortail.Controllers
                 return HttpNotFound();
             }
 
-            return View(application);
+            return View("~/Views/SystemeStage/Application/Modifier.cshtml", application);
         }
 
         [HttpPost]

@@ -14,7 +14,7 @@ namespace PotatoPortail.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View( _db.Etudiant.ToList());
+            return View("~/Views/SystemeStage/Etudiant/Index.cshtml", _db.Etudiant.ToList());
         }
 
      //   [HttpPost]
@@ -32,7 +32,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View(etudiant);
+            return View("~/Views/SystemeStage/Etudiant/Modifier.cshtml", etudiant);
         }
 
         [HttpPost]
@@ -107,7 +107,7 @@ namespace PotatoPortail.Controllers
             _db.Etudiant.Add(etudiant);
             _db.SaveChanges();
 
-            return View("~/Views/Etudiant/Modifier.cshtml", etudiant);
+            return View("~/Views/SystemeStage/Etudiant/Modifier.cshtml", etudiant);
         }
 
         [HttpPost]
@@ -125,7 +125,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
+            return View("~/Views/SystemeStage/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
         }
 
         public ActionResult Suppression(int? IdEtudiant)

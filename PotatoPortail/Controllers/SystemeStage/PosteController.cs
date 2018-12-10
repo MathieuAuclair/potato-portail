@@ -13,7 +13,7 @@ namespace PotatoPortail.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_db.Poste.ToList());
+            return View("~/Views/SystemeStage/Poste/Index.cshtml",_db.Poste.ToList());
         }
 
         [HttpPost]
@@ -31,7 +31,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View(poste);
+            return View("~/Views/SystemeStage/Poste/Modifier.cshtml",poste);
         }
 
         [HttpPost]
@@ -65,7 +65,7 @@ namespace PotatoPortail.Controllers
             _db.Poste.Add(poste);
             _db.SaveChanges();
 
-            return View("~/Views/Poste/Modifier.cshtml", poste);
+            return View("~/Views/SystemeStage/Poste/Modifier.cshtml", poste);
         }
     }
 }

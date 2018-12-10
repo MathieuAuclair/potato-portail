@@ -1,12 +1,12 @@
-@using SysInternshipManagement.Views.Shared.Widget.Model
-@model SysInternshipManagement.Models.Poste
+@using PotatoPortail.Views.Shared.Widget.Model
+@model PotatoPortail.Models.Poste
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
-    <h1>Entreprise</h1>
+    <h1>Poste</h1>
     <form action="EnregistrerLesModifications" method="post">
         <input name="idPoste" type="hidden" value="@Html.DisplayFor(model => Model.IdPoste)"/>
         @* ReSharper disable once UnknownCssClass *@

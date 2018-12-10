@@ -1,4 +1,4 @@
-@model IEnumerable<PotatoPortail.Models.Status>
+@model IEnumerable<PotatoPortail.Models.StatutStage>
 @using PotatoPortail.Models
 @using PotatoPortail.Views.Shared.Widget.Model
 @{
@@ -20,21 +20,21 @@
                     <th colspan="1" class="action-cell-header">Supprimer</th>
                 </tr>
 
-                @foreach (var item in (List<Status>)Model)
+                @foreach (var item in (List<StatutStage>)Model)
                 {
                     <tr>
                         <td colspan="6">
-                            @Html.DisplayFor(model => item.StatusStage)
+                            @Html.DisplayFor(model => item.NomStatutStage)
                         </td>
 
                         <td colspan="1" class="action-cell">
 
-                            <a href='@Url.Action("Modifier", "Status", new { id = item.IdStatus })'>
+                            <a href='@Url.Action("Modifier", "Statut", new { id = item.IdStatutStage })'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
                         <td colspan="1" class="action-cell">
-                            <a href='@Url.Action("Suppression", "Status", new { id = item.IdStatus })'>
+                            <a href='@Url.Action("Suppression", "Statut", new { id = item.IdStatutStage })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
@@ -49,7 +49,7 @@
             Retour
         </a>
 
-        <a class="fancy-button blanc" href="@Url.Action("Creation", "Status")">
+        <a class="fancy-button blanc" href="@Url.Action("Creation", "Statut")">
             <span class="glyphicon glyphicon-plus"></span>
             Ajouter un statut
         </a>

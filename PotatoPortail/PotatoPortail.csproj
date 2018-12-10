@@ -625,7 +625,6 @@
     <Content Include="Views\Shared\_Toastr.cshtml" />
     <Content Include="Views\Shared\_ViewStart.cshtml" />
     <Content Include="Views\static\headerPlanCadre.cshtml" />
-    <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\SystemeStage\Application\Index.cshtml" />
     <Content Include="Views\SystemeStage\Contact\Index.cshtml" />
     <Content Include="Views\SystemeStage\Entreprise\Index.cshtml" />
@@ -651,6 +650,7 @@
     <Content Include="Views\SystemeStage\Poste\Modifier.cshtml" />
     <Content Include="Views\SystemeStage\Stage\Modifier.cshtml" />
     <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
+    <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

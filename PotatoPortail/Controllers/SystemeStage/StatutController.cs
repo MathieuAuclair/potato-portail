@@ -13,7 +13,7 @@ namespace PotatoPortail.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_db.StatutStage.ToList());
+            return View("~/Views/SystemeStage/Statut/Index.cshtml", _db.StatutStage.ToList());
         }
 
         [HttpPost]
@@ -31,7 +31,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View(statut);
+            return View("~/Views/SystemeStage/Statut/Modifier.cshtml",statut);
         }
 
         [HttpPost]
@@ -60,17 +60,17 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Creation()
         {
-            var statut = new Statut { NomStatut = "Nouveau statuts"};
+            var statut = new StatutStage { NomStatutStage = "Nouveau statuts"};
     
-            _db.Statut.Add(statut);
+            _db.StatutStage.Add(statut);
             _db.SaveChanges();
 
-            return View("~/Views/Status/Modifier.cshtml", statut);
+            return View("~/Views/SystemeStage/Statut/Modifier.cshtml", statut);
         }
 
         public ActionResult Suppression(int? IdStatuts)
         {
-            var statut = _db.Statut.Find(IdStatuts);
+            var statut = _db.StatutStage.Find(IdStatuts);
 
             if (statut == null)
             {
@@ -83,11 +83,11 @@ namespace PotatoPortail.Controllers
 
             if (!stagesAyantCeStatut.Any())
             {
-                _db.Statut.Remove(statut);
+                _db.StatutStage.Remove(statut);
                 _db.SaveChanges();
             }
 
-            return RedirectToAction("Index", "Status");
+            return RedirectToAction("Index", "Statut");
         }
     }
 }

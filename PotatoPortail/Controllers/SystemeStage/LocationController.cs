@@ -14,7 +14,7 @@ namespace PotatoPortail.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View( _db.Location.ToList());
+            return View("~/Views/SystemeStage/Location/Index.cshtml", _db.Location.ToList());
         }
 
         [HttpPost]
@@ -32,7 +32,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View(location);
+            return View("~/Views/SystemeStage/Location/Modifier.cshtml",location);
         }
 
         [HttpPost]
@@ -65,8 +65,8 @@ namespace PotatoPortail.Controllers
 
             _db.Location.Add(location);
             _db.SaveChanges();
-
-            return View("~/Views/Location/Modifier.cshtml", location);
+            
+            return View("~/Views/SystemeStage/Location/Modifier.cshtml", location);
         }
 
         public ActionResult Suppression(int? IdLocation)

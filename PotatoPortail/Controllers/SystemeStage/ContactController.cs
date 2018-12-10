@@ -13,7 +13,7 @@ namespace PotatoPortail.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_db.Contact.ToList());
+            return View("~/Views/SystemeStage/Contact/Index.cshtml", _db.Contact.ToList());
         }     
         public ActionResult Modifier(int IdContact)
         {
@@ -24,7 +24,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View(contact);
+            return View("~/Views/SystemeStage/Contact/Modifier.cshtml", contact);
         }
 
         [HttpPost]
@@ -66,8 +66,8 @@ namespace PotatoPortail.Controllers
                 Telephone = "123-456-7890"
             };
             _db.Contact.Add(contact);
-            _db.SaveChanges();
-            return View("~/Views/Contact/Modifier.cshtml", contact);
+            _db.SaveChanges(); 
+            return View("~/Views/SystemeStage/Contact/Modifier.cshtml", contact);
         }
 
         public ActionResult Suppression(int? IdContact)

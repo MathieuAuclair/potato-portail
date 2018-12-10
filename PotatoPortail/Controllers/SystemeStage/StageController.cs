@@ -12,6 +12,11 @@ namespace PotatoPortail.Controllers
     {
        private readonly BdPortail _db = new BdPortail();
 
+        public ActionResult Index()
+        {
+            return View("~/Views/SystemeStage/Stage/Index.cshtml", _db.Stage.ToList());
+        }
+
         [HttpGet]
         public ActionResult Modifier(int? IdStage)
         {
@@ -21,7 +26,7 @@ namespace PotatoPortail.Controllers
             }
 
             var Stage = _db.StatutStage.Find(IdStage);
-            return View(Stage);
+            return View("~/Views/SystemeStage/Stage/Modifier.cshtml",Stage);
         }
 
         [HttpPost]
@@ -95,10 +100,6 @@ namespace PotatoPortail.Controllers
             );
         }
 
-        public ActionResult Index()
-        {
-            return View(_db.Stage.ToList());
-        }
 
         [HttpPost]
         public ActionResult TeleverserFichier()
@@ -115,7 +116,7 @@ namespace PotatoPortail.Controllers
             Response.TransmitFile(Server.MapPath("~/DescriptionStage/" + nomDeFichier));
             Response.End();
 
-            return View("index");
+            return View("~/Views/SystemeStage/Stage/Index.cshtml");
         }
 
         [HttpPost]
@@ -142,7 +143,7 @@ namespace PotatoPortail.Controllers
             _db.Stage.Add(Stage);
             _db.SaveChanges();
 
-            return View("~/Views/Stage/Modifier.cshtml", Stage);
+            return View("~/Views/SystemeStage/Stage/Modifier.cshtml", Stage);
         }
 
         public ActionResult Suppression(int? IdStage)
