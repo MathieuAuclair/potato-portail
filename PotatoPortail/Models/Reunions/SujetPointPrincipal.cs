@@ -24,7 +24,7 @@ namespace PotatoPortail.Models.Reunions
 
         public int? PositionPP { get; set; }
 
-        public int IdOrdreDuJour { get; set; }
+        public int? IdOrdreDuJour { get; set; }
 
         public virtual OrdreDuJour OrdreDuJour { get; set; }
 

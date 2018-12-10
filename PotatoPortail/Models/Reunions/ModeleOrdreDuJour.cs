@@ -7,7 +7,6 @@ namespace PotatoPortail.Models.Reunions
     public partial class ModeleOrdreDuJour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-       
 
         [Key]
         public int IdModele { get; set; }
