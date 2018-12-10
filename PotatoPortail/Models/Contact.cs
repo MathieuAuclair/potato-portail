@@ -27,6 +27,7 @@ namespace PotatoPortail.Models
         [Required]
         public string Courriel { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public int Entreprise_IdEntreprise { get; set; }
 
         public virtual Entreprise Entreprise { get; set; }

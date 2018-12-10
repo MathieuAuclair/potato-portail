@@ -1,32 +1,85 @@
 @using PotatoPortail.Views.Shared.Widget.Model
-@model PotatoPortail.Models.Contact
+@model PotatoPortail.Models.Stage
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container page-content">
+    <div>
+        <h1>Contact</h1>
+        <form action="EnregistrerLesModifications" method="post">
+            <input name="IdStage" type="hidden" value="@Html.DisplayFor(model => Model.IdStage)" />
+            @* ReSharper disable once UnknownCssClass *@
+            <div class="form-content">
+                <div class="form-group">
+                    @Html.Label("Description")
+                    @Html.TextBoxFor(m => m.Nom, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Code postal")
+                    @Html.TextBoxFor(m => m.CodePostal, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.CodePostal, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Numero civique")
+                    @Html.TextBoxFor(m => m.NumeroCivique, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.NumeroCivique, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Nom rue")
+                    @Html.TextBoxFor(m => m.NomRue, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.NomRue, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("NumeroCivique")
+                    @Html.TextBoxFor(m => m.NumeroCivique, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.NumeroCivique, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Ville")
+                    @Html.TextBoxFor(m => m.Ville, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Ville, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Province")
+                    @Html.TextBoxFor(m => m.Province, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Province, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Pays")
+                    @Html.TextBoxFor(m => m.Pays, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Pays, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Salaire")
+                    @Html.TextBoxFor(m => m.Salaire, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Salaire, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Nom document")
+                    @Html.TextBoxFor(m => m.NomDocument, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.NomDocument, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Contact")
+                    @Html.TextBoxFor(m => m.Contact_IdContact, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Contact_IdContact, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Salaire")
+                    @Html.TextBoxFor(m => m.Province, new { @class = "form-control small" })
+                    @Html.ValidationMessageFor(m => m.Province, "", new { @class = "text-danger" })
+                </div>
 
-<div>
-    <h1>Contact</h1>
-    <form action="EnregistrerLesModifications" method="post">
-        <input name="idContact" type="hidden" value="@Html.DisplayFor(model => Model.IdContact)"/>
-        @* ReSharper disable once UnknownCssClass *@
-        <div class="form-content">
-            <div class="form-group">
-                @Html.Label("Nom")
-                @Html.TextBoxFor(m => m.Nom, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.Nom, "", new { @class = "text-danger" })
+                @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
             </div>
-            <div class="form-group">
-                @Html.Label("Courriel")
-                @Html.TextBoxFor(m => m.Courriel, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.Courriel, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.Label("Téléphone")
-                @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
-            </div>
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+        </form>
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Contact/Index">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
         </div>
-    </form>
+    </div>
 </div>

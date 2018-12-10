@@ -4,57 +4,61 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <h1>Contact</h1>
-  
-    <div class="row">
-        <div class="col-md-11">
-            <table class="cool-table">
-                <tr>
-                    <th colspan="2">Nom du contact</th>
-                    <th colspan="2">Courriel</th>
-                    <th colspan="2">Téléphone</th>
-                    <th colspan="1" class="action-cell-header">Modifier</th>
-                    <th colspan="1" class="action-cell-header">Supprimer</th>
-                </tr>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.Nom)
-                        </td>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.Courriel)
-                        </td>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.Telephone)
-                        </td>
-                        <td>
-                            <a href='@Url.Action("Modifier", "Contact", new { item.IdContact })'>
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </td>
 
-                        <td>
-                            <a href='@Url.Action("Suppression", "Contact", new { item.IdContact })'>
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                        </td>
+<div class="container" style="margin-bottom:5%;">
+    <h1>Contact</h1>
+    <div class="box">
+
+
+        <div class="row">
+            <div class="col-md-11">
+                <table class="cool-table">
+                    <tr>
+                        <th colspan="2">Nom du contact</th>
+                        <th colspan="2">Courriel</th>
+                        <th colspan="2">Téléphone</th>
+                        <th colspan="1" class="action-cell-header">Modifier</th>
+                        <th colspan="1" class="action-cell-header">Supprimer</th>
                     </tr>
-                }
-            </table>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td colspan="2">
+                                @Html.DisplayFor(model => item.Nom)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(model => item.Courriel)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(model => item.Telephone)
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Modifier", "Contact", new { item.IdContact })'>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href='@Url.Action("Suppression", "Contact", new { item.IdContact })'>
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="menu-flottant">
-        <a class="fancy-button blanc" href="/Accueil/Index">
-            <span class="glyphicon glyphicon-triangle-left"></span>
-            Retour
-        </a>
-   
+        <div class="menu-flottant">
+            <a class="fancy-button blanc" href="/Accueil/Stage">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Retour
+            </a>
+
             <a class="fancy-button blanc" href="@Url.Action("Creation", "Contact")">
                 <span class="glyphicon glyphicon-plus"></span>
                 Ajouter un contact
             </a>
-        
+
+        </div>
     </div>
 </div>

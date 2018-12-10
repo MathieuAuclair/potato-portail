@@ -3,8 +3,8 @@
 @using PotatoPortail.Views.Etudiant.EditionComponent.Models
 @model PotatoPortail.Views.Etudiant.EditionComponent.Models.PreferenceEditor
 
-<div>
-    <input type="hidden" name="idPreference" value="@Model.Preference.IdPreference"/>
+<div class="container" style="margin-bottom:5%;">
+    <input type="hidden" name="idPreference" value="@Model.Preference.IdPreference" />
     <div>
         @Html.Partial("Widget/_FlatUiTextInput",
             new FlatUiTextInputModel(

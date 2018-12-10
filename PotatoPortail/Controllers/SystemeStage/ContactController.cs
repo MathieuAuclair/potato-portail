@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -17,6 +18,7 @@ namespace PotatoPortail.Controllers
         }     
         public ActionResult Modifier(int IdContact)
         {
+            ViewBag.Entreprises = _db.Entreprise.ToList();
             var contact = _db.Contact.Find(IdContact);
 
             if (contact == null)
@@ -32,7 +34,8 @@ namespace PotatoPortail.Controllers
             int? idContact,
             string nom,
             string courriel,
-            string telephone
+            string telephone,
+            Entreprise entreprise
         )
         {
            
@@ -59,11 +62,13 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Creation()
         {
+            ViewBag.Entreprises = _db.Entreprise.ToList();
             var contact = new Contact
             {
                 Courriel = "courriel@cegepjonquiere.ca",
                 Nom = "Nouveau contact",
-                Telephone = "123-456-7890"
+                Telephone = "123-456-7890",
+                Entreprise = _db.Entreprise.First()               
             };
             _db.Contact.Add(contact);
             _db.SaveChanges(); 

@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container" style="margin-bottom:5%;">
 
     <h2>Applications aux stages</h2>
 
@@ -52,14 +52,14 @@
         </div>
     </div>
     <div class="menu-flottant">
-        <a class="fancy-button blanc" href="/Accueil/Index">
+        <a class="fancy-button blanc" href="/Accueil/Stage">
             <span class="glyphicon glyphicon-triangle-left"></span>
             Retour
         </a>
 
         <a class="fancy-button blanc" href="@Url.Action("Creation", "Application")">
             <span class="glyphicon glyphicon-plus"></span>
-         Appliquer sur un stage
+            Appliquer sur un stage
         </a>
 
     </div>

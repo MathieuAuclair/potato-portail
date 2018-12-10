@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container" style="margin-bottom:5%;">
     <h1>Entreprise</h1>
     <form action="EnregistrerLesModifications" method="post">
-        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)"/>
+        <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)" />
         <div class="form-content">
             <div>
                 @Html.Partial("Widget/_FlatUiTextInput",
@@ -79,9 +79,15 @@
             </div>
             <div class="flat-textarea">
                 <p>Code Postal</p>
-                <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
+                <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!" />
             </div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
     </form>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Entreprise/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+    </div>
 </div>

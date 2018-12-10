@@ -77,10 +77,8 @@ namespace PotatoPortail.Controllers
             return View("~/Views/SystemeStage/Application/Modifier.cshtml", application);
         }
 
-        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "IdApplication,Timestamp")]
-            Application application)
+        public ActionResult Modifier([Bind(Include = "IdApplication,Timestamp")] Application application)
         {
             if (!ModelState.IsValid)
             {
