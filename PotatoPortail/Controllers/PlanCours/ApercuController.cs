@@ -51,17 +51,22 @@ namespace PotatoPortail.Controllers.PlanCours
 
             if (id == null)
             {
-                var userId = User.Identity.GetUserId();
-                var idPlanCours = from planCours in _db.PlanCours
-                    join planCoursUtilisateur in _db.PlanCoursUtilisateur on planCours.IdPlanCours equals
-                        planCoursUtilisateur.IdPlanCours
-                    where planCoursUtilisateur.IdPlanCoursUtilisateur == userId
-                    select planCours.IdPlanCours;
-                if (idPlanCours != null)
+                try
                 {
-                    id = idPlanCours.First();
+                    var userId = User.Identity.GetUserId();
+                    var idPlanCours = from planCours in _db.PlanCours
+                        join planCoursUtilisateur in _db.PlanCoursUtilisateur on planCours.IdPlanCours equals
+                            planCoursUtilisateur.IdPlanCours
+                        where planCoursUtilisateur.IdPlanCoursUtilisateur == userId
+                        select planCours.IdPlanCours;
+                        id = idPlanCours.First();
+                    
                 }
-               
+                catch (Exception)
+                {
+                    id = 1;
+                }
+                    
             }
             var idPlanCadre = from planCours in _db.PlanCours
                               join cours in _db.Cours on planCours.IdCours equals cours.IdCours
@@ -75,6 +80,7 @@ namespace PotatoPortail.Controllers.PlanCours
             apercu = GetUser(Convert.ToInt32(id));
             if (apercu != null)
             {
+
                 List<PlanCoursDepart> pcd = new List<PlanCoursDepart>();
                 ViewBag.courrielProf = apercu.CourrielProf;
                 ViewBag.imageCegep = VirtualPathUtility.ToAbsolute(apercu.ImageCegep);
@@ -109,7 +115,11 @@ namespace PotatoPortail.Controllers.PlanCours
 
                 CreationEnonceCompetence(viewModel, (int)id);
             }
-            else { this.AddToastMessage("Attention", "Aucun plan cours n'est associé à votre compte", ToastType.Warning); }
+            else
+            {
+                this.AddToastMessage("Attention", "Aucun plan cours n'est associé à votre compte", ToastType.Warning);
+
+            }
 
             return View(viewModel);
         }
