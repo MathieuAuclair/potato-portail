@@ -7,6 +7,6 @@ function ajoutPPrincipal(nom) { //Permet l'ajout dynamique d'un point principal 
 }
 
 function enleverPPrincipal(nom, idValue) { //Permet d'enlever un pointprincipal selon le id dans la page modele
-    var node = document.getElementById("PointPrincipal" + idValue);
+    var node = document.getElementById("PointPrincipal_" + idValue);
     node.parentNode.removeChild(node);
 }

@@ -13,7 +13,7 @@
 <div class="container page-content">
     <h1>Stage</h1>
     <div class="row">
-        <div class="col-md-20">
+        <div class="col-md-14">
             <table class="cool-table">
                 <tr>
 
@@ -21,7 +21,7 @@
                     <th colspan="1" class="action-cell-header">Lieux</th>
                     <th colspan="1" class="action-cell-header">Contact</th>
                     <th colspan="1" class="action-cell-header">Statut</th>
-                    <th colspan="5" class="action-cell-header">Description</>
+                    <th colspan="4" class="action-cell-header">Description</>
                     <th colspan="1" class="action-cell-header">Salaire</th>
                     <th colspan="1" class="action-cell-header">Modifier</th>
                     <th colspan="1" class="action-cell-header">Supprimer</th>
@@ -43,20 +43,22 @@
                         <td>
                             @Html.DisplayFor(model => item.StatutStage)
                         </td>
-                           <td colspan="5">
-                            @Html.DisplayFor(model => item.Description)
+                        <td colspan="4">
+                            <div class="scrollable">
+                                @Html.DisplayFor(model => item.Description)
+                            </div>
                         </td>
                         <td>
                             @Html.DisplayFor(model => item.Salaire) $
                         </td>
                         <td colspan="1" class="action-cell">
 
-                            <a href='@Url.Action("Modifier", "Stage", new { id = item.IdStage })'>
+                            <a href='@Url.Action("Modifier", "Stage", new { item.IdStage })'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
                         <td colspan="1" class="action-cell">
-                            <a href='@Url.Action("Suppression", "Stage", new { id = item.IdStage })'>
+                            <a href='@Url.Action("Suppression", "Stage", new { item.IdStage })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
@@ -66,7 +68,7 @@
                                 <div>
                                     <button id="@Html.DisplayFor(model => item.IdStage)">
                                         <input type="hidden" name="fichier" value="@Html.DisplayFor(model => item.NomDocument)" />
-                                        <img src="~/Content/Icons/baseline-settings-20px.svg" alt="icon-setting" />
+                                        <span class="mdi mdi-description" />
                                     </button>
                                     <script>
                                     if ("@Html.DisplayFor(model => item.NomDocument)" === "") {
@@ -97,3 +99,9 @@
 
     </div>
 </div>
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.scrollable');
+
+</script>
+

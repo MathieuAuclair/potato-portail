@@ -24,8 +24,8 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var Stage = _db.StatutStage.Find(IdStage);
-            return View("~/Views/SystemeStage/Stage/Modifier.cshtml",Stage);
+            var stage = _db.Stage.Find(IdStage);
+            return View("~/Views/SystemeStage/Stage/Modifier.cshtml",stage);
         }
         public ActionResult Modifier(
             HttpPostedFileBase fichier,

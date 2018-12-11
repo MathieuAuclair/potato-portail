@@ -400,6 +400,7 @@
     <Content Include="Content\Images\watermark.png" />
     <Content Include="Content\material-icons.css" />
     <Content Include="Content\menu.css" />
+    <Content Include="Content\material-icons.min.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\structure.css" />
     <Content Include="Content\superview.css" />
@@ -420,6 +421,8 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Images\CEGEP.png" />
+    <Content Include="Images\DICJ.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="scripts\ajoutDynamique.js" />
     <Content Include="scripts\bootstrap-wysiwyg.js" />
@@ -467,6 +470,7 @@
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\material-icons.min.css.map" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />

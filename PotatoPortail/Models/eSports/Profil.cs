@@ -22,6 +22,7 @@ namespace PotatoPortail.Models.eSports
 
         [Required]
         [Display(Name = "Adresse courriel")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Veuillez entrer une adresse courriel valide.")]
         public string Courriel { get; set; }
 
         [Display(Name = "Informations supplémentaires (facultatives)")]

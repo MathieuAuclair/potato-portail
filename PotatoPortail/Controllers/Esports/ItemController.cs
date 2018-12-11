@@ -120,7 +120,7 @@ namespace PotatoPortail.Controllers.eSports
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "id,nomItem,CaracteristiqueId")]
+        public ActionResult Modifier([Bind(Include = "id,nomItem,IdCaracteristique")]
             Item item)
         {
             if (ModelState.IsValid)
