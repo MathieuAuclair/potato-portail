@@ -19,18 +19,22 @@ namespace PotatoPortail.Models
         public int IdProgramme { get; set; }
 
         [StringLength(200)]
+        [Display(Name = "Nom du programme")]
         public string Nom { get; set; }
 
         [Required]
         [StringLength(4)]
+        [Display(Name = "Année")]
         public string Annee { get; set; }
 
         public DateTime? DateValidation { get; set; }
 
         public bool? StatutStageValider { get; set; }
 
+        [Display(Name = "Nombre de sessions")]
         public int NbSession { get; set; }
 
+        [Display(Name = "Identifiant du devis")]
         public int IdDevis { get; set; }
 
         public virtual DevisMinistere DevisMinistere { get; set; }
