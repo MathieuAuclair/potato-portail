@@ -331,7 +331,6 @@
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
     <Compile Include="ViewModels\ApercuViewModel.cs" />
-    <Compile Include="ViewModels\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\CreatePlanCadreViewModel.cs" />
     <Compile Include="ViewModels\eSports\EditerJoueurViewModel.cs" />
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
@@ -348,7 +347,6 @@
     <Compile Include="ViewModels\PlanCadre\EnvironnementPhysiqueViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\StructureViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\apercuViewModel.cs" />
-    <Compile Include="ViewModels\PlanCours\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\PageTitreViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\servicesAdaptesViewModel.cs" />

@@ -16,7 +16,6 @@ using PotatoPortail.ViewModels;
 using PotatoPortail.ViewModels.PlanCadre;
 using Newtonsoft.Json;
 using PotatoPortail.Migrations;
-using CompetenceViewModel = PotatoPortail.ViewModels.PlanCours.CompetenceViewModel;
 
 namespace PotatoPortail.Controllers
 {
@@ -172,7 +171,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [WebMethod]
-        public ActionResult Choix(string httpBundle, int _idPlanCadre)
+        public ActionResult Choix(string httpBundle, int idPlanCadre)
         {
             var listPlanCadreEnonceElement = JsonConvert.DeserializeObject<List<PlanCadreCompetenceElement>>(httpBundle);
             foreach (var planCadreEnonceElement in listPlanCadreEnonceElement)
@@ -180,7 +179,7 @@ namespace PotatoPortail.Controllers
                 var planCadreCompetence = new PlanCadreCompetence
                 {
                     IdCompetence = planCadreEnonceElement.IdEnonce,
-                    IdPlanCadre = _idPlanCadre,
+                    IdPlanCadre = idPlanCadre,
                     //PonderationEnHeure = planCadreEnonceElement.Ponderation
                 };
                 db.PlanCadreCompetence.Add(planCadreCompetence);
@@ -198,7 +197,8 @@ namespace PotatoPortail.Controllers
                 }
             }
 
-            return RedirectToAction("Structure", new { idPlanCadre = _idPlanCadre });
+            // ReSharper disable once RedundantAnonymousTypePropertyName
+            return Json(Url.Action("Structure", "PlanCadre", new { idPlanCadre = idPlanCadre }));
         }
 
         public ActionResult Structure(int? idPlanCadre)
