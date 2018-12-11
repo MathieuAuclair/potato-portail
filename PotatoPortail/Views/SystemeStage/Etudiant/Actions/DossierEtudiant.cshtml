@@ -5,65 +5,83 @@
 }
 
 <div class="container">
-<div class="box">
-    <header class="light-header">
-        <h1>Fiche de l'étudiant</h1>
-    </header>
+    <div class="box">
+        <header class="light-header">
+            <h1>Fiche de l'étudiant</h1>
+        </header>
+    </div>
 
+<div class="box">
     <div class="light-header">
         <h2>Informations personnelles</h2>
     </div>
+   
     @* ReSharper disable once UnknownCssClass *@
     <div class="flat-card">
-        <h3>Nom de l'étudiant</h3>
-        <p>@Model.Prenom @Model.NomDeFamille</p>
-
-        <h3>Role</h3>
-        <p><@Model.Role</p>
-
-        <h3>Téléphone</h3>
-        <p>@Model.Telephone</p>
-
-        <h3>Code permanent</h3>
-        <p>@Model.CodePermanent</p>
-
-        <h3>Numéro de DA</h3>
-        <p>@Model.NumeroDa</p>
-
-        <h3>Courriel</h3>
-        <p>École: @Model.CourrielEcole</p>
-        <p>Personnel: @Model.CourrielPersonnel</p>
+        <div class="element">
+            <h3>Nom de l'étudiant</h3>
+            <p>@Model.Prenom @Model.NomDeFamille</p>
+        </div>
+        <div class="element">
+            <h3>Role</h3>
+            <p><@Model.Role</p>
+        </div>
+        <div class="element">
+            <h3>Téléphone</h3>
+            <p>@Model.Telephone</p>
+        </div>
+        <div class="element">
+            <h3>Code permanent</h3>
+            <p>@Model.CodePermanent</p>
+        </div>
+        <div class="element">
+            <h3>Numéro de DA</h3>
+            <p>@Model.NumeroDa</p>
+        </div>
+        <div class="element">
+            <h3>Courriel</h3>
+            <p>École: @Model.CourrielEcole</p>
+            <p>Personnel: @Model.CourrielPersonnel</p>
+        </div>
     </div>
+       
     <div class="light-header">
         <h2>Préférences de l'étudiant</h2>
     </div>
     @* ReSharper disable once UnknownCssClass *@
     <div class="flat-card">
-        <h3>Postes</h3>
+        <div class="element">
+            <h3>Postes</h3>
 
-        @foreach (var preference in Model.Preference.Poste)
-        {
-            <p>@preference.Nom</p>
-        }
+            @foreach (var preference in Model.Preference.Poste)
+            {
+                <p>@preference.Nom</p>
+            }
+        </div>
+        <div class="element">
+            <h3>Locations</h3>
 
-        <h3>Locations</h3>
+            @foreach (var location in Model.Preference.Location)
+            {
+                <p>@location.Nom</p>
+            }
+        </div>
+        <div class="element">
+            <h3>Entreprise</h3>
 
-        @foreach (var location in Model.Preference.Location)
-        {
-            <p>@location.Nom</p>
-        }
+            @foreach (var entreprise in Model.Preference.Entreprise)
+            {
+                <p>@entreprise.Nom</p>
+            }
+        </div>
+        <div class="element">
+            <h3>Salaire visé</h3>
 
-        <h3>Entreprise</h3>
-
-        @foreach (var entreprise in Model.Preference.Entreprise)
-        {
-            <p>@entreprise.Nom</p>
-        }
-
-        <h3>Salaire visé</h3>
-
-        <p>@Model.Preference.Salaire.ToString("0.00")$</p>
+            <p>@Model.Preference.Salaire.ToString("0.00")$</p>
+        </div>
     </div>
+  
+  
 
     <div class="menu-flottant">
         <a class="fancy-button blanc" href="/Etudiant/Index">
@@ -72,3 +90,5 @@
         </a>
     </div>
 </div>
+</div>
+
