@@ -1,0 +1,203 @@
+TERMES DU CONTRAT DE LICENCE LOGICIEL MICROSOFT
+
+MICROSOFT VISUAL STUDIO ENTERPRISE 2017, VISUAL STUDIO PROFESSIONAL 2017, VISUAL STUDIO TEST PROFESSIONAL 2017 ET VERSION D’ÉVALUATION
+
+Les présents termes du contrat de licence constituent un contrat entre vous et Microsoft Corporation (ou en fonction de votre lieu de résidence, l’un de ses affiliés). Ils s’appliquent au logiciel visé ci-dessus. Les termes s’appliquent également à tout service et à toute mise à jour Microsoft pour ce logiciel, à moins que d’autres termes n’accompagnent ces éléments.
+
+PAR L'UTILISATION DU LOGICIEL, VOUS ACCEPTEZ CES TERMES. SI VOUS NE LES ACCEPTEZ PAS, N’UTILISEZ PAS LE LOGICIEL. RETOURNEZ-LE À VOTRE REVENDEUR AFIN D’OBTENIR UN REMBOURSEMENT OU UN AVOIR. Si vous ne parvenez pas à vous faire rembourser par votre revendeur, contactez Microsoft sur les modalités de remboursement de Microsoft. Consultez le site Internet www.microsoft.com/worldwide. Aux États-Unis et au Canada, appelez le (800) MICROSOFT ou consultez le site Internet www.microsoft.com/info/nareturns.htm.
+
+________________________________________________________________________________________
+
+DROITS D’UTILISATION DE LA VERSION D’ÉVALUATION. Si le logiciel est une version d’évaluation, le présent Article s’applique à votre utilisation du logiciel.
+
+A. DISPOSITIONS GÉNÉRALES. Vous êtes autorisé à utiliser un nombre illimité de copies de la version d’évaluation sur vos dispositifs. Vous êtes autorisé à utiliser la version d’évaluation uniquement à des fins d’évaluation en interne, et uniquement pendant la période d’évaluation. Vous n’êtes pas autorisé à distribuer ou à déployer une application développée au moyen de la version d’évaluation dans un environnement de production. Vous pouvez exécuter des tests de charge sur un maximum de 250 serveurs virtuels pendant la période d’évaluation.
+
+B. PÉRIODE D’ÉVALUATION ET CONVERSION. La durée de la période d’évaluation est de trente (30) jours à compter de l’installation de la version d’évaluation et peut être prolongée sur autorisation. À l’expiration de la période d’évaluation, la version d’évaluation cessera de fonctionner. Vous pouvez prolonger la période d’évaluation de quatre-vingt-dix (90) jours supplémentaires en souscrivant au logiciel. Vous risquez de ne plus pouvoir accéder aux données utilisées avec la version d’évaluation une fois que celle-ci cessera de fonctionner. Vous pouvez convertir vos droits d’évaluation à tout moment en droits d’utilisation complète, tels que décrits ci-dessous, en achetant une licence d’utilisation complète valable.
+
+C. EXCLUSIONS DE GARANTIE. LA VERSION D’ÉVALUATION EST CONCEDEE SOUS LICENCE « EN L’ETAT ». VOUS ASSUMEZ TOUS LES RISQUES LIES A SON UTILISATION. MICROSOFT N’ACCORDE AUCUNE GARANTIE OU CONDITION EXPRESSE. DANS LA MESURE PERMISE PAR LA LEGISLATION LOCALE, MICROSOFT EXCLUT LES GARANTIES IMPLICITES DE QUALITE, D’ADEQUATION A UN USAGE PARTICULIER ET D’ABSENCE DE VIOLATION.
+
+POUR L’AUSTRALIE – LA LOI AUSTRALIENNE SUR LA CONSOMMATION (AUSTRALIAN CONSUMER LAW) VOUS ACCORDE DES GARANTIES LEGALES QU’AUCUN ELEMENT DU PRESENT CONTRAT NE PEUT AFFECTER.
+
+D. ASSISTANCE. La version d’évaluation étant fournie « en l’état », Microsoft ne fournira aucun service d’assistance technique.
+
+E. LIMITATIONS DE RESPONSABILITE. VOUS NE POUVEZ OBTENIR DE MICROSOFT ET DE SES FOURNISSEURS QU’UNE INDEMNITE LIMITEE A 5,00 USD EN CAS DE DOMMAGES DIRECTS. VOUS NE POUVEZ PRETENDRE A AUCUNE INDEMNISATION POUR LES AUTRES DOMMAGES, Y COMPRIS LES DOMMAGES SPECIAUX, INDIRECTS OU INCIDENTS ET LES PERTES DE BENEFICES.
+
+Cette limitation s’applique (a) à toute réclamation liée à la version d’évaluation, aux services ou au contenu (y compris le code) figurant sur des sites Internet tiers ou dans des programmes tiers ; et (b) aux réclamations pour manquement aux termes du contrat ou violation de garantie ou de condition, responsabilité sans faute, négligence ou autre délit dans la limite autorisée par la réglementation applicable.
+
+Elle s’applique également même si Microsoft avait ou aurait dû avoir connaissance de l’éventualité de tels dommages. La limitation ou l’exclusion ci-dessus peut également ne pas vous être applicable si votre pays n’autorise pas l’exclusion ou la limitation de responsabilité pour les dommages incidents, indirects ou de quelque nature que ce soit.
+
+TERMES DU CONTRAT DE LICENCE D’UTILISATION COMPLÈTE DU LOGICIEL : Lorsque vous achetez une licence valable et que vous entrez une clé de produit ou que vous vous connectez au logiciel, les termes suivants s’appliquent. Vous ne devez pas partager votre clé de produit ou vos codes d’accès.
+
+1. VUE D’ENSEMBLE.
+
+a. Logiciels. Le logiciel contient des outils de développement, des applications et une documentation.
+
+b. Modèle de Licence. Le logiciel est concédé sous licence en vertu d’une licence par utilisateur.
+
+2. DROITS D’UTILISATION.
+
+a. Dispositions générales. Le présent contrat autorise un utilisateur à utiliser des copies du logiciel sur vos dispositifs pour développer et tester vos applications. Ce droit couvre l’utilisation de copies du logiciel sur vos propres serveurs internes, strictement réservés à votre usage personnel. Vous n’êtes cependant pas autorisé à séparer les composants du logiciel et à les exécuter dans un environnement de production ou sur des dispositifs tiers (sauf mention contraire dans les présentes) ou à toute autre fin que celles de développer et de tester vos applications. L’exécution du logiciel sur Microsoft Azure nécessite une licence distincte.
+
+b. Charges de Travail. Les présents termes du contrat de licence s’appliquent à l’utilisation des Charges de Travail mises à votre disposition dans le logiciel, sauf dans la mesure où une Charge de Travail ou un composant de la Charge de Travail serait accompagné(e) de termes différents.
+
+c. Utilisation dans le cadre d’une démonstration. Les droits d’utilisation décrits ci-dessus incluent l’utilisation du logiciel pour réaliser une démonstration de vos applications.
+
+d. Copie de sauvegarde. Vous êtes autorisé à effectuer une (1) copie de sauvegarde du logiciel afin de le réinstaller.
+
+3. TERMES APPLICABLES À DES COMPOSANTS SPÉCIFIQUES.
+
+a. Utilitaires. Le logiciel contient des composants qui sont répertoriés dans la Liste des Utilitaires figurant à l’adresse https://go.microsoft.com/fwlink/?linkid=823097. S’ils sont fournis avec le logiciel, vous êtes autorisé à copier et installer ces composants sur vos dispositifs dans le but de déboguer et déployer les applications et bases de données que vous avez développées avec le logiciel. Notez que les Utilitaires sont destinés à un usage temporaire, que Microsoft peut ne pas être en mesure de fournir des correctifs ou des mises à jour pour les Utilitaires en dehors de ceux fournis avec le logiciel et que certains Utilitaires, de par leur nature, peuvent permettre aux autres d’accéder aux dispositifs sur lesquels ils sont installés. Il vous est par conséquent recommandé de supprimer tous les Utilitaires que vous installez après le débogage ou le déploiement de vos applications et bases de données. Microsoft n’est pas responsable de l’utilisation des Utilitaires par un tiers ni de l’accès par ce dernier aux Utilitaires que vous installez, quel que soit le dispositif.
+
+b. Outils de build. À partir du logiciel, vous pouvez copier et installer des fichiers sur vos dispositifs de build, qu’il s’agisse de dispositifs physiques, de machines virtuelles ou de conteneurs sur ces machines ; de machines sur site ou à distance vous appartenant, hébergées par Azure pour vous ou uniquement dédiées à votre utilisation (collectivement, les « Dispositifs de Build »). Vous et d’autres personnes de votre organisation êtes autorisés à utiliser ces fichiers sur vos Dispositifs de Build uniquement pour compiler, créer et vérifier vos applications ou effectuer des tests de qualité ou de performance de ces applications dans le cadre du processus de création. À des fins de clarté, le terme « applications » désigne les applications que vous et d’autres personnes de votre organisation avez développées et pour lesquelles une licence individuelle d’utilisation du logiciel a été concédée.
+
+c. Polices. Lors de l’exécution du logiciel, vous pouvez en utiliser les polices pour afficher et imprimer du contenu. Vous êtes autorisé uniquement à : (i) incorporer des polices au contenu selon les autorisations accordées par les restrictions d’incorporation des polices ; et (ii) les télécharger temporairement vers une imprimante ou un autre dispositif de sortie en vue de faciliter l’impression du contenu.
+
+d. Licences pour d’Autres Composants.
+
+· Plateformes Microsoft. Le logiciel peut inclure des composants de Microsoft Windows, Microsoft Windows Server, Microsoft SQL Server, Microsoft Exchange, Microsoft Office et Microsoft SharePoint. Ces composants sont régis par des contrats distincts et disposent de leurs propres politiques en matière d’assistance technique, comme décrit dans le dossier « Licences » de Microsoft fourni avec le logiciel, sauf si les termes des contrats de licence de ces composants logiciels sont également disponibles dans le répertoire d’installation associé, ces termes du contrat de licence prévalent.
+
+· Ressources pour le développement. Le logiciel comprend des compilateurs, des langages, des runtimes, des environnements et d’autres ressources. Ces composants peuvent être régis par des contrats distincts et disposer de leurs propres politiques en matière d’assistance technique. Une liste de ces autres composants est disponible à l’adresse https://support.microsoft.com.
+
+Composants tiers. Le logiciel peut inclure des composants de tiers accompagnés de mentions légales distinctes ou régis par d’autres contrats, comme décrit dans le(s) fichier(s) ThirdPartyNotices fourni(s) avec le logiciel, le cas échéant.
+
+e. GESTIONNAIRES DE PACKAGES. Le logiciel inclut des gestionnaires de packages, notamment NuGet, qui vous permettent de télécharger d’autres packages logiciels de Microsoft ou de tiers pour les utiliser avec votre application. Ces packages sont régis par des licences propres, et non par ce contrat. Microsoft ne distribue pas, ne concède aucun droit de licence et ne fournit aucune garantie pour les packages logiciels de tiers.
+
+4. CODE DISTRIBUABLE. Le logiciel contient du code que vous êtes autorisé à distribuer dans des applications que vous développez comme décrit dans le présent Article. (Dans le cadre du présent Article, le terme « distribution » désigne également le fait de déployer vos applications pour fournir un accès en ligne à des tiers.)
+
+a. Droit d’utilisation et de distribution. Le code et les fichiers texte répertoriés ci-après constituent le « Code Distribuable ».
+
+* Fichiers REDIST.TXT. Vous êtes autorisé à copier et à distribuer la version en code objet du code répertorié dans la liste REDIST figurant à l’adresse https://go.microsoft.com/fwlink/?linkid=823097.
+
+* Code Échantillon, Modèles et Styles. Vous êtes autorisé à copier, à modifier et à distribuer les versions en code source et objet des codes marqués en tant que « code échantillon », « modèle », « styles simples » et « styles croquis ».
+
+* Bibliothèque d’images. Vous êtes autorisé à copier et à distribuer les images, les graphismes et les animations de la Bibliothèque d’Images de la manière décrite dans la documentation du logiciel.
+
+* Distribution par des tiers. Vous pouvez autoriser les distributeurs de vos applications à copier et à distribuer le Code distribuable en tant que partie intégrante de ces applications.
+
+b. Conditions de Distribution. Pour tout Code Distribuable que vous distribuez, vous devez :
+
+* ajouter à ce Code des fonctionnalités principales importantes au sein de vos applications ;
+
+* exiger des distributeurs et des utilisateurs finaux externes qu’ils acceptent des termes protégeant le Code Distribuable de manière au moins équivalente à ceux du présent contrat ; et
+
+* garantir et défendre Microsoft contre toute réclamation, y compris pour les honoraires d’avocats et de conseil, qui résulterait de la distribution ou de l’utilisation de vos applications, sauf dans la mesure où la réclamation est fondée uniquement sur le Code Distribuable.
+
+c. Restrictions de distribution. Vous n’êtes pas autorisé à :
+
+* utiliser les marques commerciales de Microsoft dans les noms de vos applications ou d’une façon qui suggère que vos applications sont fournies ou recommandées par Microsoft ; ou
+
+* modifier ou distribuer le code source de tout Code Distribuable de manière à ce qu’il fasse l’objet, en tout ou partie, d’une Licence Exclue. Une Licence Exclue implique comme condition d’utilisation, de modification ou de distribution du code, que (i) le code soit divulgué ou distribué sous forme de code source ou que (ii) d’autres personnes aient le droit de le modifier.
+
+5. DONNÉES.
+
+a. Collecte de données. Le logiciel peut recueillir des informations sur vous et la façon dont vous l’utilisez, et les transmettre à Microsoft. Microsoft est susceptible d’utiliser ces informations pour fournir des services et améliorer ses produits et services. Vous pouvez désactiver la plupart de ces fonctionnalités, à l’exception de certaines, comme indiqué dans la documentation du produit. Le logiciel comprend également certaines fonctionnalités qui peuvent vous permettre, à vous et à Microsoft, de collecter des données auprès des utilisateurs de vos applications. Si vous utilisez ces fonctionnalités, vous devez le faire en toute conformité avec la réglementation applicable, notamment en informant les utilisateurs de vos applications par l’intermédiaire de notifications appropriées. Vous devez également fournir la déclaration de confidentialité de Microsoft. Notre déclaration de confidentialité est disponible à l’adresse https://go.microsoft.com/fwlink/?LinkID=824704. Pour plus d’informations sur la collecte et l’utilisation de données, consultez la documentation dֹ’aide et notre
+
+déclaration de confidentialité. Votre utilisation du logiciel vaut acceptation de ces pratiques.
+
+b. Traitement des données à caractère personnel. Dans la mesure où Microsoft est un opérateur ou un sous-opérateur de traitement de données à caractère personnel en association avec le logiciel, Microsoft prend les engagements dans les termes du Règlement général de protection des données de l’Union européenne des Conditions de services en Ligne envers tous les clients qui entreront en vigueur le 25 mai 2018 à l’adresse http://go.microsoft.com/?linkid=9840733.
+
+6. CHAMP D’APPLICATION DE LA LICENCE. Le logiciel n’est pas vendu mais concédé sous licence. Le présent contrat vous confère certains droits d’utilisation du logiciel. Microsoft se réserve tous les autres droits. À moins que la réglementation applicable ne vous confère d’autres droits nonobstant la présente limitation, vous n’êtes autorisé à utiliser le logiciel qu’en conformité avec les termes du présent contrat. À cette fin, vous devez vous conformer aux restrictions techniques contenues dans le logiciel, qui limitent vos droits dֹ’utilisation du logiciel. Vous n’êtes pas autorisé à :
+
+* contourner les restrictions techniques contenues dans le logiciel ;
+
+* reconstituer la logique du logiciel, le décompiler ou le désassembler, ou tenter de quelque autre manière de dériver le code source du logiciel, sauf si et dans la mesure où les termes du contrat de licence tiers régissant l’utilisation des composants open source éventuellement inclus dans le logiciel vous y autorisent ;
+
+* supprimer, réduire, bloquer ou modifier toute mention légale de Microsoft ou de ses fournisseurs dans le logiciel ;
+
+* à utiliser le logiciel d’une manière contraire à la législation ;
+
+* partager, publier, louer ou prêter le logiciel, ou le fournir en tant qu'offre autonome utilisable par des tiers.
+
+7. DOCUMENTATION. Tout utilisateur disposant d’un accès valable à votre ordinateur ou à votre réseau interne est autorisé à copier et à utiliser la documentation à titre de référence et à des fins internes.
+
+8. LOGICIEL EN REVENTE INTERDITE (« Not for Resale » ou « NFR »). Vous n’êtes pas autorisé à vendre un logiciel portant la mention de Revente Interdite (« Not for Resale » ou « NFR »).
+
+9. DROITS D'UTILISATION D'AUTRES VERSIONS ET D'ÉDITIONS INFÉRIEURES. Vous êtes autorisé à utiliser le logiciel et toute version antérieure sur le dispositif de votre choix. Vous pouvez créer, stocker, installer, exécuter ou accéder à une copie ou une instance d’une version précédente, d’une version linguistique autorisée différente ou d’une édition inférieure au lieu de la version concédée sous licence.
+
+10. PREUVE DE LICENCE (« PROOF OF LICENSE » OU « POL »). Si vous avez acquis le logiciel sur un disque ou sur tout autre support, votre preuve de licence est l’étiquette de certificat d’authenticité Microsoft accompagnant la clé de produit authentique et votre justificatif d’achat. Si vous avez acquis une copie du logiciel en ligne, votre preuve de licence est la clé de produit Microsoft que vous avez obtenue lors de votre achat et votre justificatif d’achat et/ou votre autorisation d’accès au service logiciel via votre compte Microsoft. Pour vérifier l’authenticité d’un logiciel Microsoft, consultez le site www.howtotell.com.
+
+11. TRANSFERT À UN TIERS. Sous réserve de disposer d’une licence valable pour le logiciel, vous êtes autorisé à le transférer, ainsi que le présent contrat, directement à un tiers. Avant le transfert, le tiers doit reconnaître que cet accord s’applique au transfert et à l’utilisation du logiciel. Ce transfert doit inclure le logiciel, la clé de produit Microsoft authentique et (le cas échéant) l’étiquette de Preuve de Licence (« Proof of License » ou « POL »). Le cédant doit désinstaller du dispositif toutes les copies du logiciel après le transfert. Le cédant n’est pas autorisé à conserver de copies de la clé de produit Microsoft authentique à transférer et ne peut conserver des copies du logiciel que si un contrat de licence l’y autorise. Si vous n’avez pas acheté une licence d’utilisation du logiciel pour la durée des droits de propriété intellectuelle ou si le logiciel porte la mention de revente interdite (« Not for Resale » ou « NFR »), vous n’êtes pas autorisé à transférer le logiciel ni son contrat de licence à un tiers.
+
+12. RESTRICTIONS À L’EXPORTATION. Vous devez vous conformer à toutes les lois et réglementations nationales et internationales en matière d’exportation concernant le logiciel, qui contiennent des restrictions en matière de destinations, d’utilisateurs finaux et d’utilisation finale. Pour plus d’informations sur les restrictions à l’exportation, consultez le site www.microsoft.com/exporting.
+
+13. ASSISTANCE. Microsoft fournit une assistance technique pour le logiciel, telle que décrite à l’adresse https://support.microsoft.com.
+
+14. INTÉGRALITÉ DES ACCORDS. Le présent contrat (y compris la garantie ci-dessous) ainsi que les termes
+
+concernant les suppléments, les mises à jour, les services Internet et d’assistance technique constituent l’intégralité des accords en ce qui concerne le logiciel et les services d’assistance technique.
+
+15. DROIT APPLICABLE. Si vous avez acquis le logiciel aux États-Unis, les lois de l’État de Washington, États-Unis d’Amérique, régissent l’interprétation de ce contrat et s’appliquent en cas de réclamation pour manquement aux termes du contrat. Les lois de l’État dans lequel vous vivez régissent toutes les autres réclamations. Si vous avez acquis le logiciel dans un autre pays, ses lois s’appliquent.
+
+16. DROITS DES CONSOMMATEURS VARIABLES SELON LES RÉGIONS. Le présent contrat décrit certains droits légaux. Vous pouvez bénéficier d’autres droits, y compris des droits des consommateurs, prévus par les lois de votre État ou pays. Indépendamment de votre relation avec Microsoft, vous pouvez également bénéficier de certains droits octroyés par la partie auprès de laquelle vous avez acquis le logiciel. Le présent contrat ne modifie pas ces autres droits si les lois de votre État ou pays ne le permettent pas. Par exemple, si vous avez acquis le logiciel dans l’une des régions ci-dessous ou si une loi impérative nationale s’applique, vous êtes tenu de vous conformer aux dispositions suivantes :
+
+a) Australie. La « garantie limitée » fait référence à la garantie expresse accordée par Microsoft ou le fabricant ou l’installateur. Cette garantie vous est accordée en sus des autres droits et recours éventuels prévus par la réglementation, y compris vos droits et recours conformément aux garanties statutaires fournies par la loi australienne sur la consommation (Australian Consumer Law).
+
+Dans le présent article, « biens » fait référence au logiciel pour lequel Microsoft ou le fabricant ou l’installateur fournit la garantie expresse. Nos biens sont accompagnés de garanties ne pouvant être exclues en vertu de la loi australienne sur la consommation (Australian Consumer Law). Vous pouvez prétendre à un échange ou à un remboursement pour tout défaut majeur et à une indemnisation en cas de perte ou de dommage raisonnablement prévisible. Vous pouvez également prétendre à la réparation ou à l’échange des biens si ces derniers ne sont pas d’une qualité acceptable et que le défaut n’entraîne pas un dysfonctionnement majeur.
+
+b) Canada. Si vous avez acheté le logiciel au Canada, pour ne plus recevoir de mises à jour, vous pouvez désactiver la fonction Mises à jour automatiques, déconnecter votre dispositif d’Internet (néanmoins, le logiciel recherchera et installera les mises à jour disponibles automatiquement dès la reconnexion du dispositif à Internet) ou désinstaller le logiciel. La documentation du produit, le cas échéant, peut également indiquer comment désactiver les mises à jour de votre produit ou dispositif spécifique.
+
+c) Allemagne et Autriche.
+
+(i) Garantie. Le logiciel concédé sous licence valable fonctionnera, pour l’essentiel, comme le décrit la documentation de Microsoft qui l’accompagne. Microsoft n’accorde toutefois aucune autre garantie contractuelle relative au logiciel.
+
+(ii) Limitation de responsabilité. En cas de faute intentionnelle, de faute lourde, de réclamation fondée sur la responsabilité du fait des produits défectueux, ou de faute entraînant un décès ou des préjudices corporels ou matériels, Microsoft sera tenue légalement responsable.
+
+Sous réserve de la clause (ii), qui précède, la responsabilité de Microsoft pour négligence légère ne sera engagée qu’en cas de manquement aux obligations contractuelles essentielles à la bonne exécution du présent contrat, dans la mesure où ledit manquement compromet l’objet même du présent contrat et la confiance des partenaires contractuels relative au respect de ces dernières (les « obligations majeures »). La responsabilité de Microsoft ne sera pas engagée en cas d’autres négligences légères.
+
+17. LIMITATION ET EXCLUSION DE RESPONSABILITÉ EN CAS DE DOMMAGES. VOUS POUVEZ OBTENIR DE MICROSOFT ET DE SES FOURNISSEURS UNE INDEMNISATION EN CAS DE DOMMAGES DIRECTS UNIQUEMENT DANS LA LIMITE DU MONTANT QUE VOUS AVEZ PAYÉ POUR LE LOGICIEL. VOUS NE POUVEZ PRÉTENDRE À AUCUNE INDEMNISATION POUR LES AUTRES DOMMAGES, Y COMPRIS LES DOMMAGES SPÉCIAUX, INDIRECTS, ACCESSOIRES OU INCIDENTS ET LES PERTES DE BÉNÉFICES.
+
+Cette limitation s’applique (a) à toute affaire liée au logiciel, aux services ou au contenu (y compris le code) figurant sur des sites Internet tiers ou dans des applications tierces ; et (b) aux réclamations pour manquement aux termes du contrat ou violation de garantie ou de condition, responsabilité sans faute, négligence ou autre délit dans la limite autorisée par la réglementation applicable.
+
+Elle s’applique également même si Microsoft avait ou aurait dû avoir connaissance de l’éventualité de tels dommages. La limitation ou l’exclusion ci-dessus peut également ne pas vous être applicable si votre État ou pays n’autorise pas l’exclusion ou la limitation de responsabilité pour les dommages incidents, indirects ou de quelque nature que ce soit.
+
+*************************************************************************
+
+GARANTIE LIMITÉE
+
+A. GARANTIE LIMITÉE. Si vous suivez les instructions, le logiciel fonctionnera, pour l’essentiel, comme décrit dans la documentation de Microsoft reçue avec ou dans le logiciel.
+
+La « garantie limitée » fait référence à la garantie expresse accordée par Microsoft. Cette garantie vous est accordée en sus des autres droits et recours éventuels prévus par la réglementation, y compris vos droits et recours conformément aux garanties statutaires fournies par la loi locale sur la consommation.
+
+B. DURÉE DE LA GARANTIE ; BÉNÉFICIAIRE DE LA GARANTIE ; DURÉE DE TOUTE GARANTIE IMPLICITE. LA GARANTIE LIMITÉE COUVRE LE LOGICIEL PENDANT UNE DURÉE D’UN (1) AN À COMPTER DE SON ACQUISITION PAR LE PREMIER UTILISATEUR. SI VOUS RECEVEZ DES SUPPLÉMENTS, DES MISES À JOUR OU UN LOGICIEL DE REMPLACEMENT AU COURS DE CETTE ANNÉE, ILS SERONT COUVERTS SOIT PENDANT LA DURÉE DE LA GARANTIE RESTANT À COURIR, SOIT PENDANT TRENTE (30) JOURS, LA PÉRIODE LA PLUS LONGUE ÉTANT APPLICABLE. Si le premier utilisateur transfère le logiciel, la durée de la garantie restant à courir s’applique au destinataire.
+
+DANS TOUTE LA MESURE PERMISE PAR LA RÉGLEMENTATION APPLICABLE, TOUTE GARANTIE OU CONDITION IMPLICITE SERA APPLICABLE UNIQUEMENT PENDANT LA DURÉE DE LA GARANTIE LIMITÉE. Certains États n’autorisent pas les limitations portant sur la durée d’une garantie implicite, de sorte que les limitations ci-dessus peuvent ne pas vous être applicables. Ces limitations peuvent également ne pas vous être applicables, car certains pays n’autorisent pas les limitations portant sur la durée d’une garantie ou condition implicite.
+
+C. EXCLUSIONS DE LA GARANTIE. Cette garantie ne couvre pas les problèmes engendrés par vos propres actes (ou inexécutions), les actes d’autrui ou tout autre événement échappant au contrôle raisonnable de Microsoft.
+
+D. RECOURS EN CAS DE VIOLATION DE GARANTIE. MICROSOFT S’ENGAGE À RÉPARER OU À REMPLACER LE LOGICIEL GRATUITEMENT. SI MICROSOFT NE PEUT PAS LE RÉPARER NI LE REMPLACER, ELLE REMBOURSERA LE MONTANT QUE VOUS AVEZ PAYÉ POUR LE LOGICIEL FIGURANT SUR LE REÇU. MICROSOFT S’ENGAGE ÉGALEMENT À RÉPARER OU À REMPLACER LES SUPPLÉMENTS, LES MISES À JOUR ET LE LOGICIEL DE REMPLACEMENT GRATUITEMENT. SI MICROSOFT NE PEUT PAS LES RÉPARER NI LES REMPLACER, ELLE REMBOURSERA LE MONTANT QUE VOUS AVEZ PAYÉ POUR CES ÉLÉMENTS, LE CAS ÉCHÉANT. POUR OBTENIR UN REMBOURSEMENT, VOUS DEVEZ DÉSINSTALLER LE LOGICIEL ET RETOURNER TOUT SUPPORT ET AUTRES DOCUMENTS ASSOCIÉS À MICROSOFT ACCOMPAGNÉS D’UN JUSTIFICATIF D’ACHAT. CES RECOURS SONT LES SEULS DONT VOUS DISPOSEZ EN CAS DE VIOLATION DE LA GARANTIE LIMITÉE.
+
+E. DROITS DES CONSOMMATEURS NON AFFECTÉS. VOUS POUVEZ BÉNÉFICIER DE DROITS SUPPLÉMENTAIRES RELATIFS AUX CONSOMMATEURS EN VERTU DU DROIT DE VOTRE PAYS, QUE CE CONTRAT NE PEUT MODIFIER.
+
+F. PROCÉDURES ENTRANT DANS LE CADRE DE LA GARANTIE. Vous devrez fournir un justificatif d’achat pour bénéficier de tout service entrant dans le cadre de la garantie.
+
+1. États-Unis et Canada. Pour obtenir tout service ou information entrant dans le cadre de la garantie concernant les modalités de remboursement d’un logiciel acquis aux États-Unis et au Canada, veuillez :
+
+* (800) MICROSOFT ;
+
+* contacter Microsoft Customer Service and Support, One Microsoft Way, Redmond, WA 98052-6399, U.S.A. ; ou
+
+* consultez le site (aka.ms/nareturns).
+
+2. Europe, Moyen-Orient et Afrique. Si vous avez acquis le logiciel en Europe, au Moyen-Orient ou en Afrique, Microsoft Ireland Operations Limited offre cette garantie limitée. En cas de réclamation au titre de cette garantie, veuillez contacter :
+
+* Microsoft Ireland Operations Limited, Customer Care Centre, Atrium Building Block B, Carmanhall Road, Sandyford Industrial Estate, Dublin 18, Irlande ; ou
+
+* l’affilié Microsoft qui dessert votre pays (consultez le site aka.ms/msoffices).
+
+3. Australie. Pour obtenir tout Service de Garantie ainsi que le remboursement des frais au titre de la garantie
+
+(le cas échéant) pour un logiciel acquis en Australie, veuillez contacter Microsoft à l’adresse suivante :
+
+* 13 20 58 ; ou
+
+* Microsoft Pty Ltd, 1 Epping Road, North Ryde NSW 2113, Australie.
+
+4. En dehors des États-Unis, du Canada, de l’Europe, du Moyen-Orient, de l’Afrique et de l’Australie. Si vous avez acquis le logiciel en dehors des États-Unis, du Canada, de l’Europe, du Moyen-Orient, de l’Afrique et de l’Australie, veuillez contacter l’affilié Microsoft qui dessert votre pays (consultez le site aka.ms/msoffices).
+
+G. AUCUNE AUTRE GARANTIE. LA GARANTIE LIMITÉE EST LA SEULE GARANTIE DIRECTE FOURNIE PAR MICROSOFT. MICROSOFT N’ACCORDE AUCUNE AUTRE GARANTIE OU CONDITION EXPRESSE. DANS LA MESURE AUTORISÉE PAR LA LÉGISLATION DE VOTRE PAYS, MICROSOFT EXCLUT LES GARANTIES IMPLICITES DE QUALITÉ, D’ADÉQUATION À UN USAGE PARTICULIER ET D’ABSENCE DE CONTREFAÇON. Si les lois de votre pays vous accordent des garanties ou conditions implicites, nonobstant la présente exclusion, les recours dont vous disposez sont ceux exposés dans l’article ci-dessus relatif aux recours en cas de violation de garantie, dans la limite autorisée par le droit de votre pays.
+
+POUR L’AUSTRALIE UNIQUEMENT. La « Garantie Limitée » fait référence à la garantie accordée par Microsoft. Cette garantie vous est accordée en sus des autres droits et recours éventuels prévus par la réglementation, y compris vos droits et recours conformément aux garanties statutaires fournies par la loi australienne sur la consommation (Australian Consumer Law). Nos biens sont accompagnés de garanties ne pouvant être exclues en vertu de la loi australienne sur la consommation (Australian Consumer Law). Vous pouvez prétendre à un échange ou à un remboursement pour tout défaut majeur et à une indemnisation en cas de perte ou dommage raisonnablement prévisible. Vous pouvez également prétendre à la réparation ou à l’échange des biens si ces derniers ne sont pas d’une qualité acceptable et que le défaut n’entraîne pas un dysfonctionnement majeur. Les produits envoyés pour réparation peuvent être remplacés par des produits similaires remis à neuf. Des pièces remises à neuf peuvent être utilisées pour la réparation des produits.
+
+H. LIMITATION ET EXCLUSION DE RESPONSABILITÉ EN CAS DE VIOLATION DE GARANTIE. L’ARTICLE CI-DESSUS RELATIF À LA LIMITATION ET L’EXCLUSION DE RESPONSABILITÉ EN CAS DE DOMMAGES S’APPLIQUE EN CAS DE VIOLATION DE LA PRÉSENTE GARANTIE LIMITÉE.
+
+LA PRÉSENTE GARANTIE VOUS CONFÈRE DES DROITS LÉGAUX SPÉCIFIQUES, ET VOUS POUVEZ BÉNÉFICIER D’AUTRES DROITS QUI VARIENT D’UN ÉTAT À L’AUTRE, OU D’UN PAYS À L’AUTRE.
