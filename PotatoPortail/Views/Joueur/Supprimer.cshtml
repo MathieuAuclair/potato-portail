@@ -11,22 +11,26 @@
         <div>
             <div class="element">
                 @Html.Label("Nom du joueur")
-                @Html.DisplayFor(model => model.MembreESports.nomComplet)
+                @Html.DisplayFor(model => model.MembreESports.NomComplet)
             </div>
             <div class="element">
                 @Html.LabelFor(model => model.PseudoJoueur)
                 @Html.DisplayFor(model => model.PseudoJoueur)
             </div>
             <div class="element">
+                @Html.Label("Jeu")
+                @Html.DisplayFor(model => model.Profil.Jeu.NomJeu)
+            </div>
+            <div class="element">
                 @Html.Label("Autre jeu proposé à l'inscription")
                 @if (Model.Profil.JeuSecondaire != null)
-                {
-                    @Html.DisplayFor(model => model.Profil.JeuSecondaire.NomJeu)
-                }
-                else
-                {
-                    @:Aucun jeu secondaire n'a été spécifié à l'inscription
-                }
+        {
+            @Html.DisplayFor(model => model.Profil.JeuSecondaire.NomJeu)
+}
+else
+{
+        @:Aucun jeu secondaire n'a été spécifié à l'inscription
+}
             </div>
             <div class="element">
                 @Html.LabelFor(model => model.Profil.Courriel)

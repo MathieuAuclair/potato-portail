@@ -3,7 +3,7 @@
 function initEntraineurDropDown() {
     var selectList = document.getElementById('entraineur');
     var option = document.createElement("option");
-    option.text = "Associez un entraineur";
+    option.text = "Associez un entraîneur";
     selectList.insertBefore(option, selectList.firstChild);
     entraineurOptionEnabled(0, false);
     reinitialiserEntraineurIndex();
@@ -62,7 +62,7 @@ function trouverEntraineurParValeur(valeur) {
 function initJoueurDropDown() {
     var selectList = document.getElementById('joueurs');
     var option = document.createElement("option");
-    option.text = "Associez un joueurs";
+    option.text = "Associez un joueur";
     selectList.insertBefore(option, selectList.firstChild);
     joueursOptionEnabled(0, false);
     reinitialiserJoueurIndex();
