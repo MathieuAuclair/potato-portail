@@ -13,7 +13,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NomSections, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("titreSection", (IEnumerable<SelectListItem>)ViewBag.nomSections, htmlAttributes: new { @class = "form-control", @name = "titreSection" })
+                    @Html.DropDownList("TitreSection", (IEnumerable<SelectListItem>)ViewBag.nomSections, htmlAttributes: new { @class = "form-control", @name = "titreSection" })
                     @Html.ValidationMessageFor(model => model.NomSections, "", new { @class = "text-danger" })
                 </div>
             </div>
