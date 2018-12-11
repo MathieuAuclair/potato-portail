@@ -16,7 +16,7 @@ namespace PotatoPortail.Controllers
         {
             return View("~/Views/SystemeStage/Etudiant/Index.cshtml", _db.Etudiant.ToList());
         }
-                public ActionResult Modifier(int? IdEtudiant)
+        public ActionResult Modifier(int? IdEtudiant)
         {
             if (IdEtudiant == null)
             {
@@ -106,7 +106,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Etudiant/Modifier.cshtml", etudiant);
         }
-        [HttpPost]
         public ActionResult ConsulterDossierEtudiant(int? IdEtudiant)
         {
             if (IdEtudiant == null)

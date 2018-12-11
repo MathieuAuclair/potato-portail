@@ -62,7 +62,19 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Creation()
         {
-            ViewBag.Entreprises = _db.Entreprise.ToList();
+            var lstEntreprise = new List<SelectListItem>();
+
+            foreach (var entreprise in _db.Entreprise.ToList())
+            {
+                lstEntreprise.Add(new SelectListItem
+                {
+                    Text = entreprise.Nom,
+                    Value = entreprise.IdEntreprise.ToString()
+                });
+            }
+
+            ViewBag.Entreprises = lstEntreprise;
+
             var contact = new Contact
             {
                 Courriel = "courriel@cegepjonquiere.ca",
@@ -70,6 +82,7 @@ namespace PotatoPortail.Controllers
                 Telephone = "123-456-7890",
                 Entreprise = _db.Entreprise.First()               
             };
+
             _db.Contact.Add(contact);
             _db.SaveChanges(); 
             return View("~/Views/SystemeStage/Contact/Modifier.cshtml", contact);

@@ -13,7 +13,7 @@
 <div class="container page-content">
     <h1>Stage</h1>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-20">
             <table class="cool-table">
                 <tr>
 
@@ -21,10 +21,11 @@
                     <th colspan="1" class="action-cell-header">Lieux</th>
                     <th colspan="1" class="action-cell-header">Contact</th>
                     <th colspan="1" class="action-cell-header">Statut</th>
-                    <th colspan="1" class="action-cell-header">Description</>
+                    <th colspan="5" class="action-cell-header">Description</>
                     <th colspan="1" class="action-cell-header">Salaire</th>
                     <th colspan="1" class="action-cell-header">Modifier</th>
                     <th colspan="1" class="action-cell-header">Supprimer</th>
+                    <th></th>
                 </tr>
 
                 @foreach (var item in (List<Stage>)Model)
@@ -42,7 +43,7 @@
                         <td>
                             @Html.DisplayFor(model => item.StatutStage)
                         </td>
-                        <td>
+                           <td colspan="5">
                             @Html.DisplayFor(model => item.Description)
                         </td>
                         <td>
@@ -59,7 +60,6 @@
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
-                        <td></td>
 
                         <td>
                             <form action="/Stage/TeleverserFichier" method="POST">
