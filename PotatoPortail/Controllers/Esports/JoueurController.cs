@@ -134,24 +134,23 @@ namespace PotatoPortail.Controllers.eSports
 
             var profil = _db.Profil.Find(joueur.Profil.Id);
 
-            if (ModelState.IsValid)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            joueur.PseudoJoueur = viewModel.Pseudo;
-
             if (profil == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            profil.Pseudo = viewModel.Pseudo;
-            profil.Courriel = viewModel.Courriel;
-            _db.SaveChanges();
-            this.AddToastMessage("Modifications apportées.", "Les changements ont été sauvegardés.",
-                ToastType.Success);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                joueur.PseudoJoueur = viewModel.Pseudo;
+                profil.Pseudo = viewModel.Pseudo;
+                profil.Courriel = viewModel.Courriel;
+                _db.SaveChanges();
+                this.AddToastMessage("Modifications apportées.", "Les changements ont été sauvegardés.",
+                    ToastType.Success);
+                return RedirectToAction("Index");
+            }
+
+            return View(viewModel);
         }
         
         public ActionResult Supprimer(int? id)

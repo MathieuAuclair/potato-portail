@@ -412,6 +412,7 @@
     <Content Include="scripts\bootstrap.js.map" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\bootstrap.min.js.map" />
+    <Content Include="scripts\equipeSelect.js" />
     <Content Include="scripts\esm\popper-utils.js" />
     <Content Include="scripts\esm\popper-utils.js.map" />
     <Content Include="scripts\esm\popper-utils.min.js" />

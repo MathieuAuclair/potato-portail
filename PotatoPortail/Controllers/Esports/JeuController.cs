@@ -68,7 +68,7 @@ namespace PotatoPortail.Controllers.eSports
      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")] Jeu jeu)
+        public ActionResult Creation([Bind(Include = "id,nomJeu,description,urlReference,abreviation,IdStatut")] Jeu jeu)
         {
             var jeuDuMemeNom = from tableJeu in _db.Jeu
                                where tableJeu.NomJeu.Equals(jeu.NomJeu, StringComparison.OrdinalIgnoreCase)
@@ -146,7 +146,7 @@ namespace PotatoPortail.Controllers.eSports
             return View(jeu);
         }
         [HttpPost]
-        public ActionResult EditItem([Bind(Include = "id,nomItem,CaracteristiqueId")] Item item)
+        public ActionResult EditItem([Bind(Include = "id,NomItem,IdCaracteristique")] Item item)
         {
             var caracteristique = _db.Caracteristique.Find(item.IdCaracteristique);
 
@@ -171,7 +171,7 @@ namespace PotatoPortail.Controllers.eSports
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "id,nomJeu,description,urlReference,abreviation,StatutId")] Jeu jeu)
+        public ActionResult Modifier([Bind(Include = "id,nomJeu,description,urlReference,abreviation,IdStatut")] Jeu jeu)
         {
             var caracteristiquesJeu = from c in _db.Caracteristique
                                       where c.IdJeu == jeu.Id
@@ -214,7 +214,7 @@ namespace PotatoPortail.Controllers.eSports
             }
 
             var equipeJeu = from e in _db.Equipe
-                             where e.IdJeu == id
+                             where (e.IdJeu == id) && (e.EstMonoJoueur == false)
                              select e;
 
             var jeu = _db.Jeu.Find(id);
