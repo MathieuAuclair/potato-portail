@@ -1,12 +1,12 @@
-﻿@model ApplicationPlanCadre.Models.Programme
-@using ApplicationPlanCadre.Models
+﻿@model PotatoPortail.Models.Programme
+@using PotatoPortail.Models
 @using System.Linq
 
 @{
 
-    ViewBag.Titre = "PDF " + Model.nom;
+    ViewBag.Titre = "PDF " + Model.Nom;
     <title>@ViewBag.Titre</title>
-    ViewBag.Nom = Model.nom;
+    ViewBag.Nom = Model.Nom;
     Layout = null;
 }
 
@@ -144,14 +144,14 @@
 
 
             <p class="nom">
-                @Html.DisplayFor(x => Model.nom)
+                @Html.DisplayFor(x => Model.Nom)
 
             </p>
             <br/>
             <div class="titre">
                 Identifiant :
                 <br/>
-                @Html.DisplayFor(x => Model.DevisMinistere.discipline)-@Html.DisplayFor(x => Model.DevisMinistere.codeSpecialisation)-@Html.DisplayFor(x => Model.annee)
+                @Html.DisplayFor(x => Model.DevisMinistere.Discipline)-@Html.DisplayFor(x => Model.DevisMinistere.CodeSpecialisation)-@Html.DisplayFor(x => Model.Annee)
 
             </div>
             <br/>
@@ -159,7 +159,7 @@
                 Spécialisation :
                 <br/>
                 <div class="specialisation">
-                    @Html.DisplayFor(x => Model.DevisMinistere.specialisation)
+                    @Html.DisplayFor(x => Model.DevisMinistere.Specialisation)
                 </div>
             </div>
             <br/>
@@ -170,7 +170,7 @@
                     Sanction
                     <br/>
                     <div class="data">
-                        @Html.DisplayFor(x => Model.DevisMinistere.sanction)
+                        @Html.DisplayFor(x => Model.DevisMinistere.Sanction)
                     </div>
                 </div>
                 <br/>
@@ -179,7 +179,7 @@
                     Nombre d'unités
                     <br/>
                     <div class="data">
-                        @Html.DisplayFor(x => Model.DevisMinistere.nbUnite) unités
+                        @Html.DisplayFor(x => Model.DevisMinistere.NbUnite) unités
                     </div>
                 </div>
                 <br/>
@@ -187,7 +187,7 @@
                     Condition d'admission
                     <br/>
                     <div class="data">
-                        @Html.DisplayFor(x => Model.DevisMinistere.condition)
+                        @Html.DisplayFor(x => Model.DevisMinistere.Condition)
                     </div>
                 </div>
             </div>
@@ -196,7 +196,7 @@
                     Heures de la formation géréral
                     <br/>
                     <div class="data">
-                        @Html.DisplayFor(x => Model.DevisMinistere.nbHeureFrmGenerale) h
+                        @Html.DisplayFor(x => Model.DevisMinistere.NbHeureFrmGenerale) h
                     </div>
                 </div>
                 <br/>
@@ -204,7 +204,7 @@
                     Heures de la formation spécifique
                     <br/>
                     <div class="data">
-                        @Html.DisplayFor(x => Model.DevisMinistere.nbHeureFrmSpecifique) h
+                        @Html.DisplayFor(x => Model.DevisMinistere.NbHeureFrmSpecifique) h
                     </div>
                 </div>
                 <br/>
@@ -242,7 +242,7 @@
                     @*<div class="contain">*@
                     <div style="width: 100%">
                         <span class="enonce">
-                            @Html.DisplayFor(x => enonceCmpt.codeCompetence) - @Html.DisplayFor(x => enonceCmpt.description)
+                            @Html.DisplayFor(x => enonceCmpt.CodeCompetence) - @Html.DisplayFor(x => enonceCmpt.Description)
                         </span>
                         <br/>
                         <br/>
@@ -253,10 +253,10 @@
 
                             @foreach (ContexteRealisation contexteReal in enonceCmpt.ContexteRealisation)
                             {
-                                if (enonceCmpt.idCompetence == contexteReal.idCompetence)
+                                if (enonceCmpt.IdCompetence == contexteReal.IdCompetence)
                                 {
                                     <li class="element">
-                                        @Html.DisplayFor(x => contexteReal.description)
+                                        @Html.DisplayFor(x => contexteReal.Description)
                                     </li>
                                 }
                             }
@@ -270,10 +270,10 @@
 
                             @foreach (ElementCompetence element in enonceCmpt.ElementCompetence)
                             {
-                                if (element.idCompetence == enonceCmpt.idCompetence)
+                                if (element.IdCompetence == enonceCmpt.IdCompetence)
                                 {
                                     <li class="element">
-                                        @Html.DisplayFor(x => element.description)
+                                        @Html.DisplayFor(x => element.Description)
                                     </li>
                                 }
                             }

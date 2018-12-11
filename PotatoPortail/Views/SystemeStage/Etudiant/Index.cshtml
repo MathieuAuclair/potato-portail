@@ -6,66 +6,69 @@
 }
 <div>
     <h1>Stagiaire</h1>
-    @Html.Partial("Widget/_FlatUiSearchBar", new FlatUiSearchBar())
-    <div style="margin-top: 15px; margin-bottom: 15px;">
-        <form action="/Etudiant/Creation" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Ajouter un nouveau stagiaire"))
-        </form>
+>
+    <div class="row">
+        <div class="col-md-13">
+            <table class="cool-table">
+                <tr>
+                    <th colspan="2">Nom</th>
+                    <th colspan="2">Courriel personnel</th>
+                    <th colspan="2">Courriel scolaire</th>
+                    <th colspan="1">Téléphone</th>
+                    <th colspan="2">Code permanent</th>
+                    <th colspan="1">Numéro DA</th>
+                    <th class="action-cell-header">Modifier</th>
+                    <th class="action-cell-header">Supprimer</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.Prenom) @Html.DisplayFor(model => item.NomDeFamille)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.CourrielPersonnel)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.CourrielEcole)
+                        </td>
+                        <td colspan="1">
+                            @Html.DisplayFor(model => item.Telephone)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(model => item.CodePermanent)
+                        </td>
+                        <td colspan="1">
+                            @Html.DisplayFor(model => item.NumeroDa)
+                        </td>
+
+                        <td class="action-cell">
+
+                            <a href='@Url.Action("ConsulterDossierEtudiant", "Etudiant", new { item.IdEtudiant })'>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                        <td  class="action-cell">
+                            <a href='@Url.Action("Suppression", "Etudiant", new { item.IdEtudiant })'>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Courriel personnel</th>
-            <th>Courriel scolaire</th>
-            <th>Téléphone</th>
-            <th>Code permanent</th>
-            <th>Numéro DA</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.Prenom) @Html.DisplayFor(model => item.NomDeFamille)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.CourrielPersonnel)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.CourrielEcole)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Telephone)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.CodePermanent)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.NumeroDa)
-                </td>
-                <td>
-                    <div>
-                        <form action="/Etudiant/Edition" method="post">
-                            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => item.IdEtudiant)" />
-                            <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-border_color-24px.svg" />
-                            </button>
-                            <input type="button" value="Supprimer" class="btn btn-default" onclick="location.href = '@Url.Action("Suppression", "Etudiant", new { id = item.IdEtudiant })'" />
-                        </form>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <form action="/Etudiant/ConsulterDossierEtudiant" method="post">
-                            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => item.IdEtudiant)"/>
-                            <button>
-                                <img alt="icon-edit" src="~/Content/Icons/baseline-search-24px.svg"/>
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Accueil/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+
+        <a class="fancy-button blanc" href="@Url.Action("Creation", "Etudiant")">
+            <span class="glyphicon glyphicon-plus"></span>
+            Ajouter un étudiant
+        </a>
+
+    </div>
 </div>

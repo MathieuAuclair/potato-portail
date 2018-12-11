@@ -177,7 +177,7 @@ namespace PotatoPortail.Controllers
 
             if (ModelState.IsValid && rolePresent && programmeRcp)
             {
-                string password = new PasswordGenerator().GeneratePassword(10);
+                string password = "Projet-2017"; // new PasswordGenerator().GeneratePassword(10);
                 var utilisateur = new ApplicationUser
                     {nom = model.Nom, prenom = model.Prenom, UserName = model.Email, Email = model.Email};
                 bool courrielEnvoyer = new MailHelper().SendActivationMail(utilisateur, password);
@@ -222,14 +222,14 @@ namespace PotatoPortail.Controllers
                 select accesProgramme.Discipline).ToList();
         }
 
-        public ActionResult Modifier(string utilisateurId)
+        public ActionResult Modifier(string Id)
         {
-            if (utilisateurId == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ApplicationUser utilisateur = UserManager.FindById(utilisateurId);
+            ApplicationUser utilisateur = UserManager.FindById(Id);
             if (utilisateur == null)
             {
                 return HttpNotFound();

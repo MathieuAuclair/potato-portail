@@ -4,34 +4,34 @@ using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers.SystemeStage
+namespace PotatoPortail.Controllers
 {
     public class PosteController : Controller
     {
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/SystemeStage/Poste/Index.cshtml", _bd.Poste.ToList());
+            return View("~/Views/SystemeStage/Poste/Index.cshtml",_db.Poste.ToList());
         }
 
         [HttpPost]
-        public ActionResult Edition(int? idPoste)
+        public ActionResult Modifier(int? IdPoste)
         {
-            if (idPoste == null)
+            if (IdPoste == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var poste = _bd.Poste.Find(idPoste);
+            var poste = _db.Poste.Find(IdPoste);
 
             if (poste == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return View("~/Views/SystemeStage/Poste/Edition.cshtml", poste);
+            return View("~/Views/SystemeStage/Poste/Modifier.cshtml",poste);
         }
 
         [HttpPost]
@@ -45,7 +45,7 @@ namespace PotatoPortail.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var poste = _bd.Poste.Find(idPoste);
+            var poste = _db.Poste.Find(idPoste);
 
             if (poste == null)
             {
@@ -53,20 +53,19 @@ namespace PotatoPortail.Controllers.SystemeStage
             }
 
             poste.Nom = nom;
-            _bd.SaveChanges();
+            _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Creation()
         {
             var poste = new Poste {Nom = "Nouveau poste"};
 
-            _bd.Poste.Add(poste);
-            _bd.SaveChanges();
+            _db.Poste.Add(poste);
+            _db.SaveChanges();
 
-            return View("~/Views/SystemeStage/Poste/Edition.cshtml", poste);
+            return View("~/Views/SystemeStage/Poste/Modifier.cshtml", poste);
         }
     }
 }

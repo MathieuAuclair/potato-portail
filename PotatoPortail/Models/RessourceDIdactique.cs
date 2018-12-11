@@ -6,13 +6,13 @@ namespace PotatoPortail.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("RessourceDIdactique")]
-    public partial class RessourceDIdactique
+    [Table("RessourceDidactique")]
+    public partial class RessourceDidactique
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RessourceDIdactique()
+        public RessourceDidactique()
         {
-            SousRessourceDidactique = new HashSet<SousRessourceDIdactique>();
+            SousRessourceDidactique = new HashSet<SousRessourceDidactique>();
         }
 
         [Key]
@@ -26,6 +26,6 @@ namespace PotatoPortail.Models
         public virtual PlanCadre PlanCadre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SousRessourceDIdactique> SousRessourceDidactique { get; set; }
+        public virtual ICollection<SousRessourceDidactique> SousRessourceDidactique { get; set; }
     }
 }

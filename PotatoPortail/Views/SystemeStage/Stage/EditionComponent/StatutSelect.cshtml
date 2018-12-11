@@ -1,0 +1,13 @@
+@model PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models.StatutSelect
+
+<div class="flat-select">
+    <p>Status</p>
+    <select name="idStatus">
+        <optgroup label="Value">
+            @foreach (var item in Model.Statut)
+            {
+                <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatutStage)</option>
+            }
+        </optgroup>
+    </select>
+</div>

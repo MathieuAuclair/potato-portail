@@ -25,7 +25,7 @@ namespace PotatoPortail.Controllers.eSports
 
             List<SelectListItem> lstJeu = new List<SelectListItem>
             {
-                new SelectListItem {Text = "Tous les Jeu", Value = "0"}
+                new SelectListItem {Text = "Tous les jeux", Value = "0"}
             };
             lstJeu.AddRange(Jeu.Select(jeu => new SelectListItem {Text = jeu.NomJeu + " (" + jeu.Statut.NomStatut + ")", Value = jeu.Id.ToString()}));
 
@@ -107,7 +107,7 @@ namespace PotatoPortail.Controllers.eSports
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomEquipe,JeuId,Entraineurs")] CreationEquipeViewModel equipeAAjouter, string[] entraineur, string button)
+        public ActionResult Creation([Bind(Include = "id,nomEquipe,IdJeu,Entraineurs")] CreationEquipeViewModel equipeAAjouter, string[] entraineur, string button)
         {
             PopulerListJeuActifs();
             PopulerEntraineurSelectList();

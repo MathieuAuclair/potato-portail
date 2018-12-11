@@ -29,7 +29,7 @@
             @foreach (var item in Model)
             {
 
-                <tr onclick="location.href ='@(Url.Action("Modifier", new { idUtilisateur = item.Id }))'">
+                <tr onclick="location.href ='@(Url.Action("Modifier", new { item.Id }))'">
                     <td>
                         @Html.DisplayFor(modelItem => item.prenom) @Html.DisplayFor(modelItem => item.nom)
                     </td>

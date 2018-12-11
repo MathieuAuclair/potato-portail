@@ -56,13 +56,13 @@ namespace PotatoPortail.Migrations
         public virtual DbSet<Profil> Profil { get; set; }
         public virtual DbSet<Programme> Programme { get; set; }
         public virtual DbSet<Rang> Rang { get; set; }
-        public virtual DbSet<RessourceDIdactique> RessourceDidactique { get; set; }
+        public virtual DbSet<RessourceDidactique> RessourceDidactique { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<SousActiviteApprentissage> SousActiviteApprentissage { get; set; }
         public virtual DbSet<SousElementConnaissance> SousElementConnaissance { get; set; }
         public virtual DbSet<SousEnvironnementPhysique> SousEnvironnementPhysique { get; set; }
         public virtual DbSet<SousPointSujet> SousPointSujet { get; set; }
-        public virtual DbSet<SousRessourceDIdactique> SousRessourceDidactique { get; set; }
+        public virtual DbSet<SousRessourceDidactique> SousRessourceDidactique { get; set; }
         public virtual DbSet<Stage> Stage { get; set; }
         public virtual DbSet<StatutPrealable> StatutPrealable { get; set; }
         public virtual DbSet<Statut> Statut { get; set; }
@@ -474,13 +474,13 @@ namespace PotatoPortail.Migrations
                 .WithRequired(e => e.Rang)
                 .HasForeignKey(e => e.IdRang);
 
-            modelBuilder.Entity<RessourceDIdactique>()
+            modelBuilder.Entity<RessourceDidactique>()
                 .Property(e => e.NomRessource)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<RessourceDIdactique>()
+            modelBuilder.Entity<RessourceDidactique>()
                 .HasMany(e => e.SousRessourceDidactique)
-                .WithRequired(e => e.RessourceDIdactique)
+                .WithRequired(e => e.RessourceDidactique)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Session>()
@@ -508,7 +508,7 @@ namespace PotatoPortail.Migrations
                 .Property(e => e.SujetSousPoint)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<SousRessourceDIdactique>()
+            modelBuilder.Entity<SousRessourceDidactique>()
                 .Property(e => e.NomSousRessource)
                 .IsUnicode(false);
 

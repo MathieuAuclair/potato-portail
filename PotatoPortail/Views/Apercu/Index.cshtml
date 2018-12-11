@@ -1,4 +1,4 @@
-﻿@model PotatoPortail.ViewModels.PlanCours.ApercuViewModel
+﻿@model PotatoPortail.ViewModels.ApercuViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -15,12 +15,17 @@
             <p>@Html.Raw(ViewBag.session)</p>
             <img src="@ViewBag.imageCegep" alt="CEGEP" style="width: 200px; height: 100px;"/><br><br>
 
-            @foreach (var section in Model.IndexSection)
+            @if (Model.IndexSection != null)
             {
-                <label>@Html.DisplayFor(Model => Model.TitreSection[section])</label>
-                <p>@Html.DisplayFor(Model => Model.TexteContenu[section])</p>
+                foreach (var section in Model.IndexSection)
+                {
+                    <label>Html.DisplayFor(Model => Model.TitreSection[section])</label>
+                    <p>Html.DisplayFor(Model => Model.TexteContenu[section])</p>
+                }
             }
         </div>
+        @if (Model.IndexSection != null)
+        {
         <div class="plan-cadre-table-container">
             <table class="plan-cadre-table">
                 <tr>
@@ -32,8 +37,8 @@
                 {
                     <tr>
                         <td style="width: 20%">
-                            <p>@Html.DisplayFor(m => enonceCompetence.Description) (@Html.DisplayFor(m => enonceCompetence.CodeCompetence))</p>
-                            <p>@Html.DisplayFor(m => m.PonderationEnHeure) heures</p>
+                            <p>Html.DisplayFor(m => enonceCompetence.Description) (Html.DisplayFor(m => enonceCompetence.CodeCompetence))</p>
+                            <p>Html.DisplayFor(m => m.PonderationEnHeure) heures</p>
                         </td>
                         <td style="width: 45%">
                             <ul class="hyphen-list">
@@ -41,7 +46,7 @@
                                 {
                                     if (elementCompetence.IdCompetence == enonceCompetence.IdCompetence)
                                     {
-                                        <li>@Html.DisplayFor(m => elementCompetence.Description)</li>
+                                        <li>Html.DisplayFor(m => elementCompetence.Description)</li>
                                     }
                                 }
                             </ul>
@@ -58,7 +63,7 @@
                             {
                                 if (planCadreCompetence.IdCompetence == enonce.IdCompetence)
                                 {
-                                    <p>@Html.DisplayFor(m => enonce.Description) (@Html.DisplayFor(m => enonce.CodeCompetence))</p>
+                                    <p>Html.DisplayFor(m => enonce.Description) (Html.DisplayFor(m => enonce.CodeCompetence))</p>
                                 }
                             }
                         </th>
@@ -86,7 +91,7 @@
                             <tr>
                                 <td style="width: 15%">
                                     <ol start="@elementCompetence.Numero">
-                                        <li> @Html.DisplayFor(m => elementCompetence.Description)</li>
+                                        <li> Html.DisplayFor(m => elementCompetence.Description)</li>
                                     </ol>
                                 </td>
                                 @{
@@ -175,7 +180,7 @@
                     </th>
                 </tr>
             </table>
-        </div>
+        </div>}
         <div class="menu-flottant">
             <a class="fancy-button blanc" href="@Url.Action("", "")"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
         </div>

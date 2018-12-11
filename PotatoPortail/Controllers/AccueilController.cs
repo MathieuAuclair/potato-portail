@@ -44,5 +44,9 @@ namespace PotatoPortail.Controllers
         {
             return View();
         }
+        public ActionResult Stage()
+        {
+            return View();
+        }
     }
 }

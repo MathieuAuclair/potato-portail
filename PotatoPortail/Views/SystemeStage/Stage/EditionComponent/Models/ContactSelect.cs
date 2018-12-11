@@ -8,11 +8,11 @@ namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
     public class ContactSelect
     {
         public List<Contact> Contacts { get; set; }
-        private readonly BdPortail _bd = new BdPortail();
+        private readonly BdPortail _db = new BdPortail();
 
         public ContactSelect()
         {
-            Contacts = _bd.Contact.ToList();
+            Contacts = _db.Contact.ToList();
         }
     }
 }

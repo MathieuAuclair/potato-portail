@@ -6,8 +6,8 @@ namespace PotatoPortail.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("SousRessourceDIdactique")]
-    public partial class SousRessourceDIdactique
+    [Table("SousRessourceDidactique")]
+    public partial class SousRessourceDidactique
     {
         [Key]
         public int IdSousRessource { get; set; }
@@ -17,6 +17,6 @@ namespace PotatoPortail.Models
 
         public int IdRessource { get; set; }
 
-        public virtual RessourceDIdactique RessourceDIdactique { get; set; }
+        public virtual RessourceDidactique RessourceDidactique { get; set; }
     }
 }

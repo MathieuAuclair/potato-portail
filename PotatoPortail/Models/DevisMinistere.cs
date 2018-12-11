@@ -28,7 +28,7 @@ namespace PotatoPortail.Models
         [StringLength(3)]
         public string CodeSpecialisation { get; set; }
 
-        [StringLength(30)]
+        [StringLength(100)]
         public string Specialisation { get; set; }
 
         [StringLength(6)]
@@ -41,10 +41,10 @@ namespace PotatoPortail.Models
         [StringLength(300)]
         public string Condition { get; set; }
 
-        [StringLength(50)]
+        [StringLength(150)]
         public string Sanction { get; set; }
 
-        [StringLength(200)]
+        [StringLength(250)]
         public string DocMinistere { get; set; }
 
         [Required]

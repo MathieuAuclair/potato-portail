@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 using PotatoPortail.Models.Plan_Cours;
+using PotatoPortail.Toast;
 using PotatoPortail.ViewModels;
 
 namespace PotatoPortail.Controllers.PlanCours
@@ -23,7 +24,6 @@ namespace PotatoPortail.Controllers.PlanCours
         
         public ActionResult Index(ApercuPlanCours apercu, int? id)
         {
-            if (apercu == null) return new HttpNotFoundResult(nameof(apercu));
             viewModel = new ApercuViewModel();
             var courrielConnexion = User.Identity.Name;
             var requete = from acces in _db.AccesProgramme
@@ -63,40 +63,43 @@ namespace PotatoPortail.Controllers.PlanCours
             viewModel.MainPageViewModel.ContenuSection = _db.ContenuSection.ToList();
             viewModel.MainPageViewModel.NomSection = _db.NomSection.ToList();
             apercu = GetUser(Convert.ToInt32(id));
-            List<PlanCoursDepart> pcd = new List<PlanCoursDepart>();
-            ViewBag.courrielProf = apercu.CourrielProf;
-            ViewBag.imageCegep = VirtualPathUtility.ToAbsolute(apercu.ImageCegep);
-            ViewBag.imageDepart = VirtualPathUtility.ToAbsolute(apercu.ImageDepart);
-            ViewBag.phrase = apercu.Phrase;
-            ViewBag.infosCours = CreationInfoCours(Convert.ToInt32(idPlanCadre.First()));
-            ViewBag.infosProf = apercu.InfosProf;
-            ViewBag.LocalProf = apercu.LocalProf;
-            ViewBag.session = apercu.Session;
-            viewModel.TexteContenu = new string[15];
-            viewModel.TitreSection = new string[15];
-            var listeSection = RetourneSection(requete.First(), Convert.ToInt32(id));
-            viewModel.IndexSection = listeSection;
-            foreach(var section in listeSection)
+            if (apercu != null)
             {
-                try
+                List<PlanCoursDepart> pcd = new List<PlanCoursDepart>();
+                ViewBag.courrielProf = apercu.CourrielProf;
+                ViewBag.imageCegep = VirtualPathUtility.ToAbsolute(apercu.ImageCegep);
+                ViewBag.imageDepart = VirtualPathUtility.ToAbsolute(apercu.ImageDepart);
+                ViewBag.phrase = apercu.Phrase;
+                ViewBag.infosCours = CreationInfoCours(Convert.ToInt32(idPlanCadre.First()));
+                ViewBag.infosProf = apercu.InfosProf;
+                ViewBag.LocalProf = apercu.LocalProf;
+                ViewBag.session = apercu.Session;
+                viewModel.TexteContenu = new string[15];
+                viewModel.TitreSection = new string[15];
+                var listeSection = RetourneSection(requete.First(), Convert.ToInt32(id));
+                viewModel.IndexSection = listeSection;
+                foreach (var section in listeSection)
                 {
-                    var texte = CreationSectionDepart(Convert.ToInt32(id), section, requete.First());
-                    viewModel.TexteContenu[section] = texte;
-                    var titre = CreationTitreSection(Convert.ToInt32(id), section);
-                    viewModel.TitreSection[section] = titre;
-                }
-                catch (Exception)
-                {
-                    var textecontenu = CreationSectionDefaut(Convert.ToInt32(id), section, requete.First());
-                    viewModel.TexteContenu[section] = textecontenu;
-                    var titreSection = CreationTitreSection(Convert.ToInt32(id), section);
-                    viewModel.TitreSection[section] = titreSection;
-                }
+                    try
+                    {
+                        var texte = CreationSectionDepart(Convert.ToInt32(id), section, requete.First());
+                        viewModel.TexteContenu[section] = texte;
+                        var titre = CreationTitreSection(Convert.ToInt32(id), section);
+                        viewModel.TitreSection[section] = titre;
+                    }
+                    catch (Exception)
+                    {
+                        var textecontenu = CreationSectionDefaut(Convert.ToInt32(id), section, requete.First());
+                        viewModel.TexteContenu[section] = textecontenu;
+                        var titreSection = CreationTitreSection(Convert.ToInt32(id), section);
+                        viewModel.TitreSection[section] = titreSection;
+                    }
 
-            }
+                }
 
                 CreationEnonceCompetence(viewModel, (int)id);
-
+            }
+            else { this.AddToastMessage("Attention", "Aucun plan cours n'est associé à votre compte", ToastType.Warning); }
 
             return View(viewModel);
         }
@@ -325,6 +328,7 @@ namespace PotatoPortail.Controllers.PlanCours
                         where user.IdPlanCours == id
                         select user;
 
+            if (!query.Any()) { return null; }
             var planCoursUser = query.First();
             var utilisateur = HttpContext.GetOwinContext()
             .GetUserManager<ApplicationUserManager>()
