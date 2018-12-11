@@ -1,26 +1,24 @@
-﻿@model PotatoPortail.ViewModels.MainPageViewModel
+﻿@using PotatoPortail.Models
+@using Microsoft.Ajax.Utilities
+@model PotatoPortail.ViewModels.MainPageViewModel
 @{
     ViewBag.Title = "Index";
 }
+
 <div class="tree-view ps" style="min-width: 275px;">
     <div class="tree-view-item">
-        <div class="collapse-button" data-toggle="collapse" data-target="#1">
-            <span style="display: block;" class="glyphicon glyphicon-chevron-right"></span>
-        </div>
+        <div class="collapse-button" data-toggle="collapse" data-target="#1"><span style="display:block;" class="glyphicon glyphicon-chevron-right"></span></div>
         <p style="margin: auto auto auto auto; display: block;">Plans de cours</p>
     </div>
     <div id="1" class="collapse">
         <div class="tree-view-item-container">
-            @{
-                var i = 1000;
+            @{var i = 1000;
                 foreach (var item in Model.PlanCours)
                 {
                     i++;
                     <div class="tree-view-item" style="vertical-align: middle; padding: 7px 7px 7px 7px;">
-                        <div class="collapse-button" data-toggle="collapse" data-target="#@i" style="max-height: 30px;">
-                            <span style="display: block;" class="glyphicon glyphicon-chevron-right"></span>
-                        </div>
-                        <a class="col-md-4" href="@Url.Action("Index", "Apercu", new {id = item.IdPlanCours})">
+                        <div class="collapse-button" data-toggle="collapse" data-target="#@i" style="max-height: 30px;"><span style="display:block;" class="glyphicon glyphicon-chevron-right"></span></div>
+                        <a class="col-md-4" href="@Url.Action("Index","Apercu", new {id = item.IdPlanCours})">
                             <div id="historique">
                                 @Html.DisplayFor(modelItem => item.DateCreation)
                             </div>
@@ -30,35 +28,35 @@
                         </a>
                         @if (User.IsInRole("RCD") || User.IsInRole("Enseignant"))
                         {
-                            <a class="fancy-button col-md-5 col-md-offset-2" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px; margin-top: auto; margin-bottom: auto;" href="@Url.Action("Create", "Section", new {idPlancours = item.IdPlanCours})"><span class="glyphicon glyphicon-plus"></span> Section</a>
+                            <a class="fancy-button col-md-5 col-md-offset-2" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px; margin-top: auto; margin-bottom: auto;" href="@Url.Action("Create", "Section", new { idPlancours = item.IdPlanCours })"><span class="glyphicon glyphicon-plus"></span> Section</a>
+
                         }
                     </div>
+
                     <div id="@i" class="collapse">
                         @foreach (var texteSection in item.ContenuSection)
                         {
                             <div class="tree-view-item">
-                                @{
-                                    var nomSection = Model.NomSection.First(x => x.IdNomSection == texteSection.IdNomSection);
+                                @{var nomSection = Model.NomSection.First(x => x.IdNomSection == texteSection.NomSection.IdNomSection);
                                     if (nomSection != null)
                                     {
                                         <div class="col-md-11 col-md-offset-1">
                                             @Html.DisplayFor(modelItem => nomSection.TitreSection)
                                         </div>
-                                    }
-                                }
+                                    }}
                             </div>
                         }
                     </div>
-                }
-            }
+                }}
         </div>
     </div>
 
     @if (User.IsInRole("RCD") || User.IsInRole("Enseignant"))
     {
-        <hr class="end-div"/>
+        <hr class="end-div" />
         <a class="fancy-button" href="@Url.Action("Create", "Apercu")"> Nouveau</a>
     }
+
 </div>
 <script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
 <script>
