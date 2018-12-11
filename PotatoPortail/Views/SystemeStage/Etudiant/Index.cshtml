@@ -17,44 +17,50 @@
                     <th colspan="1">Téléphone</th>
                     <th colspan="2">Code permanent</th>
                     <th colspan="1">Numéro DA</th>
+                    <th colspan="1">Details</th>
                     <th class="action-cell-header">Modifier</th>
                     <th class="action-cell-header">Supprimer</th>
                 </tr>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.Prenom) @Html.DisplayFor(model => item.NomDeFamille)
-                        </td>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.CourrielPersonnel)
-                        </td>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.CourrielEcole)
-                        </td>
-                        <td colspan="1">
-                            @Html.DisplayFor(model => item.Telephone)
-                        </td>
-                        <td colspan="2">
-                            @Html.DisplayFor(model => item.CodePermanent)
-                        </td>
-                        <td colspan="1">
-                            @Html.DisplayFor(model => item.NumeroDa)
-                        </td>
+                <tr>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => item.Prenom) @Html.DisplayFor(model => item.NomDeFamille)
+                    </td>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => item.CourrielPersonnel)
+                    </td>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => item.CourrielEcole)
+                    </td>
+                    <td colspan="1">
+                        @Html.DisplayFor(model => item.Telephone)
+                    </td>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => item.CodePermanent)
+                    </td>
+                    <td colspan="1">
+                        @Html.DisplayFor(model => item.NumeroDa)
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("ConsulterDossierEtudiant", "Etudiant", new { item.IdEtudiant })'>
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
+                    </td>
 
-                        <td class="action-cell">
+                    <td class="action-cell">
 
-                            <a href='@Url.Action("ConsulterDossierEtudiant", "Etudiant", new { item.IdEtudiant })'>
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </td>
-                        <td class="action-cell">
-                            <a href='@Url.Action("Suppression", "Etudiant", new { item.IdEtudiant })'>
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                        </td>
+                        <a href='@Url.Action("Modifier", "Etudiant", new { item.IdEtudiant })'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                    <td class="action-cell">
+                        <a href='@Url.Action("Suppression", "Etudiant", new { item.IdEtudiant })'>
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
 
-                    </tr>
+                </tr>
                 }
             </table>
         </div>

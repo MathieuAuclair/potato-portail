@@ -34,7 +34,7 @@ namespace PotatoPortail.Controllers
         [HttpPost]
         public ActionResult EnregistrerLesModifications(
             int? IdStatutStage,
-            string nom
+            string NomStatutStage
         )
         {
             if (IdStatutStage == null)
@@ -49,7 +49,7 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            statut.NomStatutStage = nom;
+            statut.NomStatutStage = NomStatutStage;
             _db.SaveChanges();
 
             return RedirectToAction("Index");

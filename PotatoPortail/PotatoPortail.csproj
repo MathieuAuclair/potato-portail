@@ -379,6 +379,8 @@
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extend.css" />
@@ -397,6 +399,7 @@
     <Content Include="Content\Images\portail-logo.png" />
     <Content Include="Content\Images\watermark.png" />
     <Content Include="Content\material-icons.css" />
+    <Content Include="Content\menu.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\structure.css" />
     <Content Include="Content\superview.css" />
@@ -462,6 +465,8 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
