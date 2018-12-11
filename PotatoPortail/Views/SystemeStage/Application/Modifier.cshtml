@@ -1,12 +1,13 @@
-﻿@model SysInternshipManagement.Models.Application
+﻿@model IEnumerable<PotatoPortail.Models.Application>
+@using PotatoPortail.Views.Shared.Widget.Model
 
-<h2>Modifier</h2>
+    <h2>Modifier</h2>
 
 
-@using (Html.BeginForm())
-{
+    @using (Html.BeginForm())
+    {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Application</h4>
         <hr />
@@ -27,12 +28,15 @@
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Application/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+    </div>
 
-@section Scripts {
+    @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+    }

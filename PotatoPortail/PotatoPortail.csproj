@@ -653,6 +653,7 @@
     <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
     <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\OrdreDuJour\ModifierModeleOrdreDuJour.cshtml" />
+    <Content Include="Views\SystemeStage\Application\Modifier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
