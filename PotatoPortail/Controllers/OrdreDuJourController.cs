@@ -322,6 +322,9 @@ namespace PotatoPortail.Controllers
             var programme = GetProgramme();
             var numProg = Convert.ToInt32(programme.First().Discipline);
             var listeOrdreDuJour = GetOrdreDuJourSelonModele(numProg);
+
+            //if (User.IsInRole("RCD") && User.IsInRole("RCP")) return View();
+            
             ViewBag.role = User.IsInRole("RCD") ? "RCD" : "RCP";
             ViewBag.programme = GetProgramme().First().Discipline;
 
@@ -381,6 +384,11 @@ namespace PotatoPortail.Controllers
             this.AddToastMessage("Modèle enregistré", "Le modèle a bien été enregistré.",
                 ToastType.Success);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ChoixRole()
+        {
+            return View();
         }
 
         public ActionResult Info(int? id, int year)
