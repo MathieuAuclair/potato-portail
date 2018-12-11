@@ -1,0 +1,77 @@
+﻿@* Vue Environnement Physique *@
+
+@model PotatoPortail.ViewModels.PlanCadre.EnvironnementPhysiqueViewModel
+@{
+    ViewBag.Titre = "Ajout d'environnements physiques";
+    ViewBag.ListIdEnvironnementPhysique = new List<int>();
+    foreach (var environnementPhysique in Model.EnvironnementSousEnvironnements)
+    {
+        ViewBag.ListIdEnvironnementPhysique.Add(environnementPhysique.SousEnvironnementPhysiques.Count);
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/ajoutEnvironnement.js" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div id="formEnvironnement" class="container">
+        <div class="form-box ">
+
+            <header class="light-header">
+                <h1>@ViewBag.Titre</h1>
+                @Html.HiddenFor(model => model.IdPlanCadre)
+            </header>
+
+            @if (Model.EnvironnementSousEnvironnements.Any())
+            {
+                for (var indexEnvironnement = 0; indexEnvironnement < Model.EnvironnementSousEnvironnements.Count; indexEnvironnement++)
+                {
+                    <div class="form-group" id="ap@(indexEnvironnement)">
+                        @Html.TextBoxFor(m => Model.EnvironnementSousEnvironnements[indexEnvironnement].EnvironnementPhysique.NomEnvPhys, htmlAttributes: new { @class = "form-control inline" })
+                        @Html.HiddenFor(m => m.EnvironnementSousEnvironnements[indexEnvironnement].EnvironnementPhysique.IdEnvPhysique)
+                        @Html.ValidationMessageFor(m => m.EnvironnementSousEnvironnements[indexEnvironnement].EnvironnementPhysique.NomEnvPhys, "", new { @class = "text-danger" })
+
+                        <a class="fancy-button rouge vertical-align margin-left" id="btnMoins@(indexEnvironnement)" onclick="enleverAPrincipal(this.id, @indexEnvironnement)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <ul id="listSP0">
+
+                            @for (var indexSousEnvironnement = 0; indexSousEnvironnement < Model.EnvironnementSousEnvironnements[indexEnvironnement].SousEnvironnementPhysiques.Count; indexSousEnvironnement++)
+                            {
+                                <li class="form-group" id="ap@(indexEnvironnement)li@(indexSousEnvironnement)">
+                                    @Html.TextBoxFor(m => Model.EnvironnementSousEnvironnements[indexEnvironnement].SousEnvironnementPhysiques[indexSousEnvironnement].NomSousEnvPhys, htmlAttributes: new { @class = "form-control medium inline" })
+                                    @Html.HiddenFor(m => m.EnvironnementSousEnvironnements[indexEnvironnement].SousEnvironnementPhysiques[indexSousEnvironnement].IdSousEnvPhys)
+                                    @Html.ValidationMessageFor(m => m.EnvironnementSousEnvironnements[indexEnvironnement].SousEnvironnementPhysiques[indexSousEnvironnement].NomSousEnvPhys, "", new { @class = "text-danger" })
+                                    <a class="fancy-button rouge vertical-align margin-left" id="btnMoins@(indexEnvironnement)_@(indexSousEnvironnement)" onclick="enleverSEnvironnement(@indexEnvironnement, @indexSousEnvironnement)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </li>
+                            }
+                            <a class="fancy-button" id="btnPlus@(indexEnvironnement)" onclick="ajoutSEnvironnement(this.id, @indexEnvironnement)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Ajouter un sous-environnement
+                            </a>
+                        </ul>
+                    </div>
+                }
+            }
+
+            <div class="form-group">
+                <input id="ajoutAP" type="button" onclick="ajoutAPrincipal(this.id, 1)" value="Ajouter un environnement physique" class="fancy-button" />
+            </div>
+            <input type="submit" value="Enregistrer" class="fancy-button" />
+            <a class="fancy-button rouge" href='@Url.Action("Structure", "PlanCadre", new { Model.IdPlanCadre })'>Annuler</a>
+        </div>
+    </div>
+    <script>
+        var idEnvironnement = @Model.EnvironnementSousEnvironnements.Count;
+        var ListIdEnvironnementPhysique = new Array();
+        var array = @Html.Raw(Json.Encode(@ViewBag.ListIdEnvironnementPhysique));
+        for (var i = 0; i < array.length; i++) {
+            ListIdEnvironnementPhysique.push(array[i]);
+        }
+
+    </script>
+}

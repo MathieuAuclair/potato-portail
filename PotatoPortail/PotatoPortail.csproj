@@ -198,6 +198,7 @@
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccueilController.cs" />
+    <Compile Include="Controllers\ActiviteApprentissageController.cs" />
     <Compile Include="Controllers\CompteController.cs" />
     <Compile Include="Controllers\ConsoleDevisMinistereController.cs" />
     <Compile Include="Controllers\ConsoleProgrammeController.cs" />
@@ -206,7 +207,9 @@
     <Compile Include="Controllers\CriterePerformanceController.cs" />
     <Compile Include="Controllers\DevisMinistereController.cs" />
     <Compile Include="Controllers\ElementCompetenceController.cs" />
+    <Compile Include="Controllers\ElementConnaissanceController.cs" />
     <Compile Include="Controllers\EnonceCompetenceController.cs" />
+    <Compile Include="Controllers\EnvironnementPhysiqueController.cs" />
     <Compile Include="Controllers\eSports\CaracteristiqueController.cs" />
     <Compile Include="Controllers\eSports\EntraineurController.cs" />
     <Compile Include="Controllers\eSports\EquipeController.cs" />
@@ -225,6 +228,7 @@
     <Compile Include="Controllers\ProgrammeController.cs" />
     <Compile Include="Controllers\RapportController.cs" />
     <Compile Include="Controllers\RechercheController.cs" />
+    <Compile Include="Controllers\RessourceDidactiqueController.cs" />
     <Compile Include="Controllers\SystemeStage\ApplicationController.cs" />
     <Compile Include="Controllers\SystemeStage\ContactController.cs" />
     <Compile Include="Controllers\SystemeStage\EntrepriseController.cs" />
@@ -247,6 +251,14 @@
     <Compile Include="Migrations\201812100038156_InitContext.cs" />
     <Compile Include="Migrations\201812100038156_InitContext.Designer.cs">
       <DependentUpon>201812100038156_InitContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812110004251_MigrationPlanCadre.cs" />
+    <Compile Include="Migrations\201812110004251_MigrationPlanCadre.Designer.cs">
+      <DependentUpon>201812110004251_MigrationPlanCadre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812110104175_MigrationPlanCadre2.cs" />
+    <Compile Include="Migrations\201812110104175_MigrationPlanCadre2.Designer.cs">
+      <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
@@ -299,7 +311,7 @@
     <Compile Include="Models\eSports\Profil.cs" />
     <Compile Include="Models\Programme.cs" />
     <Compile Include="Models\eSports\Rang.cs" />
-    <Compile Include="Models\RessourceDIdactique.cs" />
+    <Compile Include="Models\RessourceDidactique.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\SousActiviteApprentissage.cs" />
     <Compile Include="Models\SousElementConnaissance.cs" />
@@ -319,6 +331,7 @@
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
     <Compile Include="ViewModels\ApercuViewModel.cs" />
+    <Compile Include="ViewModels\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\CreatePlanCadreViewModel.cs" />
     <Compile Include="ViewModels\eSports\EditerJoueurViewModel.cs" />
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
@@ -330,6 +343,9 @@
     <Compile Include="ViewModels\PageTitreViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\ActiviteViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\CompetenceViewModel.cs" />
+    <Compile Include="ViewModels\PlanCadre\DidactiqueViewModel.cs" />
+    <Compile Include="ViewModels\PlanCadre\ElementConnaissanceViewModel.cs" />
+    <Compile Include="ViewModels\PlanCadre\EnvironnementPhysiqueViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\StructureViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\apercuViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\CompetenceViewModel.cs" />
@@ -412,6 +428,7 @@
     <Content Include="scripts\bootstrap.js.map" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\bootstrap.min.js.map" />
+    <Content Include="scripts\equipeSelect.js" />
     <Content Include="scripts\esm\popper-utils.js" />
     <Content Include="scripts\esm\popper-utils.js.map" />
     <Content Include="scripts\esm\popper-utils.min.js" />
@@ -653,6 +670,14 @@
     <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
     <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\OrdreDuJour\ModifierModeleOrdreDuJour.cshtml" />
+    <Content Include="Views\PlanCadre\Choix.cshtml" />
+    <Content Include="Views\PlanCadre\Creation.cshtml" />
+    <Content Include="Views\PlanCadre\GetElement.cshtml" />
+    <Content Include="Views\PlanCadre\Structure.cshtml" />
+    <Content Include="Views\ActiviteApprentissage\CreationModification.cshtml" />
+    <Content Include="Views\ElementConnaissance\CreationModification.cshtml" />
+    <Content Include="Views\EnvironnementPhysique\CreationModification.cshtml" />
+    <Content Include="Views\RessourceDidactique\CreationModification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -661,6 +686,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812100038156_InitContext.resx">
       <DependentUpon>201812100038156_InitContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812110004251_MigrationPlanCadre.resx">
+      <DependentUpon>201812110004251_MigrationPlanCadre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812110104175_MigrationPlanCadre2.resx">
+      <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

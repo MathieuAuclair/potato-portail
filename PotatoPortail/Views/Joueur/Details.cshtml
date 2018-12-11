@@ -6,23 +6,23 @@
 <div class="container">
     <div class="box">
         <header class="light-header">
-            <h3>Informations de joueur pour @Model.MembreESports.nomComplet (@Model.JeuEquipeMonojoueur)</h3>
+            <h3>Informations de joueur pour @Model.MembreESports.NomComplet (@Model.JeuEquipeMonojoueur)</h3>
         </header>
         @if (Model.NombreJeuJoueur > 1)
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.NombreJeuJoueur Jeu.</h3>
+            <h3>@Model.MembreESports.NomComplet est actuellement inscrit à @Model.NombreJeuJoueur jeux.</h3>
         }
         else if (Model.NombreJeuJoueur == 1)
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à @Model.NombreJeuJoueur jeu.</h3>
+            <h3>@Model.MembreESports.NomComplet est actuellement inscrit à @Model.NombreJeuJoueur jeu.</h3>
         }
         else
         {
-            <h3>@Model.MembreESports.nomComplet est actuellement inscrit à aucun jeu.</h3>
+            <h3>@Model.MembreESports.NomComplet est actuellement inscrit à aucun jeu.</h3>
         }
         <div class="element">
             @Html.Label("Nom du joueur")
-            @Html.DisplayFor(model => model.MembreESports.nomComplet)
+            @Html.DisplayFor(model => model.MembreESports.NomComplet)
         </div>
         <div class="element">
             @Html.LabelFor(model => model.PseudoJoueur)

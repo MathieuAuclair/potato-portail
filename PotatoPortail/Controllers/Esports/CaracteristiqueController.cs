@@ -43,17 +43,24 @@ namespace PotatoPortail.Controllers.Esports
 
             ViewBag.nomJeu = nomJeu;
 
-            return View();
+            Caracteristique carac = new Caracteristique
+            {
+                IdJeu = jeu.Id
+            };
+
+
+
+            return View(carac);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creation([Bind(Include = "id,nomCaracteristique,JeuId")]
+        public ActionResult Creation([Bind(Include = "id,nomCaracteristique,IdJeu")]
             Caracteristique caracteristique)
         {
             if (!ModelState.IsValid) return View(caracteristique);
-            var jeu = _db.Jeu.Find(caracteristique.IdJeu);
 
+            var jeu = _db.Jeu.Find(caracteristique.IdJeu);
 
             if (jeu == null)
             {
@@ -90,7 +97,8 @@ namespace PotatoPortail.Controllers.Esports
         public ActionResult Modifier([Bind(Include = "id,nomCaracteristique,JeuId")]
             Caracteristique caracteristique)
         {
-            if (ModelState.IsValid)
+/*
+            if (!ModelState.IsValid)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -105,6 +113,16 @@ namespace PotatoPortail.Controllers.Esports
             _db.Entry(caracteristique).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("Modifier", "Jeu", new {jeu.Id, jeu.NomJeu});
+            */
+            if (ModelState.IsValid)
+            {
+                Jeu jeu = _db.Jeu.Find(caracteristique.IdJeu);
+                caracteristique.IdJeu = jeu.Id;
+                _db.Entry(caracteristique).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Modifier", "Jeu", new { jeu.Id, jeu.NomJeu });
+            }
+            return View(caracteristique);
         }
 
         public ActionResult Supprimer(int? id, string nomJeu)
@@ -148,9 +166,6 @@ namespace PotatoPortail.Controllers.Esports
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
-            _db.Caracteristique.Remove(caracteristique);
-            _db.SaveChanges();
 
             _db.Caracteristique.Remove(caracteristique);
             _db.SaveChanges();

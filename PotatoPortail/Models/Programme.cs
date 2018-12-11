@@ -18,7 +18,7 @@ namespace PotatoPortail.Models
         [Key]
         public int IdProgramme { get; set; }
 
-        [StringLength(50)]
+        [StringLength(200)]
         public string Nom { get; set; }
 
         [Required]

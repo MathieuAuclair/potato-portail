@@ -74,7 +74,7 @@ namespace PotatoPortail.Controllers.eSports
                              where tableJeu.Statut.NomStatut == "Actif"
                              select tableJeu;
 
-            var lstEtudiants = _db.MembreESports.Select(membreESports => new SelectListItem {Text = membreESports.NomComplet, Value = membreESports.Id}).ToList();
+            var lstEtudiants = _db.MembreESports.Select(membreESports => new SelectListItem {Text = membreESports.Prenom + " " + membreESports.Nom, Value = membreESports.Id}).ToList();
 
             lstJeuSecondaires.Add(new SelectListItem { Text = "----------------------------", Value = 0.ToString() });
 
@@ -102,7 +102,7 @@ namespace PotatoPortail.Controllers.eSports
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Inscription([Bind(Include = "id,pseudo,courriel,note,JeuId,estArchive,JeuSecondaireId")] Profil profil)
+        public ActionResult Inscription([Bind(Include = "id,pseudo,courriel,note,IdJeu,estArchive,IdJeuSecondaire")] Profil profil)
         {
             var utilisateurId = User.Identity.GetUserId();
 
@@ -159,7 +159,7 @@ namespace PotatoPortail.Controllers.eSports
                              where j.Statut.NomStatut == "Actif"
                              select j;
 
-            var lstEtudiants = _db.MembreESports.Select(etudiant => new SelectListItem {Text = etudiant.NomComplet, Value = etudiant.Id}).ToList();
+            var lstEtudiants = _db.MembreESports.Select(etudiant => new SelectListItem {Text = etudiant.Prenom + " " + etudiant.Nom, Value = etudiant.Id}).ToList();
 
             lstJeuSecondaires.Add(new SelectListItem { Text = "----------------------------", Value = 0.ToString() });
 

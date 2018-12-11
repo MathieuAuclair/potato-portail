@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationPlanCadre.Models;
+using PotatoPortail.Models;
 
-namespace ApplicationPlanCadre.ViewModels
+namespace PotatoPortail.ViewModels
 {
     public class CompetenceViewModel
     {
@@ -19,7 +19,7 @@ namespace ApplicationPlanCadre.ViewModels
         public string titreCours { get; set; }
         public string indicationPedago { get; set; }
 		public virtual int idPlanCadre { get; set; }
-        public virtual PlanCadre PlanCadre { get; set; }
+        public virtual Models.PlanCadre PlanCadre { get; set; }
         public virtual IEnumerable<string> codeCompetences { get; set; }
         public virtual IEnumerable<int> idElements { get; set; }
         public virtual IEnumerable<string> description { get; set; }

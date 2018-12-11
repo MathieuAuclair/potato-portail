@@ -9,11 +9,11 @@
 <header class="light-header">
 @if (Model.JeuSecondaire != null)
 {
-    <h3>Informations de l'inscription de @Model.MembreESports.nomComplet pour «@Model.Jeu.NomJeu» et «@Model.JeuSecondaire.NomJeu»</h3>
+    <h3>Informations de l'inscription de @Model.MembreESports.NomComplet pour «@Model.Jeu.NomJeu» et «@Model.JeuSecondaire.NomJeu»</h3>
 }
 else
 {
-    <h3>Informations de l'inscription de @Model.MembreESports.nomComplet pour «@Model.Jeu.NomJeu»</h3>
+    <h3>Informations de l'inscription de @Model.MembreESports.NomComplet pour «@Model.Jeu.NomJeu»</h3>
 }
 </header>
 <div>
@@ -29,7 +29,7 @@ else
         }
         else
         {
-            @:Aucune information supplémentaire n'a été entrée par @Model.MembreESports.nomComplet
+            @:Aucune information supplémentaire n'a été entrée par @Model.MembreESports.NomComplet
         }
     </div>
     <div class="element">
