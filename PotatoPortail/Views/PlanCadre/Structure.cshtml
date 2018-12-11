@@ -1,0 +1,60 @@
+﻿@using PotatoPortail.Models
+@using PotatoPortail.ViewModels.PlanCadre
+@model PotatoPortail.ViewModels.PlanCadre.StructureViewModel
+@{
+    ViewBag.Title = "Structure du plan cadre: " + Model.PlanCadre.TitreCours;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="box">
+
+        <header class="light-header">
+
+            <h1>@ViewBag.Title</h1>
+
+        </header>
+
+        @foreach (var elementEnonce in Model.ElementEnoncePlanCadres)
+        {
+            <table class="cool-table" style="margin-top: 25px;">
+                <tr>
+                    <th>
+                        @Html.Raw(elementEnonce.EnonceCompetence.CodeCompetence + " - " + elementEnonce.EnonceCompetence.Description)
+                    </th>
+                    <th class="action-cell-header">
+                        <b>Éléments de connaissance</b>
+                    </th>
+                    <th class="action-cell-header">
+                        <b>Activités d'apprentissage</b>
+                    </th>
+                </tr>
+
+                @foreach (var element in elementEnonce.ElementCompetences)
+                {
+                    <tr>
+                        <td>
+                            @Html.Raw(element.Numero + ".  " + element.Description)
+                        </td>
+                        <td class="action-cell">
+                            <a href='@Url.Action("CreationModification", "ElementConnaissance", new {idPlanCadreElement = StructureViewModel.RecupererIdPlanCadreElement(elementEnonce.IdPlanCadreCompetence, element.IdElement)})'>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                        <td class="action-cell">
+                            <a href='@Url.Action("CreationModification", "ActiviteApprentissage", new {idPlanCadreElement = StructureViewModel.RecupererIdPlanCadreElement(elementEnonce.IdPlanCadreCompetence, element.IdElement)})'>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+
+            <a class="fancy-button bleu large" href='@Url.Action("CreationModification", "RessourceDidactique", new {Model.PlanCadre.IdPlanCadre})'>Ressources didactiques</a><a class="fancy-button bleu large" href='@Url.Action("CreationModification", "EnvironnementPhysique", new {Model.PlanCadre.IdPlanCadre})'>Environnements physiques</a>
+      
+        <a class="fancy-button" href='@Url.Action("Info", "PlanCadre", new {Model.PlanCadre.IdPlanCadre})'>Terminer</a>
+
+        <hr class="end-div"/>
+    </div>
+</div>
