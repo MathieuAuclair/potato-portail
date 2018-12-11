@@ -169,13 +169,13 @@
             </a>
             @if (User.IsInRole("Admin eSports"))
             {
-                <a class="fancy-button blanc" href="/Joueur/Index">
+                <a class="fancy-button blanc" href="@Url.Action("Index", "Joueur")">
                     <span class="mdi mdi-person"></span>
                     Liste des joueurs
                 </a>
                 if(User.IsInRole("Etudiant"))
                 {
-                    <a class="fancy-button blanc" href="/Profil/Inscription">
+                    <a class="fancy-button blanc" href="@Url.Action("Inscription", "Profil")">
                         <span class="glyphicon glyphicon-plus"></span>
                         Soumettre une inscription
                     </a>
@@ -183,11 +183,11 @@
             }
             else
             {
-                <a class="fancy-button blanc" href="/Joueur/Index">
+                <a class="fancy-button blanc" href="@Url.Action("Index", "Joueur")">
                     <span class="mdi mdi-person"></span>
                     Mes profils de joueur
                 </a>
-                <a class="fancy-button blanc" href="/Profil/Inscription">
+                <a class="fancy-button blanc" href="@Url.Action("Inscription", "Profil")">
                     <span class="glyphicon glyphicon-plus"></span>
                     Soumettre une inscription
                 </a>

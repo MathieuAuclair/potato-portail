@@ -151,14 +151,14 @@
             </a>
             @if (User.IsInRole("Admin eSports"))
             {
-                <a class="fancy-button blanc" href="/Profil/Index">
+                <a class="fancy-button blanc" href="@Url.Action("Index", "Profil")">
                     <span class="mdi mdi-library-books"></span>
                     Accéder aux inscriptions déposées
                 </a>
             }
             else
             {
-                <a class="fancy-button blanc" href="/Profil/Index">
+                <a class="fancy-button blanc" href="@Url.Action("Index", "Profil")">
                     <span class="mdi mdi-library-books"></span>
                     Accéder à mes candidatures déposées
                 </a>
