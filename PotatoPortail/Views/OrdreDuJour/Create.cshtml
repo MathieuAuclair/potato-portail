@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 @Html.Label("Titre de l'ordre du jour")
-                @Html.TextBoxFor(m => m.OrdreDuJour.TitreOdJ, new { @class = "form-control small" })
+                @Html.TextBoxFor(m => m.OrdreDuJour.TitreOdJ, new { @class = "form-control small", @Value = "Réunion - " })
                 @Html.ValidationMessageFor(m => m.OrdreDuJour.TitreOdJ, "", new { @class = "text-danger" })
             </div>
 
