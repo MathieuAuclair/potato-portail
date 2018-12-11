@@ -33,7 +33,7 @@ namespace PotatoPortail.Controllers
 
             ViewBag.Stages = listeDeSelectionDeStage;
 
-            return View();
+            return View("~/Views/SystemeStage/Application/Creation.cshtml");
         }
 
         [HttpPost]
@@ -61,14 +61,14 @@ namespace PotatoPortail.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Modifier(int? IdStage)
+        public ActionResult Modifier(int? IdApplication)
         {
-            if (IdStage == null)
+            if (IdApplication == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Application application = _db.Application.Find(IdStage);
+            Application application = _db.Application.Find(IdApplication);
             if (application == null)
             {
                 return HttpNotFound();
@@ -76,7 +76,7 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Application/Modifier.cshtml", application);
         }
-
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Modifier([Bind(Include = "IdApplication,Timestamp")] Application application)
         {

@@ -688,6 +688,7 @@
     <Content Include="Views\ElementConnaissance\CreationModification.cshtml" />
     <Content Include="Views\EnvironnementPhysique\CreationModification.cshtml" />
     <Content Include="Views\RessourceDidactique\CreationModification.cshtml" />
+    <Content Include="Views\SystemeStage\Application\Creation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
