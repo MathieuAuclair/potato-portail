@@ -5,7 +5,7 @@
 <div id="accueil">
     <h1>Bonjour @ViewBag.prenom!</h1>
     <div class="icon-container">
-        @if (User.IsInRole("RCP"))
+        @if (User.IsInRole("RCP") || User.IsInRole("Enseignant"))
         {
             <a class="icon" href='@Url.Action("Pedagogie")'>
                 <span class="mdi mdi-school"></span>

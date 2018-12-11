@@ -29,13 +29,16 @@ namespace PotatoPortail.Models.Reunions
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Début de la réunion : ")]
         public string HeureDebutReunion { get; set; }
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Fin de la réunion : ")]
         public string HeureFinReunion { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Lieu de la réunion : ")]
         public string LieuReunionODJ { get; set; }
 
         public int IdModeleOrdreDuJour { get; set; }

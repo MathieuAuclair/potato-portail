@@ -23,19 +23,26 @@ namespace PotatoPortail.Models
         public int IdPlanCadre { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Numéro du cours")]
         public string NumeroCours { get; set; }
 
         [Required]
         [StringLength(150)]
+        [Display(Name = "Titre du cours")]
         public string TitreCours { get; set; }
 
         [Column(TypeName = "text")]
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Indication pédagogique")]
         public string IndicationPedago { get; set; }
 
+        [Display(Name = "Nombre d'heures de théorie")]
         public int? NbHeureTheorie { get; set; }
 
+        [Display(Name = "Nombre d'heures de pratique")]
         public int? NbHeurePratique { get; set; }
 
+        [Display(Name = "Nombre d'heures de travail à la maison")]
         public int? NbHeureDevoir { get; set; }
 
         public int IdProgramme { get; set; }

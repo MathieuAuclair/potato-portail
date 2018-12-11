@@ -51,7 +51,22 @@ namespace PotatoPortail.Controllers.PlanCours
 
             if (id == null)
             {
-                id = 1;
+                try
+                {
+                    var userId = User.Identity.GetUserId();
+                    var idPlanCours = from planCours in _db.PlanCours
+                        join planCoursUtilisateur in _db.PlanCoursUtilisateur on planCours.IdPlanCours equals
+                            planCoursUtilisateur.IdPlanCours
+                        where planCoursUtilisateur.IdPlanCoursUtilisateur == userId
+                        select planCours.IdPlanCours;
+                        id = idPlanCours.First();
+                    
+                }
+                catch (Exception)
+                {
+                    id = 1;
+                }
+                    
             }
             var idPlanCadre = from planCours in _db.PlanCours
                               join cours in _db.Cours on planCours.IdCours equals cours.IdCours
@@ -65,6 +80,7 @@ namespace PotatoPortail.Controllers.PlanCours
             apercu = GetUser(Convert.ToInt32(id));
             if (apercu != null)
             {
+
                 List<PlanCoursDepart> pcd = new List<PlanCoursDepart>();
                 ViewBag.courrielProf = apercu.CourrielProf;
                 ViewBag.imageCegep = VirtualPathUtility.ToAbsolute(apercu.ImageCegep);
@@ -99,17 +115,18 @@ namespace PotatoPortail.Controllers.PlanCours
 
                 CreationEnonceCompetence(viewModel, (int)id);
             }
-            else { this.AddToastMessage("Attention", "Aucun plan cours n'est associé à votre compte", ToastType.Warning); }
+            else
+            {
+                this.AddToastMessage("Attention", "Aucun plan cours n'est associé à votre compte", ToastType.Warning);
+
+            }
 
             return View(viewModel);
         }
         public ActionResult Create()
         {
-            List <PlanCoursDepart> pcd = new List<PlanCoursDepart>();
-            viewModel = new ApercuViewModel();
-            var liste = _db.Cours.ToList();
-
-            viewModel.PlanCadre = _db.PlanCadre.ToList();
+            ApercuViewModel viewModel = new ApercuViewModel();
+            ViewBag.PlanCadre = _db.PlanCadre.ToList();
             return View(viewModel);
         }
 
@@ -205,109 +222,89 @@ namespace PotatoPortail.Controllers.PlanCours
             return texteSection.First();
         }
 
-        public void CreationEnonceCompetence(ApercuViewModel ApercuViewModel, int id)
+public void CreationEnonceCompetence(ApercuViewModel AVM, int id)
         {
-            var listeElementCompetence = new List<ElementCompetence>();
-            var listeEnonceCompetence = new List<EnonceCompetence>();
-            var listeElementConnaissance = new List<ElementConnaissance>();
-            var listeActiviteApprentissage = new List<ActiviteApprentissage>();
-            var listePlanCadreCompetence = new List<PlanCadreCompetence>();
-            var listePlanCadreElement = new List<PlanCadreElement>();
-            var ponderationEnHeure = new List<int>();
+            List<ElementCompetence> listeElementCompetence = new List<ElementCompetence>();
+            List<EnonceCompetence> listeEnonceCompetence = new List<EnonceCompetence>();
+            List<ElementConnaissance> listeElementConnaissance = new List<ElementConnaissance>();
+            List<ActiviteApprentissage> listeActiviteApprentissage = new List<ActiviteApprentissage>();
+            List<PlanCadreCompetence> listePlanCadreCompetence = new List<PlanCadreCompetence>();
+            List<PlanCadreElement> listePlanCadreElement = new List<PlanCadreElement>();
+            List<int> ponderationEnHeure = new List<int>();
 
-            var planCours = _db.PlanCours.Find(id);
-
-            if (planCours == null)
-            {
-                throw new NullReferenceException();
-            }
-
-            var cours = _db.Cours.Find(planCours.IdCours);
-
-            if (cours == null)
-            {
-                throw new NullReferenceException();
-            }
-
-            var planCadre = _db.PlanCadre.Find(cours.IdPlanCadre);
+            Models.Plan_Cours.PlanCours PC = _db.PlanCours.Find(id);
+            Cours cours = _db.Cours.Find(PC.IdCours);
+            PlanCadre planCadre = _db.PlanCadre.Find(cours.IdPlanCadre);
             
-            var enonceCompetence = from enonce in _db.EnonceCompetence
-                                    join planCadreCompetence in _db.PlanCadreCompetence on enonce.IdCompetence equals planCadreCompetence.IdCompetence
-                                    join _planCadre in _db.PlanCadre on planCadreCompetence.IdPlanCadre equals _planCadre.IdPlanCadre
-                                    where true
-                                    select enonce;
-            
-            foreach (var enonce in enonceCompetence)
-            {
-                var planCadreCompetence = from tabPlanCadreCompetence in _db.PlanCadreCompetence
-                                          join tabEnonceCompetence in _db.EnonceCompetence on tabPlanCadreCompetence.IdCompetence equals tabEnonceCompetence.IdCompetence
-                                          where tabPlanCadreCompetence.IdCompetence == enonce.IdCompetence
-                                          select tabPlanCadreCompetence;
+            var EnonceCompetence = from Enonce in _db.EnonceCompetence
+                                    join PlanCadreCompetence in _db.PlanCadreCompetence on Enonce.IdCompetence equals PlanCadreCompetence.IdCompetence
+                                    join PlanCadre in _db.PlanCadre on PlanCadreCompetence.IdPlanCadre equals PlanCadre.IdPlanCadre
+                                    where PlanCadre.IdPlanCadre == planCadre.IdPlanCadre
+                                    select Enonce;
 
-                foreach(var planCadreComp in planCadreCompetence)
+            foreach (Models.EnonceCompetence Enonce in EnonceCompetence)
+            {
+                var planCadreCompetence = from PCC in _db.PlanCadreCompetence
+                                          join EC in _db.EnonceCompetence on PCC.IdCompetence equals EC.IdCompetence
+                                          where PCC.IdCompetence == Enonce.IdCompetence
+                                          select PCC;
+                foreach(Models.PlanCadreCompetence planCadreComp in planCadreCompetence)
                 {
                     listePlanCadreCompetence.Add(planCadreComp);
-                    var planCadreElement = from tabPlanCadreElement in _db.PlanCadreElement
-                                           where tabPlanCadreElement.IdPlanCadreCompetence == planCadreComp.IdPlanCadreCompetence
-                                           select tabPlanCadreElement;
-
-                    foreach(var planCadreElements in planCadreElement)
+                    var planCadreElement = from PCE in _db.PlanCadreElement
+                                           where PCE.IdPlanCadreCompetence == planCadreComp.IdPlanCadreCompetence
+                                           select PCE;
+                    foreach(Models.PlanCadreElement planCadreElements in planCadreElement)
                     {
                         listePlanCadreElement.Add(planCadreElements);
                     }
                 }
-                var ponderation = (from tabPlanCadreCompetence in _db.PlanCadreCompetence
-                                  where tabPlanCadreCompetence.IdCompetence == enonce.IdCompetence
-                                  select tabPlanCadreCompetence.PonderationEnHeure);
-
-                foreach(var ponderationHeure in ponderation)
+                var ponderation = (from PlanCadreCompetence in _db.PlanCadreCompetence
+                                  where PlanCadreCompetence.IdCompetence == Enonce.IdCompetence
+                                  select PlanCadreCompetence.PonderationEnHeure);
+                foreach(int ponderationHeure in ponderation)
                 {
                     ponderationEnHeure.Add(Convert.ToInt32(ponderation.First()));
                 }
-
-                listeEnonceCompetence.Add(enonce);
-
-                var _elementCompetence = from tabElement in _db.ElementCompetence
-                                        join planCadreElement in _db.PlanCadreElement on tabElement.IdElement equals planCadreElement.IdElement
-                                        join PlanCadreCompetence in _db.PlanCadreCompetence on planCadreElement.IdPlanCadreCompetence equals PlanCadreCompetence.IdPlanCadreCompetence
+                listeEnonceCompetence.Add(Enonce);
+                var ElementCompetence = from Element in _db.ElementCompetence
+                                        join PlanCadreElement in _db.PlanCadreElement on Element.IdElement equals PlanCadreElement.IdElement
+                                        join PlanCadreCompetence in _db.PlanCadreCompetence on PlanCadreElement.IdPlanCadreCompetence equals PlanCadreCompetence.IdPlanCadreCompetence
                                         join competence in _db.EnonceCompetence on PlanCadreCompetence.IdCompetence equals competence.IdCompetence
-                                        where competence.IdCompetence == tabElement.IdCompetence
-                                        select tabElement;
-
-                foreach(var _element in _elementCompetence)
+                                        where competence.IdCompetence == Enonce.IdCompetence
+                                        select Element;
+                foreach(Models.ElementCompetence Element in ElementCompetence)
                 {
-                    listeElementCompetence.Add(_element);
-                    var elementConnaissances = from tabConnaissance in _db.ElementConnaissance
-                                              join planCadreElement in _db.PlanCadreElement on tabConnaissance.IdPlanCadreElement equals planCadreElement.IdPlanCadreElement
-                                              join element in _db.ElementCompetence on planCadreElement.IdElement equals element.IdElement
-                                              where true
-                                              select tabConnaissance;
+                    listeElementCompetence.Add(Element);
+                    var elementConnaissances = from Connaissance in _db.ElementConnaissance
+                                              join PlanCadreElement in _db.PlanCadreElement on Connaissance.IdPlanCadreElement equals PlanCadreElement.IdPlanCadreElement
+                                              join element in _db.ElementCompetence on PlanCadreElement.IdElement equals element.IdElement
+                                              where element.IdElement == Element.IdElement
+                                              select Connaissance;
 
-                    foreach (var connaissance in elementConnaissances)
+                    foreach (Models.ElementConnaissance connaissance in elementConnaissances)
                     {
                         listeElementConnaissance.Add(connaissance);
                     }
-
-                    var activiteApprentissages = from tabActivite in _db.ActiviteApprentissage
-                                                join planCadreElement in _db.PlanCadreElement on tabActivite.IdPlanCadreElement equals planCadreElement.IdElement
-                                                join elementCompetence in _db.ElementCompetence on planCadreElement.IdElement equals elementCompetence.IdElement
-                                                where elementCompetence.IdElement == _element.IdElement
-                                                select tabActivite;
-
-                    foreach (var activite in activiteApprentissages)
+                    var activiteApprentissages = from Activite in _db.ActiviteApprentissage
+                                                join PlanCadreElement in _db.PlanCadreElement on Activite.IdPlanCadreElement equals PlanCadreElement.IdElement
+                                                join elementCompetence in _db.ElementCompetence on PlanCadreElement.IdElement equals elementCompetence.IdElement
+                                                where elementCompetence.IdElement == Element.IdElement
+                                                select Activite;
+                    foreach (Models.ActiviteApprentissage activite in activiteApprentissages)
                     {
                         listeActiviteApprentissage.Add(activite);
                     }
 
                 }
             }
-            ApercuViewModel.ListeEnonceCompetence = listeEnonceCompetence;
-            ApercuViewModel.ListeElementCompetence = listeElementCompetence;
-            ApercuViewModel.ListeActiviteApprentissage = listeActiviteApprentissage;
-            ApercuViewModel.ListeElementConnaissance = listeElementConnaissance;
-            ApercuViewModel.PonderationEnHeure = ponderationEnHeure;
-            ApercuViewModel.ListePlanCadreCompetence = listePlanCadreCompetence;
-            ApercuViewModel.ListePlanCadreElement = listePlanCadreElement;
+            AVM.ListeEnonceCompetence = listeEnonceCompetence;
+            AVM.ListeElementCompetence = listeElementCompetence;
+            AVM.ListeActiviteApprentissage = listeActiviteApprentissage;
+            AVM.ListeElementConnaissance = listeElementConnaissance;
+            AVM.PonderationEnHeure = ponderationEnHeure;
+            AVM.ListePlanCadreCompetence = listePlanCadreCompetence;
+            AVM.ListePlanCadreElement = listePlanCadreElement;
         }
 
         public IQueryable<int> GetPlanCours()

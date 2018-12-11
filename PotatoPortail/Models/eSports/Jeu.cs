@@ -21,6 +21,7 @@ namespace PotatoPortail.Models.eSports
         public string Description { get; set; }
 
         [Display(Name = "Adresse du site officiel")]
+        [RegularExpression(@"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$", ErrorMessage = "Veuillez entrer une adresse valide.")]
         public string UrlReference { get; set; }
 
         [Required]
