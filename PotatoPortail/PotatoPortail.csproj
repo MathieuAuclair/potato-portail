@@ -252,6 +252,14 @@
     <Compile Include="Migrations\201812100038156_InitContext.Designer.cs">
       <DependentUpon>201812100038156_InitContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812110004251_MigrationPlanCadre.cs" />
+    <Compile Include="Migrations\201812110004251_MigrationPlanCadre.Designer.cs">
+      <DependentUpon>201812110004251_MigrationPlanCadre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812110104175_MigrationPlanCadre2.cs" />
+    <Compile Include="Migrations\201812110104175_MigrationPlanCadre2.Designer.cs">
+      <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
@@ -677,6 +685,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812100038156_InitContext.resx">
       <DependentUpon>201812100038156_InitContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812110004251_MigrationPlanCadre.resx">
+      <DependentUpon>201812110004251_MigrationPlanCadre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812110104175_MigrationPlanCadre2.resx">
+      <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
