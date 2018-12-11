@@ -18,7 +18,18 @@ namespace PotatoPortail.Controllers
         }     
         public ActionResult Modifier(int IdContact)
         {
-            ViewBag.Entreprises = _db.Entreprise.ToList();
+            var lstEntreprise = new List<SelectListItem>();
+
+            foreach (var entreprise in _db.Entreprise.ToList())
+            {
+                lstEntreprise.Add(new SelectListItem
+                {
+                    Text = entreprise.Nom,
+                    Value = entreprise.IdEntreprise.ToString()
+                });
+            }
+            ViewBag.Entreprises = lstEntreprise;
+
             var contact = _db.Contact.Find(IdContact);
 
             if (contact == null)
@@ -53,7 +64,7 @@ namespace PotatoPortail.Controllers
             contact.Courriel = courriel;
             contact.Nom = nom;
             contact.Telephone = telephone;
-            
+            contact.Entreprise_IdEntreprise = entreprise.IdEntreprise;
 
             _db.SaveChanges();
 

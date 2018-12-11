@@ -61,14 +61,14 @@ namespace PotatoPortail.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Modifier(int? id)
+        public ActionResult Modifier(int? IdStage)
         {
-            if (id == null)
+            if (IdStage == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Application application = _db.Application.Find(id);
+            Application application = _db.Application.Find(IdStage);
             if (application == null)
             {
                 return HttpNotFound();
@@ -109,9 +109,9 @@ namespace PotatoPortail.Controllers
 
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmerSupprimer(int id)
+        public ActionResult ConfirmerSupprimer(int IdStage)
         {
-            var application = _db.Application.Find(id);
+            var application = _db.Application.Find(IdStage);
 
             _db.Application.Remove(application ?? throw new InvalidOperationException());
             _db.SaveChanges();
