@@ -47,6 +47,7 @@ namespace PotatoPortail
                 "~/Content/perfect-scrollbar.css",
                 "~/Content/grille.css",
                 "~/Content/structure.css",
+                "~/Content/_menu.css",
                 "~/Content/toastr.css"));
 
             bundles.Add(new ScriptBundle("~/Bundles/toastr").Include(

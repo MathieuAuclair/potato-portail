@@ -188,7 +188,7 @@
 
                                     bool isThereActiviteFollowing = false;
                                     int activiteRowspan = 1;
-                                    for (int j = i + 1; j < Model.ListePlanCadreElement.Count(); j++)
+                                    for (int j = 0; j < Model.ListePlanCadreElement.Count(); j++)
                                     {
                                         var followingPlanCadreElement = Model.ListePlanCadreElement.ElementAt(j);
                                         if (followingPlanCadreElement.ElementConnaissance == Model.ListeElementConnaissance.ElementAt(j))
