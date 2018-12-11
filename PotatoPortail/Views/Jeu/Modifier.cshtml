@@ -78,10 +78,6 @@
                     </a>
                 }
             </div>
-            <a class="fancy-button blanc" href='@Url.Action("Creation", "Caracteristique", new {JeuId = Model.Id, NomJeu = Model.NomJeu})'>
-                <span class="glyphicon glyphicon-info-sign"></span>
-                Ajouter une caractéristique
-            </a>
         </div>
         <hr class="end-div"/>
         @if (Model.Caracteristique.Count > 0)
@@ -164,24 +160,27 @@
 }
 <script>
     function ajoutPPrincipal(caracID, numeroItem) {
-        const itemId = numeroItem + 1;
-        const souspoint = `<tr id="carac_${caracID}_item${itemId
-            }"><td contenteditable="true" colspan="1">entrer le nom de litem</td><td colspan="1" class="action-cell"> <a onclick="sauvegarder(${
-            caracID
-            },this.parentNode.parentNode.innerText)"><span class="glyphicon glyphicon-floppy-disk"></span></a></td></tr>`;
+        var itemID = numeroItem + 1;
+        var souspoint = '<tr id="' +
+            'carac_' +
+            caracID +
+            '_item' +
+            itemID +
+            '"><td contenteditable="true" colspan="1">Nouvel item pour cette caractéristique' + 
+            '</td><td colspan="1" class="action-cell"> <a onclick="sauvegarder(' + caracID + ',this.parentNode.parentNode.innerText)"><span class="glyphicon glyphicon-floppy-disk"></span></a></td></tr>';
         document.getElementById("tr_bouton_plus_" + caracID).insertAdjacentHTML("beforebegin", souspoint);
     }
 
-    function sauvegarder(caracId, nomItem) {
+    function sauvegarder(caracID, nomItem) {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             url: '@Url.Action("EditItem", "Jeu")',
-            data: JSON.stringify({ Item: { CaracteristiqueId: caracId, nomItem: nomItem } }),
-            success: function(data) {
-                window.location.href = '@Url.Action("Modifier", new {id = Model.Id, NomJeu = Model.NomJeu})';
+            data: JSON.stringify({ Item: { IdCaracteristique: caracID, NomItem: nomItem}}),
+            success: function (data) {
+                window.location.href = '@Url.Action("Modifier",new {id = Model.Id, NomJeu = Model.NomJeu})';
             },
-            error: function(resultat, statut, erreur) {
+            error: function (resultat, statut,erreur) {
                 alert(erreur);
             }
         });
