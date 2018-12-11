@@ -1,20 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.ViewModels.PlanCadreVM
+namespace PotatoPortail.ViewModels.PlanCadre
 {
     public class ActiviteViewModel
     {
+        public int IdPlanCadre { get; set; }
+        public int IdPlanCadreElement { get; set; }
         [Display(Name = "Activité d'apprentissage")]
-        public List<ActiviteApprentissage> ActiviteApprentissages { get; set; }
-        [Display(Name = "Sous-activité d'apprentissage")]
-        public List<SousActiviteApprentissage> SousActiviteApprentissages { get; set; }
+        public List<ActiviteSousActivite> ActiviteSousActivites { get; set; }
     }
 
     public class ActiviteSousActivite
     {
-        public string Activite { get; set; }
-        public List<string> SousActivites { get; set; }
+        public ActiviteApprentissage Activite { get; set; }
+        public List<SousActiviteApprentissage> SousActivites { get; set; }
     }
 }

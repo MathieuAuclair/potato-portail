@@ -14,7 +14,7 @@ namespace PotatoPortail.Models
         {
             Cours = new HashSet<Cours>();
             EnvironnementPhysique = new HashSet<EnvironnementPhysique>();
-            RessourceDidactique = new HashSet<RessourceDIdactique>();
+            RessourceDidactique = new HashSet<RessourceDidactique>();
             PlanCadreCompetence = new HashSet<PlanCadreCompetence>();
             PlanCadrePrealable = new HashSet<PlanCadrePrealable>();
         }
@@ -51,7 +51,7 @@ namespace PotatoPortail.Models
         public virtual Programme Programme { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RessourceDIdactique> RessourceDidactique { get; set; }
+        public virtual ICollection<RessourceDidactique> RessourceDidactique { get; set; }
 
         public virtual TypePlanCadre TypePlanCadre { get; set; }
 
@@ -60,5 +60,11 @@ namespace PotatoPortail.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanCadrePrealable> PlanCadrePrealable { get; set; }
+    }
+    public class ElementEnoncePlanCadre
+    {
+        public EnonceCompetence EnonceCompetence { get; set; }
+        public IEnumerable<ElementCompetence> ElementCompetences { get; set; }
+        public int IdPlanCadreCompetence { get; set; }
     }
 }

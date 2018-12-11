@@ -1,28 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
-using PotatoPortail.Helpers;
-using PotatoPortail.Migrations;
+using System.Web.Services;
 using PotatoPortail.Models;
-using PotatoPortail.ViewModels.PlanCours;
-
-/* !!!ATTENTION!!! aucune idée qui à conçus cette fameuse classe, mais pour le bien de votre CV je la nettoyerais, les nom significatifs c'est pas une blague bordel, définitivement une classe à repasser en vue! */
+using PotatoPortail.Helpers;
+using PotatoPortail.ViewModels;
+using PotatoPortail.ViewModels.PlanCadre;
+using Newtonsoft.Json;
+using PotatoPortail.Migrations;
+using CompetenceViewModel = PotatoPortail.ViewModels.PlanCours.CompetenceViewModel;
 
 namespace PotatoPortail.Controllers
 {
     [RcpPlanCadreAuthorize]
     public class PlanCadreController : Controller
     {
-        private List<SelectListItem> _elements;
-        private CompetenceViewModel _competenceViewModel;
-        private readonly BdPortail _db = new BdPortail();
-
-        public ActionResult Index()
-        {
-            return View(_db.PlanCadre.ToList());
-        }
+        List<SelectListItem> elements;
+        CompetenceViewModel competenceViewModel;
+        private BdPortail db = new BdPortail();
 
         public ActionResult Info(int? idPlanCadre)
         {
@@ -31,161 +34,218 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            PlanCadre planCadre = _db.PlanCadre.Find(idPlanCadre);
+            PlanCadre planCadre = db.PlanCadre.Find(idPlanCadre);
             if (planCadre == null)
             {
                 return HttpNotFound();
             }
 
-
             return View(planCadre);
         }
-  
+
         public ActionResult InfoFocus(int? idPlanCadre, string idRecherche)
         {
-
-
             if (idPlanCadre == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             if (idRecherche != null)
             {
                 ViewBag.idRecherche = idRecherche;
             }
-            var planCadre = _db.PlanCadre.Find(idPlanCadre);
+
+            PlanCadre planCadre = db.PlanCadre.Find(idPlanCadre);
             if (planCadre == null)
             {
                 return HttpNotFound();
             }
 
 
-            return View("Info",planCadre);
-        }
-        
-        public ActionResult Choix()
-        {
-            _competenceViewModel = new CompetenceViewModel();
-            var typePlan = _db.TypePlanCadre.ToList();
-            _competenceViewModel.TypePlanCadre = new SelectList(typePlan, "idType", "nom");
-            _elements = new List<SelectListItem>();
-            _competenceViewModel.EnonceCompetence = _db.EnonceCompetence.ToList();
-            _competenceViewModel.ElementCompetence = _db.ElementCompetence.ToList();
-            _elements = new List<SelectListItem>();
-            var enonces = _db.EnonceCompetence.Select(item => new SelectListItem() {Value = item.IdCompetence.ToString(), Text = (item.CodeCompetence + " : " + item.Description)}).ToList();
-            var elementEnonce = from element in _db.ElementCompetence
-                                    join enonce in _db.EnonceCompetence on element.IdCompetence equals enonce.IdCompetence
-                                    where enonce.IdCompetence == element.IdCompetence
-                                    select new { ID = element.IdElement, Numero = element.Numero, Desc = element.Description };
-
-                foreach (var element in elementEnonce)
-                {
-                _elements.Add(new SelectListItem()
-                    {
-                        Value = element.ID.ToString(),
-                        Text = (element.Numero + " : " + element.Desc)
-                    });
-
-                }
-            
-            _competenceViewModel.EnonceCompetences = enonces;
-            _competenceViewModel.ElementCompetences = _elements;
-            return View(_competenceViewModel);
+            return View("Info", planCadre);
         }
 
-        public PartialViewResult GetCompetence(CompetenceViewModel competenceViewModel, int id)
+        [HttpGet]
+        public ActionResult Creation(int? idProgramme)
         {
-            _elements = new List<SelectListItem>();
-            competenceViewModel.EnonceCompetence = _db.EnonceCompetence.ToList();
-            competenceViewModel.ElementCompetence = _db.ElementCompetence.ToList();
-            List<SelectListItem> enonces = new List<SelectListItem>();
-            
-            foreach (var item in _db.EnonceCompetence)
+            if (idProgramme == null)
             {
-                enonces.Add(new SelectListItem()
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var typePlanCadres = db.TypePlanCadre.ToList();
+            List<SelectListItem> listTypes = new List<SelectListItem>();
+
+            foreach (TypePlanCadre type in typePlanCadres)
+            {
+                listTypes.Add(new SelectListItem
                 {
-                    Value = item.IdCompetence.ToString(),
-                    Text = (item.CodeCompetence + " : " + item.Description)
+                    Text = type.Nom,
+                    Value = type.IdType.ToString()
                 });
             }
-                var elementEnonce = from element in _db.ElementCompetence
-                                    join enonceCompetence in _db.EnonceCompetence on element.IdCompetence equals enonceCompetence.IdCompetence
-                                    where enonceCompetence.IdCompetence == id
-                                    select new { ID = element.IdElement, Numero = element.Numero, Desc = element.Description };
+            ViewBag.Types = listTypes;
 
-                foreach (var ele in elementEnonce)
-                {
-                _elements.Add(new SelectListItem()
-                    {
-                        Value = ele.ID.ToString(),
-                        Text = (ele.Numero + " : " + ele.Desc)
-                    });
-
-                }
-            competenceViewModel.EnonceCompetences = enonces;
-            competenceViewModel.ElementCompetences = _elements;
-            return PartialView("GetCompetence", competenceViewModel);
+            return View();
         }
 
-        //normalement, ici, on recevrait la liste des éléments de compétence sélectionnés, mais là on va tous les chercher
         [HttpPost]
-        public ActionResult Choix(CompetenceViewModel competenceViewModel, string[] listeElement)
+        public ActionResult Creation(PlanCadre planCadre)
         {
-            var listeElementCompetence = new List<ElementCompetence>();
-            var idEnonce = Convert.ToInt32(competenceViewModel.IdEnonce);
+            if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var elementEnonce = from element in _db.ElementCompetence
-                                join enonce in _db.EnonceCompetence on element.IdCompetence equals enonce.IdCompetence
-                                where enonce.IdCompetence == idEnonce
-                                select new { ID = element.IdElement, Numero = element.Numero, Desc = element.Description };
-            
+            var planCadreNumero = from DBplanCadre in db.PlanCadre
+                where DBplanCadre.NumeroCours.Equals(planCadre.NumeroCours, StringComparison.OrdinalIgnoreCase)
+                select DBplanCadre;
+
+            var planCadreTitre = from bdPlanCadre in db.PlanCadre
+                where bdPlanCadre.TitreCours.Equals(planCadre.TitreCours, StringComparison.OrdinalIgnoreCase)
+                select bdPlanCadre;
+
+            if (planCadreTitre.Any())
+            {
+                this.AddToastMessage("Titre déjà existant.", planCadreTitre.First().TitreCours + " est déjà entré dans le système.", Toast.ToastType.Error, true);
+                ViewBag.Types = new SelectList(db.TypePlanCadre, "idType", "nom", planCadre.IdType);
+                return View(planCadre);
+            }
+
+            if (planCadreNumero.Any())
+            {
+                this.AddToastMessage("Numéro déjà utilisée.", "Le numéro de cours « " + planCadreNumero.First().NumeroCours + " » est déjà utilisée pour « " + planCadreNumero.First().TitreCours + " ». Choisissez-en une autre.", Toast.ToastType.Error, true);
+                ViewBag.Types = new SelectList(db.TypePlanCadre, "idType", "nom", planCadre.IdType);
+                return View(planCadre);
+            }
+
+            db.PlanCadre.Add(planCadre);
+            db.SaveChanges();
+            this.AddToastMessage("Ajout de plan cadre effectué.", "« " + planCadre.TitreCours + " » a été ajouté", Toast.ToastType.Success);
+
+            return RedirectToAction("Choix", new {planCadre.IdPlanCadre});
+        }
+
+        [HttpGet]
+        public ActionResult Choix(int? idPlanCadre)
+        {
+            if (idPlanCadre == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            competenceViewModel = new CompetenceViewModel
+            {
+                EnonceCompetence = db.EnonceCompetence.ToList(), ElementCompetence = db.ElementCompetence.ToList()
+            };
+            var enonces = db.EnonceCompetence.Select(item => new SelectListItem() {Value = item.IdCompetence.ToString(), Text = (item.CodeCompetence + " : " + item.Description)}).ToList();
+
+            competenceViewModel.PlanCadre = db.PlanCadre.Find(idPlanCadre);
+            ViewBag.IdPlanCadre = idPlanCadre;
+            competenceViewModel.EnonceCompetences = enonces;
+            return View(competenceViewModel);
+        }
+
+        public PartialViewResult GetElement(CompetenceViewModel competenceViewModel, int idCompetence)
+        {
+            competenceViewModel.ElementCompetence = db.ElementCompetence.ToList();
+            List<SelectListItem> elements = new List<SelectListItem>();
+
+            var elementEnonce = from element in db.ElementCompetence
+                join Enonc in db.EnonceCompetence on element.IdCompetence equals Enonc.IdCompetence
+                where Enonc.IdCompetence == idCompetence
+                select new
+                {
+                    ID = element.IdElement,
+                    Numero = element.Numero,
+                    Desc = element.Description
+                };
+
             foreach (var element in elementEnonce)
             {
-                listeElementCompetence.Add(new ElementCompetence()
+                elements.Add(new SelectListItem()
                 {
-                    IdElement = element.ID,
-                    IdCompetence = idEnonce,
-                    Description = element.Desc,
-                    Numero = element.Numero,
+                    Value = element.ID.ToString(),
+                    Text = (element.Numero + " : " + element.Desc)
                 });
             }
 
-            var planCadre = new PlanCadre
-            {
-                NumeroCours = competenceViewModel.NumeroCours,
-                TitreCours = competenceViewModel.TitreCours,
-                IndicationPedago = competenceViewModel.IndicationPedago,
-                NbHeureDevoir = competenceViewModel.NbHeureDevoir,
-                NbHeurePratique = competenceViewModel.NbHeurePratique,
-                NbHeureTheorie = competenceViewModel.NbHeureTheorie,
-                IdType = competenceViewModel.IdType,
-                IdProgramme = 1,
-            };
-            _db.PlanCadre.Add(planCadre);
-            _db.SaveChanges();
-            int planCadreId = planCadre.IdPlanCadre;
-            competenceViewModel.IdPlanCadre = planCadreId;
+            ViewBag.IdCompetence = idCompetence;
+            competenceViewModel.ElementCompetences = elements;
+            return PartialView("GetElement", competenceViewModel);
+        }
 
-            PlanCadreCompetence planCadreCompetence = new PlanCadreCompetence
+
+        [HttpPost]
+        [WebMethod]
+        public ActionResult Choix(string httpBundle, int _idPlanCadre)
+        {
+            var listPlanCadreEnonceElement = JsonConvert.DeserializeObject<List<PlanCadreCompetenceElement>>(httpBundle);
+            foreach (var planCadreEnonceElement in listPlanCadreEnonceElement)
             {
-                IdPlanCadre = planCadreId,
-                IdCompetence = idEnonce,
-                PonderationEnHeure = 60,
-            };
-            _db.PlanCadreCompetence.Add(planCadreCompetence);
-            _db.SaveChanges();
-            var pccId = planCadreCompetence.IdPlanCadreCompetence;
-            foreach (var item in listeElementCompetence)
-            {
-                var planCadreElement = new PlanCadreElement
+                var planCadreCompetence = new PlanCadreCompetence
                 {
-                    IdPlanCadreCompetence = pccId,
-                    IdElement = item.IdElement,
+                    IdCompetence = planCadreEnonceElement.IdEnonce,
+                    IdPlanCadre = _idPlanCadre,
+                    //PonderationEnHeure = planCadreEnonceElement.Ponderation
                 };
-                _db.PlanCadreElement.Add(planCadreElement);
-                _db.SaveChanges();
+                db.PlanCadreCompetence.Add(planCadreCompetence);
+                db.SaveChanges();
+
+                foreach (var element in planCadreEnonceElement.IdElements)
+                {
+                    var planCadreElement = new PlanCadreElement
+                    {
+                        IdPlanCadreCompetence = planCadreCompetence.IdPlanCadreCompetence,
+                        IdElement = element
+                    };
+                    db.PlanCadreElement.Add(planCadreElement);
+                    db.SaveChanges();
+                }
             }
-            return RedirectToAction("index", competenceViewModel);
+
+            return RedirectToAction("Structure", new { idPlanCadre = _idPlanCadre });
+        }
+
+        public ActionResult Structure(int? idPlanCadre)
+        {
+            if (idPlanCadre == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var structureViewModel = new StructureViewModel();
+            var planCadre = db.PlanCadre.Find(idPlanCadre);
+            structureViewModel.PlanCadre = planCadre;
+            structureViewModel.ElementEnoncePlanCadres = new List<ElementEnoncePlanCadre>();
+
+            var enonces = from enonce in db.EnonceCompetence
+                join planCadreCompetence in db.PlanCadreCompetence on enonce.IdCompetence equals planCadreCompetence.IdCompetence
+                where planCadreCompetence.IdPlanCadre == planCadre.IdPlanCadre
+                select enonce;
+
+            foreach (var enonce in enonces)
+            {
+                var elements =
+                    from element in db.ElementCompetence
+                    join planCadreElement in db.PlanCadreElement
+                        on element.IdElement equals planCadreElement.IdElement
+                    join planCadreCompetence in db.PlanCadreCompetence
+                        on planCadreElement.IdPlanCadreCompetence equals planCadreCompetence.IdPlanCadreCompetence
+                    where planCadreCompetence.IdCompetence == enonce.IdCompetence && planCadreCompetence.IdPlanCadre == idPlanCadre
+                    select element;
+                IEnumerable<ElementCompetence> elementCompetences = elements;
+
+                var idPlanCadreCompetences = from planCadreCompetence in db.PlanCadreCompetence
+                    where planCadreCompetence.IdPlanCadre == planCadre.IdPlanCadre &&
+                          planCadreCompetence.IdCompetence == enonce.IdCompetence
+                    select planCadreCompetence.IdPlanCadreCompetence;
+
+                var idPlanCadreCompetence = idPlanCadreCompetences.First();
+
+                structureViewModel.ElementEnoncePlanCadres.Add(new ElementEnoncePlanCadre
+                {
+                    EnonceCompetence = enonce,
+                    ElementCompetences = elementCompetences,
+                    IdPlanCadreCompetence = idPlanCadreCompetence
+                });
+            }
+
+            return View(structureViewModel);
         }
     }
 }

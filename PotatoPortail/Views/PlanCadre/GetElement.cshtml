@@ -1,0 +1,12 @@
+﻿@model PotatoPortail.ViewModels.PlanCadre.CompetenceViewModel
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group" id="elementSelectListEnonce">
+        @Html.LabelFor(model => model.ElementCompetence, "Éléments", htmlAttributes: new {style = "display: inline; margin-right: 10px;"})
+        @Html.DropDownListFor(model => model.listeElement, Model.ElementCompetences, htmlAttributes: new {@name = "listeElement", @class = "form-control", @id = "enonce" + @ViewBag.IdCompetence + "_elements", @onchange = "ajouterElement(" + @ViewBag.IdCompetence + ")"})
+        @Html.ValidationMessageFor(model => model.ElementCompetence, "", new {@class = "text-danger"})
+        <div id="elementBox"></div>
+    </div>
+}
