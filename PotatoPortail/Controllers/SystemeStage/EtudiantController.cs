@@ -16,8 +16,6 @@ namespace PotatoPortail.Controllers
         {
             return View("~/Views/SystemeStage/Etudiant/Index.cshtml", _db.Etudiant.ToList());
         }
-
-     //   [HttpPost]
         public ActionResult Modifier(int? IdEtudiant)
         {
             if (IdEtudiant == null)
@@ -85,7 +83,6 @@ namespace PotatoPortail.Controllers
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Creation()
         {
             var etudiant = new Etudiant
@@ -109,8 +106,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Etudiant/Modifier.cshtml", etudiant);
         }
-
-        [HttpPost]
         public ActionResult ConsulterDossierEtudiant(int? IdEtudiant)
         {
             if (IdEtudiant == null)
@@ -127,7 +122,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Etudiant/Actions/DossierEtudiant.cshtml", etudiant);
         }
-
         public ActionResult Suppression(int? IdEtudiant)
         {
             var etudiant = _db.Etudiant.Find(IdEtudiant);

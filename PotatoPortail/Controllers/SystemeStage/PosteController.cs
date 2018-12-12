@@ -14,9 +14,7 @@ namespace PotatoPortail.Controllers
         public ActionResult Index()
         {
             return View("~/Views/SystemeStage/Poste/Index.cshtml",_db.Poste.ToList());
-        }
-
-        [HttpPost]
+        }        
         public ActionResult Modifier(int? IdPoste)
         {
             if (IdPoste == null)
@@ -66,6 +64,26 @@ namespace PotatoPortail.Controllers
             _db.SaveChanges();
 
             return View("~/Views/SystemeStage/Poste/Modifier.cshtml", poste);
+        }
+        public ActionResult Suppression(int? IdPoste)
+        {
+            var poste = _db.Poste.Find(IdPoste);
+
+            if (poste == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            var stagesAyantCePoste = from stage in _db.Stage
+                                     where stage.Poste.IdPoste == IdPoste
+                                     select stage;
+
+            if (!stagesAyantCePoste.Any())
+            {
+                _db.Poste.Remove(poste);
+                _db.SaveChanges();
+            }
+            
+            return RedirectToAction("Index", "Poste");
         }
     }
 }

@@ -6,10 +6,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container" style="margin-bottom:5%;">
     <h1>Étudiant</h1>
     <form action="EnregistrerLesModifications" method="post">
-        <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => Model.IdEtudiant)"/>
+        <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => Model.IdEtudiant)" />
         @* ReSharper disable once UnknownCssClass *@
         <div class="form-content">
             <div>
@@ -106,12 +106,18 @@
                         new FlatUiOption("Stagière", "stagiere")
                     }))
             </div>
-            
+
             <h2>Préférences</h2>
-            
-            @Html.Partial("EditionComponent/PreferenceEditor", new PreferenceEditor(Model.Preference))
-            
+
+            @Html.Partial("~/Views/SystemeStage/Etudiant/EditionComponent/PreferenceEditor.cshtml", new PreferenceEditor(Model.Preference))
+
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
     </form>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Etudiant/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+    </div>
 </div>

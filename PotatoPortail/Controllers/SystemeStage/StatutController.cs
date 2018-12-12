@@ -15,16 +15,14 @@ namespace PotatoPortail.Controllers
         {
             return View("~/Views/SystemeStage/Statut/Index.cshtml", _db.StatutStage.ToList());
         }
-
-        [HttpPost]
-        public ActionResult Modifier(int? IdStatuts)
+        public ActionResult Modifier(int? IdStatutStage)
         {
-            if (IdStatuts == null)
+            if (IdStatutStage == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var statut = _db.StatutStage.Find(IdStatuts);
+            var statut = _db.StatutStage.Find(IdStatutStage);
 
             if (statut == null)
             {
@@ -33,31 +31,29 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Statut/Modifier.cshtml",statut);
         }
-
         [HttpPost]
         public ActionResult EnregistrerLesModifications(
-            int? idStatuts,
-            string nom
+            int? IdStatutStage,
+            string NomStatutStage
         )
         {
-            if (idStatuts == null)
+            if (IdStatutStage == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var statut = _db.StatutStage.Find(idStatuts);
+            var statut = _db.StatutStage.Find(IdStatutStage);
 
             if (statut == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            statut.NomStatutStage = nom;
+            statut.NomStatutStage = NomStatutStage;
             _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Creation()
         {
             var statut = new StatutStage { NomStatutStage = "Nouveau statuts"};
@@ -67,10 +63,9 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Statut/Modifier.cshtml", statut);
         }
-
-        public ActionResult Suppression(int? IdStatuts)
+        public ActionResult Suppression(int? IdStatutStage)
         {
-            var statut = _db.StatutStage.Find(IdStatuts);
+            var statut = _db.StatutStage.Find(IdStatutStage);
 
             if (statut == null)
             {
@@ -78,7 +73,7 @@ namespace PotatoPortail.Controllers
             }
 
             var stagesAyantCeStatut = from stage in _db.Stage
-                                      where stage.StatutStage.IdStatutStage == IdStatuts
+                                      where stage.StatutStage.IdStatutStage == IdStatutStage
                                       select stage;
 
             if (!stagesAyantCeStatut.Any())

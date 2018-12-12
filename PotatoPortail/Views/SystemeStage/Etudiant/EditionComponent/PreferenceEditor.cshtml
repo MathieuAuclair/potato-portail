@@ -1,12 +1,12 @@
 @using System.Globalization
 @using PotatoPortail.Views.Shared.Widget.Model
 @using PotatoPortail.Views.Etudiant.EditionComponent.Models
-@using PotatoPortail.Views.Stage.EditionComponent.Models
+@using PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 @using PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 @model PotatoPortail.Views.Etudiant.EditionComponent.Models.PreferenceEditor
 
-<div>
-    <input type="hidden" name="idPreference" value="@Model.Preference.IdPreference"/>
+<div class="container" style="margin-bottom:5%;">
+    <input type="hidden" name="idPreference" value="@Model.Preference.IdPreference" />
     <div>
         @Html.Partial("Widget/_FlatUiTextInput",
             new FlatUiTextInputModel(
@@ -20,12 +20,12 @@
             )
     </div>
     <div>
-        @Html.Partial("../SystemeStage/Stage/EditionComponent/LocationSelect", new LocationSelect())
+        @Html.Partial("~/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())
     </div>
     <div>
-        @Html.Partial("../Stage/EditionComponent/PosteSelect", new PosteSelect())
+        @Html.Partial("~/Views/SystemeStage/Stage/EditionComponent/PosteSelect.cshtml", new PosteSelect())
     </div>
     <div>
-        @Html.Partial("../Stage/EditionComponent/EntrepriseSelect", new EntrepriseSelect())
+        @Html.Partial("~/Views/SystemeStage/Stage/EditionComponent/EntrepriseSelect.cshtml", new EntrepriseSelect())
     </div>
 </div>
