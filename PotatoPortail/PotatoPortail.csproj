@@ -260,6 +260,10 @@
     <Compile Include="Migrations\201812110104175_MigrationPlanCadre2.Designer.cs">
       <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812120252339_update_element_connaissance.cs" />
+    <Compile Include="Migrations\201812120252339_update_element_connaissance.Designer.cs">
+      <DependentUpon>201812120252339_update_element_connaissance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
@@ -317,7 +321,7 @@
     <Compile Include="Models\SousElementConnaissance.cs" />
     <Compile Include="Models\SousEnvironnementPhysique.cs" />
     <Compile Include="Models\Reunions\SousPointSujet.cs" />
-    <Compile Include="Models\SousRessourceDIdactique.cs" />
+    <Compile Include="Models\SousRessourceDidactique.cs" />
     <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\StatutPrealable.cs" />
     <Compile Include="Models\eSports\Statut.cs" />
@@ -373,10 +377,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\ToastrBuilder.cshtml" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -422,7 +422,6 @@
     </None>
     <Content Include="Images\CEGEP.png" />
     <Content Include="Images\DICJ.png" />
-    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="scripts\ajoutActivite.js" />
     <Content Include="scripts\ajoutDynamique.js" />
     <Content Include="scripts\ajoutElement.js" />
@@ -709,6 +708,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812110104175_MigrationPlanCadre2.resx">
       <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812120252339_update_element_connaissance.resx">
+      <DependentUpon>201812120252339_update_element_connaissance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

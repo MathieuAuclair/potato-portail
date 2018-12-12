@@ -29,7 +29,7 @@ function ajouterCompetence() {
     $divEnonce.append(buildTitreEnonce(option.value, option.text, selectCompetence.selectedIndex));
 
     $.ajax({
-        url: "/PlanCadre/GetElement",
+        url: "../PlanCadre/GetElement",
         type: "GET",
         data: {
             idCompetence: option.value

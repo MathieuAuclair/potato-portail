@@ -134,7 +134,7 @@ namespace PotatoPortail.Controllers
         public PartialViewResult GetElement(CompetenceViewModel competenceViewModel, int idCompetence)
         {
             competenceViewModel.ElementCompetence = db.ElementCompetence.ToList();
-            List<SelectListItem> elements = new List<SelectListItem>();
+            var elements = new List<SelectListItem>();
 
             var elementEnonce = from element in db.ElementCompetence
                 join Enonc in db.EnonceCompetence on element.IdCompetence equals Enonc.IdCompetence
@@ -142,7 +142,7 @@ namespace PotatoPortail.Controllers
                 select new
                 {
                     ID = element.IdElement,
-                    Numero = element.Numero,
+                    element.Numero,
                     Desc = element.Description
                 };
 

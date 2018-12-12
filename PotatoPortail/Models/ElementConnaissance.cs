@@ -19,7 +19,6 @@ namespace PotatoPortail.Models
         public int IdElementConnaissance { get; set; }
 
         [Column(TypeName = "text")]
-        [Required]
         public string Description { get; set; }
 
         public int? IdPlanCadreElement { get; set; }
