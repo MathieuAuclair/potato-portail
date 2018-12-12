@@ -33,7 +33,7 @@ namespace PotatoPortail.Controllers
 
             ViewBag.Stages = listeDeSelectionDeStage;
 
-            return View();
+            return View("~/Views/SystemeStage/Application/Creation.cshtml");
         }
 
         [HttpPost]
@@ -61,14 +61,14 @@ namespace PotatoPortail.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Modifier(int? id)
+        public ActionResult Modifier(int? IdApplication)
         {
-            if (id == null)
+            if (IdApplication == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Application application = _db.Application.Find(id);
+            Application application = _db.Application.Find(IdApplication);
             if (application == null)
             {
                 return HttpNotFound();
@@ -76,11 +76,9 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Application/Modifier.cshtml", application);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Modifier([Bind(Include = "IdApplication,Timestamp")]
-            Application application)
+        public ActionResult Modifier([Bind(Include = "IdApplication,Timestamp")] Application application)
         {
             if (!ModelState.IsValid)
             {
@@ -111,9 +109,9 @@ namespace PotatoPortail.Controllers
 
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmerSupprimer(int id)
+        public ActionResult ConfirmerSupprimer(int IdStage)
         {
-            var application = _db.Application.Find(id);
+            var application = _db.Application.Find(IdStage);
 
             _db.Application.Remove(application ?? throw new InvalidOperationException());
             _db.SaveChanges();

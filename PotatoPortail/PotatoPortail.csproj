@@ -399,6 +399,7 @@
     <Content Include="Content\Images\portail-logo.png" />
     <Content Include="Content\Images\watermark.png" />
     <Content Include="Content\material-icons.css" />
+    <Content Include="Content\menu.css" />
     <Content Include="Content\material-icons.min.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\structure.css" />
@@ -407,7 +408,6 @@
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\treeview.css" />
-    <Content Include="Content\_menu.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\MaterialIcons-Regular.eot" />
     <Content Include="fonts\MaterialIcons-Regular.svg" />
@@ -679,6 +679,7 @@
     <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
     <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\OrdreDuJour\ModifierModeleOrdreDuJour.cshtml" />
+    <Content Include="Views\SystemeStage\Application\Modifier.cshtml" />
     <Content Include="Views\PlanCadre\Choix.cshtml" />
     <Content Include="Views\PlanCadre\Creation.cshtml" />
     <Content Include="Views\PlanCadre\GetElement.cshtml" />
@@ -687,6 +688,7 @@
     <Content Include="Views\ElementConnaissance\CreationModification.cshtml" />
     <Content Include="Views\EnvironnementPhysique\CreationModification.cshtml" />
     <Content Include="Views\RessourceDidactique\CreationModification.cshtml" />
+    <Content Include="Views\SystemeStage\Application\Creation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
