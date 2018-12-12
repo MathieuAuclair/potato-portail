@@ -16,7 +16,7 @@ namespace PotatoPortail.Controllers
             return View();
         }
 
-        [Authorize(Roles = "RCP")]
+       
         public ActionResult Pedagogie()
         {
             return View();

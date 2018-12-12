@@ -5,15 +5,12 @@
 <div id="accueil">
     <h1>Bonjour @ViewBag.prenom!</h1>
     <div class="icon-container">
-        @if (User.IsInRole("RCP") || User.IsInRole("Enseignant"))
+        @if (User.IsInRole("RCP") || User.IsInRole("RCD") || User.IsInRole("Enseignant"))
         {
             <a class="icon" href='@Url.Action("Pedagogie")'>
                 <span class="mdi mdi-school"></span>
                 <p>Pédagogie</p>
             </a>
-        }
-        @if (User.IsInRole("RCP") || User.IsInRole("RDC") || User.IsInRole("Enseignant"))
-        {
             <a class="icon" href='@Url.Action("Index", "Rapport")'>
                 <span class="mdi mdi-folder-open"></span>
                 <p>Rapport</p>
