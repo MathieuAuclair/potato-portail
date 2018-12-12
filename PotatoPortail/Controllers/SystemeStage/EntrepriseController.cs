@@ -17,8 +17,6 @@ namespace PotatoPortail.Controllers
         {
             return View("~/Views/SystemeStage/Entreprise/Index.cshtml", _db.Entreprise.ToList());
         }
-
-        [HttpPost]
         public ActionResult Modifier(int IdEntreprise)
         {
           
@@ -31,7 +29,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Entreprise/Modifier.cshtml", entreprise);
         }
-
         [HttpPost]
         public ActionResult EnregistrerLesModifications()
         {
@@ -56,7 +53,6 @@ namespace PotatoPortail.Controllers
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Creation()
         {
             var entreprise = new Entreprise
@@ -72,8 +68,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Entreprise/Modifier.cshtml", entreprise);
         }
-
-
         private bool EstCeQueLaRequeteEstValidePourEnregistrerLesModifications()
         {
             return !(
@@ -89,7 +83,6 @@ namespace PotatoPortail.Controllers
                 Request.Form["codePostal"] == null
             );
         }
-
         public ActionResult Suppression(int? IdEntreprise)
         {
             var entreprise = _db.Entreprise.Find(IdEntreprise);
@@ -97,9 +90,8 @@ namespace PotatoPortail.Controllers
             if (entreprise == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            _db.Entreprise.Remove(entreprise);
+            }            
+             _db.Entreprise.Remove(entreprise);
             _db.SaveChanges();
 
             return RedirectToAction("Index", "Entreprise");

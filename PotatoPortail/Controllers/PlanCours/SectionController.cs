@@ -57,12 +57,13 @@ namespace PotatoPortail.Controllers.PlanCours
             _servicesAdaptesViewModel.NomSections = listeSection;
             ViewBag.nomSections = listeNom;
             ViewBag.departement = departement;
+            _servicesAdaptesViewModel.IdPlanCours = (int)idPlancours;
             ViewBag.idPlanCours = idPlancours;
             return View();
         }
         
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ServicesAdaptesViewModel servicesAdaptesViewModel, FormCollection collection)
         {
             string discipline = ChercherUtilisateur();
 
@@ -74,22 +75,22 @@ namespace PotatoPortail.Controllers.PlanCours
             try
             {
                 var planCoursDepart = new PlanCoursDepart();
-                var texte = Request.Form["texteContenu"];
+                var texte = servicesAdaptesViewModel.TexteContenu;
                 
-                var nomSection = Convert.ToInt32(Request.Form["titreSection"]);
-                var idPlanCours = Convert.ToInt32(Request.Form["idPlanCours"]);
+                var nomSection = servicesAdaptesViewModel.TitreSection;
+                var idPlanCours = servicesAdaptesViewModel.IdPlanCours;
 
                 planCoursDepart.Discipline = _db.Departement.Find(discipline)?.Discipline;
-                var idNomSection = _db.NomSection.Find(nomSection)?.IdNomSection;
-                var planCours = _db.PlanCours.Find(idPlanCours)?.IdPlanCours;
+                var idNomSection = _db.NomSection.Find(Convert.ToInt32(nomSection))?.IdNomSection;
+                var planCours = _db.PlanCours.Find(Convert.ToInt32(idPlanCours))?.IdPlanCours;
 
                 if (planCours == null || idNomSection == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                planCoursDepart.IdNomSection = (int) idNomSection;
-                planCoursDepart.IdPlanCours = (int) planCours;
+                planCoursDepart.IdNomSection = (int)idNomSection;
+                planCoursDepart.IdPlanCours = (int)planCours;
 
                 planCoursDepart.TexteContenu = texte;
                 _db.PlanCoursDepart.Add(planCoursDepart);
@@ -98,7 +99,7 @@ namespace PotatoPortail.Controllers.PlanCours
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Apercu");
             }
         }
 

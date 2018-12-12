@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -17,6 +18,18 @@ namespace PotatoPortail.Controllers
         }     
         public ActionResult Modifier(int IdContact)
         {
+            var lstEntreprise = new List<SelectListItem>();
+
+            foreach (var entreprise in _db.Entreprise.ToList())
+            {
+                lstEntreprise.Add(new SelectListItem
+                {
+                    Text = entreprise.Nom,
+                    Value = entreprise.IdEntreprise.ToString()
+                });
+            }
+            ViewBag.Entreprises = lstEntreprise;
+
             var contact = _db.Contact.Find(IdContact);
 
             if (contact == null)
@@ -32,7 +45,8 @@ namespace PotatoPortail.Controllers
             int? idContact,
             string nom,
             string courriel,
-            string telephone
+            string telephone,
+            Entreprise entreprise
         )
         {
            
@@ -50,7 +64,7 @@ namespace PotatoPortail.Controllers
             contact.Courriel = courriel;
             contact.Nom = nom;
             contact.Telephone = telephone;
-            
+            contact.Entreprise_IdEntreprise = entreprise.IdEntreprise;
 
             _db.SaveChanges();
 
@@ -59,12 +73,27 @@ namespace PotatoPortail.Controllers
 
         public ActionResult Creation()
         {
+            var lstEntreprise = new List<SelectListItem>();
+
+            foreach (var entreprise in _db.Entreprise.ToList())
+            {
+                lstEntreprise.Add(new SelectListItem
+                {
+                    Text = entreprise.Nom,
+                    Value = entreprise.IdEntreprise.ToString()
+                });
+            }
+
+            ViewBag.Entreprises = lstEntreprise;
+
             var contact = new Contact
             {
                 Courriel = "courriel@cegepjonquiere.ca",
                 Nom = "Nouveau contact",
-                Telephone = "123-456-7890"
+                Telephone = "123-456-7890",
+                Entreprise = _db.Entreprise.First()               
             };
+
             _db.Contact.Add(contact);
             _db.SaveChanges(); 
             return View("~/Views/SystemeStage/Contact/Modifier.cshtml", contact);

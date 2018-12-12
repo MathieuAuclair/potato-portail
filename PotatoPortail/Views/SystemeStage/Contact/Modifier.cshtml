@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container" style="margin-bottom:5%;">
     <h1>Contact</h1>
     <form action="EnregistrerLesModifications" method="post">
-        <input name="idContact" type="hidden" value="@Html.DisplayFor(model => Model.IdContact)"/>
+        <input name="idContact" type="hidden" value="@Html.DisplayFor(model => Model.IdContact)" />
         @* ReSharper disable once UnknownCssClass *@
         <div class="form-content">
             <div class="form-group">
@@ -26,7 +26,19 @@
                 @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control small" })
                 @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Entreprise)
+                @Html.DropDownListFor(model => model.Entreprise.IdEntreprise, (IEnumerable<SelectListItem>)ViewBag.Entreprises, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Entreprise, "", new { @class = "text-danger" })
+            </div>
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
     </form>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Contact/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+    </div>
 </div>

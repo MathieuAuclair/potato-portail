@@ -4,9 +4,9 @@
     <p>Status</p>
     <select name="idStatus">
         <optgroup label="Value">
-            @foreach (var item in Model.Statut)
+            @foreach (var item in Model.StatutStage)
             {
-                <option value="@Html.DisplayFor(modelItem => item.IdStatus)">@Html.DisplayFor(modelItem => item.StatutStage)</option>
+                <option value="@Html.DisplayFor(modelItem => item.IdStatutStage)">@Html.DisplayFor(modelItem => item.NomStatutStage)</option>
             }
         </optgroup>
     </select>

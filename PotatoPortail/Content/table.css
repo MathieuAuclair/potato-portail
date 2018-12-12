@@ -90,3 +90,9 @@ table.plan-cadre-table td {
 table.plan-cadre-table .rich-cell li {
     padding: 3px;
 }
+.scrollable {
+    height: 75px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    text-align: justify;
+}

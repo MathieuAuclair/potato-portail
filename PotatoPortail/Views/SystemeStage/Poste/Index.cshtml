@@ -4,35 +4,35 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <h1>Poste</h1>
+<div class="container page-content">
+        <h1>Poste</h1>
 
-    <div class="row">
-        <div class="col-md-10">
-            <table class="cool-table">
-                <tr>
-                    <th colspan="6">Nom du poste</th>
-                    <th colspan="1" class="action-cell-header">Modifier</th>
-                    <th colspan="1" class="action-cell-header">Supprimer</th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+        <div class="row">
+            <div class="col-md-10">
+                <table class="cool-table">
                     <tr>
-                        <td colspan="6">
-                            @Html.DisplayFor(model => item.Nom)
-                        </td>
-                        <td colspan="1" class="action-cell">
+                        <th colspan="6">Nom du poste</th>
+                        <th colspan="1" class="action-cell-header">Modifier</th>
+                        <th colspan="1" class="action-cell-header">Supprimer</th>
+                    </tr>
 
-                            <a href='@Url.Action("Modifier", "Poste", new { item.IdPoste })'>
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </td>
-                        <td colspan="1" class="action-cell">
-                            <a href='@Url.Action("Suppression", "Poste", new { item.IdPoste })'>
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                        </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td colspan="6">
+                                @Html.DisplayFor(model => item.Nom)
+                            </td>
+                            <td colspan="1" class="action-cell">
+
+                                <a href='@Url.Action("Modifier", "Poste", new { item.IdPoste })'>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </td>
+                            <td colspan="1" class="action-cell">
+                                <a href='@Url.Action("Suppression", "Poste", new { item.IdPoste })'>
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
 
                     </tr>
                 }
@@ -40,15 +40,15 @@
         </div>
     </div>
     <div class="menu-flottant">
-        <a class="fancy-button blanc" href="@Url.Action("Accueil","Index")">
+        <a class="fancy-button blanc" href="@Url.Action("Stage","Accueil")">
             <span class="glyphicon glyphicon-triangle-left"></span>
             Retour
         </a>
 
-        <a class="fancy-button blanc" href="@Url.Action("Creation", "Poste")">
-            <span class="glyphicon glyphicon-plus"></span>
-            Ajouter un poste
-        </a>
+            <a class="fancy-button blanc" href="@Url.Action("Creation", "Poste")">
+                <span class="glyphicon glyphicon-plus"></span>
+                Ajouter un poste
+            </a>
 
-    </div>
+        </div>
 </div>

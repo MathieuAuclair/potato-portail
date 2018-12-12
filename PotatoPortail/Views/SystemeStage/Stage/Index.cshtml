@@ -7,28 +7,25 @@
 
 }
 
-<h1>Stage</h1>
+
 
 @* ReSharper disable once UnknownCssClass *@
 <div class="container page-content">
-    <div style="margin-bottom: 20px;">
-        <form action="/Stage/AjouterStage" method="post">
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Créer un nouveau stage"))
-        </form>
-    </div>
+    <h1>Stage</h1>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-14">
             <table class="cool-table">
                 <tr>
 
                     <th colspan="1" class="action-cell-header">Poste</th>
                     <th colspan="1" class="action-cell-header">Lieux</th>
                     <th colspan="1" class="action-cell-header">Contact</th>
-                    <th colspan="1" class="action-cell-header">Statuts</th>
-                    <th colspan="1" class="action-cell-header">Description</>
+                    <th colspan="1" class="action-cell-header">Statut</th>
+                    <th colspan="4" class="action-cell-header">Description</>
                     <th colspan="1" class="action-cell-header">Salaire</th>
                     <th colspan="1" class="action-cell-header">Modifier</th>
                     <th colspan="1" class="action-cell-header">Supprimer</th>
+                    <th></th>
                 </tr>
 
                 @foreach (var item in (List<Stage>)Model)
@@ -44,33 +41,34 @@
                             @Html.DisplayFor(model => item.Contact.Nom)
                         </td>
                         <td>
-                            @Html.DisplayFor(model => item.Status.StatusStage)
+                            @Html.DisplayFor(model => item.StatutStage)
                         </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Description)
+                        <td colspan="4">
+                            <div class="scrollable">
+                                @Html.DisplayFor(model => item.Description)
+                            </div>
                         </td>
                         <td>
                             @Html.DisplayFor(model => item.Salaire) $
                         </td>
                         <td colspan="1" class="action-cell">
 
-                            <a href='@Url.Action("Modifier", "Stage", new { id = item.IdStage })'>
+                            <a href='@Url.Action("Modifier", "Stage", new { item.IdStage })'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
                         <td colspan="1" class="action-cell">
-                            <a href='@Url.Action("Suppression", "Stage", new { id = item.IdStage })'>
+                            <a href='@Url.Action("Suppression", "Stage", new { item.IdStage })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
-                        <td></td>
 
                         <td>
                             <form action="/Stage/TeleverserFichier" method="POST">
                                 <div>
                                     <button id="@Html.DisplayFor(model => item.IdStage)">
                                         <input type="hidden" name="fichier" value="@Html.DisplayFor(model => item.NomDocument)" />
-                                        <img src="~/Content/Icons/baseline-settings-20px.svg" alt="icon-setting" />
+                                        <span class="mdi mdi-description" />
                                     </button>
                                     <script>
                                     if ("@Html.DisplayFor(model => item.NomDocument)" === "") {
@@ -89,15 +87,21 @@
         </div>
     </div>
     <div class="menu-flottant">
-        <a class="fancy-button blanc" href="@Url.Action("Accueil","Index")">
+        <a class="fancy-button blanc" href="@Url.Action("Stage","Accueil")">
             <span class="glyphicon glyphicon-triangle-left"></span>
             Retour
         </a>
 
-        <a class="fancy-button blanc" href="@Url.Action("Creation", "Stage")">
+        <a class="fancy-button blanc" href="@Url.Action("AjouterStage", "Stage")">
             <span class="glyphicon glyphicon-plus"></span>
             Ajouter un stage
         </a>
 
     </div>
 </div>
+<script src="@Url.Content("~/Scripts/perfect-scrollbar.js")"></script>
+<script>
+    var ps = new PerfectScrollbar('.scrollable');
+
+</script>
+

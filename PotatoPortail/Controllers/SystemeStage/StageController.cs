@@ -16,7 +16,6 @@ namespace PotatoPortail.Controllers
         {
             return View("~/Views/SystemeStage/Stage/Index.cshtml", _db.Stage.ToList());
         }
-
         [HttpGet]
         public ActionResult Modifier(int? IdStage)
         {
@@ -25,11 +24,9 @@ namespace PotatoPortail.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var Stage = _db.StatutStage.Find(IdStage);
-            return View("~/Views/SystemeStage/Stage/Modifier.cshtml",Stage);
+            var stage = _db.Stage.Find(IdStage);
+            return View("~/Views/SystemeStage/Stage/Modifier.cshtml",stage);
         }
-
-        [HttpPost]
         public ActionResult Modifier(
             HttpPostedFileBase fichier,
             int? idLocation,
@@ -80,7 +77,6 @@ namespace PotatoPortail.Controllers
 
             return RedirectToAction("Index");
         }
-
         private bool EstCeQueLaRequeteContientLesParametresPourEdition()
         {
             return (
@@ -99,8 +95,6 @@ namespace PotatoPortail.Controllers
                 Request.Form["salaire"] != null
             );
         }
-
-
         [HttpPost]
         public ActionResult TeleverserFichier()
         {
@@ -118,8 +112,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Stage/Index.cshtml");
         }
-
-        [HttpPost]
         public ActionResult AjouterStage()
         {
             var Stage = new Stage
@@ -145,7 +137,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Stage/Modifier.cshtml", Stage);
         }
-
         public ActionResult Suppression(int? IdStage)
         {
             var Stage = _db.Stage.Find(IdStage);
