@@ -13,7 +13,6 @@ namespace PotatoPortail.Models
         public int IdSousElement { get; set; }
 
         [Column(TypeName = "text")]
-        [Required]
         public string DescSousElement { get; set; }
 
         public int? IdElementConnaissance { get; set; }

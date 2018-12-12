@@ -38,22 +38,22 @@
                                 </a>
                             </td>
 
-                            <td>
-                                <a href='@Url.Action("Suppression", "Contact", new { item.IdContact })'>
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                        <td>
+                            <a href='@Url.Action("Suppression", "Contact", new { item.IdContact })'>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
-        <div class="menu-flottant">
-            <a class="fancy-button blanc" href="/Accueil/Stage">
-                <span class="glyphicon glyphicon-triangle-left"></span>
-                Retour
-            </a>
-
+    </div>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="@Url.Action("Stage","Accueil")">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+   
             <a class="fancy-button blanc" href="@Url.Action("Creation", "Contact")">
                 <span class="glyphicon glyphicon-plus"></span>
                 Ajouter un contact

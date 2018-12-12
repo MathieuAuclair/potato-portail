@@ -1,13 +1,13 @@
 ﻿﻿@model PotatoPortail.Models.PlanCadre
 @using PotatoPortail.Models
 @{
-    ViewBag.Titre = "PDF " + Model.titreCours;
+    ViewBag.Titre = "PDF " + Model.TitreCours;
     <title>@ViewBag.Titre</title>
     Layout = null;
     bool rowspanIndicationPedago = false;
-    int nbCompetence = Model.PlanCadreCompetence.Count();
+    int nbCompetence = Model.PlanCadreCompetence.Count;
     int planCadrPrealableHold = 0;
-    ViewBag.Nom = Model.titreCours;
+    ViewBag.Nom = Model.TitreCours;
 }
 <style>
 
@@ -144,9 +144,9 @@
 @Html.Partial("~/Views/static/header.cshtml", (string) ViewBag.Nom)
 <!-- barre top -->
 <div class="divtop">
-    @Html.DisplayFor(x => Model.Programme.nom)@*nom programme*@
+    @Html.DisplayFor(x => Model.Programme.Nom)@*nom programme*@
     <br/>
-    @Html.DisplayFor(x => Model.Programme.DevisMinistere.specialisation)@*devis specialisation*@
+    @Html.DisplayFor(x => Model.Programme.DevisMinistere.Specialisation)@*devis specialisation*@
 </div>
 <!-- début de l'entête -->
 <div class="entete">
@@ -158,17 +158,17 @@
             Pondération :
         </div>
         <div class="inner-right">
-            @Html.DisplayFor(x => Model.titreCours)@*titre cours*@
+            @Html.DisplayFor(x => Model.TitreCours)@*titre cours*@
             <br/>
-            @Html.DisplayFor(x => Model.nbHeureTheorie) - @Html.DisplayFor(x => Model.nbHeurePratique) - @Html.DisplayFor(x => Model.nbHeureDevoir)
+            @Html.DisplayFor(x => Model.NbHeureTheorie) - @Html.DisplayFor(x => Model.NbHeurePratique) - @Html.DisplayFor(x => Model.NbHeureDevoir)
         </div>
     </div>
     <div class="entete-right">
         <br/>
         <div class="inner2-left">
-            @Html.DisplayFor(x => Model.numeroCours)
+            @Html.DisplayFor(x => Model.NumeroCours)
             <br/>
-            @Html.DisplayFor(x => Model.Programme.DevisMinistere.discipline)@*code programme devis*@.@Html.DisplayFor(x => Model.Programme.DevisMinistere.codeSpecialisation)
+            @Html.DisplayFor(x => Model.Programme.DevisMinistere.Discipline)@*code programme devis*@.@Html.DisplayFor(x => Model.Programme.DevisMinistere.CodeSpecialisation)
         </div>
         <div class="inner2-right">
             Numéro du cours :
@@ -285,7 +285,7 @@
                         }
                     }
 
-                    @Html.DisplayFor(x => Model.indicationPedago)
+                    @Html.DisplayFor(x => Model.IndicationPedago)
                 </td>
                 rowspanIndicationPedago = true;
             }
@@ -323,20 +323,20 @@
             <tbody>
             @for (int i = 0; i < cadreCompetence.PlanCadre.PlanCadreCompetence.Count; i++)
             {
-                var planCadreCompetence = cadreCompetence.PlanCadre.PlanCadreCompetence.ElementAt(i);
-                var elementCompetence = planCadreCompetence.ElementCompetence;
+                var planCadreCompetence = cadreCompetence.PlanCadreElement;
+                var elementCompetence = planCadreCompetence[i];
 
                 <tr>
                     <td style="width: 15%">
-                        <ol start="@elementCompetence.numero">
-                            <li>@Html.DisplayFor(m => elementCompetence.description)</li>
+                        <ol start="@elementCompetence.ElementCompetence.Numero">
+                            <li>@Html.DisplayFor(m => elementCompetence.ElementCompetence.Description)</li>
                         </ol>
                     </td>
-                    <td style="width: 30%">
+                    <td style="width: 30%">description
                         <ol>
-                            @foreach (var criterePerformance in planCadreCompetence.ElementCompetence.CriterePerformance)
+                            @foreach (var criterePerformance in planCadreCompetence)
                             {
-                                <li>@Html.DisplayFor(m => criterePerformance.description)</li>
+                                <li>@Html.DisplayFor(m => criterePerformance.ElementCompetence.CriterePerformance.escription)</li>
                             }
                         </ol>
                     </td>
@@ -344,8 +344,10 @@
                         bool isPreviousUsingSameConnaissance = false;
                         if (i > 0)
                         {
-                            var previousPlanCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(i - 1);
-                            isPreviousUsingSameConnaissance = previousPlanCadreCompetence.ElementConnaissance.idElementConnaissance == planCadreCompetence.ElementConnaissance.idElementConnaissance;
+                            var previousPlanCadreCompetence = planCadreCompetence[i - 1];
+                            <!--var previousPlanCadreCompetence = planCadreCompetence.PlanCadreCompetence.ElementAt(i - 1);-->
+                            isPreviousUsingSameConnaissance = previousPlanCadreCompetence.ElementConnaissance
+                            isPreviousUsingSameConnaissance = previousPlanCadreCompetence.ElementConnaissance.IdElementConnaissance == planCadreCompetence.ElementConnaissance.idElementConnaissance;
                         }
 
                         bool isThereConnaissanceFollowing = false;
@@ -429,10 +431,10 @@
     <tbody>
     <tr>
         <td width="45%">
-            @Html.Raw(Model.environnementPhys)
+            @Html.Raw(Model.EnvironnementPhysique)
         </td>
         <td>
-            @Html.Raw(Model.ressource)
+            @Html.Raw(Model.RessourceDidactique)
         </td>
     </tr>
     </tbody>

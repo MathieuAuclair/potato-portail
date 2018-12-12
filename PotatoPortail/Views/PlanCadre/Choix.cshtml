@@ -35,12 +35,11 @@
                     type: "POST",
                     data: {
                         httpBundle: listEnonceElementStringified,
-                        _idPlanCadre: @Model.PlanCadre.IdPlanCadre
+                        idPlanCadre: @Model.PlanCadre.IdPlanCadre
                     },
-                    url: "/PlanCadre/Choix",
-                    success: function(result){
-                        window.location.assign(`Structure?idPlanCadre=${@Model.PlanCadre.IdPlanCadre}`);
-                        location.reload(true);
+                    url: "../PlanCadre/Choix",
+                    success: function(data) {
+                        window.location.href = data;
                     }
                 });
             });

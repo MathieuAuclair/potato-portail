@@ -16,7 +16,6 @@ using PotatoPortail.ViewModels;
 using PotatoPortail.ViewModels.PlanCadre;
 using Newtonsoft.Json;
 using PotatoPortail.Migrations;
-using CompetenceViewModel = PotatoPortail.ViewModels.PlanCours.CompetenceViewModel;
 
 namespace PotatoPortail.Controllers
 {
@@ -45,38 +44,34 @@ namespace PotatoPortail.Controllers
 
         public ActionResult InfoFocus(int? idPlanCadre, string idRecherche)
         {
-            if (idPlanCadre == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (idPlanCadre == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            if (idRecherche != null)
-            {
-                ViewBag.idRecherche = idRecherche;
-            }
+            if (idRecherche != null) ViewBag.idRecherche = idRecherche;
 
-            PlanCadre planCadre = db.PlanCadre.Find(idPlanCadre);
+            var planCadre = db.PlanCadre.Find(idPlanCadre);
+
             if (planCadre == null)
             {
                 return HttpNotFound();
             }
 
-
             return View("Info", planCadre);
         }
 
         [HttpGet]
-        public ActionResult Creation(int? idProgramme)
+        public ActionResult Creation(int? idProgramme, int? idPlanCadre)
         {
-            if (idProgramme == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            var planCadre = new PlanCadre();
+
+            if (idProgramme == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            if (idPlanCadre != null) planCadre = db.PlanCadre.Find(idPlanCadre);
+
 
             var typePlanCadres = db.TypePlanCadre.ToList();
-            List<SelectListItem> listTypes = new List<SelectListItem>();
+            var listTypes = new List<SelectListItem>();
 
-            foreach (TypePlanCadre type in typePlanCadres)
+            foreach (var type in typePlanCadres)
             {
                 listTypes.Add(new SelectListItem
                 {
@@ -84,9 +79,10 @@ namespace PotatoPortail.Controllers
                     Value = type.IdType.ToString()
                 });
             }
+
             ViewBag.Types = listTypes;
 
-            return View();
+            return planCadre != null ? View(planCadre) : View();
         }
 
         [HttpPost]
@@ -94,31 +90,24 @@ namespace PotatoPortail.Controllers
         {
             if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var planCadreNumero = from DBplanCadre in db.PlanCadre
-                where DBplanCadre.NumeroCours.Equals(planCadre.NumeroCours, StringComparison.OrdinalIgnoreCase)
-                select DBplanCadre;
-
             var planCadreTitre = from bdPlanCadre in db.PlanCadre
-                where bdPlanCadre.TitreCours.Equals(planCadre.TitreCours, StringComparison.OrdinalIgnoreCase)
+                where bdPlanCadre.TitreCours.Equals(planCadre.TitreCours, StringComparison.OrdinalIgnoreCase) &&
+                      bdPlanCadre.IdPlanCadre != planCadre.IdPlanCadre
                 select bdPlanCadre;
 
             if (planCadreTitre.Any())
             {
-                this.AddToastMessage("Titre déjà existant.", planCadreTitre.First().TitreCours + " est déjà entré dans le système.", Toast.ToastType.Error, true);
+                this.AddToastMessage("Titre déjà existant.",
+                    planCadreTitre.First().TitreCours + " est déjà entré dans le système.", Toast.ToastType.Error,
+                    true);
                 ViewBag.Types = new SelectList(db.TypePlanCadre, "idType", "nom", planCadre.IdType);
                 return View(planCadre);
             }
 
-            if (planCadreNumero.Any())
-            {
-                this.AddToastMessage("Numéro déjà utilisée.", "Le numéro de cours « " + planCadreNumero.First().NumeroCours + " » est déjà utilisée pour « " + planCadreNumero.First().TitreCours + " ». Choisissez-en une autre.", Toast.ToastType.Error, true);
-                ViewBag.Types = new SelectList(db.TypePlanCadre, "idType", "nom", planCadre.IdType);
-                return View(planCadre);
-            }
-
-            db.PlanCadre.Add(planCadre);
+            db.PlanCadre.AddOrUpdate(planCadre);
             db.SaveChanges();
-            this.AddToastMessage("Ajout de plan cadre effectué.", "« " + planCadre.TitreCours + " » a été ajouté", Toast.ToastType.Success);
+            this.AddToastMessage("Ajout de plan cadre effectué.", "« " + planCadre.TitreCours + " » a été ajouté",
+                Toast.ToastType.Success);
 
             return RedirectToAction("Choix", new {planCadre.IdPlanCadre});
         }
@@ -132,7 +121,9 @@ namespace PotatoPortail.Controllers
             {
                 EnonceCompetence = db.EnonceCompetence.ToList(), ElementCompetence = db.ElementCompetence.ToList()
             };
-            var enonces = db.EnonceCompetence.Select(item => new SelectListItem() {Value = item.IdCompetence.ToString(), Text = (item.CodeCompetence + " : " + item.Description)}).ToList();
+            var enonces = db.EnonceCompetence.Select(item => new SelectListItem()
+                    {Value = item.IdCompetence.ToString(), Text = (item.CodeCompetence + " : " + item.Description)})
+                .ToList();
 
             competenceViewModel.PlanCadre = db.PlanCadre.Find(idPlanCadre);
             ViewBag.IdPlanCadre = idPlanCadre;
@@ -143,7 +134,7 @@ namespace PotatoPortail.Controllers
         public PartialViewResult GetElement(CompetenceViewModel competenceViewModel, int idCompetence)
         {
             competenceViewModel.ElementCompetence = db.ElementCompetence.ToList();
-            List<SelectListItem> elements = new List<SelectListItem>();
+            var elements = new List<SelectListItem>();
 
             var elementEnonce = from element in db.ElementCompetence
                 join Enonc in db.EnonceCompetence on element.IdCompetence equals Enonc.IdCompetence
@@ -151,7 +142,7 @@ namespace PotatoPortail.Controllers
                 select new
                 {
                     ID = element.IdElement,
-                    Numero = element.Numero,
+                    element.Numero,
                     Desc = element.Description
                 };
 
@@ -172,15 +163,16 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [WebMethod]
-        public ActionResult Choix(string httpBundle, int _idPlanCadre)
+        public ActionResult Choix(string httpBundle, int idPlanCadre)
         {
-            var listPlanCadreEnonceElement = JsonConvert.DeserializeObject<List<PlanCadreCompetenceElement>>(httpBundle);
+            var listPlanCadreEnonceElement =
+                JsonConvert.DeserializeObject<List<PlanCadreCompetenceElement>>(httpBundle);
             foreach (var planCadreEnonceElement in listPlanCadreEnonceElement)
             {
                 var planCadreCompetence = new PlanCadreCompetence
                 {
                     IdCompetence = planCadreEnonceElement.IdEnonce,
-                    IdPlanCadre = _idPlanCadre,
+                    IdPlanCadre = idPlanCadre,
                     //PonderationEnHeure = planCadreEnonceElement.Ponderation
                 };
                 db.PlanCadreCompetence.Add(planCadreCompetence);
@@ -198,7 +190,8 @@ namespace PotatoPortail.Controllers
                 }
             }
 
-            return RedirectToAction("Structure", new { idPlanCadre = _idPlanCadre });
+            // ReSharper disable once RedundantAnonymousTypePropertyName
+            return Json(Url.Action("Structure", "PlanCadre", new {idPlanCadre = idPlanCadre}));
         }
 
         public ActionResult Structure(int? idPlanCadre)
@@ -214,7 +207,8 @@ namespace PotatoPortail.Controllers
             structureViewModel.ElementEnoncePlanCadres = new List<ElementEnoncePlanCadre>();
 
             var enonces = from enonce in db.EnonceCompetence
-                join planCadreCompetence in db.PlanCadreCompetence on enonce.IdCompetence equals planCadreCompetence.IdCompetence
+                join planCadreCompetence in db.PlanCadreCompetence on enonce.IdCompetence equals planCadreCompetence
+                    .IdCompetence
                 where planCadreCompetence.IdPlanCadre == planCadre.IdPlanCadre
                 select enonce;
 
@@ -226,7 +220,8 @@ namespace PotatoPortail.Controllers
                         on element.IdElement equals planCadreElement.IdElement
                     join planCadreCompetence in db.PlanCadreCompetence
                         on planCadreElement.IdPlanCadreCompetence equals planCadreCompetence.IdPlanCadreCompetence
-                    where planCadreCompetence.IdCompetence == enonce.IdCompetence && planCadreCompetence.IdPlanCadre == idPlanCadre
+                    where planCadreCompetence.IdCompetence == enonce.IdCompetence &&
+                          planCadreCompetence.IdPlanCadre == idPlanCadre
                     select element;
                 IEnumerable<ElementCompetence> elementCompetences = elements;
 
