@@ -4,7 +4,7 @@
     using (Html.BeginForm("Deconnexion", "Compte", FormMethod.Post, new { id = "logoutForm" }))
     {
         @Html.AntiForgeryToken()
-        <div onclick="javascript:document.getElementById('logoutForm').submit()" class="layout-button"><span class="glyphicon glyphicon-log-out"></span></div>
-        <a onclick="location.href='@Url.Action("Details", "Manage", new { userId = User.Identity.GetUserId() })'" class="layout-button"><span class="glyphicon glyphicon-user"></span></a>
+        <div onclick="javascript:document.getElementById('logoutForm').submit()" class="layout-button" style="float: right"><span class="glyphicon glyphicon-log-out"></span></div>
+        <a onclick="location.href='@Url.Action("Details", "Manage", new { userId = User.Identity.GetUserId() })'" class="layout-button" style="float: right"><span class="glyphicon glyphicon-user"></span></a>
     }
 }
