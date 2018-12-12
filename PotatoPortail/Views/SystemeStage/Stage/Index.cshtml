@@ -1,6 +1,5 @@
-@model IEnumerable<PotatoPortail.Models.Stage>
+@model ICollection<PotatoPortail.Models.Stage>
 @using PotatoPortail.Models
-@using PotatoPortail.Views.Shared.Widget.Model
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Navigation Stage";
@@ -16,34 +15,17 @@
         <div class="col-md-14">
             <table class="cool-table">
                 <tr>
-
-                    <th colspan="1" class="action-cell-header">Poste</th>
-                    <th colspan="1" class="action-cell-header">Lieux</th>
-                    <th colspan="1" class="action-cell-header">Contact</th>
-                    <th colspan="1" class="action-cell-header">Statut</th>
-                    <th colspan="4" class="action-cell-header">Description</>
-                    <th colspan="1" class="action-cell-header">Salaire</th>
-                    <th colspan="1" class="action-cell-header">Modifier</th>
-                    <th colspan="1" class="action-cell-header">Supprimer</th>
-                    <th></th>
+                    <th colspan="4" class="action-cell-header">Description</th>
+                    <th class="action-cell-header">Salaire</th>
+                    <th class="action-cell-header">Modifier</th>
+                    <th class="action-cell-header">Supprimer</th>
+                    <th class="action-cell-header"></th>
                 </tr>
 
-                @foreach (var item in (List<Stage>)Model)
+                @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.Poste.Nom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Location.Nom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Contact.Nom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.StatutStage)
-                        </td>
-                        <td colspan="4">
+                        <td colspan="4" style="width: 40%;">
                             <div class="scrollable">
                                 @Html.DisplayFor(model => item.Description)
                             </div>
@@ -51,13 +33,13 @@
                         <td>
                             @Html.DisplayFor(model => item.Salaire) $
                         </td>
-                        <td colspan="1" class="action-cell">
+                        <td class="action-cell">
 
                             <a href='@Url.Action("Modifier", "Stage", new { item.IdStage })'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
-                        <td colspan="1" class="action-cell">
+                        <td class="action-cell">
                             <a href='@Url.Action("Suppression", "Stage", new { item.IdStage })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>

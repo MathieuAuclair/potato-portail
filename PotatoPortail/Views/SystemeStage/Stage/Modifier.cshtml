@@ -11,8 +11,10 @@
         <input type="hidden" name="idStage" value="@Model.IdStage" />
         <div class="form-content">
             <h1>Stage</h1>
+            </br>
             <div>
-                @Html.Partial("Widget/_FlatUiTextarea", new FlatUiTextarea("Description", "description", @Model.Description))
+                <p style="font-size: 20px;">Description</p>
+                <textarea name="description" class="form-control" style="height: 100px;">@Model.Description</textarea>
             </div>
             <div>
                 @Html.Partial("Widget/FlatUiPaysSelect", new FlatUiPaysSelect(@Model.Pays))
@@ -27,11 +29,11 @@
                 @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rue", "20px", "rue", "text", @Model.NomRue, null))
             </div>
             <div>
-                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "numeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("NumÃ©ro civique", "20px", "numeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
             </div>
             <div class="flat-textarea">
                 <p>Code Postal</p>
-                <input name="codePostal" height="20px" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!" />
+                <input class="form-control" name="codePostal" style="width:285px" height="20" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit Ãªtre conforme et ne pas comporter d'espace!" />
             </div>
             <div>
                 @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())
@@ -46,7 +48,7 @@
                 @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/ContactSelect.cshtml", new ContactSelect())
             </div>
             <div>
-                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("RÃ©munÃ©ration", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
             </div>
             <div>
                 @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("fichier"))
