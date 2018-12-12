@@ -51,6 +51,7 @@
     background-color: #0078d7;
     padding: 10px;
     box-shadow: 0 -5px 5px -5px rgba(0,0,0,0.7);
+    z-index: 1000;
 }
 
 #layout .main {

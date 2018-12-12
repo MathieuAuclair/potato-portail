@@ -331,7 +331,6 @@
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
     <Compile Include="ViewModels\ApercuViewModel.cs" />
-    <Compile Include="ViewModels\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\CreatePlanCadreViewModel.cs" />
     <Compile Include="ViewModels\eSports\EditerJoueurViewModel.cs" />
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
@@ -348,7 +347,6 @@
     <Compile Include="ViewModels\PlanCadre\EnvironnementPhysiqueViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\StructureViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\apercuViewModel.cs" />
-    <Compile Include="ViewModels\PlanCours\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\PageTitreViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\servicesAdaptesViewModel.cs" />
@@ -409,6 +407,7 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\treeview.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\MaterialIcons-Regular.eot" />
     <Content Include="fonts\MaterialIcons-Regular.svg" />
     <Content Include="fonts\MaterialIcons-Regular.ttf" />
@@ -424,7 +423,11 @@
     <Content Include="Images\CEGEP.png" />
     <Content Include="Images\DICJ.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="scripts\ajoutActivite.js" />
     <Content Include="scripts\ajoutDynamique.js" />
+    <Content Include="scripts\ajoutElement.js" />
+    <Content Include="scripts\ajoutEnvironnement.js" />
+    <Content Include="scripts\ajoutRessource.js" />
     <Content Include="scripts\bootstrap-wysiwyg.js" />
     <Content Include="scripts\bootstrap.bundle.js" />
     <Content Include="scripts\bootstrap.bundle.js.map" />
@@ -463,14 +466,15 @@
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\material-icons.min.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
@@ -484,6 +488,7 @@
     <Content Include="scripts\modifModeleDynamique.js" />
     <Content Include="scripts\OrdreDuJour.js" />
     <Content Include="scripts\perfect-scrollbar.js" />
+    <Content Include="scripts\planCadreEnonceSelect.js" />
     <Content Include="scripts\popper-utils.js" />
     <Content Include="scripts\popper-utils.js.map" />
     <Content Include="scripts\popper-utils.min.js" />
