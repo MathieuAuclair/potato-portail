@@ -22,8 +22,8 @@
 
                 <div id="nav-button" data-toggle="collapse" data-target="#nav" class="layout-button inline-block"><span class="glyphicon glyphicon-th-large"></span></div>
 
-                <div class="inline-block">
-                    <input type="text" id="strRechercheLayout" class="recherche-control margin-left" placeholder="Recherche" name="stringRechercher">
+                <div class="div-recherche-layout">
+                    <input type="text" id="strRechercheLayout" class="recherche-layout margin-left" placeholder="Recherche" name="stringRechercher">
                     <a class="layout-button inline-block" id="rechercheLayout" onclick="rechercheLayout()">
                         <span class="glyphicon glyphicon glyphicon-search"></span>
                     </a>
@@ -32,6 +32,11 @@
                 <a href='@Url.Action("Index", "Accueil")'><div class="logo"></div></a>
 
                 @Html.Partial("_ConnexionPartial")
+                
+                <div class="div-utilisateur">
+                    <p class="p-utilisateur">Utilisateur: @Session["PrenomUtilisateur"] @Session["NomUtilisateur"]</p>
+                    <p class="p-utilisateur">Rôle(s): @*@Session["RolesUtilisateur"]*@</p>
+                </div>
 
             </div>
             <nav id="nav" class="collapse">
