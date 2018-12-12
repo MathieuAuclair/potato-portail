@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
 
-namespace PotatoPortail.Controllers
+namespace PotatoPortail.Controllers.SystemeStage
 {
     public class StageController : Controller
     {
