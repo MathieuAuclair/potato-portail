@@ -9,6 +9,7 @@
         <div class="collapse-button" data-toggle="collapse" data-target="#1"><span style="display:block;" class="glyphicon glyphicon-chevron-right"></span></div>
         <p style="margin: auto auto auto auto; display: block;">Plans de cours</p>
     </div>
+<div id="1" class="collapse">
         <div class="tree-view-item-container">
             @{var i = 1000;
                 foreach (var item in Model.PlanCours)
@@ -46,6 +47,7 @@
                         }
                     </div>
                 }}
+            </div>
     </div>
 
     @if (User.IsInRole("RCD") || User.IsInRole("Enseignant"))
