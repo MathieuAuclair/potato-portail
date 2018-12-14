@@ -26,7 +26,7 @@ namespace PotatoPortail.Controllers
             {
                 listeDeSelectionDeStage.Add(new SelectListItem
                 {
-                    Text = stage.Description,
+                    Text = stage.Poste.Nom + " dans la region de " + stage.Location,
                     Value = stage.IdStage.ToString()
                 });
             }
