@@ -389,16 +389,23 @@ namespace PotatoPortail.Controllers
         }
         public ActionResult RapportOrdreDuJour(int id)
         {
-            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.First());
+            OrdreDuJourViewModel model = new OrdreDuJourViewModel();
+            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
+            model.OrdreDuJour = _db.OrdreDuJour.First();
 
-            return new ActionAsPdf("RapportOrdreDuJour", _db.OrdreDuJour.Find(id))
+            foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
             {
-                RotativaOptions = new DriverOptions
+                List<SousPointSujet> listeSousPointSujetQuery = GetSousPoint(item.IdPointPrincipal);
+                if(listeSousPointSujetQuery != null)
                 {
-                    PageOrientation = Rotativa.Core.Options.Orientation.Landscape,
-                    PageSize = Rotativa.Core.Options.Size.A4
+                    foreach(var souspoint in listeSousPointSujetQuery)
+                    {
+                        listeSousPoint.Add(souspoint);
+                    }
                 }
-            };
+            }
+            model.ListeSousPointSujet = listeSousPoint;
+            return new ViewAsPdf("RapportOrdreDuJour",model);
         }
 
         public ActionResult ChoixRole()
