@@ -88,7 +88,7 @@ namespace PotatoPortail.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] 
         public ActionResult Create(OrdreDuJourViewModel ordreDuJourViewModel)
         {
             if (!regexHeure(ordreDuJourViewModel.OrdreDuJour))
