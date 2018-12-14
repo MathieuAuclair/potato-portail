@@ -391,20 +391,17 @@ namespace PotatoPortail.Controllers
         {
             OrdreDuJourViewModel model = new OrdreDuJourViewModel();
             List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
-            model.OrdreDuJour = _db.OrdreDuJour.First();
 
+            model.OrdreDuJour = _db.OrdreDuJour.First();
             foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
             {
-                List<SousPointSujet> listeSousPointSujetQuery = GetSousPoint(item.IdPointPrincipal);
-                if(listeSousPointSujetQuery != null)
+                foreach(var souspoint in GetSousPoint(item.IdPointPrincipal))
                 {
-                    foreach(var souspoint in listeSousPointSujetQuery)
-                    {
-                        listeSousPoint.Add(souspoint);
-                    }
+                    listeSousPoint.Add(souspoint);
                 }
             }
             model.ListeSousPointSujet = listeSousPoint;
+
             return new ViewAsPdf("RapportOrdreDuJour",model);
         }
 
