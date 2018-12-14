@@ -89,12 +89,38 @@ input, button { outline: 0; }
     display: inline-block;
     box-sizing: border-box;
     padding: 7px;
-    width: 75%;
+    width: 100%;
     vertical-align: middle;
     height: initial;
     box-shadow: initial;
     font-size: initial;
     color: initial;
+}
+
+.recherche-layout {
+    margin-top: 5px;
+    display: inline-block;
+    width: 85%;
+    padding: 7px;
+    vertical-align: middle;
+    height: initial;
+    box-shadow: initial;
+}
+
+.div-utilisateur {
+    display: inline-block;
+    float: right;
+}
+
+.p-utilisateur {
+    color: #ffffff;
+    margin: unset !important;
+    text-align: right;
+}
+
+.div-recherche-layout {
+    display: inline-block;
+    width: 30%;
 }
 
 label { display: block; }
@@ -189,6 +215,12 @@ textarea {
 input[type="file"] { display: none; }
 
 header.light-header {
+    display: inline-block;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #0078d7;
+}
+
+div.light-header {
     display: inline-block;
     margin-bottom: 20px;
     border-bottom: 2px solid #0078d7;

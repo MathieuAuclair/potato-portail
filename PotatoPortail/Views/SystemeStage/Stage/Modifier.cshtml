@@ -1,32 +1,67 @@
+@model PotatoPortail.Models.Stage
+@using System.Globalization
 @using PotatoPortail.Views.Shared.Widget.Model
-@model PotatoPortail.Models.Contact
-
+@using PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <h1>Contact</h1>
-    <form action="EnregistrerLesModifications" method="post">
-        <input name="idContact" type="hidden" value="@Html.DisplayFor(model => Model.IdContact)"/>
-        @* ReSharper disable once UnknownCssClass *@
+<div class="container page-content">
+    <form action="/Stage/Modifier" method="post" enctype="multipart/form-data" style="margin-bottom:150px" >
+        <input type="hidden" name="idStage" value="@Model.IdStage" />
         <div class="form-content">
-            <div class="form-group">
-                @Html.Label("Nom")
-                @Html.TextBoxFor(m => m.Nom, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.Nom, "", new { @class = "text-danger" })
+            <h1>Stage</h1>
+            </br>
+            <div>
+                <p style="font-size: 20px;">Description</p>
+                <textarea name="description" class="form-control" style="height: 100px;">@Model.Description</textarea>
             </div>
-            <div class="form-group">
-                @Html.Label("Courriel")
-                @Html.TextBoxFor(m => m.Courriel, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.Courriel, "", new { @class = "text-danger" })
+            <div>
+                @Html.Partial("Widget/FlatUiPaysSelect", new FlatUiPaysSelect(@Model.Pays))
             </div>
-            <div class="form-group">
-                @Html.Label("Téléphone")
-                @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Province", "20px", "province", "text", @Model.Province, null))
             </div>
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Ville", "20px", "ville", "string", @Model.Ville, null))
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rue", "20px", "rue", "text", @Model.NomRue, null))
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Numéro civique", "20px", "numeroCivique", "number", @Model.NumeroCivique.ToString(), 1.0f))
+            </div>
+            <div class="flat-textarea">
+                <p>Code Postal</p>
+                <input class="form-control" name="codePostal" style="width:285px" height="20" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!" />
+            </div>
+            <div>
+                @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())
+            </div>
+            <div>
+                @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/PosteSelect.cshtml", new PosteSelect())
+            </div>
+            <div>
+                @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/StatutSelect.cshtml", new StatutSelect())
+            </div>
+            <div>
+                @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/ContactSelect.cshtml", new ContactSelect())
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiTextInput", new FlatUiTextInputModel("Rémunération", "20px", "salaire", "number", @Model.Salaire.ToString(CultureInfo.InvariantCulture), 0.01f))
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiFileInputButton", new FlatUiInputButton("fichier"))
+            </div>
+            <div>
+                @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))
+            </div>
         </div>
     </form>
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Stage/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+    </div>
 </div>

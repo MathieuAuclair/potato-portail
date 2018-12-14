@@ -6,10 +6,11 @@
     ViewBag.Title = "Navigation Statut";
 }
 
-<h1>Statuts</h1>
 
 @* ReSharper disable once UnknownCssClass *@
 <div class="container page-content">
+
+    <h1>Statut</h1>
 
     <div class="row">
         <div class="col-md-10">
@@ -29,12 +30,12 @@
 
                         <td colspan="1" class="action-cell">
 
-                            <a href='@Url.Action("Modifier", "Statut", new { id = item.IdStatutStage })'>
+                            <a href='@Url.Action("Modifier", "Statut", new { item.IdStatutStage })'>
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
                         <td colspan="1" class="action-cell">
-                            <a href='@Url.Action("Suppression", "Statut", new { id = item.IdStatutStage })'>
+                            <a href='@Url.Action("Suppression", "Statut", new { item.IdStatutStage })'>
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
@@ -44,7 +45,7 @@
         </div>
     </div>
     <div class="menu-flottant">
-        <a class="fancy-button blanc" href="/Accueil/Index">
+        <a class="fancy-button blanc" href="@Url.Action("Stage","Accueil")">
             <span class="glyphicon glyphicon-triangle-left"></span>
             Retour
         </a>

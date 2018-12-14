@@ -260,6 +260,10 @@
     <Compile Include="Migrations\201812110104175_MigrationPlanCadre2.Designer.cs">
       <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812120252339_update_element_connaissance.cs" />
+    <Compile Include="Migrations\201812120252339_update_element_connaissance.Designer.cs">
+      <DependentUpon>201812120252339_update_element_connaissance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Models\AccesProgramme.cs" />
@@ -317,7 +321,7 @@
     <Compile Include="Models\SousElementConnaissance.cs" />
     <Compile Include="Models\SousEnvironnementPhysique.cs" />
     <Compile Include="Models\Reunions\SousPointSujet.cs" />
-    <Compile Include="Models\SousRessourceDIdactique.cs" />
+    <Compile Include="Models\SousRessourceDidactique.cs" />
     <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\StatutPrealable.cs" />
     <Compile Include="Models\eSports\Statut.cs" />
@@ -331,7 +335,6 @@
     <Compile Include="Toast\Toastr.cs" />
     <Compile Include="Toast\ToastType.cs" />
     <Compile Include="ViewModels\ApercuViewModel.cs" />
-    <Compile Include="ViewModels\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\CreatePlanCadreViewModel.cs" />
     <Compile Include="ViewModels\eSports\EditerJoueurViewModel.cs" />
     <Compile Include="ViewModels\eSports\EntraineurAssigneViewModel.cs" />
@@ -348,7 +351,6 @@
     <Compile Include="ViewModels\PlanCadre\EnvironnementPhysiqueViewModel.cs" />
     <Compile Include="ViewModels\PlanCadre\StructureViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\apercuViewModel.cs" />
-    <Compile Include="ViewModels\PlanCours\CompetenceViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\PageTitreViewModel.cs" />
     <Compile Include="ViewModels\PlanCours\servicesAdaptesViewModel.cs" />
@@ -375,10 +377,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\ToastrBuilder.cshtml" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extend.css" />
@@ -397,6 +397,8 @@
     <Content Include="Content\Images\portail-logo.png" />
     <Content Include="Content\Images\watermark.png" />
     <Content Include="Content\material-icons.css" />
+    <Content Include="Content\menu.css" />
+    <Content Include="Content\material-icons.min.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\structure.css" />
     <Content Include="Content\superview.css" />
@@ -405,6 +407,7 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\treeview.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\MaterialIcons-Regular.eot" />
     <Content Include="fonts\MaterialIcons-Regular.svg" />
     <Content Include="fonts\MaterialIcons-Regular.ttf" />
@@ -417,8 +420,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Images\CEGEP.png" />
+    <Content Include="Images\DICJ.png" />
+    <Content Include="scripts\ajoutActivite.js" />
     <Content Include="scripts\ajoutDynamique.js" />
+    <Content Include="scripts\ajoutElement.js" />
+    <Content Include="scripts\ajoutEnvironnement.js" />
+    <Content Include="scripts\ajoutRessource.js" />
     <Content Include="scripts\bootstrap-wysiwyg.js" />
     <Content Include="scripts\bootstrap.bundle.js" />
     <Content Include="scripts\bootstrap.bundle.js.map" />
@@ -457,11 +465,15 @@
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\material-icons.min.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
@@ -475,6 +487,7 @@
     <Content Include="scripts\modifModeleDynamique.js" />
     <Content Include="scripts\OrdreDuJour.js" />
     <Content Include="scripts\perfect-scrollbar.js" />
+    <Content Include="scripts\planCadreEnonceSelect.js" />
     <Content Include="scripts\popper-utils.js" />
     <Content Include="scripts\popper-utils.js.map" />
     <Content Include="scripts\popper-utils.min.js" />
@@ -670,6 +683,7 @@
     <Content Include="Views\SystemeStage\Statut\Modifier.cshtml" />
     <Content Include="Views\SystemeStage\Application\ApplicationComponent\StageEntrepriseInformation.cshtml" />
     <Content Include="Views\OrdreDuJour\ModifierModeleOrdreDuJour.cshtml" />
+    <Content Include="Views\SystemeStage\Application\Modifier.cshtml" />
     <Content Include="Views\PlanCadre\Choix.cshtml" />
     <Content Include="Views\PlanCadre\Creation.cshtml" />
     <Content Include="Views\PlanCadre\GetElement.cshtml" />
@@ -678,6 +692,8 @@
     <Content Include="Views\ElementConnaissance\CreationModification.cshtml" />
     <Content Include="Views\EnvironnementPhysique\CreationModification.cshtml" />
     <Content Include="Views\RessourceDidactique\CreationModification.cshtml" />
+    <Content Include="Views\Accueil\OrdreDuJour.cshtml" />
+    <Content Include="Views\SystemeStage\Application\Creation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -692,6 +708,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812110104175_MigrationPlanCadre2.resx">
       <DependentUpon>201812110104175_MigrationPlanCadre2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812120252339_update_element_connaissance.resx">
+      <DependentUpon>201812120252339_update_element_connaissance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

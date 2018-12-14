@@ -1,4 +1,5 @@
 @model PotatoPortail.ViewModels.ApercuViewModel
+
 @{
     ViewBag.Title = "Create";
 }
@@ -12,17 +13,17 @@
                 <h4>Création d'un plan de cours</h4>
             </header>
             <div class="form-group">
-                @Html.LabelFor(model => model.BureauProf, htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.Label("Bureau du Professeur", htmlAttributes: new {@class = "control-label col-md-2"})
                 @Html.EditorFor(model => model.BureauProf, new {htmlAttributes = new {@class = "form-control", @name = "localBureau"}})
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.NoPoste, htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.Label("Numéro de poste", htmlAttributes: new {@class = "control-label col-md-2"})
                 @Html.EditorFor(model => model.NoPoste, new {htmlAttributes = new {@class = "form-control", @name = "posteTelephonique"}})
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.PlanCadre, htmlAttributes: new {@class = "control-label col-md-2"})
-                @Html.DropDownListFor(model => model.IdPlanCadre, new SelectList(Model.PlanCadre, "idPlanCadre", "titreCours"))
+                @Html.Label("Plan Cadre", htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.DropDownListFor(model => model.IdPlanCadre, new SelectList(ViewBag.PlanCadre, "idPlanCadre", "titreCours"))
             </div>
 
             <div class="form-group">

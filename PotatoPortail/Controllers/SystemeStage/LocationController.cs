@@ -15,9 +15,7 @@ namespace PotatoPortail.Controllers
         public ActionResult Index()
         {
             return View("~/Views/SystemeStage/Location/Index.cshtml", _db.Location.ToList());
-        }
-
-        [HttpPost]
+        }  
         public ActionResult Modifier(int? IdLocation)
         {
             if (IdLocation == null)
@@ -34,7 +32,6 @@ namespace PotatoPortail.Controllers
 
             return View("~/Views/SystemeStage/Location/Modifier.cshtml",location);
         }
-
         [HttpPost]
         public ActionResult EnregistrerLesModifications(
             int? idLocation,
@@ -58,7 +55,6 @@ namespace PotatoPortail.Controllers
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Creation()
         {
             var location = new Location {Nom = "Nouvelle location"};
@@ -68,7 +64,6 @@ namespace PotatoPortail.Controllers
             
             return View("~/Views/SystemeStage/Location/Modifier.cshtml", location);
         }
-
         public ActionResult Suppression(int? IdLocation)
         {
             var location = _db.Location.Find(IdLocation);
@@ -77,9 +72,16 @@ namespace PotatoPortail.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            _db.Location.Remove(location);
-            _db.SaveChanges();
- 
+            var stagesAyantCetteLocation = from stage in _db.Stage
+                                      where stage.Location.IdLocation == IdLocation
+                                           select stage;
+
+            if (!stagesAyantCetteLocation.Any())
+            {
+                _db.Location.Remove(location);
+                _db.SaveChanges();
+            }
+  
             return RedirectToAction("Index", "Location");
         }
     }

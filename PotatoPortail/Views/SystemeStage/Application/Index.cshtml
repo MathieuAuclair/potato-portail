@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container" style="margin-bottom:5%;">
 
     <h2>Applications aux stages</h2>
 
@@ -14,26 +14,27 @@
         <div class="col-md-11">
             <table class="cool-table">
                 <tr>
-                    <th colspan="2">Nom de l'étudiant</th>
-                    <th colspan="2">Code permanent</th>
-                    <th colspan="3">Description du stage</th>
-                    <th colspan="1" class="action-cell-header">Modifier</th>
-                    <th colspan="1" class="action-cell-header">Supprimer</th>
+                    <th colspan="1">Nom de l'étudiant</th>
+                    <th colspan="1">Code permanent</th>
+                    <th colspan="5">Description du stage</th>
+                    <th class="action-cell-header">Modifier</th>
+                    <th class="action-cell-header">Supprimer</th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td colspan="1">
                             @Html.DisplayFor(modelItem => item.Etudiant.NomComplet)
                         </td>
-                        <td>
+                        <td colspan="1">
                             @Html.DisplayFor(modelItem => item.Etudiant.CodePermanent)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Stage.Description)
+                        <td colspan="5">
+                            <div class="scrollable">
+                                @Html.DisplayFor(modelItem => item.Stage.Description)
+                            </div>
                         </td>
-
                         <td colspan="1" class="action-cell">
 
                             <a href='@Url.Action("Modifier", "Application", new {item.IdApplication })'>
@@ -52,14 +53,14 @@
         </div>
     </div>
     <div class="menu-flottant">
-        <a class="fancy-button blanc" href="/Accueil/Index">
+        <a class="fancy-button blanc" href="@Url.Action("Index","Accueil")">
             <span class="glyphicon glyphicon-triangle-left"></span>
             Retour
         </a>
 
         <a class="fancy-button blanc" href="@Url.Action("Creation", "Application")">
             <span class="glyphicon glyphicon-plus"></span>
-         Appliquer sur un stage
+            Appliquer sur un stage
         </a>
 
     </div>

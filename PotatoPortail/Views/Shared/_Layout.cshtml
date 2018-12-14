@@ -22,8 +22,8 @@
 
                 <div id="nav-button" data-toggle="collapse" data-target="#nav" class="layout-button inline-block"><span class="glyphicon glyphicon-th-large"></span></div>
 
-                <div class="inline-block">
-                    <input type="text" id="strRechercheLayout" class="recherche-control margin-left" placeholder="Recherche" name="stringRechercher">
+                <div class="div-recherche-layout">
+                    <input type="text" id="strRechercheLayout" class="recherche-layout margin-left" placeholder="Recherche" name="stringRechercher">
                     <a class="layout-button inline-block" id="rechercheLayout" onclick="rechercheLayout()">
                         <span class="glyphicon glyphicon glyphicon-search"></span>
                     </a>
@@ -32,15 +32,15 @@
                 <a href='@Url.Action("Index", "Accueil")'><div class="logo"></div></a>
 
                 @Html.Partial("_ConnexionPartial")
+                
+                <div class="div-utilisateur">
+                    <p class="p-utilisateur">Utilisateur: @Session["PrenomUtilisateur"] @Session["NomUtilisateur"]</p>
+                    <p class="p-utilisateur">Rôle(s): @*@Session["RolesUtilisateur"]*@</p>
+                </div>
 
             </div>
             <nav id="nav" class="collapse">
                 <div class="tuile-container">
-
-                    <a class="tuile" href='@Url.Action("Index", "Accueil")'>
-                        <span class="mdi mdi-home"></span>
-                        <p>Accueil</p>
-                    </a>
 
                     @if (User.IsInRole("RCP"))
                     {
@@ -49,22 +49,22 @@
                             <p>Pédagogie</p>
                         </a>
                     }
-
-                    <a class="tuile" href='@Url.Action("Index", "Rapport")'>
-                        <span class="mdi mdi-folder-open"></span>
-                        <p>Rapport</p>
-                    </a>
-
-                    <a class="tuile" href='@Url.Action("Reunions", "Accueil")'>
-                        <span class="mdi mdi-date-range"></span>
-                        <p>Réunions</p>
-                    </a>
-
-                    <a class="tuile" href='@Url.Action("Index","Stages")'>
-                        <span class="mdi mdi-work"></span>
-                        <p>Stages</p>
-                    </a>
-
+                    @if (User.IsInRole("RCP") || User.IsInRole("RDC") || User.IsInRole("Enseignant"))
+                    {
+                        <a class="tuile" href='@Url.Action("Index", "Rapport")'>
+                            <span class="mdi mdi-folder-open"></span>
+                            <p>Rapport</p>
+                            <p>(Bêta)</p>
+                        </a>
+                        <a class="tuile" href='@Url.Action("Reunions", "Accueil")'>
+                            <span class="mdi mdi-date-range"></span>
+                            <p>Réunions</p>
+                        </a>
+                    }
+                        <a class="tuile" href='@Url.Action("Stage", "Accueil")'>
+                            <span class="mdi mdi-work"></span>
+                            <p>Stages</p>
+                        </a>
                     @if (User.IsInRole("Admin"))
                     {
                         <a class="tuile" href='@Url.Action("ConsoleAdmin", "Accueil")'>
@@ -72,14 +72,14 @@
                             <p>Console d'administration</p>
                         </a>
                     }
-
-                    @if (User.IsInRole("Admin eSports") || (User.IsInRole("Etudiant")))
+                    @if (User.IsInRole("Admin eSports") || User.IsInRole("Etudiant") || User.IsInRole("Joueur eSports"))
                     {
                         <a class="tuile" href='@Url.Action("ESport", "Accueil")'>
                             <span class="mdi mdi-videogame-asset"></span>
-                            <p>eSports - Gaillards</p>
+                            <p>eSport - Gaillard</p>
                         </a>
                     }
+
 
                 </div>
             </nav>

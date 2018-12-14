@@ -4,26 +4,27 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div>
+<div class="container page-content">
     <h1>Statut</h1>
+
     <form action="EnregistrerLesModifications" method="post">
-        <input name="idStatut" type="hidden" value="@Html.DisplayFor(model => Model.IdStatutStage)"/>
+        <input name="IdStatutStage" type="hidden" value="@Html.DisplayFor(model => Model.IdStatutStage)" />
         @* ReSharper disable once UnknownCssClass *@
         <div class="form-content">
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Nom du status",
-                        "20px",
-                        "nom",
-                        "text",
-                        Model.NomStatutStage,
-                        null
-                        )
-                    )
+            <div class="form-group">
+                @Html.Label("Nom du statut")
+                @Html.TextBoxFor(m => m.NomStatutStage, new { @class = "form-control small" })
+                @Html.ValidationMessageFor(m => m.NomStatutStage, "", new { @class = "text-danger" })
             </div>
+
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
     </form>
+
+    <div class="menu-flottant">
+        <a class="fancy-button blanc" href="/Statut/Index">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Retour
+        </a>
+    </div>
 </div>

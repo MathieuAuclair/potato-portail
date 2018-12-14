@@ -7,12 +7,12 @@ namespace PotatoPortail.Views.SystemeStage.Stage.EditionComponent.Models
 {
     public class StatutSelect
     {
-        public List<Statut> Statut { get; set; }
+        public List<StatutStage> StatutStage { get; set; }
         private readonly BdPortail _db = new BdPortail();
 
         public StatutSelect()
         {
-            Statut = _db.Statut.ToList();
+            StatutStage = _db.StatutStage.ToList();
         }
     }
 }
