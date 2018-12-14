@@ -78,15 +78,20 @@
             <br/>
             @Html.DisplayFor(x => Model.LieuReunionODJ)
             <br/>
-            <div class="titre">
+            <br/>
+            <br/>
+            <div>
                 Ordre du jour
-                <br/>
+            </div>
+            <br/>
+            <div>
                 @foreach (var pointPrincipal in Model.SujetPointPrincipal)
                 {
                     <br/>
                     <div class="soustitre">
                         
                         @Html.Raw(NbOrdreDuJour).@Html.DisplayFor(x => pointPrincipal.SujetPoint)
+                        @{ NbOrdreDuJour++;}
                         <br/>
                         @foreach (var souspoints in pointPrincipal.SousPointSujet)
                         {

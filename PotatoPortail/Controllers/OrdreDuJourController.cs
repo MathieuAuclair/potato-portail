@@ -389,7 +389,7 @@ namespace PotatoPortail.Controllers
         }
         public ActionResult RapportOrdreDuJour(int id)
         {
-            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.First());
+            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.Find(id));
 
             return new ActionAsPdf("RapportOrdreDuJour", _db.OrdreDuJour.Find(id))
             {
