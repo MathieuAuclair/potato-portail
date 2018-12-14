@@ -70,7 +70,7 @@ namespace PotatoPortail.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Creation()
         {
             var repo = new CreateRepository();
             var viewmodel = repo.CreateLieu();
@@ -87,20 +87,20 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(OrdreDuJourViewModel ordreDuJourViewModel)
+        public ActionResult Creation(OrdreDuJourViewModel ordreDuJourViewModel)
         {
             if (!regexHeure(ordreDuJourViewModel.OrdreDuJour))
             {
                 this.AddToastMessage("Erreur dans l'entrée de l'heure", "Veuillez entrez le bon format d'heure",
                     ToastType.Error);
-                return RedirectToAction("Create", "OrdreDuJour");
+                return RedirectToAction("Creation", "OrdreDuJour");
             }
 
             if (!ChkDate(ordreDuJourViewModel))
             {
                 this.AddToastMessage("Erreur dans l'entrée de la date", "Veuillez entrez une date ultérieure",
                     ToastType.Error);
-                return RedirectToAction("Create", "OrdreDuJour");
+                return RedirectToAction("Creation", "OrdreDuJour");
             }
 
             if (!ModelState.IsValid)
@@ -155,7 +155,7 @@ namespace PotatoPortail.Controllers
             );
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Modifier(int? id)
         {
             if (id == null)
             {
@@ -196,7 +196,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
+        public ActionResult Modifier(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
         {
             if (ModelState.IsValid)
             {
@@ -266,7 +266,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Supprimer(int? id)
         {
             if (id == null)
             {
@@ -292,7 +292,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

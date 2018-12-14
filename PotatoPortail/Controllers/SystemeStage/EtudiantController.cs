@@ -38,7 +38,6 @@ namespace PotatoPortail.Controllers
             int? idEtudiant,
             string telephone,
             string prenom,
-            string role,
             string codePermanent,
             string courrielEcole,
             string courrielPersonnel,
@@ -67,7 +66,7 @@ namespace PotatoPortail.Controllers
 
             etudiant.Telephone = telephone;
             etudiant.Prenom = prenom;
-            etudiant.Role = role;
+            etudiant.Role = "Stagiaire";
             etudiant.CodePermanent = codePermanent;
             etudiant.CourrielEcole = courrielEcole;
             etudiant.CourrielPersonnel = courrielPersonnel;

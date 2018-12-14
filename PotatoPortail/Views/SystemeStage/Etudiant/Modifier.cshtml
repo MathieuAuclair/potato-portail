@@ -6,114 +6,106 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="margin-bottom:5%;">
-    <h1>Étudiant</h1>
-    <form action="EnregistrerLesModifications" method="post">
-        <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => Model.IdEtudiant)" />
-        @* ReSharper disable once UnknownCssClass *@
-        <div class="form-content">
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Prénom de l'étudiant",
-                        "20px",
-                        "prenom",
-                        "text",
-                        Model.Prenom,
-                        null
+<div class="container" style="margin-bottom: 5%;">
+    <div class="form-box">
+        <h1>Étudiant</h1>
+        <form action="EnregistrerLesModifications" method="post">
+            <input name="idEtudiant" type="hidden" value="@Html.DisplayFor(model => Model.IdEtudiant)"/>
+            @* ReSharper disable once UnknownCssClass *@
+            <div class="form-content">
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Prénom de l'étudiant",
+                            "20px",
+                            "prenom",
+                            "text",
+                            Model.Prenom,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Nom de l'étudiant",
-                        "20px",
-                        "nomDeFamille",
-                        "text",
-                        Model.NomDeFamille,
-                        null
+                </div>
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Nom de l'étudiant",
+                            "20px",
+                            "nomDeFamille",
+                            "text",
+                            Model.NomDeFamille,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Téléphone",
-                        "20px",
-                        "telephone",
-                        "tel",
-                        Model.Telephone,
-                        null
+                </div>
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Téléphone",
+                            "20px",
+                            "telephone",
+                            "tel",
+                            Model.Telephone,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Courriel scolaire",
-                        "20px",
-                        "courrielEcole",
-                        "text",
-                        Model.CourrielEcole,
-                        null
+                </div>
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Courriel scolaire",
+                            "20px",
+                            "courrielEcole",
+                            "text",
+                            Model.CourrielEcole,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Courriel personnel",
-                        "20px",
-                        "courrielPersonnel",
-                        "text",
-                        Model.CourrielPersonnel,
-                        null
+                </div>
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Courriel personnel",
+                            "20px",
+                            "courrielPersonnel",
+                            "text",
+                            Model.CourrielPersonnel,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Code permanent",
-                        "20px",
-                        "codePermanent",
-                        "text",
-                        Model.CodePermanent,
-                        null
+                </div>
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Code permanent",
+                            "20px",
+                            "codePermanent",
+                            "text",
+                            Model.CodePermanent,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiTextInput",
-                    new FlatUiTextInputModel(
-                        "Numéro de DA",
-                        "20px",
-                        "numeroDa",
-                        "text",
-                        Model.NumeroDa,
-                        null
+                </div>
+                <div>
+                    @Html.Partial("Widget/_FlatUiTextInput",
+                        new FlatUiTextInputModel(
+                            "Numéro de DA",
+                            "20px",
+                            "numeroDa",
+                            "text",
+                            Model.NumeroDa,
+                            null
+                            )
                         )
-                    )
-            </div>
-            <div>
-                @Html.Partial("Widget/_FlatUiSelect", new FlatUiSelect(
-                    "Rôle",
-                    "role",
-                    new List<FlatUiOption>
-                    {
-                        new FlatUiOption("Étudiant", "etudiant"),
-                        new FlatUiOption("Stagière", "stagiere")
-                    }))
-            </div>
+                </div>
 
-            <h2>Préférences</h2>
+                <h2>Préférences</h2>
 
-            @Html.Partial("~/Views/SystemeStage/Etudiant/EditionComponent/PreferenceEditor.cshtml", new PreferenceEditor(Model.Preference))
+                @Html.Partial("~/Views/SystemeStage/Etudiant/EditionComponent/PreferenceEditor.cshtml", new PreferenceEditor(Model.Preference))
 
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
-        </div>
-    </form>
+                @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
+            </div>
+        </form>
+    </div>
     <div class="menu-flottant">
         <a class="fancy-button blanc" href="/Etudiant/Index">
             <span class="glyphicon glyphicon-triangle-left"></span>
