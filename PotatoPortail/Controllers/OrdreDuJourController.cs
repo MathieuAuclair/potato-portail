@@ -395,7 +395,9 @@ namespace PotatoPortail.Controllers
             model.OrdreDuJour = _db.OrdreDuJour.First();
             foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
             {
-                foreach(var souspoint in GetSousPoint(item.IdPointPrincipal))
+                List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
+                if (listeSousPointQuery != null) continue; //Erreur possible saute le forach s'il y a un PP vide entre deux pleins de SP
+                foreach (var souspoint in listeSousPointQuery)
                 {
                     listeSousPoint.Add(souspoint);
                 }
