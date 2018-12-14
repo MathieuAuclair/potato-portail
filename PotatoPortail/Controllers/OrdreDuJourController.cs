@@ -13,6 +13,8 @@ using PotatoPortail.Models;
 using PotatoPortail.Models.Reunions;
 using PotatoPortail.Toast;
 using PotatoPortail.ViewModels.OrdresDuJour;
+using Rotativa.Core;
+using Rotativa.MVC;
 
 namespace PotatoPortail.Controllers
 {
@@ -384,6 +386,19 @@ namespace PotatoPortail.Controllers
             this.AddToastMessage("Modèle enregistré", "Le modèle a bien été enregistré.",
                 ToastType.Success);
             return RedirectToAction("Index");
+        }
+        public ActionResult RapportOrdreDuJour(int id)
+        {
+            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.Find(id));
+
+            return new ActionAsPdf("RapportOrdreDuJour", _db.OrdreDuJour.Find(id))
+            {
+                RotativaOptions = new DriverOptions
+                {
+                    PageOrientation = Rotativa.Core.Options.Orientation.Landscape,
+                    PageSize = Rotativa.Core.Options.Size.A4
+                }
+            };
         }
 
         public ActionResult ChoixRole()

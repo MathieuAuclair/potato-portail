@@ -129,7 +129,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+      <HintPath>..\packages\Rotativa.Core.2.0.2.1\lib\net45\Rotativa.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
@@ -422,6 +422,7 @@
     </None>
     <Content Include="Images\CEGEP.png" />
     <Content Include="Images\DICJ.png" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="scripts\ajoutActivite.js" />
     <Content Include="scripts\ajoutDynamique.js" />
     <Content Include="scripts\ajoutElement.js" />
@@ -465,7 +466,6 @@
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\material-icons.min.css.map" />
@@ -473,6 +473,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
@@ -694,6 +695,7 @@
     <Content Include="Views\RessourceDidactique\CreationModification.cshtml" />
     <Content Include="Views\Accueil\OrdreDuJour.cshtml" />
     <Content Include="Views\SystemeStage\Application\Creation.cshtml" />
+    <Content Include="Views\OrdreDuJour\RapportOrdreDuJour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
