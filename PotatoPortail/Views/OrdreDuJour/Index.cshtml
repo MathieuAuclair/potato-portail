@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PotatoPortail.Models.Reunions.OrdreDuJour>
+﻿@using PotatoPortail.Models.Reunions
+@model IEnumerable<PotatoPortail.Models.Reunions.OrdreDuJour>
 
 @{
     ViewBag.Titre = "Ordres du jour";
@@ -31,6 +32,7 @@
         <a class="fancy-button blanc" href='@Url.Action("OrdreDuJour", "Accueil")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
         <a class="fancy-button blanc" href='@Url.Action("Create", "OrdreDuJour")'><span class="glyphicon glyphicon-plus"></span> Créer un ordre du jour</a>
         <!--<a class="fancy-button blanc" href='@Url.Action("ModifierModeleOrdreDuJour", "OrdreDuJour")'><span class="glyphicon glyphicon-pencil"></span>Modifier le modèle</a>-->
+            
     </div>
 </div>
 
