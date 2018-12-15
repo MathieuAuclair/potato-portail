@@ -391,6 +391,7 @@ namespace PotatoPortail.Controllers
         {
             OrdreDuJourViewModel model = new OrdreDuJourViewModel();
             List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
+            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.Find(id));
 
             model.OrdreDuJour = _db.OrdreDuJour.First();
             foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
