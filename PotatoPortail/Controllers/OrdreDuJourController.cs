@@ -389,23 +389,23 @@ namespace PotatoPortail.Controllers
         }
         public ActionResult RapportOrdreDuJour(int id)
         {
-            OrdreDuJourViewModel model = new OrdreDuJourViewModel();
+            OrdreDuJour model = new OrdreDuJour();
             List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
-            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.Find(id));
+            //model.OrdreDuJour = _db.OrdreDuJour.First();
+            //foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
+            //{
+            //    List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
+            //    if (listeSousPointQuery.Count != 0)
+            //    {
+            //        foreach (var souspoint in listeSousPointQuery)
+            //        {
+            //            listeSousPoint.Add(souspoint);
+            //        }
+            //    }                
+            //}
+            //model.ListeSousPointSujet = listeSousPoint;
 
-            model.OrdreDuJour = _db.OrdreDuJour.First();
-            foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
-            {
-                List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
-                if (listeSousPointQuery != null) continue; //Erreur possible saute le forach s'il y a un PP vide entre deux pleins de SP
-                foreach (var souspoint in listeSousPointQuery)
-                {
-                    listeSousPoint.Add(souspoint);
-                }
-            }
-            model.ListeSousPointSujet = listeSousPoint;
-
-            return new ViewAsPdf("RapportOrdreDuJour",model);
+            return new ViewAsPdf("RapportOrdreDuJour", _db.OrdreDuJour.Find(id));
         }
 
         public ActionResult ChoixRole()

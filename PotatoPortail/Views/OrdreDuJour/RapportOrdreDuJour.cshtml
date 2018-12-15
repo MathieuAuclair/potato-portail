@@ -1,6 +1,7 @@
-﻿@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel
+﻿@*@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel*@
+@model PotatoPortail.Models.Reunions.OrdreDuJour
 @{
-    ViewBag.Titre = "PDF " + Model.OrdreDuJour.TitreOdJ;
+    ViewBag.Titre = "PDF " + Model.TitreOdJ;
     int NbOrdreDuJour = 1;
     Layout = null;
 }
@@ -51,32 +52,32 @@
 
     <div class="entete">
         <p class="titre">
-            @Html.DisplayFor(x => Model.OrdreDuJour.TitreOdJ)
+            @Html.DisplayFor(x => Model.TitreOdJ)
         </p>
         <br/>
         <br/>
         <div class="soustitre">
             Heure du début de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.OrdreDuJour.HeureDebutReunion)
+            @Html.DisplayFor(x => Model.HeureDebutReunion)
             <br/>
         </div>
         <div class="soustitre">
             Heure de fin de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.OrdreDuJour.HeureFinReunion)
+            @Html.DisplayFor(x => Model.HeureFinReunion)
             <br/>
         </div>
         <div class="soustitre">
             Date de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.OrdreDuJour.DateOdJ)
+            @Html.DisplayFor(x => Model.DateOdJ)
             <br/>
         </div>
         <div class="soustitre">
             Lieu de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.OrdreDuJour.LieuReunionODJ)
+            @Html.DisplayFor(x => Model.LieuReunionODJ)
             <br/>
             <br/>
             <br/>
@@ -85,7 +86,7 @@
             </div>
             <br/>
             <div>
-                @foreach (var pointPrincipal in Model.OrdreDuJour.SujetPointPrincipal)
+                @foreach (var pointPrincipal in Model.SujetPointPrincipal)
                 {
                     <br/>
                     <div class="soustitre">
@@ -93,15 +94,29 @@
                         @Html.Raw(NbOrdreDuJour).@Html.DisplayFor(x => pointPrincipal.SujetPoint)
                         @{ NbOrdreDuJour++;}
                         <br/>
-                        @foreach (var souspoints in Model.ListeSousPointSujet)
-                        {
+                        @*@{int positionSousPoint = 0;}
+                        @while(positionSousPoint < Model.ListeSousPointSujet.Count){
                             <div class="soustitre">
                                 <ul style="list-style-type:disc">
-                                    <li>@Html.DisplayFor(x => souspoints.SujetSousPoint)</li>
-                                </ul>  
+                                    <li>@Html.DisplayFor(x => Model.ListeSousPointSujet[positionSousPoint].SujetSousPoint)</li>
+                                </ul>
                                 <br/>
                             </div>
-                        }
+                            positionSousPoint++;
+                        }*@
+                        @*@if (Model.ListeSousPointSujet != null)
+                        {
+                            foreach (var souspoints in Model.ListeSousPointSujet)
+                            {
+                                <div class="soustitre">
+                                    <ul style="list-style-type:disc">
+                                        <li>@Html.DisplayFor(x => souspoints.SujetSousPoint)</li>
+                                    </ul>  
+                                    <br/>
+                                </div>
+                            }
+                        }*@
+                        
                     </div>
                 }
             </div>
