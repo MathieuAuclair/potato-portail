@@ -1,6 +1,6 @@
-﻿@model PotatoPortail.Models.Reunions.OrdreDuJour
+﻿@model PotatoPortail.ViewModels.OrdresDuJour.OrdreDuJourViewModel
 @{
-    ViewBag.Titre = "PDF " + Model.TitreOdJ;
+    ViewBag.Titre = "PDF " + Model.OrdreDuJour.TitreOdJ;
     int NbOrdreDuJour = 1;
     Layout = null;
 }
@@ -51,32 +51,32 @@
 
     <div class="entete">
         <p class="titre">
-            @Html.DisplayFor(x => Model.TitreOdJ)
+            @Html.DisplayFor(x => Model.OrdreDuJour.TitreOdJ)
         </p>
         <br/>
         <br/>
         <div class="soustitre">
             Heure du début de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.HeureDebutReunion)
+            @Html.DisplayFor(x => Model.OrdreDuJour.HeureDebutReunion)
             <br/>
         </div>
         <div class="soustitre">
             Heure de fin de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.HeureFinReunion)
+            @Html.DisplayFor(x => Model.OrdreDuJour.HeureFinReunion)
             <br/>
         </div>
         <div class="soustitre">
             Date de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.DateOdJ)
+            @Html.DisplayFor(x => Model.OrdreDuJour.DateOdJ)
             <br/>
         </div>
         <div class="soustitre">
             Lieu de la réunion :
             <br/>
-            @Html.DisplayFor(x => Model.LieuReunionODJ)
+            @Html.DisplayFor(x => Model.OrdreDuJour.LieuReunionODJ)
             <br/>
             <br/>
             <br/>
@@ -85,7 +85,7 @@
             </div>
             <br/>
             <div>
-                @foreach (var pointPrincipal in Model.SujetPointPrincipal)
+                @foreach (var pointPrincipal in Model.OrdreDuJour.SujetPointPrincipal)
                 {
                     <br/>
                     <div class="soustitre">
@@ -93,7 +93,7 @@
                         @Html.Raw(NbOrdreDuJour).@Html.DisplayFor(x => pointPrincipal.SujetPoint)
                         @{ NbOrdreDuJour++;}
                         <br/>
-                        @foreach (var souspoints in pointPrincipal.SousPointSujet)
+                        @foreach (var souspoints in Model.ListeSousPointSujet)
                         {
                             <div class="soustitre">
                                 <ul style="list-style-type:disc">
