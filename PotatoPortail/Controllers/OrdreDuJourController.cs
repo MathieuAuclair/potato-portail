@@ -13,6 +13,8 @@ using PotatoPortail.Models;
 using PotatoPortail.Models.Reunions;
 using PotatoPortail.Toast;
 using PotatoPortail.ViewModels.OrdresDuJour;
+using Rotativa.Core;
+using Rotativa.MVC;
 
 namespace PotatoPortail.Controllers
 {
@@ -384,6 +386,25 @@ namespace PotatoPortail.Controllers
             this.AddToastMessage("Modèle enregistré", "Le modèle a bien été enregistré.",
                 ToastType.Success);
             return RedirectToAction("Index");
+        }
+        public ActionResult RapportOrdreDuJour(int id)
+        {
+            OrdreDuJourViewModel model = new OrdreDuJourViewModel();
+            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
+            
+            model.OrdreDuJour = _db.OrdreDuJour.First();
+            foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
+            {
+                List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
+                if (listeSousPointQuery != null) continue; //Erreur possible saute le forach s'il y a un PP vide entre deux pleins de SP
+                foreach (var souspoint in listeSousPointQuery)
+                {
+                    listeSousPoint.Add(souspoint);
+                }
+            }
+            model.ListeSousPointSujet = listeSousPoint;
+
+            return new ViewAsPdf("RapportOrdreDuJour",model);
         }
 
         public ActionResult ChoixRole()
