@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -19,6 +20,7 @@ namespace PotatoPortail.Controllers
         {
             if (IdStatutStage == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -26,6 +28,7 @@ namespace PotatoPortail.Controllers
 
             if (statut == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
@@ -39,6 +42,7 @@ namespace PotatoPortail.Controllers
         {
             if (IdStatutStage == null)
             {
+                this.AddToastMessage("Confirmation", "l'opération ne s'est pas effectué avec succes", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -46,18 +50,19 @@ namespace PotatoPortail.Controllers
 
             if (statut == null)
             {
+                this.AddToastMessage("Confirmation", "l'opération ne s'est pas effectué avec succes", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
             statut.NomStatutStage = NomStatutStage;
             _db.SaveChanges();
-
+            this.AddToastMessage("Confirmation", "l'opération c'est effectué avec succes", ToastType.Success, true);
             return RedirectToAction("Index");
         }
         public ActionResult Creation()
         {
             var statut = new StatutStage { NomStatutStage = "Nouveau statuts"};
-    
+            this.AddToastMessage("Confirmation de création", "La création a bien été effectué", ToastType.Success, true);
             _db.StatutStage.Add(statut);
             _db.SaveChanges();
 
@@ -78,8 +83,13 @@ namespace PotatoPortail.Controllers
 
             if (!stagesAyantCeStatut.Any())
             {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
                 _db.StatutStage.Remove(statut);
                 _db.SaveChanges();
+            }
+            else
+            {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Error, true);
             }
 
             return RedirectToAction("Index", "Statut");

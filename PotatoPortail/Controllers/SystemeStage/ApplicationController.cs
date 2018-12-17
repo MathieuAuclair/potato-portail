@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -82,12 +83,13 @@ namespace PotatoPortail.Controllers
         {
             if (!ModelState.IsValid)
             {
+                this.AddToastMessage("Confirmation", "l'opération ne s'est pas effectué avec succes", ToastType.Error, true);
                 return View(application);
             }
 
             _db.Entry(application).State = EntityState.Modified;
             _db.SaveChanges();
-
+            this.AddToastMessage("Confirmation de modification", "l'opération c'est effectué avec succes", ToastType.Success, true);
             return RedirectToAction("Index");
 
         }
@@ -98,9 +100,10 @@ namespace PotatoPortail.Controllers
 
             if (application == null)
             {
+                this.AddToastMessage("Confirmation", "l'opération ne s'est pas effectué avec succes", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
+            this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
             _db.Application.Remove(application);
             _db.SaveChanges();
 
@@ -112,7 +115,7 @@ namespace PotatoPortail.Controllers
         public ActionResult ConfirmerSupprimer(int IdStage)
         {
             var application = _db.Application.Find(IdStage);
-
+            this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
             _db.Application.Remove(application ?? throw new InvalidOperationException());
             _db.SaveChanges();
 
