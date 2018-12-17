@@ -5,22 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container page-content">
-    <h1>Statut</h1>
+    <div class="form-box">
+        <h1>Statut</h1>
 
-    <form action="EnregistrerLesModifications" method="post">
-        <input name="IdStatutStage" type="hidden" value="@Html.DisplayFor(model => Model.IdStatutStage)" />
-        @* ReSharper disable once UnknownCssClass *@
-        <div class="form-content">
-            <div class="form-group">
-                @Html.Label("Nom du statut")
-                @Html.TextBoxFor(m => m.NomStatutStage, new { @class = "form-control small" })
-                @Html.ValidationMessageFor(m => m.NomStatutStage, "", new { @class = "text-danger" })
+        <form action="EnregistrerLesModifications" method="post">
+            <input name="IdStatutStage" type="hidden" value="@Html.DisplayFor(model => Model.IdStatutStage)"/>
+            @* ReSharper disable once UnknownCssClass *@
+            <div class="form-content">
+                <div class="form-group">
+                    @Html.Label("Nom du statut")
+                    @Html.TextBoxFor(m => m.NomStatutStage, new {@class = "form-control small"})
+                    @Html.ValidationMessageFor(m => m.NomStatutStage, "", new {@class = "text-danger"})
+                </div>
+
+                @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
             </div>
-
-            @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
-        </div>
-    </form>
-
+        </form>
+    </div>
     <div class="menu-flottant">
         <a class="fancy-button blanc" href="/Statut/Index">
             <span class="glyphicon glyphicon-triangle-left"></span>
