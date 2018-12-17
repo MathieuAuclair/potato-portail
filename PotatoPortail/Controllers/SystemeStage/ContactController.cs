@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -114,8 +115,13 @@ namespace PotatoPortail.Controllers
 
             if (!stagesAyantCeContact.Any())
             {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
                 _db.Contact.Remove(contact);
                 _db.SaveChanges();
+            }
+            else
+            {
+                this.AddToastMessage("Confirmation de supression", "La supression n'a pas bien été effectué", ToastType.Error, true);
             }
 
             return RedirectToAction("Index", "Contact");
