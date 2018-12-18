@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.OrdreDuJour.DateOdJ)
-                @Html.EditorFor(m => m.OrdreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control small" } })
+                @Html.EditorFor(m => m.OrdreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control small", @Value=Model.OrdreDuJour.DateOdJ } })
                 @Html.ValidationMessageFor(m => m.OrdreDuJour.DateOdJ, "", new { @class = "text-danger" })
             </div>
 
@@ -57,9 +57,10 @@
                         {
                             for(int souspoint = 0; souspoint < Model.ListeSousPointSujet.Count; souspoint++)
                             {
+                                string li = "li";
                                 if(Model.ListeSousPointSujet[souspoint].IdSujetPointPrincipal == Model.SujetPointPrincipal[x].IdPointPrincipal)
                                 {
-                                    <li><input type="text" name="listeSousPoint" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].SujetSousPoint><input type="hidden" name="listeIdSousPointCache" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].IdSousPoint></li>
+                                    <li id="@souspoint@li@Model.ListeSousPointSujet[souspoint].IdSousPoint"><input type="text" name="listeSousPoint" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].SujetSousPoint><input type="hidden" name="listeIdSousPointCache" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].IdSousPoint><a class="fancy-button rouge vertical-align margin-left" id="btnMoins' + idValue + '" onclick="enleverSPoint(@souspoint,@Model.ListeSousPointSujet[souspoint].IdSousPoint)"><span class="glyphicon glyphicon-trash"></span></a></li>
                                 }
                             }
                         }
@@ -67,6 +68,10 @@
                     </ul>
                  }
             </div>
+            @*-- Bouton d'ajout un point principal lorsque désiré --*@
+            @*<div class="form-group">
+                <input id="ajoutPP" type="button" onclick="ajoutPPrincipal(this.id)" value="Ajout d'un sujet" class="fancy-button" />
+            </div>*@
 
             <hr />
             <input type="submit" value="Enregistrer" class="fancy-button" />
