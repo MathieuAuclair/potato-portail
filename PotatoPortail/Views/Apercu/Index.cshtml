@@ -46,14 +46,14 @@
                     <th style="width:35%">Indication pédagogiques, s'il y a lieu</th>
 
                 </tr>
-
+                @{ var iteration = 0;}
                 @foreach (var enonceCompetence in Model.ListeEnonceCompetence)
                 {
-
+                    iteration++;
                     <tr>
                         <td style="width:20%">
                             <p>@Html.DisplayFor(m => enonceCompetence.Description) (@Html.DisplayFor(m => enonceCompetence.CodeCompetence))</p>
-                            <p>@Html.DisplayFor(m => m.PonderationEnHeure) heures</p>
+                            <p>@Html.Label(Model.PonderationEnHeure[iteration-1].ToString()) heures</p>
                         </td>
                         <td style="width:45%">
                             <ul class="hyphen-list">
