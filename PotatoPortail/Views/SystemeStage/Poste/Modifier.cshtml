@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container page-content">
+<div class="form-box">
     <div>
         <h1>Poste</h1>
         <form action="EnregistrerLesModifications" method="post">
-            <input name="idPoste" type="hidden" value="@Html.DisplayFor(model => Model.IdPoste)" />
+            <input name="idPoste" type="hidden" value="@Html.DisplayFor(model => Model.IdPoste)"/>
             @* ReSharper disable once UnknownCssClass *@
             <div class="form-content">
                 <div>
@@ -26,6 +27,7 @@
                 @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
             </div>
         </form>
+    </div>
         <div class="menu-flottant">
             <a class="fancy-button blanc" href="/Poste/Index">
                 <span class="glyphicon glyphicon-triangle-left"></span>

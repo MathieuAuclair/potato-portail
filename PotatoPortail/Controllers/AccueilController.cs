@@ -3,8 +3,11 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
+using System.Web.Security;
 using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
@@ -66,7 +69,24 @@ namespace PotatoPortail.Controllers
 
             Session["PrenomUtilisateur"] = utilisateur.First().prenom;
             Session["NomUtilisateur"] = utilisateur.First().nom;
-            //string rolesUtilisateur = utilisateur.First().rolesWrap;
+            Session["RolesUtilisateur"] = getRolesUser();
+
+        }
+
+        private string getRolesUser()
+        {
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value);
+
+            var ligne = "";
+            foreach (var role in roles)
+            {
+                ligne += role + ", ";
+            }
+            if (ligne != "")
+                ligne = ligne.Remove(ligne.Length - 2, 2);
+            return ligne;
         }
     }
 }

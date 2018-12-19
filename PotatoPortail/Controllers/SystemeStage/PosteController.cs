@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -19,6 +20,7 @@ namespace PotatoPortail.Controllers
         {
             if (IdPoste == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -26,6 +28,7 @@ namespace PotatoPortail.Controllers
 
             if (poste == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
@@ -52,14 +55,14 @@ namespace PotatoPortail.Controllers
 
             poste.Nom = nom;
             _db.SaveChanges();
-
+            this.AddToastMessage("Confirmation", "l'opération s'est effectué avec succes", ToastType.Success, true);
             return RedirectToAction("Index");
         }
 
         public ActionResult Creation()
         {
             var poste = new Poste {Nom = "Nouveau poste"};
-
+            this.AddToastMessage("Confirmation de création", "La création a bien été effectué", ToastType.Success, true);
             _db.Poste.Add(poste);
             _db.SaveChanges();
 
@@ -79,8 +82,13 @@ namespace PotatoPortail.Controllers
 
             if (!stagesAyantCePoste.Any())
             {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
                 _db.Poste.Remove(poste);
                 _db.SaveChanges();
+            }
+            else
+            {
+                this.AddToastMessage("Confirmation de supression", "La supression n'a bien pas été effectué", ToastType.Error, true);
             }
             
             return RedirectToAction("Index", "Poste");

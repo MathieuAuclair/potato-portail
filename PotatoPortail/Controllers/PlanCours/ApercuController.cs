@@ -126,7 +126,15 @@ namespace PotatoPortail.Controllers.PlanCours
         public ActionResult Create()
         {
             ApercuViewModel viewModel = new ApercuViewModel();
-            ViewBag.PlanCadre = _db.PlanCadre.ToList();
+            List<PlanCadre> PlanCadres = new List<PlanCadre>();
+            var planCadre = from PC in _db.PlanCadre
+                join Programme in _db.Programme on PC.IdProgramme equals Programme.IdProgramme
+                join DevisMinistere in _db.DevisMinistere on Programme.IdDevis equals DevisMinistere.IdDevis
+                join Departement in _db.Departement on DevisMinistere.Discipline equals Departement.Discipline
+                where Departement.Discipline == "420"
+                select PC;
+            PlanCadres = planCadre.ToList();
+            ViewBag.PlanCadre = PlanCadres;
             return View(viewModel);
         }
 
@@ -166,7 +174,11 @@ namespace PotatoPortail.Controllers.PlanCours
                     _db.TexteSection.Add(texteSectionDefault);
                     _db.SaveChanges();
                 }
-                return RedirectToAction("Index", _apercu);
+                return RedirectToAction("Index", new
+                {
+                    apercu = _apercu,
+                    id = PC.IdPlanCours,
+                });
                     }
             catch
             {

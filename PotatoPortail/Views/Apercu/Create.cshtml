@@ -5,12 +5,13 @@
 }
 @using (Html.BeginForm())
 {
+
     @Html.AntiForgeryToken()
     <div class="super-view">
         <div class="form-box">
 
             <header class="light-header">
-                <h4>Création d'un plan de cours</h4>
+                <h4>CrÃ©ation d'un plan de cours</h4>
             </header>
             <div class="form-group">
                 @Html.Label("Bureau du Professeur", htmlAttributes: new {@class = "control-label col-md-2"})
@@ -18,7 +19,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Numéro de poste", htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.Label("NumÃ©ro de poste", htmlAttributes: new {@class = "control-label col-md-2"})
                 @Html.EditorFor(model => model.NoPoste, new {htmlAttributes = new {@class = "form-control", @name = "posteTelephonique"}})
             </div>
             <div class="form-group">
@@ -33,7 +34,7 @@
 
             <div class="form-group">
                 <a class="fancy-button" href="@Url.Action("Index", "Apercu")"><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-                <input type="submit" value="Créer" class="fancy-button"/>
+                <input type="submit" value="CrÃ©er" class="fancy-button"/>
             </div>
 
         </div>
@@ -46,10 +47,6 @@
     });
 </script>
 @section Scripts {
-    @Scripts.Render("~/Scripts/tinymce/tinymce.js")
-    @Scripts.Render("~/Scripts/tinymce/main.js")
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
-    @Styles.Render("~/Content/css")
 }

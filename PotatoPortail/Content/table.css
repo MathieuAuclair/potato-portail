@@ -79,11 +79,12 @@ table.plan-cadre-table tr th:first-child, table.plan-cadre-table tr td:first-chi
 table.plan-cadre-table th {
     background-color: #ddd;
     border-bottom: 5px solid;
+    border-top: 5px solid;
     border-color: #bcbcbc;
 }
 
 table.plan-cadre-table td {
-    border-bottom: 1px solid;
+    border: 1px solid;
     border-color: #ddd;
 }
 
