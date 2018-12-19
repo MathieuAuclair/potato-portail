@@ -10,7 +10,7 @@ using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpElementCompetenceAuthorize]
+    [Authorize(Roles = "RCP")]
     public class ElementCompetenceController : Controller
     {
         private readonly BdPortail _db = new BdPortail();

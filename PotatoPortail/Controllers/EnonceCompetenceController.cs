@@ -10,7 +10,7 @@ using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpEnonceCompetenceAuthorize]
+    [Authorize(Roles = "RCP")]
     public class EnonceCompetenceController : Controller
     {
         private readonly BdPortail _db = new BdPortail();
@@ -42,7 +42,8 @@ namespace PotatoPortail.Controllers
             return Redirect(currentUrl);
         }
 
-        [RcpDevisMinistereAuthorize]
+        
+        [Authorize(Roles = "RCP")]
         public ActionResult Creation(int? idDevis)
         {
             if (idDevis == null)
@@ -65,7 +66,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RcpDevisMinistereAuthorize]
+        [Authorize(Roles = "RCP")]
         public ActionResult Creation([Bind(Include =
                 "idCompetence,codeCompetence,description,motClef,obligatoire,actif,commentaire,idDevis")]
             EnonceCompetence enonceCompetence)

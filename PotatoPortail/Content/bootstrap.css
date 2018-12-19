@@ -2596,6 +2596,7 @@ fieldset[disabled] .form-control {
 }
 textarea.form-control {
   height: auto;
+  margin-bottom: 15px;
 }
 input[type="search"] {
   -webkit-appearance: none;

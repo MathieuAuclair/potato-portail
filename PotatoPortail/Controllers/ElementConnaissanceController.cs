@@ -12,6 +12,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace PotatoPortail.Controllers
 {
+    
     public class ElementConnaissanceController : Controller
     {
         private BdPortail _db = new BdPortail();

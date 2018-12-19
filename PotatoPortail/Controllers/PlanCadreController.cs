@@ -19,7 +19,8 @@ using PotatoPortail.Migrations;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpPlanCadreAuthorize]
+    
+    [Authorize(Roles = "RCP")]
     public class PlanCadreController : Controller
     {
         List<SelectListItem> elements;
