@@ -7,11 +7,12 @@
 }
 
 <div class="container page-content">
-    <form action="/Stage/Modifier" method="post" enctype="multipart/form-data" style="margin-bottom:150px" >
-        <input type="hidden" name="idStage" value="@Model.IdStage" />
-        <div class="form-content">
+    <div class="form-box">
+        <form action="/Stage/Modifier" method="post" enctype="multipart/form-data" style="margin-bottom: 150px">
+            <input type="hidden" name="idStage" value="@Model.IdStage"/>
+
             <h1>Stage</h1>
-            </br>
+
             <div>
                 <p style="font-size: 20px;">Description</p>
                 <textarea name="description" class="form-control" style="height: 100px;">@Model.Description</textarea>
@@ -33,7 +34,7 @@
             </div>
             <div class="flat-textarea">
                 <p>Code Postal</p>
-                <input class="form-control" name="codePostal" style="width:285px" height="20" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!" />
+                <input class="form-control" name="codePostal" style="width: 285px" height="20" placeholder="Code Postal" type="text" value="@Model.CodePostal" pattern="([A-z]+[0-9]+[A-z]+[0-9]+[A-z]+[0-9])" title="Votre code postal doit être conforme et ne pas comporter d'espace!"/>
             </div>
             <div>
                 @Html.Partial("/Views/SystemeStage/Stage/EditionComponent/LocationSelect.cshtml", new LocationSelect())
@@ -56,8 +57,10 @@
             <div>
                 @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Enregistrer"))
             </div>
-        </div>
-    </form>
+
+        </form>
+    </div>
+</div>
     <div class="menu-flottant">
         <a class="fancy-button blanc" href="/Stage/Index">
             <span class="glyphicon glyphicon-triangle-left"></span>

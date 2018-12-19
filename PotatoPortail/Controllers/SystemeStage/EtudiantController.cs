@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -38,7 +39,6 @@ namespace PotatoPortail.Controllers
             int? idEtudiant,
             string telephone,
             string prenom,
-            string role,
             string codePermanent,
             string courrielEcole,
             string courrielPersonnel,
@@ -67,7 +67,7 @@ namespace PotatoPortail.Controllers
 
             etudiant.Telephone = telephone;
             etudiant.Prenom = prenom;
-            etudiant.Role = role;
+            etudiant.Role = "Stagiaire";
             etudiant.CodePermanent = codePermanent;
             etudiant.CourrielEcole = courrielEcole;
             etudiant.CourrielPersonnel = courrielPersonnel;
@@ -100,7 +100,7 @@ namespace PotatoPortail.Controllers
                 CourrielPersonnel = "email@cegepjonquiere.ca",
                 NumeroDa = "1234567",
             };
-
+            this.AddToastMessage("Confirmation de création", "La création a bien été effectué", ToastType.Success, true);
             _db.Etudiant.Add(etudiant);
             _db.SaveChanges();
 
@@ -137,8 +137,13 @@ namespace PotatoPortail.Controllers
 
             if (!applicationsParCetEtudiant.Any())
             {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
                 _db.Etudiant.Remove(etudiant);
                 _db.SaveChanges();
+            }
+            else
+            {
+                this.AddToastMessage("Confirmation de supression", "La supression n'a bien pas été effectué", ToastType.Error, true);
             }
 
             return RedirectToAction("Index", "Etudiant");
