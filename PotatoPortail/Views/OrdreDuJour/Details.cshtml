@@ -69,7 +69,6 @@
 
         <div class="menu-flottant">
             <a class="fancy-button blanc" href='@Url.Action("Index", "OrdreDuJour")'><span class="glyphicon glyphicon-triangle-left"></span> Retour</a>
-            <a class="fancy-button blanc" href='@Url.Action("Edit", new { id = Model.OrdreDuJour.IdOdJ })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
             <a class="fancy-button blanc" href='@Url.Action("Modifier", new { id = Model.OrdreDuJour.IdOdJ })'><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
              <a class="fancy-button blanc" href='@Url.Action("RapportOrdreDuJour", "OrdreDuJour", new { id = Model.OrdreDuJour.IdOdJ })'><span class="glyphicon glyphicon-list-alt"></span> Ordre du jour en pdf</a>
             <a class="fancy-button rouge blanc" onclick="location.href='@Url.Action("Supprimer", new { id = Model.OrdreDuJour.IdOdJ })'"><span class="glyphicon glyphicon-trash"></span> Supprimer l'ordre du jour</a>
