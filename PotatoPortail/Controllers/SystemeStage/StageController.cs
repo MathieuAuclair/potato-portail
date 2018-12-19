@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers.SystemeStage
 {
@@ -21,10 +22,12 @@ namespace PotatoPortail.Controllers.SystemeStage
         {
             if (IdStage == null)
             {
+                this.AddToastMessage("Confirmation de la modification", "La modification a échoué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var stage = _db.Stage.Find(IdStage);
+          
+         
             return View("~/Views/SystemeStage/Stage/Modifier.cshtml",stage);
         }
         public ActionResult Modifier(
@@ -58,6 +61,11 @@ namespace PotatoPortail.Controllers.SystemeStage
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            if (idStage == null)
+            {
+                this.AddToastMessage("", "La modification a échoué", ToastType.Error, true);
+
+            }
             var stageInstance = _db.Stage.Find(idStage);
             var posteInstance = _db.Poste.Find(idPoste);
             var contactInstance = _db.Contact.Find(idContact);
@@ -73,6 +81,7 @@ namespace PotatoPortail.Controllers.SystemeStage
             stageInstance.CodePostal = codePostal;
             stageInstance.Salaire = salaire ?? 0.0f;
 
+            this.AddToastMessage("Confirmation", "l'opération s'est effectué avec succes", ToastType.Success, true);
             _db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -131,7 +140,7 @@ namespace PotatoPortail.Controllers.SystemeStage
                 Salaire = 0,
                 
             };
-         
+            this.AddToastMessage("Confirmation de création", "La création a bien été effectué", ToastType.Success, true);
             _db.Stage.Add(Stage);
             _db.SaveChanges();
 
@@ -152,9 +161,11 @@ namespace PotatoPortail.Controllers.SystemeStage
 
             if (!applicationsPourCeStage.Any())
             {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
                 _db.Stage.Remove(Stage);
                 _db.SaveChanges();
             }
+            else { this.AddToastMessage("Confirmation de supression", "La supression n'a bien pas été effectué", ToastType.Error, true); }
 
             return RedirectToAction("Index", "Stage");
         }
