@@ -1,4 +1,5 @@
-﻿@using PotatoPortail.ViewModels.ProjetPrincipal
+﻿@using PotatoPortail.Models
+@using PotatoPortail.ViewModels.ProjetPrincipal
 
 @{
     ViewBag.Titre = "Recherche dans les devis";
@@ -20,34 +21,36 @@
                 <h1>Résultat</h1>
                @if (Model != null)
                 {
-                    if ((Model.EnonceCompetence != null) || (Model.ElementCompetence != null) || (Model.DevisMinistere != null) || (Model.Section != null) || (Model.Cours != null) || (Model.Joueur != null) || (Model.entraineur != null) || (Model.jeu != null) || (Model.Equipe != null))
+                    if ((Model.EnonceCompetence != null) || (Model.ElementCompetence != null) || (Model.DevisMinistere != null) || (Model.Programme != null) || (Model.Section != null) || (Model.OrdreDuJour != null) ||(Model.Joueur != null) || (Model.Entraineur != null) || (Model.Jeu != null) || (Model.Equipe != null))
                     {
-                        if ((Model.EnonceCompetence.Count == 0) && (Model.ElementCompetence.Count == 0) && (Model.DevisMinistere.Count == 0) && (Model.Section.Count == 0) && (Model.Cours.Count == 0) && (Model.Joueur.Count == 0) && (Model.Entraineur.Count == 0) && (Model.Jeu.Count == 0) && (Model.Equipe.Count == 0))
+                        if ((Model.EnonceCompetence.Count == 0) && (Model.ElementCompetence.Count == 0) && (Model.DevisMinistere.Count == 0) && (Model.Programme.Count == 0) && (Model.Section.Count == 0) && (Model.OrdreDuJour.Count == 0) && (Model.Entraineur.Count == 0) && (Model.Jeu.Count == 0) && (Model.Equipe.Count == 0))
                         {
                             <p style="color:red;">Aucune information n'a été trouvée</p>
                         }
-                        else
-                        {
-                            if (((IDictionary<string, object>)Model).ContainsKey("EnonceCompetence") && ((ViewBag.modelActuel == "EnonceCompetence") || (ViewBag.modelActuel == "")))
-                            {
-                                if (Model.EnonceCompetence != null)
-                                {
-                                    if (Model.EnonceCompetence.Count != 0)
-                                    {
-                                        <h2>Énoncer Compétence</h2>
-                                        <hr />
-                                        foreach (RechecheEnonceCompetence enonceCmpt in Model.EnonceCompetence)
-                                        {
-                                            <a class="info-child clearfix" href="@Url.Action("Info", "EnonceCompetence", new { idCompetence = enonceCmpt.IdCompetence })">
-                                                <p><span class="ligne">Code compétence : </span>@Html.Raw(enonceCmpt.CodeCompetence)</p>
-                                                <p><span class="ligne">Description : </span>@Html.Raw(enonceCmpt.Description)</p>
-                                            </a>
-                                        }
-                                    }
-                                }
-                            }
+                       else
+                       {
+                           if (User.IsInRole("RCP") || User.IsInRole("RCD") || User.IsInRole("Enseignant"))
+                           {
+                               if (((IDictionary<string, object>) Model).ContainsKey("EnonceCompetence") && ((ViewBag.modelActuel == "EnonceCompetence") || (ViewBag.modelActuel == "")))
+                               {
+                                   if (Model.EnonceCompetence != null)
+                                   {
+                                       if (Model.EnonceCompetence.Count != 0)
+                                       {
+                                           <h2>Énoncé de Compétence</h2>
+                                           <hr/>
+                                           foreach (RechecheEnonceCompetence enonceCmpt in Model.EnonceCompetence)
+                                           {
+                                               <a class="info-child clearfix" href="@Url.Action("Info", "EnonceCompetence", new {idCompetence = enonceCmpt.IdCompetence})">
+                                                   <p><span class="ligne">Code compétence : </span>@Html.Raw(enonceCmpt.CodeCompetence)</p>
+                                                   <p><span class="ligne">Description : </span>@Html.Raw(enonceCmpt.Description)</p>
+                                               </a>
+                                           }
+                                       }
+                                   }
+                               }
 
-                            if (((IDictionary<string, object>)Model).ContainsKey("ElementCompetence") && ((ViewBag.modelActuel == "ElementCompetence") || (ViewBag.modelActuel == "")))
+                           if (((IDictionary<string, object>)Model).ContainsKey("ElementCompetence") && ((ViewBag.modelActuel == "ElementCompetence") || (ViewBag.modelActuel == "")))
                             {
                                 if (Model.ElementCompetence != null)
                                 {
@@ -93,16 +96,78 @@
                                                 <span class="ligne">Code de programme : </span>@Html.Raw(devis.Discipline)
                                             </p>
                                         </a>
+                                   }
+                               }
+                           }
+
+                           if (((IDictionary<string, object>) Model).ContainsKey("Programme") && ((ViewBag.modelActuel == "Programme") || (ViewBag.modelActuel == "")))
+                           {
+                               if (Model.Programme != null)
+                               {
+                                   if (Model.Programme.Count != 0)
+                                   {
+                                       <h2>Programme</h2>
+                                       <hr/>
+                                       foreach (RechecheProgramme programme in Model.Programme)
+                                       {
+                                           <a class="info-child clearfix" href="@Url.Action("Info", "Programme", new {idProgramme = programme.IdProgramme})">
+                                               <p>
+                                                   <span class="ligne">Nom du programme :</span>@Html.Raw(programme.Nom)
+                                                   <br/>
+                                                   <span class="ligne">Année du programme :</span>@Html.Raw(programme.Annee)
+                                                   <br/>
+                                               </p>
+                                           </a>
+                                           }
+                                       }
+                                   }
+                               }
+
+                            if (((IDictionary<string, object>)Model).ContainsKey("OrdreDuJour") && ((ViewBag.modelActuel == "OrdreDuJour") || (ViewBag.modelActuel == "")))
+                            {
+                                if (Model.OrdreDuJour != null)
+                                {
+                                    if (Model.OrdreDuJour.Count != 0)
+                                    {
+                                        <h2>Ordre du jour</h2>
+                                        <hr />
+                                        foreach (RechercheOrdreDuJour odj in Model.OrdreDuJour)
+                                        {
+                                            <a class="info-child clearfix" href="@Url.Action("Details", "OrdreDuJour", new { id = odj.IdOrdreDuJour })">
+                                                <p><span class="ligne">Titre : </span>@Html.Raw(odj.Titre)</p>
+                                            </a>
+                                        }
                                     }
                                 }
                             }
-
-                            if (((IDictionary<string, object>)Model).ContainsKey("Joueur") && ((ViewBag.modelActuel == "Joueur") || (ViewBag.modelActuel == "")))
+                           
+                            if (((IDictionary<string, object>)Model).ContainsKey("Section") && ((ViewBag.modelActuel == "Section") || (ViewBag.modelActuel == "")))
                             {
-                                if (Model.Joueur != null)
+                                if (Model.Section != null)
                                 {
-                                    if (Model.Joueur.Count != 0)
+                                    if (Model.Section.Count != 0)
                                     {
+                                        <h2>Section</h2>
+                                        <hr/>
+                                        foreach (RechercheSection section in Model.Section)
+                                        {
+                                        <a class="info-child clearfix" href="@Url.Action("Details", "PlanCours", new { idNomSection = section.IdNomSection })">
+                                            <p><span class="ligne">Nom de section : </span>@Html.Raw(section.TitreSection)</p>
+                                        </a>
+                                           }
+                                       }
+                                   }
+                               }
+
+                           }
+
+                           if (User.IsInRole("Etudiant") || User.IsInRole("Admin Esport")) { 
+                           if (((IDictionary<string, object>)Model).ContainsKey("Joueur") && ((ViewBag.modelActuel == "Joueur") || (ViewBag.modelActuel == "")))
+                           {
+                               if (Model.Joueur != null)
+                               {
+                                   if (Model.Joueur.Count != 0)
+                                   {
                                         <h2>Joueur eSport</h2>
                                         <hr/>
                                         foreach (RechercheJoueur joueur in Model.Joueur)
@@ -114,9 +179,7 @@
                                                     <span class="ligne">Nom du joueur :</span>@Html.Raw(joueur.NomJoueur)
                                                     <br />
                                                     <span class="ligne">Courriel du joueur :</span>@Html.Raw(joueur.CourrielJoueur)
-                                        
                                                 </p>
-                                    
                                             </a>
                                         }
                                     }
@@ -190,60 +253,7 @@
                                     }
                                 }
                             }
-
-                            if (((IDictionary<string, object>)Model).ContainsKey("OrdreDuJour") && ((ViewBag.modelActuel == "OrdreDuJour") || (ViewBag.modelActuel == "")))
-                            {
-                                if (Model.OrdreDuJour != null)
-                                {
-                                    if (Model.OrdreDuJour.Count != 0)
-                                    {
-                                        <h2>Ordre du jour</h2>
-                                        <hr />
-                                        foreach (RechercheOrdreDuJour odj in Model.OrdreDuJour)
-                                        {
-                                            <a class="info-child clearfix" href="@Url.Action("Details", "OrdreDuJour", new { id = odj.IdOrdreDuJour })">
-                                                <p><span class="ligne">Titre : </span>@Html.Raw(odj.Titre)</p>
-                                            </a>
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (((IDictionary<string, object>)Model).ContainsKey("Cours") && ((ViewBag.modelActuel == "Cours") || (ViewBag.modelActuel == "")))
-                            {
-                                if (Model.Cours != null)
-                                {
-                                    if (Model.Cours.Count != 0)
-                                    {
-                                        <h2>Cours</h2>
-                                        <hr/>
-                                        foreach (RechercheCours planCadre in Model.Cours)
-                                        {
-                                          <a class="info-child clearfix" href="@Url.Action("Info", "PlanCadre", new { numeroCours = planCadre.NumeroCours })">
-                                                  <p><span class="ligne">Titre du cours : </span>@Html.Raw(planCadre.TitreCours)</p>
-                                          </a>
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (((IDictionary<string, object>)Model).ContainsKey("Section") && ((ViewBag.modelActuel == "Section") || (ViewBag.modelActuel == "")))
-                            {
-                                if (Model.Section != null)
-                                {
-                                    if (Model.Section.Count != 0)
-                                    {
-                                        <h2>Section</h2>
-                                        <hr/>
-                                        foreach (RechercheSection section in Model.Section)
-                                        {
-                                        <a class="info-child clearfix" href="@Url.Action("Details", "PlanCours", new { idNomSection = section.IdNomSection })">
-                                            <p><span class="ligne">Nom de section : </span>@Html.Raw(section.TitreSection)</p>
-                                        </a>
-                                        }
-                                    }
-                                }
-                            }
+                           }
                         }
                     }
                 }

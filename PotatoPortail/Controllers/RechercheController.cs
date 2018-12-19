@@ -24,31 +24,31 @@ namespace PotatoPortail.Controllers
             ViewBag.modelActuel = tableRecherche;
             if (stringRechercher != "")
             {
-                stringRechercher = stringRechercher.Trim();
+                stringRechercher = stringRechercher.Trim(); 
 
                 model.EnonceCompetence = GetEnonceCompetence(stringRechercher);
                 model.ElementCompetence = GetElemCompetence(stringRechercher);
                 model.DevisMinistere = GetDevis(stringRechercher);
+                model.Programme = GetProgram(stringRechercher);
                 model.Section = GetSections(stringRechercher);
-                model.Cours = GetCours(stringRechercher);
-                model.Joueur = GetJoueur(stringRechercher);
+                model.OrdreDuJour = GetOrdreDuJour(stringRechercher);
                 model.Equipe = GetEquipe(stringRechercher);
                 model.Jeu = GetJeu(stringRechercher);
+                model.Joueur = GetJoueur(stringRechercher);
                 model.Entraineur = GetEntraineur(stringRechercher);
-                model.OrdreDuJour = GetOrdreDuJour(stringRechercher);
             }
             else
             {
                 model.EnonceCompetence = null;
                 model.ElementCompetence = null;
                 model.DevisMinistere = null;
+                model.Programme = null;
                 model.Section = null;
-                model.Cours = null;
+                model.OrdreDuJour = null;
                 model.Joueur = null;
                 model.Equipe = null;
                 model.Jeu = null;
                 model.Entraineur = null;
-                model.OrdreDuJour = null;
             }
 
             return View("Recherche", model);
@@ -256,7 +256,7 @@ namespace PotatoPortail.Controllers
 
             return jeuListe;
         }
-
+        
         private List<RechercheEntraineur> GetEntraineur(string stringRechercher)
         {
             List<RechercheEntraineur> entraineurListe = new List<RechercheEntraineur>();
@@ -279,7 +279,6 @@ namespace PotatoPortail.Controllers
 
             return entraineurListe;
         }
-
         private List<RechercheOrdreDuJour> GetOrdreDuJour(string stringRechercher)
         {
             List<RechercheOrdreDuJour> ordredujourliste = new List<RechercheOrdreDuJour>();
