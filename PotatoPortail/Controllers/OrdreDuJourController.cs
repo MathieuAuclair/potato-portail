@@ -72,7 +72,7 @@ namespace PotatoPortail.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Creation()
         {
             var repo = new CreateRepository();
             var viewmodel = repo.CreateLieu();
@@ -89,20 +89,20 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(OrdreDuJourViewModel ordreDuJourViewModel)
+        public ActionResult Creation(OrdreDuJourViewModel ordreDuJourViewModel)
         {
             if (!regexHeure(ordreDuJourViewModel.OrdreDuJour))
             {
                 this.AddToastMessage("Erreur dans l'entrée de l'heure", "Veuillez entrez le bon format d'heure",
                     ToastType.Error);
-                return RedirectToAction("Create", "OrdreDuJour");
+                return RedirectToAction("Creation", "OrdreDuJour");
             }
 
             if (!ChkDate(ordreDuJourViewModel))
             {
                 this.AddToastMessage("Erreur dans l'entrée de la date", "Veuillez entrez une date ultérieure",
                     ToastType.Error);
-                return RedirectToAction("Create", "OrdreDuJour");
+                return RedirectToAction("Creation", "OrdreDuJour");
             }
 
             if (!ModelState.IsValid)
@@ -157,7 +157,7 @@ namespace PotatoPortail.Controllers
             );
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Modifier(int? id)
         {
             if (id == null)
             {
@@ -198,7 +198,7 @@ namespace PotatoPortail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
+        public ActionResult Modifier(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
         {
             if (ModelState.IsValid)
             {
@@ -268,7 +268,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Supprimer(int? id)
         {
             if (id == null)
             {
@@ -294,7 +294,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -389,16 +389,22 @@ namespace PotatoPortail.Controllers
         }
         public ActionResult RapportOrdreDuJour(int id)
         {
-            return new ViewAsPdf("RapportOrdreDuJour",_db.OrdreDuJour.Find(id));
-
-            return new ActionAsPdf("RapportOrdreDuJour", _db.OrdreDuJour.Find(id))
+            OrdreDuJourViewModel model = new OrdreDuJourViewModel();
+            List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
+            
+            model.OrdreDuJour = _db.OrdreDuJour.First();
+            foreach(var item in model.OrdreDuJour.SujetPointPrincipal)
             {
-                RotativaOptions = new DriverOptions
+                List<SousPointSujet> listeSousPointQuery = GetSousPoint(item.IdPointPrincipal);
+                if (listeSousPointQuery != null) continue; //Erreur possible saute le forach s'il y a un PP vide entre deux pleins de SP
+                foreach (var souspoint in listeSousPointQuery)
                 {
-                    PageOrientation = Rotativa.Core.Options.Orientation.Landscape,
-                    PageSize = Rotativa.Core.Options.Size.A4
+                    listeSousPoint.Add(souspoint);
                 }
-            };
+            }
+            model.ListeSousPointSujet = listeSousPoint;
+
+            return new ViewAsPdf("RapportOrdreDuJour",model);
         }
 
         public ActionResult ChoixRole()
