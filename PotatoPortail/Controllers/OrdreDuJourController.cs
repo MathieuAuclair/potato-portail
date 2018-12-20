@@ -75,12 +75,8 @@ namespace PotatoPortail.Controllers
             return View();
         }
 
-<<<<<<< HEAD
         [Authorize(Roles = "RCP,RCD,Enseignant")]
-        public ActionResult Create()
-=======
         public ActionResult Creation()
->>>>>>> master
         {
             var repo = new CreateRepository();
             var viewmodel = repo.CreateLieu();
@@ -166,12 +162,8 @@ namespace PotatoPortail.Controllers
             );
         }
 
-<<<<<<< HEAD
         [Authorize(Roles = "RCP,RCD,Enseignant")]
-        public ActionResult Edit(int? id)
-=======
         public ActionResult Modifier(int? id)
->>>>>>> master
         {
             if (id == null)
             {
@@ -309,12 +301,8 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
-<<<<<<< HEAD
         [Authorize(Roles = "RCP,RCD,Enseignant")]
-        public ActionResult Delete(int? id)
-=======
         public ActionResult Supprimer(int? id)
->>>>>>> master
         {
             if (id == null)
             {
@@ -340,12 +328,8 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
-<<<<<<< HEAD
         [Authorize(Roles = "RCP,RCD,Enseignant")]
-        [HttpPost, ActionName("Delete")]
-=======
         [HttpPost, ActionName("Supprimer")]
->>>>>>> master
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
