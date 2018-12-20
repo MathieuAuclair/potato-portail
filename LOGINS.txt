@@ -1,5 +1,4 @@
-http://deptinfo420/Projet2017/Equipe1/test/Account/Login?ReturnUrl=%2FProjet2017%2FEquipe1%2Ftest%2F
-http://deptinfo420/Projet2017/Equipe1/prod/Account/Login?ReturnUrl=%2FProjet2017%2FEquipe1%2Fprod%2F
+http://deptinfo420/Projet2018/Equipe5/Prod/
 
 USER : gauca1532715@etu.cegepjonquiere.ca
 PSW  : Projet-2017

@@ -1,0 +1,4 @@
+Parties manquantes pour les plans cadre:
+
+-Pondération des énoncées de compétences
+-Modification: reste la section choix, elle ne va pas chercher ceux déjà fait
