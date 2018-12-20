@@ -9,7 +9,7 @@ using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpContexteRealisationAuthorize]
+    [Authorize(Roles = "RCP")]
     public class ContexteRealisationController : Controller
     {
         private readonly BdPortail _db = new BdPortail();

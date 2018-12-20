@@ -9,7 +9,7 @@ using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpCriterePerformanceAuthorize]
+    [Authorize(Roles = "RCP")]
     public class CriterePerformanceController : Controller
     {
         private readonly BdPortail _db = new BdPortail();

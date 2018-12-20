@@ -12,7 +12,8 @@ using PotatoPortail.Models;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpDevisMinistereAuthorize]
+    
+    [Authorize(Roles = "RCP")]
     public class DevisMinistereController : Controller
     {
         private readonly BdPortail _db = new BdPortail();

@@ -19,7 +19,8 @@ using PotatoPortail.Migrations;
 
 namespace PotatoPortail.Controllers
 {
-    [RcpPlanCadreAuthorize]
+    
+    [Authorize(Roles = "RCP")]
     public class PlanCadreController : Controller
     {
         List<SelectListItem> elements;
@@ -139,6 +140,7 @@ namespace PotatoPortail.Controllers
             var elementEnonce = from element in db.ElementCompetence
                 join Enonc in db.EnonceCompetence on element.IdCompetence equals Enonc.IdCompetence
                 where Enonc.IdCompetence == idCompetence
+                orderby element.Numero
                 select new
                 {
                     ID = element.IdElement,
