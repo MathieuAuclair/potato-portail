@@ -10,16 +10,12 @@ function initCompetence() {
 }
 
 function initElement(idEnonce) {
-    const elementdiv = document.getElementById("elementSelectListEnonce");
     const selectElement = document.getElementById(`enonce${idEnonce}_elements`);
     const option = document.createElement("option");
     option.text = "Sélectionnez un élément";
     option.disabled = true;
     selectElement.insertBefore(option, selectElement.firstChild);
     selectElement.selectedIndex = "0";
-    const divEnonce = document.createElement("div");
-    divEnonce.id = `div_enonce_${idEnonce}`;
-    elementdiv.insertBefore(divEnonce, selectElement);
 }
 
 function ajouterCompetence() {
