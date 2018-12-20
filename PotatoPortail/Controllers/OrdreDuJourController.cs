@@ -22,12 +22,14 @@ namespace PotatoPortail.Controllers
     {
         private readonly BdPortail _db = new BdPortail();
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Index()
         {
             var ordre = GetDixOrdreDuJour();
             return View(ordre);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -67,11 +69,13 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult _TreeView()
         {
             return View();
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Create()
         {
             var repo = new CreateRepository();
@@ -87,6 +91,7 @@ namespace PotatoPortail.Controllers
             return View(viewmodel);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         [HttpPost]
         [ValidateAntiForgeryToken] 
         public ActionResult Create(OrdreDuJourViewModel ordreDuJourViewModel)
@@ -157,6 +162,7 @@ namespace PotatoPortail.Controllers
             );
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -196,6 +202,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(OrdreDuJourViewModel ordreDuJourViewModelCreerOdj)
@@ -294,6 +301,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -320,6 +328,7 @@ namespace PotatoPortail.Controllers
             return View(ordreDuJourViewModelCreerOdj);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -368,6 +377,7 @@ namespace PotatoPortail.Controllers
             return View(modeleViewModel);
         }
 
+        [Authorize(Roles = "RCP,RCD")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ModifierModeleOrdreDuJour(ModificationModeleViewModel modifModeleVm)
@@ -413,6 +423,8 @@ namespace PotatoPortail.Controllers
                 ToastType.Success);
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult RapportOrdreDuJour(int id)
         {
             OrdreDuJourViewModel model = new OrdreDuJourViewModel();
@@ -434,11 +446,13 @@ namespace PotatoPortail.Controllers
             return new ViewAsPdf("RapportOrdreDuJour", model);
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult ChoixRole()
         {
             return View();
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Info(int? id, int year)
         {
             ViewBag.AnneeODJ = year;
@@ -477,6 +491,7 @@ namespace PotatoPortail.Controllers
             return validDate;
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult Annuler(string currentUrl)
         {
             if (currentUrl == null)
@@ -594,6 +609,7 @@ namespace PotatoPortail.Controllers
             return false;
         }
 
+        [Authorize(Roles = "RCP,RCD,Enseignant")]
         public ActionResult ListeOrdreDuJour()
         {
             return PartialView(GetOrdreDuJour());
