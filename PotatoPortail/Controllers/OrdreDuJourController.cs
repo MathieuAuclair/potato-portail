@@ -270,28 +270,44 @@ namespace PotatoPortail.Controllers
                         }
                     }
                     List<SousPointSujet> listeSousPoint = new List<SousPointSujet>();
-                    foreach(var pointPrincipal in ordreDuJourViewModelCreerOdj.SujetPointPrincipal)
+                    if(ordreDuJourViewModelCreerOdj.ListeIdSousPointCache != null)
                     {
-                        List<SousPointSujet> listeSousPointQuery = GetSousPoint(pointPrincipal.IdPointPrincipal);
-                        if(listeSousPointQuery != null)
+                        int positionIDSousPoint = 0;
+                        foreach(var item in ordreDuJourViewModelCreerOdj.ListeIdSousPointCache)
                         {
-                            foreach(var sousPoint in listeSousPointQuery)
+                            int id = ordreDuJourViewModelCreerOdj.ListeIdSousPointCache[positionIDSousPoint];
+                            List<SousPointSujet> listeSousPointQuery = GetSousPointFromIdSousPoint(id);
+                            if(listeSousPoint.Count != 0)
                             {
-                                listeSousPoint.Add(sousPoint);
+                                if(listeSousPoint.Last().IdSousPoint != id)
+                                {
+                                    foreach (var souspoint in listeSousPointQuery[0].SujetPointPrincipal.SousPointSujet)
+                                    {
+                                        listeSousPoint.Add(souspoint);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (var souspoint in listeSousPointQuery[0].SujetPointPrincipal.SousPointSujet)
+                                {
+                                    listeSousPoint.Add(souspoint);
+                                }
+                                positionIDSousPoint++;
                             }
                         }
-                    }
-                    if (ordreDuJourViewModelCreerOdj.ListeSousPointSujet.Count != listeSousPoint.Count)
-                    {
-                        foreach(var sousPoint in listeSousPoint)
+                        if (ordreDuJourViewModelCreerOdj.ListeSousPoint.Count != listeSousPoint.Count)
                         {
-                            if (!ordreDuJourViewModelCreerOdj.ListeSousPointSujet.Contains(sousPoint)){
-                                _db.SousPointSujet.Find(sousPoint.IdSousPoint).IdSujetPointPrincipal = null;
-                                _db.SaveChanges();
+                            foreach (var sousPoint in listeSousPoint)
+                            {
+                                if (!ordreDuJourViewModelCreerOdj.ListeSousPoint.Contains(sousPoint.SujetSousPoint))
+                                {
+                                    _db.SousPointSujet.Find(sousPoint.IdSousPoint).IdSujetPointPrincipal = null;
+                                    _db.SaveChanges();
+                                }
                             }
-                                
                         }
-                    }
+                    }                    
                 }
                 _db.SaveChanges();
                 this.AddToastMessage("Modification d'un ordre du jour", "La modification a été effectuée",
@@ -556,6 +572,20 @@ namespace PotatoPortail.Controllers
             var listeSousPoint = new List<SousPointSujet>();
             var listeSousPointQuery = from sousPointSujet in _db.SousPointSujet
                                       where sousPointSujet.IdSujetPointPrincipal == id
+                                      select sousPointSujet;
+            if (!listeSousPointQuery.Any()) return listeSousPoint;
+            foreach (var item in listeSousPointQuery)
+            {
+                listeSousPoint.Add(item);
+            }
+            return listeSousPoint;
+        }
+
+        private List<SousPointSujet> GetSousPointFromIdSousPoint(int id)
+        {
+            var listeSousPoint = new List<SousPointSujet>();
+            var listeSousPointQuery = from sousPointSujet in _db.SousPointSujet
+                                      where sousPointSujet.IdSousPoint == id
                                       select sousPointSujet;
             if (!listeSousPointQuery.Any()) return listeSousPoint;
             foreach (var item in listeSousPointQuery)
