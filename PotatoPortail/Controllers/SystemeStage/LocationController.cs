@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Migrations;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -20,6 +21,7 @@ namespace PotatoPortail.Controllers
         {
             if (IdLocation == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -27,6 +29,7 @@ namespace PotatoPortail.Controllers
 
             if (location == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
@@ -40,6 +43,7 @@ namespace PotatoPortail.Controllers
         {
             if (idLocation == null)
             {
+                this.AddToastMessage("Confirmation", "l'opération ne s'est pas effectué avec succes", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -47,9 +51,10 @@ namespace PotatoPortail.Controllers
 
             if (location == null)
             {
+                this.AddToastMessage("Confirmation", "l'opération s'est effectué avec succes", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-
+            this.AddToastMessage("Confirmation", "l'opération s'est effectué avec succes", ToastType.Success, true);
             location.Nom = nom;
             _db.SaveChanges();
 
@@ -57,8 +62,8 @@ namespace PotatoPortail.Controllers
         }
         public ActionResult Creation()
         {
-            var location = new Location {Nom = "Nouvelle location"};
-
+            var location = new Location {Nom = " "};
+            this.AddToastMessage("Confirmation de création", "La création a bien été effectué", ToastType.Success, true);
             _db.Location.Add(location);
             _db.SaveChanges();
             
@@ -78,10 +83,16 @@ namespace PotatoPortail.Controllers
 
             if (!stagesAyantCetteLocation.Any())
             {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
                 _db.Location.Remove(location);
                 _db.SaveChanges();
             }
-  
+            else
+            {
+                this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Error, true);
+            }
+
+
             return RedirectToAction("Index", "Location");
         }
     }

@@ -620,10 +620,10 @@
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Details.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\OrdreDuJour\Create.cshtml" />
-    <Content Include="Views\OrdreDuJour\Delete.cshtml" />
+    <Content Include="Views\OrdreDuJour\Creation.cshtml" />
+    <Content Include="Views\OrdreDuJour\Supprimer.cshtml" />
     <Content Include="Views\OrdreDuJour\Details.cshtml" />
-    <Content Include="Views\OrdreDuJour\Edit.cshtml" />
+    <Content Include="Views\OrdreDuJour\Modifier.cshtml" />
     <Content Include="Views\OrdreDuJour\Index.cshtml" />
     <Content Include="Views\OrdreDuJour\Info.cshtml" />
     <Content Include="Views\OrdreDuJour\ListeOrdreDuJour.cshtml" />

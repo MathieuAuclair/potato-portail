@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using PotatoPortail.Models;
+using PotatoPortail.Toast;
 
 namespace PotatoPortail.Controllers
 {
@@ -24,6 +25,7 @@ namespace PotatoPortail.Controllers
 
             if (entreprise == null)
             {
+                this.AddToastMessage("Confirmation de modification", "La modification n'a pas bien été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
@@ -34,6 +36,7 @@ namespace PotatoPortail.Controllers
         {
             if (!EstCeQueLaRequeteEstValidePourEnregistrerLesModifications())
             {
+                this.AddToastMessage("Confirmation", "l'opération ne s'est pas effectué avec succes", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -48,6 +51,7 @@ namespace PotatoPortail.Controllers
                 CodePostal = Request.Form["codePostal"],
                 Nom = Request.Form["nom"]
             };
+            this.AddToastMessage("Confirmation", "l'opération c'est effectué avec succes", ToastType.Success, true);
             _db.Entreprise.AddOrUpdate(entreprise);
             _db.SaveChanges();
 
@@ -64,7 +68,8 @@ namespace PotatoPortail.Controllers
                 Rue = "Rue",
                 CodePostal = "G7X7W2",
                 NumeroCivique = 0,
-            }; 
+            };
+            this.AddToastMessage("Confirmation de création", "La création n'a pas bien été effectué", ToastType.Success, true);
 
             return View("~/Views/SystemeStage/Entreprise/Modifier.cshtml", entreprise);
         }
@@ -89,9 +94,11 @@ namespace PotatoPortail.Controllers
 
             if (entreprise == null)
             {
+                this.AddToastMessage("Confirmation de supression", "La supression n'a bien pas été effectué", ToastType.Error, true);
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }            
-             _db.Entreprise.Remove(entreprise);
+            }
+            this.AddToastMessage("Confirmation de supression", "La supression a bien été effectué", ToastType.Success, true);
+            _db.Entreprise.Remove(entreprise);
             _db.SaveChanges();
 
             return RedirectToAction("Index", "Entreprise");

@@ -6,6 +6,7 @@
 }
 
 <div class="container" style="margin-bottom:5%;margin-top:150px;">
+<div class="form-box">
     <h1>Entreprise</h1>
     <form action="EnregistrerLesModifications" method="post">
         <input name="idEntreprise" type="hidden" value="@Html.DisplayFor(model => Model.IdEntreprise)" />
@@ -85,6 +86,7 @@
             @Html.Partial("Widget/_FlatUiButton", new FlatUiButton("Soumettre"))
         </div>
     </form>
+    </div>
     <div class="menu-flottant">
         <a class="fancy-button blanc" href="/Entreprise/Index">
             <span class="glyphicon glyphicon-triangle-left"></span>
