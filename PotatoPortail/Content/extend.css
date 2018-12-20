@@ -100,7 +100,7 @@ input, button { outline: 0; }
 .recherche-layout {
     margin-top: 5px;
     display: inline-block;
-    width: 85%;
+    width: 400px;
     padding: 7px;
     vertical-align: middle;
     height: initial;
@@ -110,6 +110,7 @@ input, button { outline: 0; }
 .div-utilisateur {
     display: inline-block;
     float: right;
+    margin-right: 2px;
 }
 
 .p-utilisateur {
@@ -120,7 +121,7 @@ input, button { outline: 0; }
 
 .div-recherche-layout {
     display: inline-block;
-    width: 30%;
+    width: auto;
 }
 
 label { display: block; }
@@ -324,4 +325,11 @@ mark {
     box-shadow: 0 3px 50px rgba(0, 0, 0, 0.3);
     padding: 5px 20px;
     margin: 10px 0;
+}
+
+.version {
+    display: inline-block;
+    color: #ffffff;
+    vertical-align: bottom;
+    font-size: small;
 }
