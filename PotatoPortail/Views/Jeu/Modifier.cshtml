@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" value="Confirmer les modifications" class="fancy-button"/>
+            
             <div class="menu-flottant">
                 <a class="fancy-button blanc" href='@Url.Action("Index", "Jeu")'>
                     <span class="glyphicon glyphicon-triangle-left"></span>
@@ -70,6 +70,8 @@
                     <span class="glyphicon glyphicon-info-sign"></span>
                     Ajouter une caractéristique
                 </a>
+
+                <input type="submit" value="Confirmer les modifications" class="fancy-button blanc" />
                 @if (Model.Statut.NomStatut == "Inactif")
                 {
                     <a class="fancy-button rouge blanc" href='@Url.Action("Supprimer", new {id = Model.Id, NomJeu = Model.NomJeu})'>

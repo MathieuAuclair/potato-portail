@@ -2,9 +2,11 @@
 @{
     ViewBag.Titre = "Modification d'équipe";
     <input type="hidden" id="tableRecherche" name="tableRecherche" value="Equipe">
+    TempData["retourDetails"] = ViewBag.rappelleDetailsJeu;
 }
 @using (Html.BeginForm())
 {
+
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="container">
@@ -73,8 +75,10 @@
                         <span class="glyphicon glyphicon-triangle-left"></span>
                         Retour aux détails de @Model.Jeu.NomJeu
                     </a>
+
                 }
                 <input type="submit" value="Mettre à jour «@Model.NomEquipe»" class="fancy-button blanc" />
+
                 <a class="fancy-button rouge blanc" href='@Url.Action("Supprimer", "Equipe", new { id = Model.EquipeId, nomEquipe = Model.NomEquipe, nomJeu = Model.Jeu.NomJeu })'>
                     <span class="glyphicon glyphicon-trash"></span>
                     Supprimer
