@@ -64,16 +64,16 @@ namespace PotatoPortail.Controllers.eSports
                     ViewBag.TriSelectionne = lstJeuJeuSelectionne.Text.Substring(0, arret);
                 }
                 else
-                    ViewBag.TriSelectionne = "Tous les Jeu";
+                    ViewBag.TriSelectionne = "Tous les jeux";
 
                 return View(Equipe.OrderBy(e => e.NomEquipe).Where(e => e.IdJeu == idJeuEquipe));
             }
 
             fin:
 
-            ViewBag.TriSelectionne = "Tous les Jeu";
+            ViewBag.TriSelectionne = "Tous les jeux";
 
-            return View(Equipe.OrderBy(e => e.NomEquipe).ToList());
+            return View(Equipe.OrderBy(e => e.NomEquipe).Where( e => e.Jeu.Statut.Id == 1).ToList());
         }
 
         public ActionResult Details(int? id, string nomEquipe, string nomJeu)
