@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.OrdreDuJour.DateOdJ)
-                @Html.EditorFor(m => m.OrdreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control small" } })
+                @Html.EditorFor(m => m.OrdreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control small", @Value=Model.OrdreDuJour.DateOdJ } })
                 @Html.ValidationMessageFor(m => m.OrdreDuJour.DateOdJ, "", new { @class = "text-danger" })
             </div>
 
@@ -57,9 +57,10 @@
                         {
                             for(int souspoint = 0; souspoint < Model.ListeSousPointSujet.Count; souspoint++)
                             {
+                                string li = "li";
                                 if(Model.ListeSousPointSujet[souspoint].IdSujetPointPrincipal == Model.SujetPointPrincipal[x].IdPointPrincipal)
                                 {
-                                    <li><input type="text" name="listeSousPoint" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].SujetSousPoint><input type="hidden" name="listeIdSousPointCache" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].IdSousPoint></li>
+                                    <li id="@souspoint@li@Model.ListeSousPointSujet[souspoint].IdSousPoint"><input type="text" name="listeSousPoint" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].SujetSousPoint><input type="hidden" name="listeIdSousPointCache" class="form-control medium inline" value=@Model.ListeSousPointSujet[souspoint].IdSousPoint><a class="fancy-button rouge vertical-align margin-left" id="btnMoins' + idValue + '" onclick="enleverSPoint(@souspoint,@Model.ListeSousPointSujet[souspoint].IdSousPoint)"><span class="glyphicon glyphicon-trash"></span></a></li>
                                 }
                             }
                         }
@@ -67,84 +68,16 @@
                     </ul>
                  }
             </div>
+            @*-- Bouton d'ajout un point principal lorsque désiré --*@
+            @*<div class="form-group">
+                <input id="ajoutPP" type="button" onclick="ajoutPPrincipal(this.id)" value="Ajout d'un sujet" class="fancy-button" />
+            </div>*@
 
             <hr />
             <input type="submit" value="Enregistrer" class="fancy-button" />
             <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "OrdreDuJour", new { currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-    @*<div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => Model.ordreDuJour.IdOdJ)
-            <div class="form-group">
-                @Html.LabelFor(model => Model.ordreDuJour.TitreOdJ, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ordreDuJour.TitreOdJ, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.ordreDuJour.TitreOdJ, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.ordreDuJour.DateOdJ, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ordreDuJour.DateOdJ, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.ordreDuJour.DateOdJ, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.ordreDuJour.HeureDebutReunion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ordreDuJour.HeureDebutReunion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.ordreDuJour.HeureDebutReunion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => Model.ordreDuJour.HeureFinReunion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ordreDuJour.HeureFinReunion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.ordreDuJour.HeureFinReunion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => Model.ordreDuJour.LieuReunionODJ, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ordreDuJour.LieuReunionODJ, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.ordreDuJour.LieuReunionODJ, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    @Html.LabelFor(model => Model.sujetPointPrincipal[0].SujetPoint, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @for (var x = 0; x < Model.sujetPointPrincipal.Count; x++)
-                        {
-                            @Html.EditorFor(model => Model.sujetPointPrincipal[x].SujetPoint, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => Model.sujetPointPrincipal[x].SujetPoint, "", new { @class = "text-danger" })
-                        }
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <hr />
-                        <input type="submit" value="Enregistrer" class="fancy-button" />
-                        <div class="fancy-button rouge" onclick="location.href='@Url.Action("Annuler", "OrdreDuJour", new { currentUrl = Request.UrlReferrer.ToString()})'">Annuler</div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
 }
 
 @section Scripts {

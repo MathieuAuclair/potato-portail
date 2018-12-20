@@ -64,16 +64,16 @@ namespace PotatoPortail.Controllers.eSports
                     ViewBag.TriSelectionne = lstJeuJeuSelectionne.Text.Substring(0, arret);
                 }
                 else
-                    ViewBag.TriSelectionne = "Tous les Jeu";
+                    ViewBag.TriSelectionne = "Tous les jeux";
 
                 return View(Equipe.OrderBy(e => e.NomEquipe).Where(e => e.IdJeu == idJeuEquipe));
             }
 
             fin:
 
-            ViewBag.TriSelectionne = "Tous les Jeu";
+            ViewBag.TriSelectionne = "Tous les jeux";
 
-            return View(Equipe.OrderBy(e => e.NomEquipe).ToList());
+            return View(Equipe.OrderBy(e => e.NomEquipe).Where( e => e.Jeu.Statut.Id == 1).ToList());
         }
 
         public ActionResult Details(int? id, string nomEquipe, string nomJeu)
@@ -189,7 +189,7 @@ namespace PotatoPortail.Controllers.eSports
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Modifier(int? id, string nomEquipe, string[] entraineur, string[] joueurs)
-        {
+        {            
             PopulerListJeuActifs();
 
             if (id == null)
@@ -217,12 +217,21 @@ namespace PotatoPortail.Controllers.eSports
                 ActualiserEquipeJoueur(joueurs, equipePourModification);
                 _db.SaveChanges();
                 this.AddToastMessage("Modifications apportées.", "Les changements apportés à l'équipe « " + equipePourModification.NomEquipe + " » ont été sauvegardés.", ToastType.Success);
+                if(TempData["retourDetails"] != null)
+                {
+                    if ((bool)TempData["retourDetails"] == true)
+                    {
+                        return RedirectToAction("Details", "Jeu", new { id = equipePourModification.IdJeu, nomJeu = equipePourModification.Jeu.NomJeu });
+                    }
+                }
                 return RedirectToAction("Index");
+
             }
             catch (RetryLimitExceededException)
             {
                 ModelState.AddModelError("", "Impossible de sauvegarder");
             }
+            
             return View(equipePourModification);
         }
 

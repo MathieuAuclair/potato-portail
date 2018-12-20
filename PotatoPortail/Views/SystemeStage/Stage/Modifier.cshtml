@@ -15,7 +15,7 @@
 
             <div>
                 <p style="font-size: 20px;">Description</p>
-                <textarea name="description" class="form-control" style="height: 100px;">@Model.Description</textarea>
+                <textarea name="description" class="form-control" style="height: 100px; width: 90%">@Model.Description</textarea>
             </div>
             <div>
                 @Html.Partial("Widget/FlatUiPaysSelect", new FlatUiPaysSelect(@Model.Pays))
@@ -60,9 +60,9 @@
 
         </form>
     </div>
-</div>
+
     <div class="menu-flottant">
-        <a class="fancy-button blanc" href="/Stage/Index">
+        <a class="fancy-button blanc" href=@Url.Action("Index", "Stage")>
             <span class="glyphicon glyphicon-triangle-left"></span>
             Retour
         </a>

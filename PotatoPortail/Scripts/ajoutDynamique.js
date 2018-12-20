@@ -8,11 +8,9 @@ function ajoutSPoint(nom, idValue) { //Permet l'ajout dynamique d'un sous point
 }
 
 function enleverSPoint(numLI, numSP) { //Permet d'enlever un sous-point selon le id
-    if (idSP[numLI] > 0) {
         var node = document.getElementById(numLI + "li" + numSP);
         node.parentNode.removeChild(node);
         idSP[numLI]--;
-    }
 }
 
 function ajoutPPrincipal(nom) { //Permet l'ajout dynamique d'un point principal
